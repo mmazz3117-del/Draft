@@ -155,7 +155,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <h2>Research embedded in the trainer</h2>
     <div class="grid research">
       <div class="node"><span class="badge">Room pattern</span>RBs gone by pick 20: <b>8 in 2023, 8 in 2024, 8 in 2025.</b> That is why an elite RB start remains attractive.</div>
-      <div class="node"><span class="badge">QB market</span>Your room took roughly <b>2–3 QBs by pick 20, ~6 by pick 40, ~8 by pick 60</b>. Do not assume a premium QB lasts to 60/61.</div>
+      <div class="node"><span class="badge">QB market</span>Your room took roughly <b>2–3 QBs by pick 20, ~6 by pick 40, ~8 by pick 60</b>. Baseline mode is now explicitly calibrated to reproduce that early-QB pressure more often.</div>
       <div class="node"><span class="badge">TE market</span>Usually <b>0–1 TE by pick 20</b>, around <b>3 by pick 40</b>, then a run before pick 60. If Bowers/McBride miss 20/21, 40/41 is the Loveland/Warren pivot.</div>
       <div class="node"><span class="badge">Construction</span>Because you start <b>2 FLEX</b>, RB/WR depth is highly usable. After QB + TE are secured, favor RB/WR ceiling over backup QB/TE.</div>
       <div class="node"><span class="badge">Injury resilience</span>Your past seasons have been injury-heavy. We cannot predict injuries, so early picks emphasize <b>secure volume</b>; bench picks emphasize players whose roles can jump sharply.</div>
@@ -178,7 +178,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     </div>
   </div>
 
-  <p class="footer">Practice tool, not a live ranking service. Player order is a frozen 2026 training pool based on our current work. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement.</p>
+  <p class="footer">Practice tool, not a live ranking service. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns. Player order is a frozen 2026 training pool based on our current work. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement.</p>
 </div>
 
 <script>
@@ -227,14 +227,14 @@ const raw=[
 const players=raw.map((x,i)=>({name:x[0],pos:x[1],rank:i+1}));
 
 const profile={
-'DubsV':{early:['RB','QB','WR'],qb:1.35,rb:1.05,wr:.95,te:.8},
-'generaljjj':{early:['WR','QB','RB'],qb:1.55,rb:.95,wr:1,te:.8},
+'DubsV':{early:['RB','QB','WR'],qb:1.60,rb:1.05,wr:.95,te:.8},
+'generaljjj':{early:['WR','QB','RB'],qb:1.85,rb:.95,wr:1,te:.8},
 'FgFluet':{early:['RB','RB','WR'],qb:.85,rb:1.45,wr:.9,te:.85},
 'josh1975':{early:['RB','RB','WR'],qb:.85,rb:1.55,wr:.9,te:.85},
-'reliving…':{early:['WR','QB','RB'],qb:1.25,rb:.95,wr:1,te:.9},
+'reliving…':{early:['WR','QB','RB'],qb:1.50,rb:.95,wr:1,te:.9},
 'JamesJoynt':{early:['WR','RB','WR'],qb:.75,rb:.95,wr:1.25,te:.85},
 'Kzma':{early:['WR','TE','RB'],qb:.55,rb:.95,wr:1.15,te:1.5},
-'SuperSaiyan':{early:['WR','QB','RB'],qb:1.35,rb:.95,wr:1.15,te:.85},
+'SuperSaiyan':{early:['WR','QB','RB'],qb:1.60,rb:.95,wr:1.15,te:.85},
 'TeamJbot':{early:['WR','RB','WR'],qb:.75,rb:1.1,wr:1.2,te:.85}
 };
 
@@ -269,18 +269,50 @@ function needsWeight(pos,c,round){
  if(pos==='K'){w=round<12?0.02:round<14?.15:round<15?.9:1.8;if(c.K)w=.02}
  return w;
 }
+function draftedByPos(pos,throughPick){
+ return state.drafted.filter(x=>x.pos===pos && x.pick<=throughPick).length;
+}
+
 function choice(team,pick){
  const round=roundForPick(pick),sc=document.getElementById('scenario').value;
  const prof=profile[team]||{early:['WR','RB','WR'],qb:1,rb:1,wr:1,te:1};
  const c=counts(team);
  let bias={QB:prof.qb,RB:prof.rb,WR:prof.wr,TE:prof.te,DST:1,K:1};
+
  if(round<=3&&prof.early[round-1])bias[prof.early[round-1]]*=1.75;
- if(sc==='qbRush'&&round<=4)bias.QB*=1.9;
+
+ // League-specific calibration from the 2023-2025 boards.
+ // Baseline target: usually 2-3 QBs by pick 20, about 8 RBs by pick 20,
+ // and only 0-1 TEs by pick 20.
+ if(sc==='baseline' && pick<=20){
+   const qbGone=draftedByPos('QB',pick-1);
+   const rbGone=draftedByPos('RB',pick-1);
+   const teGone=draftedByPos('TE',pick-1);
+
+   // Managers with repeat early-QB behavior get a stronger push at their
+   // second-round turns if the room has not yet reached its normal QB count.
+   if(['SuperSaiyan','reliving…','generaljjj','DubsV'].includes(team)){
+     if(pick>=12 && qbGone<2) bias.QB*=2.25;
+     else if(pick>=15 && qbGone<3) bias.QB*=1.70;
+     else bias.QB*=1.15;
+   }
+
+   // Protect the historical RB drain without forcing every specific manager.
+   if(rbGone<7 && pick>=14) bias.RB*=1.18;
+   if(rbGone>=9) bias.RB*=0.78;
+
+   // Kzma is the clearest elite-TE threat; otherwise suppress a second
+   // first-20 TE unless the room has not taken one yet.
+   if(team==='Kzma' && teGone===0 && pick>=13) bias.TE*=1.85;
+   else if(teGone>=1) bias.TE*=0.55;
+ }
+
+ if(sc==='qbRush'&&round<=4)bias.QB*=2.05;
  if(sc==='rbRush'&&round<=4)bias.RB*=1.75;
  if(sc==='teSwipe'&&round<=4)bias.TE*=1.85;
  if(sc==='chaos')Object.keys(bias).forEach(k=>bias[k]*=.72+Math.random()*1.45);
 
- const pool=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,30);
+ const pool=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,32);
  let best=pool[0],bestScore=-1e9;
  for(const p of pool){
    let base=220-p.rank;
