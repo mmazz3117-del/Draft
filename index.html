@@ -3,89 +3,417 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Voice Trainer</title>
+<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds</title>
 <style>
-:root{--bg:#0b1020;--panel:#121a2f;--card:#17213b;--text:#f7f8fc;--muted:#aeb8d1;--border:#2a3658;--accent:#4f86ff;--accentSoft:#1d2e56;--rb:#45c486;--wr:#59a8ff;--qb:#f05a8d;--te:#f0b44c;--cell:104px;--font:13px}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}body{padding:14px 14px 42px}.wrap{max-width:1180px;margin:auto}h1{font-size:24px;margin:2px 0 4px}h2{font-size:18px;margin:0 0 10px}.sub,.muted{color:var(--muted);font-size:13px}.grid{display:grid;gap:10px}.stats{grid-template-columns:repeat(4,1fr);margin-top:14px}.card,.metric,.node,.player,.pick,.callout{border:1px solid var(--border);background:var(--card);border-radius:14px}.metric{padding:11px}.metric b{display:block;font-size:27px;margin-top:3px}.card{padding:13px;margin-top:13px}.controls{grid-template-columns:repeat(2,1fr)}label{font-size:13px;color:var(--muted)}select,button,input{font:inherit}select{width:100%;margin-top:5px;border:1px solid var(--border);background:#10182f;color:var(--text);border-radius:12px;padding:10px 11px;font-size:16px}button{border:1px solid var(--border);background:#10182f;color:var(--text);border-radius:12px;padding:10px 11px;font-weight:600}button.primary{background:var(--accent);border-color:var(--accent)}button:disabled{opacity:.45}.buttons{grid-template-columns:repeat(2,1fr);margin-top:11px}.buttons .wide{grid-column:1/-1}.switch{display:flex;gap:8px;align-items:center;color:var(--text);font-size:14px;margin-top:9px}.callout{border-left:5px solid var(--accent);background:var(--accentSoft);padding:13px;margin-top:13px}.callout .title{font-weight:700}.callout .body{margin-top:6px;line-height:1.4}.two{grid-template-columns:1fr 1fr;margin-top:15px}.player{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;margin-bottom:7px}.player b{display:block}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}.counts{grid-template-columns:repeat(4,1fr)}.count{border:1px solid var(--border);background:#10182f;border-radius:11px;text-align:center;padding:8px}.count b{font-size:21px;display:block}.boardHead{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:17px}.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px}.round{display:grid;grid-template-columns:repeat(10,var(--cell));gap:4px;width:max-content;margin-bottom:4px}.pick{min-height:72px;padding:6px;font-size:var(--font);overflow:hidden}.pick.mine{outline:2px solid var(--accent);outline-offset:-2px}.meta{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pname{font-weight:700;line-height:1.15;margin-top:5px}.compact .pick{min-height:57px;padding:5px}.compact .team{display:none}.compact .pname{margin-top:3px}.scouts{grid-template-columns:repeat(3,1fr)}.node{padding:10px}.node b{display:block}.hidden{display:none!important}.footer{font-size:12px;color:var(--muted);line-height:1.4;margin-top:15px}input[type=range]{width:100%}
-@media(max-width:760px){body{padding:11px 11px 34px}.stats{grid-template-columns:repeat(2,1fr)}.controls,.two,.scouts,.buttons{grid-template-columns:1fr}.buttons .wide{grid-column:auto}h1{font-size:21px}}
-@media(orientation:landscape) and (max-height:600px){body{padding:7px 9px 24px}.stats{grid-template-columns:repeat(4,1fr)}.two{grid-template-columns:1fr 1fr}.scouts{grid-template-columns:repeat(3,1fr)}}
+:root{
+  --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
+  --border:#2a3658; --accent:#4f86ff; --accent-soft:#1c2e57;
+  --rb:#45c486; --wr:#59a8ff; --qb:#f05a8d; --te:#f0b44c; --dst:#d17b55; --k:#a99bf4;
+  --cell:102px; --font:13px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body{padding:14px 14px 42px}
+.wrap{max-width:1220px;margin:0 auto}
+h1{font-size:24px;margin:0 0 4px} h2{font-size:18px;margin:0 0 10px} h3{font-size:16px;margin:0 0 8px}
+.sub,.muted{color:var(--muted)} .sub{font-size:14px}
+.grid{display:grid;gap:12px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:14px}
+.metric,.card,.node,.player,.callout,.pick,.voicebox{background:var(--card);border:1px solid var(--border);border-radius:14px}
+.metric{padding:12px}.metric .label{font-size:12px;color:var(--muted)}.metric .value{font-size:27px;font-weight:800;margin-top:4px}.metric .detail{font-size:12px;color:var(--muted);margin-top:3px}
+.card{padding:14px;margin-top:14px}
+.controls{grid-template-columns:repeat(2,minmax(0,1fr))}
+label{font-size:13px;color:var(--muted);display:block}
+select,button,input,textarea{font:inherit}
+select{width:100%;margin-top:6px;background:#0f1730;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:11px 12px;font-size:16px}
+button{border:1px solid var(--border);background:#10182f;color:var(--text);border-radius:12px;padding:11px 12px;font-size:15px;font-weight:700}
+button.primary{background:var(--accent);border-color:var(--accent)}
+button:disabled{opacity:.45}
+.btns{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:12px}.btns .wide{grid-column:1/-1}
+.checkline{display:flex;align-items:center;gap:9px;color:var(--text);font-size:14px;margin-top:10px}
+.callout{padding:14px;border-left:5px solid var(--accent);background:var(--accent-soft);margin-top:14px}
+.callout .title{font-weight:800}.callout .body{margin-top:7px;line-height:1.4;color:#dce5ff}
+.two{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:16px}
+.player{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 11px;margin-bottom:8px}
+.player-name{font-weight:800}.player-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.posdot{display:inline-block;width:9px;height:9px;border-radius:99px;margin-right:7px;vertical-align:1px}
+.draftbtn{padding:8px 11px;white-space:nowrap}
+.counts{grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:10px}
+.count{border:1px solid var(--border);background:#10182f;border-radius:11px;text-align:center;padding:8px 4px;font-size:12px}
+.count .n{font-size:20px;font-weight:800;margin-top:2px}
+.boardtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px}
+.boardhelp{font-size:12px;color:var(--muted)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px}
+.roundrow{display:grid;grid-template-columns:repeat(10,var(--cell));gap:4px;width:max-content;margin-bottom:4px}
+.pick{min-height:72px;padding:6px;font-size:var(--font);overflow:hidden}
+.pick.mine{outline:2px solid var(--accent);outline-offset:-2px}
+.meta{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pname{font-weight:800;line-height:1.15;margin-top:5px}
+.compact .pick{min-height:57px;padding:5px}.compact .teamlabel{display:none}.compact .pname{margin-top:3px}
+.scouts{grid-template-columns:repeat(3,minmax(0,1fr))}
+.node{padding:10px}.node .nm{font-weight:800}.node .tell{font-size:12px;color:var(--muted);line-height:1.35;margin-top:4px}
+.voicebox{padding:12px;margin-top:14px}
+textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px;line-height:1.42;font-size:14px;resize:vertical}
+.voice-actions{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:10px}
+.research{grid-template-columns:repeat(2,minmax(0,1fr))}
+.research .node{font-size:13px;line-height:1.4}
+.badge{display:inline-block;background:#20345f;border:1px solid var(--border);border-radius:999px;padding:3px 8px;font-size:11px;margin-right:5px}
+.footer{font-size:12px;color:var(--muted);line-height:1.4;margin-top:16px}
+.hidden{display:none!important}
+@media(max-width:760px){
+  body{padding:12px 10px 36px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .controls,.two,.scouts,.research{grid-template-columns:1fr}.btns,.voice-actions{grid-template-columns:1fr}.btns .wide{grid-column:auto}
+  .counts{grid-template-columns:repeat(3,minmax(0,1fr))}h1{font-size:21px}
+}
 </style>
 </head>
 <body>
-<div id="trainer" class="wrap compact">
-<h1>2026 Fantasy Draft Voice Trainer</h1>
-<div class="sub">10-team full PPR · pick 1.01 · opponent-informed six-round practice</div>
+<div id="app" class="wrap compact">
+  <h1>2026 Fantasy Draft Voice Trainer — Full Draft</h1>
+  <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation</p>
 
-<div id="summary" class="grid stats">
-  <div class="metric"><span class="muted">Your slot</span><b>1.01</b><span class="muted">then 20/21</span></div>
-  <div class="metric"><span class="muted">Training</span><b>6</b><span class="muted">rounds</span></div>
-  <div class="metric"><span class="muted">Historic RBs by 20</span><b>8</b><span class="muted">each of last 3 drafts</span></div>
-  <div class="metric"><span class="muted">Historic QBs by 20</span><b>2–3</b><span class="muted">above market</span></div>
-</div>
-
-<div class="card">
-  <div class="grid controls">
-    <label>Opponent behavior<select id="scenario"><option value="baseline">Baseline history</option><option value="qbRush">Early QB rush</option><option value="rbRush">Heavy RB squeeze</option><option value="teSwipe">Elite TE disappears</option><option value="chaos">Chaos / mixed reaches</option></select></label>
-    <label>Your 1.01 plan<select id="opening"><option value="rb">Elite RB first</option><option value="wr">Elite WR first</option><option value="best">No preset / best value</option></select></label>
+  <div id="summary" class="grid stats">
+    <div class="metric"><div class="label">Your picks</div><div class="value">1 / 20-21</div><div class="detail">then 40-41, 60-61…</div></div>
+    <div class="metric"><div class="label">Roster</div><div class="value">15</div><div class="detail">QB, 2 RB, 2 WR, TE, 2 FLEX, DEF, K, 5 bench</div></div>
+    <div class="metric"><div class="label">Historic RBs by 20</div><div class="value">8</div><div class="detail">exactly in each 2023–25 draft</div></div>
+    <div class="metric"><div class="label">Historic QBs by 20</div><div class="value">2–3</div><div class="detail">room tends to pay up early</div></div>
   </div>
-  <div style="margin-top:10px"><label>Board width: <span id="zoomLabel">82%</span></label><input id="zoom" type="range" min="60" max="110" value="82"></div>
-  <label class="switch"><input id="compact" type="checkbox" checked> Compact board</label>
-  <label class="switch"><input id="focus" type="checkbox"> Focus board (hide extra sections)</label>
-  <div class="grid buttons"><button id="auto" class="primary">Auto-pick to my turn</button><button id="one">One opponent pick</button><button id="reset" class="wide">Reset mock</button></div>
-</div>
 
-<div id="status" class="callout" aria-live="polite"></div>
+  <div class="card">
+    <div class="grid controls">
+      <label>Opponent behavior
+        <select id="scenario">
+          <option value="baseline">Baseline history</option>
+          <option value="qbRush">Early QB rush</option>
+          <option value="rbRush">Heavy RB squeeze</option>
+          <option value="teSwipe">Elite TE disappears</option>
+          <option value="chaos">Chaos / mixed reaches</option>
+        </select>
+      </label>
+      <label>Your 1.01 plan
+        <select id="openingPlan">
+          <option value="rb">Elite RB first</option>
+          <option value="wr">Elite WR first</option>
+          <option value="best">No preset / best value</option>
+        </select>
+      </label>
+    </div>
 
-<div id="rosterArea" class="grid two">
-  <div><h2>Best available</h2><div id="available"></div></div>
-  <div><h2>Your roster</h2><div class="grid counts"><div class="count">QB<b id="cQB">0</b></div><div class="count">RB<b id="cRB">0</b></div><div class="count">WR<b id="cWR">0</b></div><div class="count">TE<b id="cTE">0</b></div></div><div id="roster" style="margin-top:9px"></div></div>
-</div>
+    <div style="margin-top:10px">
+      <label>Board width: <span id="zoomLabel">80%</span></label>
+      <input id="zoomRange" type="range" min="58" max="112" value="80">
+    </div>
 
-<div class="boardHead"><h2>Draft board</h2><div class="sub">Pinch-zoom or rotate phone · swipe sideways if needed</div></div>
-<div class="scroll"><div id="board"></div></div>
+    <label class="checkline"><input id="compactToggle" type="checkbox" checked> Compact board</label>
+    <label class="checkline"><input id="focusToggle" type="checkbox"> Focus mode (hide scouting/research)</label>
 
-<div id="scouting"><h2>Opponent tells being modeled</h2><div class="grid scouts">
-<div class="node"><b>DubsV · #2/#19</b><span class="muted">2025 same slot: RB → Hurts. QB at #19 is plausible.</span></div>
-<div class="node"><b>generaljjj · #3/#18</b><span class="muted">First QB R2, R3, R2. Strong early-QB tendency.</span></div>
-<div class="node"><b>FgFluet · #4/#17</b><span class="muted">2025 champion. Started RB-RB-RB.</span></div>
-<div class="node"><b>josh1975 · #5/#16</b><span class="muted">RB in Round 1 three straight years; RB-RB last two.</span></div>
-<div class="node"><b>reliving… · #6/#15</b><span class="muted">QB timing R4, R2, R3.</span></div>
-<div class="node"><b>JamesJoynt · #7/#14</b><span class="muted">WR-heavy openings; generally later QB.</span></div>
-<div class="node"><b>Kzma · #8/#13</b><span class="muted">Waits on QB; took Bowers 2.10 in 2025. Elite-TE threat.</span></div>
-<div class="node"><b>SuperSaiyan · #9/#12</b><span class="muted">Strongest scoring profile; Puka → Josh Allen in 2025.</span></div>
-<div class="node"><b>TeamJbot · #10/#11</b><span class="muted">Usually WR early, then RB. Controls the turn.</span></div>
-</div></div>
+    <div class="grid btns">
+      <button id="autoBtn" class="primary" type="button">Auto-pick to my turn</button>
+      <button id="oneBtn" type="button">One opponent pick</button>
+      <button id="resetBtn" class="wide" type="button">Reset mock</button>
+    </div>
+  </div>
 
-<div id="note" class="footer">Practice model only. The player pool is a frozen training board based on our current 2026 work. Refresh it closer to the real draft as injuries, suspensions, preseason roles and ADP change.</div>
+  <div id="status" class="callout" aria-live="polite"></div>
+
+  <div class="voicebox">
+    <h2>Voice brief</h2>
+    <p class="muted" style="font-size:12px;margin-bottom:8px">This updates automatically. Read it aloud to Voice, share a screenshot, or use Share/Copy. It includes the research context Voice should use for the current decision.</p>
+    <textarea id="voiceBrief" readonly></textarea>
+    <div class="grid voice-actions">
+      <button id="copyBtn" type="button">Copy brief</button>
+      <button id="shareBtn" type="button">Share brief</button>
+    </div>
+  </div>
+
+  <div id="rosterArea" class="grid two">
+    <div>
+      <h2>Best available</h2>
+      <div id="available"></div>
+    </div>
+    <div>
+      <h2>Your roster</h2>
+      <div class="grid counts">
+        <div class="count">QB<div id="cQB" class="n">0</div></div>
+        <div class="count">RB<div id="cRB" class="n">0</div></div>
+        <div class="count">WR<div id="cWR" class="n">0</div></div>
+        <div class="count">TE<div id="cTE" class="n">0</div></div>
+        <div class="count">DEF<div id="cDST" class="n">0</div></div>
+        <div class="count">K<div id="cK" class="n">0</div></div>
+      </div>
+      <div id="roster"></div>
+    </div>
+  </div>
+
+  <div class="boardtop">
+    <h2>15-round draft board</h2>
+    <div class="boardhelp">Pinch-zoom / rotate · swipe sideways if needed</div>
+  </div>
+  <div class="scroll"><div id="board"></div></div>
+
+  <div id="researchArea">
+    <h2>Research embedded in the trainer</h2>
+    <div class="grid research">
+      <div class="node"><span class="badge">Room pattern</span>RBs gone by pick 20: <b>8 in 2023, 8 in 2024, 8 in 2025.</b> That is why an elite RB start remains attractive.</div>
+      <div class="node"><span class="badge">QB market</span>Your room took roughly <b>2–3 QBs by pick 20, ~6 by pick 40, ~8 by pick 60</b>. Do not assume a premium QB lasts to 60/61.</div>
+      <div class="node"><span class="badge">TE market</span>Usually <b>0–1 TE by pick 20</b>, around <b>3 by pick 40</b>, then a run before pick 60. If Bowers/McBride miss 20/21, 40/41 is the Loveland/Warren pivot.</div>
+      <div class="node"><span class="badge">Construction</span>Because you start <b>2 FLEX</b>, RB/WR depth is highly usable. After QB + TE are secured, favor RB/WR ceiling over backup QB/TE.</div>
+      <div class="node"><span class="badge">Injury resilience</span>Your past seasons have been injury-heavy. We cannot predict injuries, so early picks emphasize <b>secure volume</b>; bench picks emphasize players whose roles can jump sharply.</div>
+      <div class="node"><span class="badge">Waivers</span>You and generaljjj have had high waiver activity partly from injuries, so transaction count is not treated as pure drafting style.</div>
+      <div class="node"><span class="badge">Playoffs</span>Your postseason runs <b>Weeks 15–17</b>. Bye weeks are a tiebreaker, not a reason to pass a clearly better player.</div>
+      <div class="node"><span class="badge">Late rounds</span>Do not spend early/mid picks on K/DEF. Default plan is to fill them in the <b>final two rounds</b>, unless the board forces something unusual.</div>
+    </div>
+
+    <h2 style="margin-top:16px">Opponent tells</h2>
+    <div class="grid scouts">
+      <div class="node"><div class="nm">DubsV · #2/#19</div><div class="tell">2025 from same slot: RB → Jalen Hurts. Elevated QB probability near #19.</div></div>
+      <div class="node"><div class="nm">generaljjj · #3/#18</div><div class="tell">First QB: R2, R3, R2. Strong early-QB signal.</div></div>
+      <div class="node"><div class="nm">FgFluet · #4/#17</div><div class="tell">2025 champion. Started RB-RB-RB last year; major RB-drain threat.</div></div>
+      <div class="node"><div class="nm">josh1975 · #5/#16</div><div class="tell">RB in Round 1 three straight years; RB-RB in the last two.</div></div>
+      <div class="node"><div class="nm">reliving… · #6/#15</div><div class="tell">QB timing R4, R2, R3. Moderate early-QB tendency.</div></div>
+      <div class="node"><div class="nm">JamesJoynt · #7/#14</div><div class="tell">WR-heavy openings and generally later quarterback.</div></div>
+      <div class="node"><div class="nm">Kzma · #8/#13</div><div class="tell">Waits on QB, but spent 2.10 on Bowers in 2025. Main elite-TE threat.</div></div>
+      <div class="node"><div class="nm">SuperSaiyan · #9/#12</div><div class="tell">Best multi-year scoring profile; went Puka → Josh Allen in 2025.</div></div>
+      <div class="node"><div class="nm">TeamJbot · #10/#11</div><div class="tell">Usually WR early, then RB. Controls the 10/11 turn.</div></div>
+    </div>
+  </div>
+
+  <p class="footer">Practice tool, not a live ranking service. Player order is a frozen 2026 training pool based on our current work. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement.</p>
 </div>
 
 <script>
 const teams=['MMazz3117','DubsV','generaljjj','FgFluet','josh1975','reliving…','JamesJoynt','Kzma','SuperSaiyan','TeamJbot'];
+const COLORS={RB:'var(--rb)',WR:'var(--wr)',QB:'var(--qb)',TE:'var(--te)',DST:'var(--dst)',K:'var(--k)'};
+
 const raw=[
-['Jahmyr Gibbs','RB'],['Bijan Robinson','RB'],["Ja'Marr Chase",'WR'],['Puka Nacua','WR'],['Christian McCaffrey','RB'],['Jaxon Smith-Njigba','WR'],['CeeDee Lamb','WR'],['Amon-Ra St. Brown','WR'],['Justin Jefferson','WR'],['Drake London','WR'],['Jonathan Taylor','RB'],['Saquon Barkley','RB'],['Ashton Jeanty','RB'],['Trey McBride','TE'],["De'Von Achane",'RB'],['James Cook','RB'],['Chase Brown','RB'],['Omarion Hampton','RB'],['Jeremiyah Love','RB'],['A.J. Brown','WR'],['Brock Bowers','TE'],['Rashee Rice','WR'],['Kenneth Walker III','RB'],['Nico Collins','WR'],['Malik Nabers','WR'],['George Pickens','WR'],['Chris Olave','WR'],['Tee Higgins','WR'],['Josh Allen','QB'],['Breece Hall','RB'],['Josh Jacobs','RB'],['Kyren Williams','RB'],['Bucky Irving','RB'],['Javonte Williams','RB'],['Tetairoa McMillan','WR'],['Lamar Jackson','QB'],['Garrett Wilson','WR'],['Ladd McConkey','WR'],['Zay Flowers','WR'],['DeVonta Smith','WR'],['Colston Loveland','TE'],['TreVeyon Henderson','RB'],['Tyler Warren','TE'],['Drake Maye','QB'],['Joe Burrow','QB'],['Jayden Daniels','QB'],['Jalen Hurts','QB'],['Rome Odunze','WR'],['D.J. Moore','WR'],['Emeka Egbuka','WR'],['Caleb Williams','QB'],['Jaylen Waddle','WR'],['Davante Adams','WR'],['Jordan Addison','WR'],['Jadarian Price','RB'],['Jaylen Warren','RB'],["D'Andre Swift",'RB'],['Tony Pollard','RB'],['Rhamondre Stevenson','RB'],['Chuba Hubbard','RB'],['Rico Dowdle','RB'],['R.J. Harvey','RB'],['Xavier Worthy','WR'],['Stefon Diggs','WR'],['WanDale Robinson','WR'],['Matthew Golden','WR'],['Jalen Coker','WR'],['Carnell Tate','WR'],['Jordyn Tyson','WR'],['Denzel Boston','WR'],['Omar Cooper Jr.','WR'],['Keaton Mitchell','RB'],['Rachaad White','RB'],['Brian Robinson Jr.','RB']];
+['Jahmyr Gibbs','RB'],['Bijan Robinson','RB'],["Ja'Marr Chase",'WR'],['Puka Nacua','WR'],['Christian McCaffrey','RB'],
+['Jaxon Smith-Njigba','WR'],['CeeDee Lamb','WR'],['Amon-Ra St. Brown','WR'],['Justin Jefferson','WR'],['Drake London','WR'],
+['Jonathan Taylor','RB'],['Saquon Barkley','RB'],['Ashton Jeanty','RB'],['Trey McBride','TE'],["De'Von Achane",'RB'],
+['James Cook','RB'],['Chase Brown','RB'],['Omarion Hampton','RB'],['Jeremiyah Love','RB'],['A.J. Brown','WR'],
+['Brock Bowers','TE'],['Rashee Rice','WR'],['Kenneth Walker III','RB'],['Nico Collins','WR'],['Malik Nabers','WR'],
+['George Pickens','WR'],['Chris Olave','WR'],['Tee Higgins','WR'],['Josh Allen','QB'],['Breece Hall','RB'],
+['Josh Jacobs','RB'],['Kyren Williams','RB'],['Bucky Irving','RB'],['Javonte Williams','RB'],['Tetairoa McMillan','WR'],
+['Lamar Jackson','QB'],['Garrett Wilson','WR'],['Ladd McConkey','WR'],['Zay Flowers','WR'],['DeVonta Smith','WR'],
+['Colston Loveland','TE'],['TreVeyon Henderson','RB'],['Tyler Warren','TE'],['Drake Maye','QB'],['Joe Burrow','QB'],
+['Jayden Daniels','QB'],['Jalen Hurts','QB'],['Rome Odunze','WR'],['D.J. Moore','WR'],['Emeka Egbuka','WR'],
+['Caleb Williams','QB'],['Jaylen Waddle','WR'],['Davante Adams','WR'],['Jordan Addison','WR'],['Jadarian Price','RB'],
+['Jaylen Warren','RB'],["D'Andre Swift",'RB'],['Tony Pollard','RB'],['Rhamondre Stevenson','RB'],['Chuba Hubbard','RB'],
+['Rico Dowdle','RB'],['R.J. Harvey','RB'],['Xavier Worthy','WR'],['Stefon Diggs','WR'],['WanDale Robinson','WR'],
+['Matthew Golden','WR'],['Jalen Coker','WR'],['Carnell Tate','WR'],['Jordyn Tyson','WR'],['Denzel Boston','WR'],
+['Omar Cooper Jr.','WR'],['Keaton Mitchell','RB'],['Rachaad White','RB'],['Brian Robinson Jr.','RB'],['Jordan Mason','RB'],
+['Zach Charbonnet','RB'],['Travis Etienne','RB'],['J.K. Dobbins','RB'],['Isaiah Pacheco','RB'],['Aaron Jones','RB'],
+['Alvin Kamara','RB'],['Cam Skattebo','RB'],['Kaleb Johnson','RB'],['Tyrone Tracy Jr.','RB'],['Quinshon Judkins','RB'],
+['James Conner','RB'],['Tyler Allgeier','RB'],['Jonathan Brooks','RB'],['Woody Marks','RB'],['Chris Rodriguez Jr.','RB'],
+['Blake Corum','RB'],['Javonte Williams','RB'],['Austin Ekeler','RB'],['Derrick Henry','RB'],['Najee Harris','RB'],
+['Courtland Sutton','WR'],['Terry McLaurin','WR'],['Mike Evans','WR'],['Chris Godwin','WR'],['Christian Watson','WR'],
+['Michael Pittman Jr.','WR'],['Ricky Pearsall','WR'],['Khalil Shakir','WR'],['Jameson Williams','WR'],['Calvin Ridley','WR'],
+['Brian Thomas Jr.','WR'],['DJ Moore','WR'],['Jakobi Meyers','WR'],['Deebo Samuel','WR'],['Josh Downs','WR'],
+['Jauan Jennings','WR'],['Jerry Jeudy','WR'],['Rashid Shaheed','WR'],['Marvin Harrison Jr.','WR'],['Tyler Lockett','WR'],
+['Amari Cooper','WR'],['Romeo Doubs','WR'],['Joshua Palmer','WR'],['Quentin Johnston','WR'],['Luther Burden','WR'],
+['Parker Washington','WR'],['Michael Wilson','WR'],['Cooper Kupp','WR'],['Travis Hunter','WR'],['Keenan Allen','WR'],
+['Patrick Mahomes','QB'],['Justin Herbert','QB'],['Jordan Love','QB'],['Jared Goff','QB'],['Brock Purdy','QB'],
+['Trevor Lawrence','QB'],['Dak Prescott','QB'],['Bo Nix','QB'],['Baker Mayfield','QB'],['C.J. Stroud','QB'],
+['Tua Tagovailoa','QB'],['Justin Fields','QB'],['George Kittle','TE'],['Dalton Kincaid','TE'],['Jake Ferguson','TE'],
+['Travis Kelce','TE'],['Hunter Henry','TE'],['Dallas Goedert','TE'],['David Njoku','TE'],['Kyle Pitts','TE'],
+['T.J. Hockenson','TE'],['Sam LaPorta','TE'],['Mark Andrews','TE'],['Cole Kmet','TE'],['Tucker Kraft','TE'],
+['Isaiah Likely','TE'],['Jonnu Smith','TE'],['Brenton Strange','TE'],['Harold Fannin Jr.','TE'],['Mason Taylor','TE'],
+['Steelers','DST'],['Chiefs','DST'],['Jaguars','DST'],['Giants','DST'],['Chargers','DST'],['Packers','DST'],
+['Rams','DST'],['Texans','DST'],['Seahawks','DST'],['Eagles','DST'],['Bills','DST'],['Lions','DST'],
+['Vikings','DST'],['Ravens','DST'],['Broncos','DST'],['49ers','DST'],['Jets','DST'],['Cowboys','DST'],
+['Brandon Aubrey','K'],['Cameron Dicker','K'],['Jason Myers','K'],['Harrison Mevis','K'],['Andy Borregales','K'],
+["Ka'imi Fairbairn",'K'],['Harrison Butker','K'],['Jake Elliott','K'],['Chris Boswell','K'],['Jake Bates','K'],
+['Tyler Bass','K'],['Younghoe Koo','K'],['Brandon McManus','K'],['Daniel Carlson','K'],['Chase McLaughlin','K']
+];
 const players=raw.map((x,i)=>({name:x[0],pos:x[1],rank:i+1}));
-const colors={RB:'var(--rb)',WR:'var(--wr)',QB:'var(--qb)',TE:'var(--te)'};
+
 const profile={
-'DubsV':{early:['RB','QB','WR'],qb:1.35,rb:1.05,wr:.95,te:.8},'generaljjj':{early:['WR','QB','RB'],qb:1.55,rb:.95,wr:1,te:.8},'FgFluet':{early:['RB','RB','WR'],qb:.85,rb:1.45,wr:.9,te:.85},'josh1975':{early:['RB','RB','WR'],qb:.85,rb:1.55,wr:.9,te:.85},'reliving…':{early:['WR','QB','RB'],qb:1.25,rb:.95,wr:1,te:.9},'JamesJoynt':{early:['WR','RB','WR'],qb:.75,rb:.95,wr:1.25,te:.85},'Kzma':{early:['WR','TE','RB'],qb:.55,rb:.95,wr:1.15,te:1.5},'SuperSaiyan':{early:['WR','QB','RB'],qb:1.35,rb:.95,wr:1.15,te:.85},'TeamJbot':{early:['WR','RB','WR'],qb:.75,rb:1.1,wr:1.2,te:.85}};
+'DubsV':{early:['RB','QB','WR'],qb:1.35,rb:1.05,wr:.95,te:.8},
+'generaljjj':{early:['WR','QB','RB'],qb:1.55,rb:.95,wr:1,te:.8},
+'FgFluet':{early:['RB','RB','WR'],qb:.85,rb:1.45,wr:.9,te:.85},
+'josh1975':{early:['RB','RB','WR'],qb:.85,rb:1.55,wr:.9,te:.85},
+'reliving…':{early:['WR','QB','RB'],qb:1.25,rb:.95,wr:1,te:.9},
+'JamesJoynt':{early:['WR','RB','WR'],qb:.75,rb:.95,wr:1.25,te:.85},
+'Kzma':{early:['WR','TE','RB'],qb:.55,rb:.95,wr:1.15,te:1.5},
+'SuperSaiyan':{early:['WR','QB','RB'],qb:1.35,rb:.95,wr:1.15,te:.85},
+'TeamJbot':{early:['WR','RB','WR'],qb:.75,rb:1.1,wr:1.2,te:.85}
+};
+
 let state;
-const rFor=p=>Math.floor((p-1)/10)+1;
-const slotFor=p=>{const r=rFor(p),w=(p-1)%10;return r%2===1?w:9-w};
-const teamFor=p=>teams[slotFor(p)];
-const mine=p=>teamFor(p)==='MMazz3117';
-function reset(){state={pick:1,drafted:[],available:players.map(p=>({...p})),rosters:Object.fromEntries(teams.map(t=>[t,[]]))};render()}
-function take(player,team,pick){state.available=state.available.filter(p=>p.name!==player.name);const item={...player,team,pick,round:rFor(pick)};state.drafted.push(item);state.rosters[team].push(item);state.pick++}
-function opponentChoice(team,pick){const round=rFor(pick),scenario=document.getElementById('scenario').value,pr=profile[team]||{early:['WR','RB','WR'],qb:1,rb:1,wr:1,te:1};const roster=state.rosters[team],cnt={QB:0,RB:0,WR:0,TE:0};roster.forEach(p=>cnt[p.pos]++);let w={QB:pr.qb,RB:pr.rb,WR:pr.wr,TE:pr.te};if(round<=3&&pr.early[round-1])w[pr.early[round-1]]*=1.8;if(cnt.QB)w.QB*=.1;if(cnt.TE)w.TE*=.18;if(cnt.RB>=3)w.RB*=.7;if(cnt.WR>=3)w.WR*=.75;if(scenario==='qbRush'&&round<=3)w.QB*=1.9;if(scenario==='rbRush'&&round<=3)w.RB*=1.8;if(scenario==='teSwipe'&&round<=3)w.TE*=1.8;if(scenario==='chaos')Object.keys(w).forEach(k=>w[k]*=.75+Math.random()*1.35);const candidates=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,15);let best=candidates[0],bestScore=-Infinity;for(const p of candidates){let s=(145-p.rank)*(w[p.pos]||1)*(.92+Math.random()*.16);if(round===1&&p.pos==='QB')s*=.45;if(round===1&&p.pos==='TE')s*=.62;if(round>=5&&p.pos==='QB'&&!cnt.QB)s*=1.25;if(round>=5&&p.pos==='TE'&&!cnt.TE)s*=1.2;if(s>bestScore){bestScore=s;best=p}}return best}
-function simulate(){if(state.pick>60||mine(state.pick))return;const t=teamFor(state.pick);take(opponentChoice(t,state.pick),t,state.pick);render()}
-function auto(){while(state.pick<=60&&!mine(state.pick)){const t=teamFor(state.pick);take(opponentChoice(t,state.pick),t,state.pick)}render()}
-function draft(name){if(!mine(state.pick))return;const p=state.available.find(x=>x.name===name);if(p){take(p,'MMazz3117',state.pick);render()}}
-function advice(){if(state.pick>60)return'Six-round trial complete. Reset and test another scenario.';if(!mine(state.pick))return`Pick ${state.pick}: ${teamFor(state.pick)} is on the clock.`;const me=state.rosters.MMazz3117,c={QB:0,RB:0,WR:0,TE:0};me.forEach(p=>c[p.pos]++);const opening=document.getElementById('opening').value;if(state.pick===1)return opening==='rb'?'You are at 1.01. Default trial: Gibbs or Bijan.':opening==='wr'?'You are at 1.01. WR-first trial: Chase, accepting more RB pressure at 20/21.':'You are at 1.01. Compare elite RB and WR paths.';if(state.pick===20||state.pick===21)return'At 20/21, take the value the room created. Do not force a preset positional pair.';if(state.pick===40||state.pick===41){if(!c.QB&&!c.TE)return'Key fork: premium QB versus Loveland/Warren versus falling RB/WR.';if(!c.TE)return'Planned TE pivot window: Loveland/Warren if value is right.';if(!c.QB)return'QB decision window. If the premium tier is gone, do not panic-chase.';return'QB and TE are set. Hammer RB/WR value.'}if(state.pick===60)return'Prioritize RB/WR upside unless QB remains unfilled and the value is compelling.';return'Favor RB/WR value and reliable volume. Use bye weeks as a tiebreaker.'}
-function renderAvailable(){const box=document.getElementById('available');box.innerHTML='';state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,12).forEach(p=>{const row=document.createElement('div');row.className='player';row.innerHTML=`<div><b><span class="dot" style="background:${colors[p.pos]}"></span>${p.name}</b><span class="muted">${p.pos} · practice rank ${p.rank}</span></div>`;if(mine(state.pick)&&state.pick<=60){const b=document.createElement('button');b.textContent='Draft';b.addEventListener('click',()=>draft(p.name));row.appendChild(b)}box.appendChild(row)})}
-function renderRoster(){const box=document.getElementById('roster');box.innerHTML='';const me=state.rosters.MMazz3117;if(!me.length)box.innerHTML='<span class="muted">No selections yet.</span>';me.forEach(p=>{const row=document.createElement('div');row.className='player';row.innerHTML=`<div><b><span class="dot" style="background:${colors[p.pos]}"></span>${p.name}</b><span class="muted">${p.pos} · overall ${p.pick}</span></div>`;box.appendChild(row)});['QB','RB','WR','TE'].forEach(pos=>document.getElementById('c'+pos).textContent=me.filter(p=>p.pos===pos).length)}
-function picksForRound(r){const start=(r-1)*10+1,end=r*10,a=[];if(r%2===1){for(let p=start;p<=end;p++)a.push(p)}else{for(let p=end;p>=start;p--)a.push(p)}return a}
-function renderBoard(){const board=document.getElementById('board');board.innerHTML='';for(let r=1;r<=6;r++){const row=document.createElement('div');row.className='round';picksForRound(r).forEach(p=>{const cell=document.createElement('div');cell.className='pick'+(mine(p)?' mine':'');const item=state.drafted.find(x=>x.pick===p),team=teamFor(p);cell.innerHTML=item?`<div class="meta">R${r} · ${p}<span class="team"> · ${team}</span></div><div class="pname"><span class="dot" style="background:${colors[item.pos]}"></span>${item.name}</div>`:`<div class="meta">R${r} · ${p}<span class="team"> · ${team}</span></div><div class="pname">—</div>`;row.appendChild(cell)});board.appendChild(row)}}
-function applyView(){const z=+document.getElementById('zoom').value;document.getElementById('zoomLabel').textContent=z+'%';const tr=document.getElementById('trainer');tr.style.setProperty('--cell',Math.round(126*z/100)+'px');tr.style.setProperty('--font',Math.max(10,Math.round(15*z/100))+'px');tr.classList.toggle('compact',document.getElementById('compact').checked);const focus=document.getElementById('focus').checked;['summary','rosterArea','scouting','note'].forEach(id=>document.getElementById(id).classList.toggle('hidden',focus))}
-function render(){document.getElementById('status').innerHTML=`<div class="title">${state.pick<=60?'Current pick: '+state.pick+' · '+teamFor(state.pick):'Training complete'}</div><div class="body">${advice()}</div>`;renderAvailable();renderRoster();renderBoard();applyView();document.getElementById('one').disabled=mine(state.pick)||state.pick>60;document.getElementById('auto').disabled=mine(state.pick)||state.pick>60}
-document.getElementById('reset').addEventListener('click',reset);document.getElementById('one').addEventListener('click',simulate);document.getElementById('auto').addEventListener('click',auto);document.getElementById('scenario').addEventListener('change',reset);document.getElementById('opening').addEventListener('change',render);document.getElementById('zoom').addEventListener('input',applyView);document.getElementById('compact').addEventListener('change',applyView);document.getElementById('focus').addEventListener('change',applyView);reset();
+
+function roundForPick(p){return Math.floor((p-1)/10)+1}
+function slotForPick(p){const r=roundForPick(p),w=(p-1)%10;return r%2===1?w:9-w}
+function teamForPick(p){return teams[slotForPick(p)]}
+function mine(p){return teamForPick(p)==='MMazz3117'}
+function reset(){
+ state={pick:1,drafted:[],available:players.map(p=>({...p})),rosters:Object.fromEntries(teams.map(t=>[t,[]]))};
+ render();
+}
+function counts(team){
+ const c={QB:0,RB:0,WR:0,TE:0,DST:0,K:0};
+ state.rosters[team].forEach(p=>c[p.pos]++);
+ return c;
+}
+function take(player,team,pick){
+ state.available=state.available.filter(p=>p.name!==player.name);
+ const item={...player,team,pick,round:roundForPick(pick)};
+ state.drafted.push(item);state.rosters[team].push(item);state.pick++;
+}
+
+function needsWeight(pos,c,round){
+ let w=1;
+ if(pos==='QB'){w=c.QB?0.07:(round<=2?.45:round<=6?1.3:1.05)}
+ if(pos==='TE'){w=c.TE?0.08:(round<=2?.45:round<=6?1.2:1.0)}
+ if(pos==='RB'){w=(c.RB<2?1.35:c.RB<4?1.08:.82)}
+ if(pos==='WR'){w=(c.WR<2?1.35:c.WR<4?1.08:.82)}
+ if(pos==='DST'){w=round<11?0.03:round<13?.25:round<15?1.25:1.7;if(c.DST)w=.02}
+ if(pos==='K'){w=round<12?0.02:round<14?.15:round<15?.9:1.8;if(c.K)w=.02}
+ return w;
+}
+function choice(team,pick){
+ const round=roundForPick(pick),sc=document.getElementById('scenario').value;
+ const prof=profile[team]||{early:['WR','RB','WR'],qb:1,rb:1,wr:1,te:1};
+ const c=counts(team);
+ let bias={QB:prof.qb,RB:prof.rb,WR:prof.wr,TE:prof.te,DST:1,K:1};
+ if(round<=3&&prof.early[round-1])bias[prof.early[round-1]]*=1.75;
+ if(sc==='qbRush'&&round<=4)bias.QB*=1.9;
+ if(sc==='rbRush'&&round<=4)bias.RB*=1.75;
+ if(sc==='teSwipe'&&round<=4)bias.TE*=1.85;
+ if(sc==='chaos')Object.keys(bias).forEach(k=>bias[k]*=.72+Math.random()*1.45);
+
+ const pool=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,30);
+ let best=pool[0],bestScore=-1e9;
+ for(const p of pool){
+   let base=220-p.rank;
+   let s=base*(bias[p.pos]||1)*needsWeight(p.pos,c,round)*(.9+Math.random()*.2);
+   if(round<=1&&(p.pos==='QB'||p.pos==='TE'))s*=.55;
+   if(round<=10&&(p.pos==='DST'||p.pos==='K'))s*=.2;
+   if(s>bestScore){bestScore=s;best=p}
+ }
+ return best;
+}
+function autoToMine(){
+ while(state.pick<=150&&!mine(state.pick)){const t=teamForPick(state.pick);take(choice(t,state.pick),t,state.pick)}
+ render();
+}
+function one(){if(state.pick>150||mine(state.pick))return;const t=teamForPick(state.pick);take(choice(t,state.pick),t,state.pick);render()}
+function draftMe(name){if(!mine(state.pick))return;const p=state.available.find(x=>x.name===name);if(!p)return;take(p,'MMazz3117',state.pick);render()}
+
+function strategyAdvice(){
+ if(state.pick>150)return'Full 15-round mock complete.';
+ if(!mine(state.pick))return`Pick ${state.pick}: ${teamForPick(state.pick)} is on the clock.`;
+ const p=state.pick,r=roundForPick(p),c=counts('MMazz3117');
+ if(p===1){
+   const op=document.getElementById('openingPlan').value;
+   return op==='rb'?'Default: elite RB first. Gibbs/Bijan path preserves flexibility at 20/21.'
+      :op==='wr'?'WR-first test: take the elite WR, but recognize RB pressure at 20/21.'
+      :'Compare elite RB and WR paths without forcing position.';
+ }
+ if(p===20||p===21)return'At 20/21: take the room’s mistake. Prefer a fallen WR plus the best RB/TE/WR value. Do not force a predetermined pair.';
+ if(p===40||p===41){
+   if(!c.QB&&!c.TE)return'Key fork: premium QB vs. Loveland/Warren vs. falling RB/WR. Your room tends to drain QB before 60.';
+   if(!c.QB)return'Premium-QB decision window. If the premium tier is gone, do not panic-chase QB7.';
+   if(!c.TE)return'Planned TE pivot window. Loveland/Warren-type value is preferable to forcing TE later.';
+   return'QB and TE are set. Hammer RB/WR value.';
+ }
+ if(p===60||p===61)return'Favor RB/WR starter depth. If QB or TE is still empty, address only if the value tier is appropriate.';
+ if(p===80||p===81)return'Build FLEX and injury resilience: target RB/WR with secure role or clear path to a workload jump.';
+ if(p===100||p===101)return'Bench upside phase. Prefer asymmetric RB/WR bets over backup QB/TE.';
+ if(p===120||p===121)return'Continue upside bench construction. Avoid K/DEF unless the skill-player board is unusually weak.';
+ if(p===140||p===141)return'Final turn: default to DEF + K, unless one is already filled.';
+ if(r>=11)return'Late rounds: prioritize RB/WR upside, then finish DEF/K. Avoid low-ceiling backup QB/TE.';
+ return'Favor RB/WR value and reliable weekly volume. Bye weeks are a tiebreaker.';
+}
+
+function currentBrief(){
+ const c=counts('MMazz3117');
+ const mineRoster=state.rosters.MMazz3117.map(x=>`${x.pos} ${x.name} (#${x.pick})`).join(', ')||'none yet';
+ const top=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,10).map(x=>`${x.name} (${x.pos})`).join(', ');
+ const sc=document.getElementById('scenario').selectedOptions[0].text;
+ const turn=state.pick<=150?`overall ${state.pick}, Round ${roundForPick(state.pick)}, ${teamForPick(state.pick)} on clock`:'draft complete';
+ const research=`League research to use: 10-team full PPR with 2 FLEX. Historical room: exactly 8 RBs gone by pick 20 in each of 2023-25; usually 2-3 QBs by pick 20, about 6 by pick 40, about 8 by pick 60; only 0-1 TEs by pick 20, then a TE run between 40 and 60. FgFluet and josh1975 are strong RB-drain threats. generaljjj is a strong early-QB threat. Kzma is the main elite-TE threat. SuperSaiyan has the strongest multi-year scoring profile and has paid for early QB. User has had injury-heavy seasons, so early secure volume and later upside/injury resilience matter. Playoffs Weeks 15-17.`;
+ return `CURRENT MOCK STATE
+Scenario: ${sc}
+Turn: ${turn}
+My roster (${c.QB} QB, ${c.RB} RB, ${c.WR} WR, ${c.TE} TE, ${c.DST} DEF, ${c.K} K): ${mineRoster}
+Top available: ${top}
+
+STRATEGY FOR THIS TURN
+${strategyAdvice()}
+
+${research}
+
+Please make the recommendation using this league-specific research, not generic ADP alone.`;
+}
+
+function renderAvailable(){
+ const box=document.getElementById('available');box.innerHTML='';
+ state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,16).forEach(p=>{
+   const row=document.createElement('div');row.className='player';
+   row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}</div><div class="player-sub">${p.pos} · practice rank ${p.rank}</div></div>`;
+   if(mine(state.pick)&&state.pick<=150){const b=document.createElement('button');b.className='draftbtn';b.textContent='Draft';b.addEventListener('click',()=>draftMe(p.name));row.appendChild(b)}
+   box.appendChild(row);
+ });
+}
+function renderRoster(){
+ const box=document.getElementById('roster');box.innerHTML='';const r=state.rosters.MMazz3117;
+ if(!r.length)box.innerHTML='<div class="muted" style="font-size:13px">No selections yet.</div>';
+ r.forEach(p=>{const row=document.createElement('div');row.className='player';row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}</div><div class="player-sub">${p.pos} · overall ${p.pick}</div></div>`;box.appendChild(row)});
+ const c=counts('MMazz3117');['QB','RB','WR','TE','DST','K'].forEach(x=>document.getElementById('c'+x).textContent=c[x]);
+}
+function picksForRound(r){
+ const s=(r-1)*10+1,e=r*10,a=[];
+ if(r%2===1){for(let p=s;p<=e;p++)a.push(p)}else{for(let p=e;p>=s;p--)a.push(p)}
+ return a;
+}
+function renderBoard(){
+ const board=document.getElementById('board');board.innerHTML='';
+ for(let r=1;r<=15;r++){
+   const row=document.createElement('div');row.className='roundrow';
+   picksForRound(r).forEach(p=>{
+     const cell=document.createElement('div');cell.className='pick'+(mine(p)?' mine':'');
+     const item=state.drafted.find(x=>x.pick===p),team=teamForPick(p);
+     if(item)cell.innerHTML=`<div class="meta">R${r} · ${p}<span class="teamlabel"> · ${team}</span></div><div class="pname"><span class="posdot" style="background:${COLORS[item.pos]}"></span>${item.name}</div>`;
+     else cell.innerHTML=`<div class="meta">R${r} · ${p}<span class="teamlabel"> · ${team}</span></div><div class="pname">—</div>`;
+     row.appendChild(cell);
+   });
+   board.appendChild(row);
+ }
+}
+function applyView(){
+ const z=Number(document.getElementById('zoomRange').value);document.getElementById('zoomLabel').textContent=z+'%';
+ const app=document.getElementById('app');app.style.setProperty('--cell',Math.round(128*z/100)+'px');app.style.setProperty('--font',Math.max(10,Math.round(15*z/100))+'px');
+ app.classList.toggle('compact',document.getElementById('compactToggle').checked);
+ const f=document.getElementById('focusToggle').checked;['summary','researchArea'].forEach(id=>document.getElementById(id).classList.toggle('hidden',f));
+}
+function render(){
+ document.getElementById('status').innerHTML=`<div class="title">${state.pick<=150?'Current pick: '+state.pick+' · '+teamForPick(state.pick):'Draft complete'}</div><div class="body">${strategyAdvice()}</div>`;
+ document.getElementById('voiceBrief').value=currentBrief();
+ renderAvailable();renderRoster();renderBoard();applyView();
+ document.getElementById('oneBtn').disabled=mine(state.pick)||state.pick>150;
+ document.getElementById('autoBtn').disabled=mine(state.pick)||state.pick>150;
+}
+async function copyBrief(){
+ const text=document.getElementById('voiceBrief').value;
+ try{await navigator.clipboard.writeText(text);alert('Voice brief copied.');}
+ catch(e){document.getElementById('voiceBrief').focus();document.getElementById('voiceBrief').select();alert('Clipboard was blocked. The brief is selected so you can copy it manually.');}
+}
+async function shareBrief(){
+ const text=document.getElementById('voiceBrief').value;
+ if(navigator.share){try{await navigator.share({title:'Fantasy draft voice brief',text});}catch(e){}}
+ else{copyBrief()}
+}
+
+document.getElementById('autoBtn').addEventListener('click',autoToMine);
+document.getElementById('oneBtn').addEventListener('click',one);
+document.getElementById('resetBtn').addEventListener('click',reset);
+document.getElementById('scenario').addEventListener('change',reset);
+document.getElementById('openingPlan').addEventListener('change',render);
+document.getElementById('zoomRange').addEventListener('input',applyView);
+document.getElementById('compactToggle').addEventListener('change',applyView);
+document.getElementById('focusToggle').addEventListener('change',applyView);
+document.getElementById('copyBtn').addEventListener('click',copyBrief);
+document.getElementById('shareBtn').addEventListener('click',shareBrief);
+reset();
 </script>
 </body>
 </html>
