@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds</title>
+<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v4.0</title>
 <style>
 :root{
   --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
@@ -36,6 +36,13 @@ button:disabled{opacity:.45}
 .two{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:16px}
 .player{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 11px;margin-bottom:8px}
 .player-name{font-weight:800}.player-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.avail-controls{display:grid;grid-template-columns:1.15fr .85fr;gap:8px;margin-bottom:10px}
+.avail-controls input,.avail-controls select{width:100%;background:#0f1730;color:var(--text);border:1px solid var(--border);border-radius:11px;padding:9px 10px;font-size:14px}
+.posfilters{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-bottom:8px}
+.posfilters button{padding:7px 5px;font-size:12px}
+.posfilters button.active{background:var(--accent);border-color:var(--accent)}
+.avail-meta{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin:6px 1px 9px}
+.avail-meta button{padding:6px 9px;font-size:12px}
 .posdot{display:inline-block;width:9px;height:9px;border-radius:99px;margin-right:7px;vertical-align:1px}
 .draftbtn{padding:8px 11px;white-space:nowrap}
 .counts{grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:10px}
@@ -58,19 +65,44 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 .research{grid-template-columns:repeat(2,minmax(0,1fr))}
 .research .node{font-size:13px;line-height:1.4}
 .badge{display:inline-block;background:#20345f;border:1px solid var(--border);border-radius:999px;padding:3px 8px;font-size:11px;margin-right:5px}
+.version-badge{display:inline-block;vertical-align:3px;background:#20345f;border:1px solid var(--border);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:800;margin-left:6px;color:#dce5ff}
+.timerbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px}
+.timer-left{display:flex;align-items:center;gap:12px;min-width:0}
+.timer-clock{font-size:30px;font-weight:900;letter-spacing:.5px;min-width:84px}
+.timer-clock.warning{color:#ffd166}
+.timer-clock.expired{color:#ff6b6b}
+.timer-copy{min-width:0}
+.timer-title{font-weight:800}
+.timer-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.timer-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.timer-actions button{padding:8px 10px;font-size:13px}
 .footer{font-size:12px;color:var(--muted);line-height:1.4;margin-top:16px}
 .hidden{display:none!important}
 @media(max-width:760px){
   body{padding:12px 10px 36px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .controls,.two,.scouts,.research{grid-template-columns:1fr}.btns,.voice-actions{grid-template-columns:1fr}.btns .wide{grid-column:auto}
-  .counts{grid-template-columns:repeat(3,minmax(0,1fr))}h1{font-size:21px}
+  .counts{grid-template-columns:repeat(3,minmax(0,1fr))}.avail-controls{grid-template-columns:1fr}.posfilters{grid-template-columns:repeat(4,minmax(0,1fr))}.timerbar{align-items:flex-start}.timer-actions{flex-direction:column}.timer-actions button{width:100%}h1{font-size:21px}
 }
 </style>
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Voice Trainer — Full Draft</h1>
+  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v4.0</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation</p>
+
+  <div class="timerbar" aria-live="polite">
+    <div class="timer-left">
+      <div id="pickTimer" class="timer-clock">3:00</div>
+      <div class="timer-copy">
+        <div class="timer-title">3-minute pick timer</div>
+        <div id="timerStatus" class="timer-sub">Resets automatically every time the current pick changes.</div>
+      </div>
+    </div>
+    <div class="timer-actions">
+      <button id="timerPauseBtn" type="button">Pause</button>
+      <button id="timerResetBtn" type="button">Reset 3:00</button>
+    </div>
+  </div>
 
   <div id="summary" class="grid stats">
     <div class="metric"><div class="label">Your picks</div><div class="value">1 / 20-21</div><div class="detail">then 40-41, 60-61…</div></div>
@@ -129,6 +161,31 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div id="rosterArea" class="grid two">
     <div>
       <h2>Best available</h2>
+
+      <div class="avail-controls">
+        <input id="playerSearch" type="search" placeholder="Search player…">
+        <select id="sortAvailable" aria-label="Sort available players">
+          <option value="rank">Sort: practice rank</option>
+          <option value="posrank">Sort: position then rank</option>
+          <option value="name">Sort: name A–Z</option>
+        </select>
+      </div>
+
+      <div id="positionFilters" class="posfilters">
+        <button type="button" data-pos="ALL" class="active">All</button>
+        <button type="button" data-pos="QB">QB</button>
+        <button type="button" data-pos="RB">RB</button>
+        <button type="button" data-pos="WR">WR</button>
+        <button type="button" data-pos="TE">TE</button>
+        <button type="button" data-pos="DST">DEF</button>
+        <button type="button" data-pos="K">K</button>
+      </div>
+
+      <div class="avail-meta">
+        <span id="availableCount"></span>
+        <button id="showAllBtn" type="button">Show all available</button>
+      </div>
+
       <div id="available"></div>
     </div>
     <div>
@@ -178,7 +235,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     </div>
   </div>
 
-  <p class="footer">Practice tool, not a live ranking service. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns. Player order is a frozen 2026 training pool based on our current work. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement.</p>
+  <p class="footer">Practice tool, not a live ranking service. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns. Player order is a frozen 2026 training pool based on our current work. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement. v4.0 adds a 3-minute per-pick countdown plus an always-visible version badge; it retains search, filters, sorting, and full player view.</p>
 </div>
 
 <script>
@@ -239,13 +296,67 @@ const profile={
 };
 
 let state;
+let availableUI={pos:'ALL',showAll:false,search:'',sort:'rank'};
+const PICK_SECONDS=180;
+let timerSeconds=PICK_SECONDS;
+let timerPaused=false;
+let timerInterval=null;
 
 function roundForPick(p){return Math.floor((p-1)/10)+1}
 function slotForPick(p){const r=roundForPick(p),w=(p-1)%10;return r%2===1?w:9-w}
 function teamForPick(p){return teams[slotForPick(p)]}
 function mine(p){return teamForPick(p)==='MMazz3117'}
+function formatTimer(sec){
+ const m=Math.floor(sec/60);
+ const s=sec%60;
+ return `${m}:${String(s).padStart(2,'0')}`;
+}
+function updateTimerDisplay(){
+ const el=document.getElementById('pickTimer');
+ const status=document.getElementById('timerStatus');
+ if(!el||!status)return;
+ el.textContent=formatTimer(timerSeconds);
+ el.classList.toggle('warning',timerSeconds>0&&timerSeconds<=30);
+ el.classList.toggle('expired',timerSeconds===0);
+ if(state && state.pick>150){
+   status.textContent='Draft complete.';
+ }else if(timerSeconds===0){
+   status.textContent='Time expired — make the pick or reset the clock.';
+ }else if(timerPaused){
+   status.textContent='Timer paused.';
+ }else{
+   status.textContent='Resets automatically every time the current pick changes.';
+ }
+ const pauseBtn=document.getElementById('timerPauseBtn');
+ if(pauseBtn)pauseBtn.textContent=timerPaused?'Resume':'Pause';
+}
+function restartPickTimer(){
+ timerSeconds=PICK_SECONDS;
+ timerPaused=false;
+ updateTimerDisplay();
+}
+function togglePickTimer(){
+ timerPaused=!timerPaused;
+ updateTimerDisplay();
+}
+function startTimerLoop(){
+ if(timerInterval)clearInterval(timerInterval);
+ timerInterval=setInterval(()=>{
+   if(timerPaused || !state || state.pick>150)return;
+   if(timerSeconds>0){
+     timerSeconds--;
+     updateTimerDisplay();
+   }
+ },1000);
+}
+
 function reset(){
  state={pick:1,drafted:[],available:players.map(p=>({...p})),rosters:Object.fromEntries(teams.map(t=>[t,[]]))};
+ availableUI={pos:'ALL',showAll:false,search:'',sort:'rank'};
+ const search=document.getElementById('playerSearch'); if(search) search.value='';
+ const sort=document.getElementById('sortAvailable'); if(sort) sort.value='rank';
+ document.querySelectorAll('#positionFilters button').forEach(b=>b.classList.toggle('active',b.dataset.pos==='ALL'));
+ restartPickTimer();
  render();
 }
 function counts(team){
@@ -257,6 +368,7 @@ function take(player,team,pick){
  state.available=state.available.filter(p=>p.name!==player.name);
  const item={...player,team,pick,round:roundForPick(pick)};
  state.drafted.push(item);state.rosters[team].push(item);state.pick++;
+ restartPickTimer();
 }
 
 function needsWeight(pos,c,round){
@@ -364,6 +476,7 @@ function currentBrief(){
  const turn=state.pick<=150?`overall ${state.pick}, Round ${roundForPick(state.pick)}, ${teamForPick(state.pick)} on clock`:'draft complete';
  const research=`League research to use: 10-team full PPR with 2 FLEX. Historical room: exactly 8 RBs gone by pick 20 in each of 2023-25; usually 2-3 QBs by pick 20, about 6 by pick 40, about 8 by pick 60; only 0-1 TEs by pick 20, then a TE run between 40 and 60. FgFluet and josh1975 are strong RB-drain threats. generaljjj is a strong early-QB threat. Kzma is the main elite-TE threat. SuperSaiyan has the strongest multi-year scoring profile and has paid for early QB. User has had injury-heavy seasons, so early secure volume and later upside/injury resilience matter. Playoffs Weeks 15-17.`;
  return `CURRENT MOCK STATE
+Trainer version: v4.0
 Scenario: ${sc}
 Turn: ${turn}
 My roster (${c.QB} QB, ${c.RB} RB, ${c.WR} WR, ${c.TE} TE, ${c.DST} DEF, ${c.K} K): ${mineRoster}
@@ -379,12 +492,48 @@ Please make the recommendation using this league-specific research, not generic 
 
 function renderAvailable(){
  const box=document.getElementById('available');box.innerHTML='';
- state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,16).forEach(p=>{
+
+ const q=(availableUI.search||'').trim().toLowerCase();
+ let list=state.available.slice();
+
+ if(availableUI.pos!=='ALL') list=list.filter(p=>p.pos===availableUI.pos);
+ if(q) list=list.filter(p=>p.name.toLowerCase().includes(q));
+
+ if(availableUI.sort==='name'){
+   list.sort((a,b)=>a.name.localeCompare(b.name)||a.rank-b.rank);
+ }else if(availableUI.sort==='posrank'){
+   const order={QB:0,RB:1,WR:2,TE:3,DST:4,K:5};
+   list.sort((a,b)=>(order[a.pos]??9)-(order[b.pos]??9)||a.rank-b.rank);
+ }else{
+   list.sort((a,b)=>a.rank-b.rank);
+ }
+
+ const total=list.length;
+ const visible=availableUI.showAll?list:list.slice(0,16);
+
+ document.getElementById('availableCount').textContent =
+   availableUI.showAll ? `${total} available shown` : `${Math.min(16,total)} of ${total} shown`;
+
+ const showAllBtn=document.getElementById('showAllBtn');
+ showAllBtn.textContent=availableUI.showAll?'Show top 16':'Show all available';
+ showAllBtn.disabled=total<=16;
+
+ visible.forEach(p=>{
    const row=document.createElement('div');row.className='player';
    row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}</div><div class="player-sub">${p.pos} · practice rank ${p.rank}</div></div>`;
-   if(mine(state.pick)&&state.pick<=150){const b=document.createElement('button');b.className='draftbtn';b.textContent='Draft';b.addEventListener('click',()=>draftMe(p.name));row.appendChild(b)}
+   if(mine(state.pick)&&state.pick<=150){
+     const b=document.createElement('button');
+     b.className='draftbtn';
+     b.textContent='Draft';
+     b.addEventListener('click',()=>draftMe(p.name));
+     row.appendChild(b);
+   }
    box.appendChild(row);
  });
+
+ if(!visible.length){
+   box.innerHTML='<div class="muted" style="font-size:13px;padding:8px 2px">No available players match this filter.</div>';
+ }
 }
 function renderRoster(){
  const box=document.getElementById('roster');box.innerHTML='';const r=state.rosters.MMazz3117;
@@ -445,7 +594,31 @@ document.getElementById('compactToggle').addEventListener('change',applyView);
 document.getElementById('focusToggle').addEventListener('change',applyView);
 document.getElementById('copyBtn').addEventListener('click',copyBrief);
 document.getElementById('shareBtn').addEventListener('click',shareBrief);
+document.getElementById('timerPauseBtn').addEventListener('click',togglePickTimer);
+document.getElementById('timerResetBtn').addEventListener('click',restartPickTimer);
+
+document.getElementById('playerSearch').addEventListener('input',e=>{
+ availableUI.search=e.target.value;
+ renderAvailable();
+});
+document.getElementById('sortAvailable').addEventListener('change',e=>{
+ availableUI.sort=e.target.value;
+ renderAvailable();
+});
+document.getElementById('showAllBtn').addEventListener('click',()=>{
+ availableUI.showAll=!availableUI.showAll;
+ renderAvailable();
+});
+document.querySelectorAll('#positionFilters button').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+   availableUI.pos=btn.dataset.pos;
+   document.querySelectorAll('#positionFilters button').forEach(b=>b.classList.toggle('active',b===btn));
+   renderAvailable();
+ });
+});
+
 reset();
+startTimerLoop();
 </script>
 </body>
 </html>
