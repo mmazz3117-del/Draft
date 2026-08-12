@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
+<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v4.1</title>
+<style>
+:root{
+  --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
+  --border:#2a3658; --accent:#4f86ff; --accent-soft:#1c2e57;
+  --rb:#45c486; --wr:#59a8ff; --qb:#f05a8d; --te:#f0b44c; --dst:#d17b55; --k:#a99bf4;
+  --cell:102px; --font:13px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body{padding:14px 14px 42px}
+.wrap{max-width:1220px;margin:0 auto}
+h1{font-size:24px;margin:0 0 4px} h2{font-size:18px;margin:0 0 10px} h3{font-size:16px;margin:0 0 8px}
+.sub,.muted{color:var(--muted)} .sub{font-size:14px}
+.grid{display:grid;gap:12px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:14px}
+.metric,.card,.node,.player,.callout,.pick,.voicebox{background:var(--card);border:1px solid var(--border);border-radius:14px}
+.metric{padding:12px}.metric .label{font-size:12px;color:var(--muted)}.metric .value{font-size:27px;font-weight:800;margin-top:4px}.metric .detail{font-size:12px;color:var(--muted);margin-top:3px}
+.card{padding:14px;margin-top:14px}
+.controls{grid-template-columns:repeat(2,minmax(0,1fr))}
+label{font-size:13px;color:var(--muted);display:block}
+select,button,input,textarea{font:inherit}
+select{width:100%;margin-top:6px;background:#0f1730;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:11px 12px;font-size:16px}
+button{border:1px solid var(--border);background:#10182f;color:var(--text);border-radius:12px;padding:11px 12px;font-size:15px;font-weight:700}
+button.primary{background:var(--accent);border-color:var(--accent)}
+button:disabled{opacity:.45}
+.btns{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:12px}.btns .wide{grid-column:1/-1}
+.checkline{display:flex;align-items:center;gap:9px;color:var(--text);font-size:14px;margin-top:10px}
+.callout{padding:14px;border-left:5px solid var(--accent);background:var(--accent-soft);margin-top:14px}
+.callout .title{font-weight:800}.callout .body{margin-top:7px;line-height:1.4;color:#dce5ff}
+.two{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:16px}
+.player{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 11px;margin-bottom:8px}
+.player-name{font-weight:800}.player-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.avail-controls{display:grid;grid-template-columns:1.15fr .85fr;gap:8px;margin-bottom:10px}
+.avail-controls input,.avail-controls select{width:100%;background:#0f1730;color:var(--text);border:1px solid var(--border);border-radius:11px;padding:9px 10px;font-size:14px}
+.posfilters{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-bottom:8px}
+.posfilters button{padding:7px 5px;font-size:12px}
+.posfilters button.active{background:var(--accent);border-color:var(--accent)}
+.avail-meta{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin:6px 1px 9px}
+.avail-meta button{padding:6px 9px;font-size:12px}
+.posdot{display:inline-block;width:9px;height:9px;border-radius:99px;margin-right:7px;vertical-align:1px}
+.draftbtn{padding:8px 11px;white-space:nowrap}
+.counts{grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:10px}
+.count{border:1px solid var(--border);background:#10182f;border-radius:11px;text-align:center;padding:8px 4px;font-size:12px}
+.count .n{font-size:20px;font-weight:800;margin-top:2px}
+.boardtop{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px}
+.boardhelp{font-size:12px;color:var(--muted)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px}
+.roundrow{display:grid;grid-template-columns:repeat(10,var(--cell));gap:4px;width:max-content;margin-bottom:4px}
+.pick{min-height:72px;padding:6px;font-size:var(--font);overflow:hidden}
+.pick.mine{outline:2px solid var(--accent);outline-offset:-2px}
+.meta{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pname{font-weight:800;line-height:1.15;margin-top:5px}
+.compact .pick{min-height:57px;padding:5px}.compact .teamlabel{display:none}.compact .pname{margin-top:3px}
+.scouts{grid-template-columns:repeat(3,minmax(0,1fr))}
+.node{padding:10px}.node .nm{font-weight:800}.node .tell{font-size:12px;color:var(--muted);line-height:1.35;margin-top:4px}
+.voicebox{padding:12px;margin-top:14px}
+textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px;line-height:1.42;font-size:14px;resize:vertical}
+.voice-actions{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:10px}
+.research{grid-template-columns:repeat(2,minmax(0,1fr))}
+.research .node{font-size:13px;line-height:1.4}
+.badge{display:inline-block;background:#20345f;border:1px solid var(--border);border-radius:999px;padding:3px 8px;font-size:11px;margin-right:5px}
+.version-badge{display:inline-block;vertical-align:3px;background:#20345f;border:1px solid var(--border);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:800;margin-left:6px;color:#dce5ff}
+.timerbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px}
+.timer-left{display:flex;align-items:center;gap:12px;min-width:0}
+.timer-clock{font-size:30px;font-weight:900;letter-spacing:.5px;min-width:84px}
+.timer-clock.warning{color:#ffd166}
+.timer-clock.expired{color:#ff6b6b}
+.timer-copy{min-width:0}
+.timer-title{font-weight:800}
+.timer-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.timer-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.timer-actions button{padding:8px 10px;font-size:13px}
+.syncgrid{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
+.syncgrid input{width:100%;background:#0f1730;color:var(--text);border:1px solid var(--border);border-radius:11px;padding:10px 11px;font-size:15px}
+.syncstatus{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
+.syncstatus.ok{color:#bff4d8}.syncstatus.err{color:#ffb3b3}
+.footer{font-size:12px;color:var(--muted);line-height:1.4;margin-top:16px}
+.hidden{display:none!important}
+@media(max-width:760px){
+  body{padding:12px 10px 36px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .controls,.two,.scouts,.research{grid-template-columns:1fr}.btns,.voice-actions{grid-template-columns:1fr}.btns .wide{grid-column:auto}
+  .counts{grid-template-columns:repeat(3,minmax(0,1fr))}.avail-controls{grid-template-columns:1fr}.posfilters{grid-template-columns:repeat(4,minmax(0,1fr))}.timerbar{align-items:flex-start}.timer-actions{flex-direction:column}.timer-actions button{width:100%}.syncgrid{grid-template-columns:1fr}h1{font-size:21px}
+}
+</style>
+</head>
+<body>
+<div id="app" class="wrap compact">
+  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v4.1</span></h1>
+  <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation</p>
+
+  <div class="timerbar" aria-live="polite">
+    <div class="timer-left">
+      <div id="pickTimer" class="timer-clock">3:00</div>
+      <div class="timer-copy">
+        <div class="timer-title">3-minute pick timer</div>
+        <div id="timerStatus" class="timer-sub">Resets automatically every time the current pick changes.</div>
+      </div>
+    </div>
+    <div class="timer-actions">
+      <button id="timerPauseBtn" type="button">Pause</button>
+      <button id="timerResetBtn" type="button">Reset 3:00</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Sleeper live sync <span class="badge">draft night</span></h2>
+    <p class="muted" style="font-size:12px;margin:0 0 10px">
+      Pull completed picks directly from Sleeper's public draft API. During mocks, leave Live mode off.
+    </p>
+    <div class="syncgrid">
+      <label>Draft ID
+        <input id="sleeperDraftId" inputmode="numeric" value="1312088920657268736" placeholder="Sleeper draft ID">
+      </label>
+      <button id="sleeperSyncBtn" type="button">Sync now</button>
+    </div>
+    <label class="checkline"><input id="sleeperLiveToggle" type="checkbox"> Live mode — auto-sync every 5 seconds</label>
+    <div id="sleeperSyncStatus" class="syncstatus">Not connected. The mock simulator is controlling the board.</div>
+  </div>
+
+  <div id="summary" class="grid stats">
+    <div class="metric"><div class="label">Your picks</div><div class="value">1 / 20-21</div><div class="detail">then 40-41, 60-61…</div></div>
+    <div class="metric"><div class="label">Roster</div><div class="value">15</div><div class="detail">QB, 2 RB, 2 WR, TE, 2 FLEX, DEF, K, 5 bench</div></div>
+    <div class="metric"><div class="label">Historic RBs by 20</div><div class="value">8</div><div class="detail">exactly in each 2023–25 draft</div></div>
+    <div class="metric"><div class="label">Historic QBs by 20</div><div class="value">2–3</div><div class="detail">room tends to pay up early</div></div>
+  </div>
+
+  <div class="card">
+    <div class="grid controls">
+      <label>Opponent behavior
+        <select id="scenario">
+          <option value="baseline">Baseline history</option>
+          <option value="qbRush">Early QB rush</option>
+          <option value="rbRush">Heavy RB squeeze</option>
+          <option value="teSwipe">Elite TE disappears</option>
+          <option value="chaos">Chaos / mixed reaches</option>
+        </select>
+      </label>
+      <label>Your 1.01 plan
+        <select id="openingPlan">
+          <option value="rb">Elite RB first</option>
+          <option value="wr">Elite WR first</option>
+          <option value="best">No preset / best value</option>
+        </select>
+      </label>
+    </div>
+
+    <div style="margin-top:10px">
+      <label>Board width: <span id="zoomLabel">80%</span></label>
+      <input id="zoomRange" type="range" min="58" max="112" value="80">
+    </div>
+
+    <label class="checkline"><input id="compactToggle" type="checkbox" checked> Compact board</label>
+    <label class="checkline"><input id="focusToggle" type="checkbox"> Focus mode (hide scouting/research)</label>
+
+    <div class="grid btns">
+      <button id="autoBtn" class="primary" type="button">Auto-pick to my turn</button>
+      <button id="oneBtn" type="button">One opponent pick</button>
+      <button id="resetBtn" class="wide" type="button">Reset mock</button>
+    </div>
+  </div>
+
+  <div id="status" class="callout" aria-live="polite"></div>
+
+  <div class="voicebox">
+    <h2>Voice brief</h2>
+    <p class="muted" style="font-size:12px;margin-bottom:8px">This updates automatically. Read it aloud to Voice, share a screenshot, or use Share/Copy. It includes the research context Voice should use for the current decision.</p>
+    <textarea id="voiceBrief" readonly></textarea>
+    <div class="grid voice-actions">
+      <button id="copyBtn" type="button">Copy brief</button>
+      <button id="shareBtn" type="button">Share brief</button>
+    </div>
+  </div>
+
+  <div id="rosterArea" class="grid two">
+    <div>
+      <h2>Best available</h2>
+
+      <div class="avail-controls">
+        <input id="playerSearch" type="search" placeholder="Search player…">
+        <select id="sortAvailable" aria-label="Sort available players">
+          <option value="rank">Sort: practice rank</option>
+          <option value="posrank">Sort: position then rank</option>
+          <option value="name">Sort: name A–Z</option>
+        </select>
+      </div>
+
+      <div id="positionFilters" class="posfilters">
+        <button type="button" data-pos="ALL" class="active">All</button>
+        <button type="button" data-pos="QB">QB</button>
+        <button type="button" data-pos="RB">RB</button>
+        <button type="button" data-pos="WR">WR</button>
+        <button type="button" data-pos="TE">TE</button>
+        <button type="button" data-pos="DST">DEF</button>
+        <button type="button" data-pos="K">K</button>
+      </div>
+
+      <div class="avail-meta">
+        <span id="availableCount"></span>
+        <button id="showAllBtn" type="button">Show all available</button>
+      </div>
+
+      <div id="available"></div>
+    </div>
+    <div>
+      <h2>Your roster</h2>
+      <div class="grid counts">
+        <div class="count">QB<div id="cQB" class="n">0</div></div>
+        <div class="count">RB<div id="cRB" class="n">0</div></div>
+        <div class="count">WR<div id="cWR" class="n">0</div></div>
+        <div class="count">TE<div id="cTE" class="n">0</div></div>
+        <div class="count">DEF<div id="cDST" class="n">0</div></div>
+        <div class="count">K<div id="cK" class="n">0</div></div>
+      </div>
+      <div id="roster"></div>
+    </div>
+  </div>
+
+  <div class="boardtop">
+    <h2>15-round draft board</h2>
+    <div class="boardhelp">Pinch-zoom / rotate · swipe sideways if needed</div>
+  </div>
+  <div class="scroll"><div id="board"></div></div>
+
+  <div id="researchArea">
+    <h2>Research embedded in the trainer</h2>
+    <div class="grid research">
+      <div class="node"><span class="badge">Room pattern</span>RBs gone by pick 20: <b>8 in 2023, 8 in 2024, 8 in 2025.</b> That is why an elite RB start remains attractive.</div>
+      <div class="node"><span class="badge">QB market</span>Your room took roughly <b>2–3 QBs by pick 20, ~6 by pick 40, ~8 by pick 60</b>. Baseline mode is now explicitly calibrated to reproduce that early-QB pressure more often.</div>
+      <div class="node"><span class="badge">TE market</span>Usually <b>0–1 TE by pick 20</b>, around <b>3 by pick 40</b>, then a run before pick 60. If Bowers/McBride miss 20/21, 40/41 is the Loveland/Warren pivot.</div>
+      <div class="node"><span class="badge">Construction</span>Because you start <b>2 FLEX</b>, RB/WR depth is highly usable. After QB + TE are secured, favor RB/WR ceiling over backup QB/TE.</div>
+      <div class="node"><span class="badge">Injury resilience</span>Your past seasons have been injury-heavy. We cannot predict injuries, so early picks emphasize <b>secure volume</b>; bench picks emphasize players whose roles can jump sharply.</div>
+      <div class="node"><span class="badge">Waivers</span>You and generaljjj have had high waiver activity partly from injuries, so transaction count is not treated as pure drafting style.</div>
+      <div class="node"><span class="badge">Playoffs</span>Your postseason runs <b>Weeks 15–17</b>. Bye weeks are a tiebreaker, not a reason to pass a clearly better player.</div>
+      <div class="node"><span class="badge">Late rounds</span>Do not spend early/mid picks on K/DEF. Default plan is to fill them in the <b>final two rounds</b>, unless the board forces something unusual.</div>
+    </div>
+
+    <h2 style="margin-top:16px">Opponent tells</h2>
+    <div class="grid scouts">
+      <div class="node"><div class="nm">DubsV · #2/#19</div><div class="tell">2025 from same slot: RB → Jalen Hurts. Elevated QB probability near #19.</div></div>
+      <div class="node"><div class="nm">generaljjj · #3/#18</div><div class="tell">First QB: R2, R3, R2. Strong early-QB signal.</div></div>
+      <div class="node"><div class="nm">FgFluet · #4/#17</div><div class="tell">2025 champion. Started RB-RB-RB last year; major RB-drain threat.</div></div>
+      <div class="node"><div class="nm">josh1975 · #5/#16</div><div class="tell">RB in Round 1 three straight years; RB-RB in the last two.</div></div>
+      <div class="node"><div class="nm">reliving… · #6/#15</div><div class="tell">QB timing R4, R2, R3. Moderate early-QB tendency.</div></div>
+      <div class="node"><div class="nm">JamesJoynt · #7/#14</div><div class="tell">WR-heavy openings and generally later quarterback.</div></div>
+      <div class="node"><div class="nm">Kzma · #8/#13</div><div class="tell">Waits on QB, but spent 2.10 on Bowers in 2025. Main elite-TE threat.</div></div>
+      <div class="node"><div class="nm">SuperSaiyan · #9/#12</div><div class="tell">Best multi-year scoring profile; went Puka → Josh Allen in 2025.</div></div>
+      <div class="node"><div class="nm">TeamJbot · #10/#11</div><div class="tell">Usually WR early, then RB. Controls the 10/11 turn.</div></div>
+    </div>
+  </div>
+
+  <p class="footer">Practice tool, not a live ranking service. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns and now includes roster-depth guardrails so CPU teams do not hoard running backs. Player order is a frozen 2026 training pool based on our current work. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement. v4.1 expands the late-round RB pool, prevents unrealistic CPU RB hoarding, removes retired Amari Cooper, and adds optional Sleeper live draft syncing; it retains the timer, search, filters, sorting, and full player view.</p>
+</div>
+
+<script>
+const teams=['MMazz3117','DubsV','generaljjj','FgFluet','josh1975','reliving…','JamesJoynt','Kzma','SuperSaiyan','TeamJbot'];
+const COLORS={RB:'var(--rb)',WR:'var(--wr)',QB:'var(--qb)',TE:'var(--te)',DST:'var(--dst)',K:'var(--k)'};
+
+const raw=[
+['Jahmyr Gibbs','RB'],['Bijan Robinson','RB'],["Ja'Marr Chase",'WR'],['Puka Nacua','WR'],['Christian McCaffrey','RB'],
+['Jaxon Smith-Njigba','WR'],['CeeDee Lamb','WR'],['Amon-Ra St. Brown','WR'],['Justin Jefferson','WR'],['Drake London','WR'],
+['Jonathan Taylor','RB'],['Saquon Barkley','RB'],['Ashton Jeanty','RB'],['Trey McBride','TE'],["De'Von Achane",'RB'],
+['James Cook','RB'],['Chase Brown','RB'],['Omarion Hampton','RB'],['Jeremiyah Love','RB'],['A.J. Brown','WR'],
+['Brock Bowers','TE'],['Rashee Rice','WR'],['Kenneth Walker III','RB'],['Nico Collins','WR'],['Malik Nabers','WR'],
+['George Pickens','WR'],['Chris Olave','WR'],['Tee Higgins','WR'],['Josh Allen','QB'],['Breece Hall','RB'],
+['Josh Jacobs','RB'],['Kyren Williams','RB'],['Bucky Irving','RB'],['Javonte Williams','RB'],['Tetairoa McMillan','WR'],
+['Lamar Jackson','QB'],['Garrett Wilson','WR'],['Ladd McConkey','WR'],['Zay Flowers','WR'],['DeVonta Smith','WR'],
+['Colston Loveland','TE'],['TreVeyon Henderson','RB'],['Tyler Warren','TE'],['Drake Maye','QB'],['Joe Burrow','QB'],
+['Jayden Daniels','QB'],['Jalen Hurts','QB'],['Rome Odunze','WR'],['D.J. Moore','WR'],['Emeka Egbuka','WR'],
+['Caleb Williams','QB'],['Jaylen Waddle','WR'],['Davante Adams','WR'],['Jordan Addison','WR'],['Jadarian Price','RB'],
+['Jaylen Warren','RB'],["D'Andre Swift",'RB'],['Tony Pollard','RB'],['Rhamondre Stevenson','RB'],['Chuba Hubbard','RB'],
+['Rico Dowdle','RB'],['R.J. Harvey','RB'],['Xavier Worthy','WR'],['Stefon Diggs','WR'],['WanDale Robinson','WR'],
+['Matthew Golden','WR'],['Jalen Coker','WR'],['Carnell Tate','WR'],['Jordyn Tyson','WR'],['Denzel Boston','WR'],
+['Omar Cooper Jr.','WR'],['Keaton Mitchell','RB'],['Rachaad White','RB'],['Brian Robinson Jr.','RB'],['Jordan Mason','RB'],
+['Jonah Coleman','RB'],['Emmett Johnson','RB'],['Tank Bigsby','RB'],['Will Shipley','RB'],['Dameon Pierce','RB'],
+['Jaydon Blue','RB'],['Phil Mafah','RB'],['Ray Davis','RB'],['Braelon Allen','RB'],['Tyjae Spears','RB'],
+['Jaylen Wright','RB'],['Ollie Gordon II','RB'],['Bhayshul Tuten','RB'],['Dylan Sampson','RB'],['Kyle Monangai','RB'],
+['Jarquez Hunter','RB'],['Devin Neal','RB'],['Tahj Brooks','RB'],['Jacory Croskey-Merritt','RB'],['Isaac Guerendo','RB'],
+['Kendre Miller','RB'],['MarShawn Lloyd','RB'],['Roschon Johnson','RB'],['Kenneth Gainwell','RB'],['Emanuel Wilson','RB'],
+['Kimani Vidal','RB'],['Audric Estime','RB'],['Trevor Etienne','RB'],['LeQuint Allen','RB'],['Zach Charbonnet','RB'],['Travis Etienne','RB'],['J.K. Dobbins','RB'],['Isaiah Pacheco','RB'],['Aaron Jones','RB'],
+['Alvin Kamara','RB'],['Cam Skattebo','RB'],['Kaleb Johnson','RB'],['Tyrone Tracy Jr.','RB'],['Quinshon Judkins','RB'],
+['James Conner','RB'],['Tyler Allgeier','RB'],['Jonathan Brooks','RB'],['Woody Marks','RB'],['Chris Rodriguez Jr.','RB'],
+['Blake Corum','RB'],['Javonte Williams','RB'],['Austin Ekeler','RB'],['Derrick Henry','RB'],['Najee Harris','RB'],
+['Courtland Sutton','WR'],['Terry McLaurin','WR'],['Mike Evans','WR'],['Chris Godwin','WR'],['Christian Watson','WR'],
+['Michael Pittman Jr.','WR'],['Ricky Pearsall','WR'],['Khalil Shakir','WR'],['Jameson Williams','WR'],['Calvin Ridley','WR'],
+['Brian Thomas Jr.','WR'],['DJ Moore','WR'],['Jakobi Meyers','WR'],['Deebo Samuel','WR'],['Josh Downs','WR'],
+['Jauan Jennings','WR'],['Jerry Jeudy','WR'],['Rashid Shaheed','WR'],['Marvin Harrison Jr.','WR'],['Tyler Lockett','WR'],
+['Romeo Doubs','WR'],['Joshua Palmer','WR'],['Quentin Johnston','WR'],['Luther Burden','WR'],
+['Parker Washington','WR'],['Michael Wilson','WR'],['Cooper Kupp','WR'],['Travis Hunter','WR'],['Keenan Allen','WR'],
+['Patrick Mahomes','QB'],['Justin Herbert','QB'],['Jordan Love','QB'],['Jared Goff','QB'],['Brock Purdy','QB'],
+['Trevor Lawrence','QB'],['Dak Prescott','QB'],['Bo Nix','QB'],['Baker Mayfield','QB'],['C.J. Stroud','QB'],
+['Tua Tagovailoa','QB'],['Justin Fields','QB'],['George Kittle','TE'],['Dalton Kincaid','TE'],['Jake Ferguson','TE'],
+['Travis Kelce','TE'],['Hunter Henry','TE'],['Dallas Goedert','TE'],['David Njoku','TE'],['Kyle Pitts','TE'],
+['T.J. Hockenson','TE'],['Sam LaPorta','TE'],['Mark Andrews','TE'],['Cole Kmet','TE'],['Tucker Kraft','TE'],
+['Isaiah Likely','TE'],['Jonnu Smith','TE'],['Brenton Strange','TE'],['Harold Fannin Jr.','TE'],['Mason Taylor','TE'],
+['Steelers','DST'],['Chiefs','DST'],['Jaguars','DST'],['Giants','DST'],['Chargers','DST'],['Packers','DST'],
+['Rams','DST'],['Texans','DST'],['Seahawks','DST'],['Eagles','DST'],['Bills','DST'],['Lions','DST'],
+['Vikings','DST'],['Ravens','DST'],['Broncos','DST'],['49ers','DST'],['Jets','DST'],['Cowboys','DST'],
+['Brandon Aubrey','K'],['Cameron Dicker','K'],['Jason Myers','K'],['Harrison Mevis','K'],['Andy Borregales','K'],
+["Ka'imi Fairbairn",'K'],['Harrison Butker','K'],['Jake Elliott','K'],['Chris Boswell','K'],['Jake Bates','K'],
+['Tyler Bass','K'],['Younghoe Koo','K'],['Brandon McManus','K'],['Daniel Carlson','K'],['Chase McLaughlin','K']
+];
+const players=raw.map((x,i)=>({name:x[0],pos:x[1],rank:i+1}));
+
+const profile={
+'DubsV':{early:['RB','QB','WR'],qb:1.60,rb:1.05,wr:.95,te:.8},
+'generaljjj':{early:['WR','QB','RB'],qb:1.85,rb:.95,wr:1,te:.8},
+'FgFluet':{early:['RB','RB','WR'],qb:.85,rb:1.45,wr:.9,te:.85},
+'josh1975':{early:['RB','RB','WR'],qb:.85,rb:1.55,wr:.9,te:.85},
+'reliving…':{early:['WR','QB','RB'],qb:1.50,rb:.95,wr:1,te:.9},
+'JamesJoynt':{early:['WR','RB','WR'],qb:.75,rb:.95,wr:1.25,te:.85},
+'Kzma':{early:['WR','TE','RB'],qb:.55,rb:.95,wr:1.15,te:1.5},
+'SuperSaiyan':{early:['WR','QB','RB'],qb:1.60,rb:.95,wr:1.15,te:.85},
+'TeamJbot':{early:['WR','RB','WR'],qb:.75,rb:1.1,wr:1.2,te:.85}
+};
+
+let state;
+let availableUI={pos:'ALL',showAll:false,search:'',sort:'rank'};
+const PICK_SECONDS=180;
+let timerSeconds=PICK_SECONDS;
+let timerPaused=false;
+let timerInterval=null;
+
+let sleeperLiveMode=false;
+let sleeperPollInterval=null;
+let lastSleeperPickNo=0;
+
+function roundForPick(p){return Math.floor((p-1)/10)+1}
+function slotForPick(p){const r=roundForPick(p),w=(p-1)%10;return r%2===1?w:9-w}
+function teamForPick(p){return teams[slotForPick(p)]}
+function mine(p){return teamForPick(p)==='MMazz3117'}
+function formatTimer(sec){
+ const m=Math.floor(sec/60);
+ const s=sec%60;
+ return `${m}:${String(s).padStart(2,'0')}`;
+}
+function updateTimerDisplay(){
+ const el=document.getElementById('pickTimer');
+ const status=document.getElementById('timerStatus');
+ if(!el||!status)return;
+ el.textContent=formatTimer(timerSeconds);
+ el.classList.toggle('warning',timerSeconds>0&&timerSeconds<=30);
+ el.classList.toggle('expired',timerSeconds===0);
+ if(state && state.pick>150){
+   status.textContent='Draft complete.';
+ }else if(timerSeconds===0){
+   status.textContent='Time expired — make the pick or reset the clock.';
+ }else if(timerPaused){
+   status.textContent='Timer paused.';
+ }else{
+   status.textContent='Resets automatically every time the current pick changes.';
+ }
+ const pauseBtn=document.getElementById('timerPauseBtn');
+ if(pauseBtn)pauseBtn.textContent=timerPaused?'Resume':'Pause';
+}
+function restartPickTimer(){
+ timerSeconds=PICK_SECONDS;
+ timerPaused=false;
+ updateTimerDisplay();
+}
+function togglePickTimer(){
+ timerPaused=!timerPaused;
+ updateTimerDisplay();
+}
+function startTimerLoop(){
+ if(timerInterval)clearInterval(timerInterval);
+ timerInterval=setInterval(()=>{
+   if(timerPaused || !state || state.pick>150)return;
+   if(timerSeconds>0){
+     timerSeconds--;
+     updateTimerDisplay();
+   }
+ },1000);
+}
+
+
+function sleeperNameFromPick(p){
+ const m=p.metadata||{};
+ const pos=(m.position||'').toUpperCase();
+ if(pos==='DEF' || pos==='DST'){
+   return m.team ? `${m.team} Defense` : (m.last_name||m.first_name||'Defense');
+ }
+ const full=[m.first_name,m.last_name].filter(Boolean).join(' ').trim();
+ return full || m.player_id || 'Unknown player';
+}
+function normalizePlayerName(s){
+ return String(s||'').toLowerCase()
+   .replace(/defense|d\/st|dst/g,'')
+   .replace(/[^a-z0-9]/g,'');
+}
+function findPracticePlayer(name,pos){
+ const n=normalizePlayerName(name);
+ let exact=state.available.find(x=>normalizePlayerName(x.name)===n);
+ if(exact)return exact;
+
+ // Sleeper may return III/II suffixes or team-defense labels differently.
+ exact=state.available.find(x=>{
+   const a=normalizePlayerName(x.name), b=n;
+   return x.pos===pos && (a===b || a.replace(/iii$|ii$|jr$/,'')===b.replace(/iii$|ii$|jr$/,''));
+ });
+ return exact||null;
+}
+function setSleeperStatus(msg,type=''){
+ const el=document.getElementById('sleeperSyncStatus');
+ if(!el)return;
+ el.textContent=msg;
+ el.classList.remove('ok','err');
+ if(type)el.classList.add(type);
+}
+async function syncSleeperDraft(){
+ const id=(document.getElementById('sleeperDraftId').value||'').trim();
+ if(!id){setSleeperStatus('Enter a Sleeper draft ID first.','err');return;}
+
+ setSleeperStatus('Syncing picks from Sleeper…');
+ try{
+   const r=await fetch(`https://api.sleeper.app/v1/draft/${encodeURIComponent(id)}/picks`,{cache:'no-store'});
+   if(!r.ok)throw new Error(`HTTP ${r.status}`);
+   const picks=await r.json();
+   if(!Array.isArray(picks))throw new Error('Unexpected Sleeper response');
+
+   const before=lastSleeperPickNo;
+
+   // In live mode, Sleeper is the source of truth. Rebuild from completed picks.
+   const freshAvailable=players.map(p=>({...p}));
+   const freshRosters=Object.fromEntries(teams.map(t=>[t,[]]));
+   const freshDrafted=[];
+
+   const sorted=picks.slice().sort((a,b)=>(a.pick_no||0)-(b.pick_no||0));
+   for(const sp of sorted){
+     const pickNo=Number(sp.pick_no);
+     if(!pickNo || pickNo>150)continue;
+     const posRaw=((sp.metadata||{}).position||'').toUpperCase();
+     const pos=posRaw==='DEF'?'DST':posRaw;
+     const nm=sleeperNameFromPick(sp);
+
+     // Search the fresh pool so taken players disappear from Best Available.
+     const n=normalizePlayerName(nm);
+     let pi=freshAvailable.findIndex(x=>normalizePlayerName(x.name)===n);
+     if(pi<0){
+       pi=freshAvailable.findIndex(x=>{
+         if(x.pos!==pos)return false;
+         const a=normalizePlayerName(x.name).replace(/iii$|ii$|jr$/,'');
+         const b=n.replace(/iii$|ii$|jr$/,'');
+         return a===b;
+       });
+     }
+
+     let base;
+     if(pi>=0){
+       base=freshAvailable.splice(pi,1)[0];
+     }else{
+       base={name:nm,pos:pos||'WR',rank:999};
+     }
+
+     const team=teamForPick(pickNo);
+     const item={...base,team,pick:pickNo,round:Number(sp.round)||roundForPick(pickNo)};
+     freshDrafted.push(item);
+     freshRosters[team].push(item);
+   }
+
+   state.drafted=freshDrafted;
+   state.rosters=freshRosters;
+   state.available=freshAvailable;
+   lastSleeperPickNo=sorted.length ? Math.max(...sorted.map(x=>Number(x.pick_no)||0)) : 0;
+   state.pick=Math.min(151,lastSleeperPickNo+1);
+
+   if(lastSleeperPickNo!==before)restartPickTimer();
+   render();
+
+   const next=state.pick<=150 ? ` Next: #${state.pick} (${teamForPick(state.pick)}).` : ' Draft complete.';
+   setSleeperStatus(`Synced ${lastSleeperPickNo} completed pick${lastSleeperPickNo===1?'':'s'}.${next}`,'ok');
+ }catch(err){
+   setSleeperStatus(`Sleeper sync failed: ${err.message}. If Safari blocks the API, keep using screenshots/Voice Brief as the fallback.`,'err');
+ }
+}
+function setSleeperLiveMode(on){
+ sleeperLiveMode=!!on;
+ if(sleeperPollInterval){clearInterval(sleeperPollInterval);sleeperPollInterval=null;}
+ if(sleeperLiveMode){
+   syncSleeperDraft();
+   sleeperPollInterval=setInterval(syncSleeperDraft,5000);
+ }else{
+   setSleeperStatus('Live mode off. The mock simulator is controlling the board.');
+ }
+ render();
+}
+
+function reset(){
+ sleeperLiveMode=false;
+ lastSleeperPickNo=0;
+ if(sleeperPollInterval){clearInterval(sleeperPollInterval);sleeperPollInterval=null;}
+ const liveToggle=document.getElementById('sleeperLiveToggle'); if(liveToggle)liveToggle.checked=false;
+ state={pick:1,drafted:[],available:players.map(p=>({...p})),rosters:Object.fromEntries(teams.map(t=>[t,[]]))};
+ availableUI={pos:'ALL',showAll:false,search:'',sort:'rank'};
+ const search=document.getElementById('playerSearch'); if(search) search.value='';
+ const sort=document.getElementById('sortAvailable'); if(sort) sort.value='rank';
+ document.querySelectorAll('#positionFilters button').forEach(b=>b.classList.toggle('active',b.dataset.pos==='ALL'));
+ restartPickTimer();
+ render();
+}
+function counts(team){
+ const c={QB:0,RB:0,WR:0,TE:0,DST:0,K:0};
+ state.rosters[team].forEach(p=>c[p.pos]++);
+ return c;
+}
+function take(player,team,pick){
+ state.available=state.available.filter(p=>p.name!==player.name);
+ const item={...player,team,pick,round:roundForPick(pick)};
+ state.drafted.push(item);state.rosters[team].push(item);state.pick++;
+ restartPickTimer();
+}
+
+function needsWeight(pos,c,round){
+ let w=1;
+ if(pos==='QB'){w=c.QB?0.12:(round<=2?.45:round<=6?1.3:1.05)}
+ if(pos==='TE'){w=c.TE?0.12:(round<=2?.45:round<=6?1.2:1.0)}
+ if(pos==='RB'){w=(c.RB<2?1.35:c.RB<4?1.08:c.RB===4?.55:.12)}
+ if(pos==='WR'){w=(c.WR<2?1.35:c.WR<4?1.08:c.WR<6?.88:.32)}
+ if(pos==='DST'){w=round<11?0.03:round<13?.25:round<15?1.25:1.7;if(c.DST)w=.01}
+ if(pos==='K'){w=round<12?0.02:round<14?.15:round<15?.9:1.8;if(c.K)w=.01}
+
+ // Hard/soft roster guardrails for a 10-team, 1-QB league.
+ // This prevents CPU teams from vacuuming up an unrealistic number of RBs.
+ if(pos==='RB' && c.RB>=6) return .001;
+ if(pos==='WR' && c.WR>=7) return .001;
+ if(pos==='QB' && c.QB>=2) return .001;
+ if(pos==='TE' && c.TE>=2) return .001;
+ if(pos==='DST' && c.DST>=1) return .001;
+ if(pos==='K' && c.K>=1) return .001;
+
+ // Before the late rounds, strongly prefer useful RB/WR depth over backup QB/TE.
+ if(round<11 && pos==='QB' && c.QB>=1) w*=.18;
+ if(round<11 && pos==='TE' && c.TE>=1) w*=.18;
+
+ return w;
+}
+function draftedByPos(pos,throughPick){
+ return state.drafted.filter(x=>x.pos===pos && x.pick<=throughPick).length;
+}
+
+function choice(team,pick){
+ const round=roundForPick(pick),sc=document.getElementById('scenario').value;
+ const prof=profile[team]||{early:['WR','RB','WR'],qb:1,rb:1,wr:1,te:1};
+ const c=counts(team);
+ let bias={QB:prof.qb,RB:prof.rb,WR:prof.wr,TE:prof.te,DST:1,K:1};
+
+ if(round<=3&&prof.early[round-1])bias[prof.early[round-1]]*=1.75;
+
+ // League-specific calibration from the 2023-2025 boards.
+ // Baseline target: usually 2-3 QBs by pick 20, about 8 RBs by pick 20,
+ // and only 0-1 TEs by pick 20.
+ if(sc==='baseline' && pick<=20){
+   const qbGone=draftedByPos('QB',pick-1);
+   const rbGone=draftedByPos('RB',pick-1);
+   const teGone=draftedByPos('TE',pick-1);
+
+   // Managers with repeat early-QB behavior get a stronger push at their
+   // second-round turns if the room has not yet reached its normal QB count.
+   if(['SuperSaiyan','reliving…','generaljjj','DubsV'].includes(team)){
+     if(pick>=12 && qbGone<2) bias.QB*=2.25;
+     else if(pick>=15 && qbGone<3) bias.QB*=1.70;
+     else bias.QB*=1.15;
+   }
+
+   // Protect the historical RB drain without forcing every specific manager.
+   if(rbGone<7 && pick>=14) bias.RB*=1.18;
+   if(rbGone>=9) bias.RB*=0.78;
+
+   // Kzma is the clearest elite-TE threat; otherwise suppress a second
+   // first-20 TE unless the room has not taken one yet.
+   if(team==='Kzma' && teGone===0 && pick>=13) bias.TE*=1.85;
+   else if(teGone>=1) bias.TE*=0.55;
+ }
+
+ if(sc==='qbRush'&&round<=4)bias.QB*=2.05;
+ if(sc==='rbRush'&&round<=4)bias.RB*=1.75;
+ if(sc==='teSwipe'&&round<=4)bias.TE*=1.85;
+ if(sc==='chaos')Object.keys(bias).forEach(k=>bias[k]*=.72+Math.random()*1.45);
+
+ const pool=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,32);
+ let best=pool[0],bestScore=-1e9;
+ for(const p of pool){
+   let base=220-p.rank;
+   let s=base*(bias[p.pos]||1)*needsWeight(p.pos,c,round)*(.9+Math.random()*.2);
+   if(round<=1&&(p.pos==='QB'||p.pos==='TE'))s*=.55;
+   if(round<=10&&(p.pos==='DST'||p.pos==='K'))s*=.2;
+   if(s>bestScore){bestScore=s;best=p}
+ }
+ return best;
+}
+function autoToMine(){
+ if(sleeperLiveMode)return;
+ while(state.pick<=150&&!mine(state.pick)){const t=teamForPick(state.pick);take(choice(t,state.pick),t,state.pick)}
+ render();
+}
+function one(){if(sleeperLiveMode||state.pick>150||mine(state.pick))return;const t=teamForPick(state.pick);take(choice(t,state.pick),t,state.pick);render()}
+function draftMe(name){if(sleeperLiveMode||!mine(state.pick))return;const p=state.available.find(x=>x.name===name);if(!p)return;take(p,'MMazz3117',state.pick);render()}
+
+function strategyAdvice(){
+ if(state.pick>150)return'Full 15-round mock complete.';
+ if(!mine(state.pick))return`Pick ${state.pick}: ${teamForPick(state.pick)} is on the clock.`;
+ const p=state.pick,r=roundForPick(p),c=counts('MMazz3117');
+ if(p===1){
+   const op=document.getElementById('openingPlan').value;
+   return op==='rb'?'Default: elite RB first. Gibbs/Bijan path preserves flexibility at 20/21.'
+      :op==='wr'?'WR-first test: take the elite WR, but recognize RB pressure at 20/21.'
+      :'Compare elite RB and WR paths without forcing position.';
+ }
+ if(p===20||p===21)return'At 20/21: take the room’s mistake. Prefer a fallen WR plus the best RB/TE/WR value. Do not force a predetermined pair.';
+ if(p===40||p===41){
+   if(!c.QB&&!c.TE)return'Key fork: premium QB vs. Loveland/Warren vs. falling RB/WR. Your room tends to drain QB before 60.';
+   if(!c.QB)return'Premium-QB decision window. If the premium tier is gone, do not panic-chase QB7.';
+   if(!c.TE)return'Planned TE pivot window. Loveland/Warren-type value is preferable to forcing TE later.';
+   return'QB and TE are set. Hammer RB/WR value.';
+ }
+ if(p===60||p===61)return'Favor RB/WR starter depth. If QB or TE is still empty, address only if the value tier is appropriate.';
+ if(p===80||p===81)return'Build FLEX and injury resilience: target RB/WR with secure role or clear path to a workload jump.';
+ if(p===100||p===101)return'Bench upside phase. Prefer asymmetric RB/WR bets over backup QB/TE.';
+ if(p===120||p===121)return'Continue upside bench construction. Avoid K/DEF unless the skill-player board is unusually weak.';
+ if(p===140||p===141)return'Final turn: default to DEF + K, unless one is already filled.';
+ if(r>=11)return'Late rounds: prioritize RB/WR upside, then finish DEF/K. Avoid low-ceiling backup QB/TE.';
+ return'Favor RB/WR value and reliable weekly volume. Bye weeks are a tiebreaker.';
+}
+
+function currentBrief(){
+ const c=counts('MMazz3117');
+ const mineRoster=state.rosters.MMazz3117.map(x=>`${x.pos} ${x.name} (#${x.pick})`).join(', ')||'none yet';
+ const top=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,10).map(x=>`${x.name} (${x.pos})`).join(', ');
+ const sc=document.getElementById('scenario').selectedOptions[0].text;
+ const turn=state.pick<=150?`overall ${state.pick}, Round ${roundForPick(state.pick)}, ${teamForPick(state.pick)} on clock`:'draft complete';
+ const research=`League research to use: 10-team full PPR with 2 FLEX. Historical room: exactly 8 RBs gone by pick 20 in each of 2023-25; usually 2-3 QBs by pick 20, about 6 by pick 40, about 8 by pick 60; only 0-1 TEs by pick 20, then a TE run between 40 and 60. FgFluet and josh1975 are strong RB-drain threats. generaljjj is a strong early-QB threat. Kzma is the main elite-TE threat. SuperSaiyan has the strongest multi-year scoring profile and has paid for early QB. User has had injury-heavy seasons, so early secure volume and later upside/injury resilience matter. Playoffs Weeks 15-17.`;
+ return `CURRENT MOCK STATE
+Trainer version: v4.1
+Board source: ${sleeperLiveMode?'Sleeper live sync':'mock simulator'}
+Scenario: ${sc}
+Turn: ${turn}
+My roster (${c.QB} QB, ${c.RB} RB, ${c.WR} WR, ${c.TE} TE, ${c.DST} DEF, ${c.K} K): ${mineRoster}
+Top available: ${top}
+
+STRATEGY FOR THIS TURN
+${strategyAdvice()}
+
+${research}
+
+Please make the recommendation using this league-specific research, not generic ADP alone.`;
+}
+
+function renderAvailable(){
+ const box=document.getElementById('available');box.innerHTML='';
+
+ const q=(availableUI.search||'').trim().toLowerCase();
+ let list=state.available.slice();
+
+ if(availableUI.pos!=='ALL') list=list.filter(p=>p.pos===availableUI.pos);
+ if(q) list=list.filter(p=>p.name.toLowerCase().includes(q));
+
+ if(availableUI.sort==='name'){
+   list.sort((a,b)=>a.name.localeCompare(b.name)||a.rank-b.rank);
+ }else if(availableUI.sort==='posrank'){
+   const order={QB:0,RB:1,WR:2,TE:3,DST:4,K:5};
+   list.sort((a,b)=>(order[a.pos]??9)-(order[b.pos]??9)||a.rank-b.rank);
+ }else{
+   list.sort((a,b)=>a.rank-b.rank);
+ }
+
+ const total=list.length;
+ const visible=availableUI.showAll?list:list.slice(0,16);
+
+ document.getElementById('availableCount').textContent =
+   availableUI.showAll ? `${total} available shown` : `${Math.min(16,total)} of ${total} shown`;
+
+ const showAllBtn=document.getElementById('showAllBtn');
+ showAllBtn.textContent=availableUI.showAll?'Show top 16':'Show all available';
+ showAllBtn.disabled=total<=16;
+
+ visible.forEach(p=>{
+   const row=document.createElement('div');row.className='player';
+   row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}</div><div class="player-sub">${p.pos} · practice rank ${p.rank}</div></div>`;
+   if(!sleeperLiveMode&&mine(state.pick)&&state.pick<=150){
+     const b=document.createElement('button');
+     b.className='draftbtn';
+     b.textContent='Draft';
+     b.addEventListener('click',()=>draftMe(p.name));
+     row.appendChild(b);
+   }
+   box.appendChild(row);
+ });
+
+ if(!visible.length){
+   box.innerHTML='<div class="muted" style="font-size:13px;padding:8px 2px">No available players match this filter.</div>';
+ }
+}
+function renderRoster(){
+ const box=document.getElementById('roster');box.innerHTML='';const r=state.rosters.MMazz3117;
+ if(!r.length)box.innerHTML='<div class="muted" style="font-size:13px">No selections yet.</div>';
+ r.forEach(p=>{const row=document.createElement('div');row.className='player';row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}</div><div class="player-sub">${p.pos} · overall ${p.pick}</div></div>`;box.appendChild(row)});
+ const c=counts('MMazz3117');['QB','RB','WR','TE','DST','K'].forEach(x=>document.getElementById('c'+x).textContent=c[x]);
+}
+function picksForRound(r){
+ const s=(r-1)*10+1,e=r*10,a=[];
+ if(r%2===1){for(let p=s;p<=e;p++)a.push(p)}else{for(let p=e;p>=s;p--)a.push(p)}
+ return a;
+}
+function renderBoard(){
+ const board=document.getElementById('board');board.innerHTML='';
+ for(let r=1;r<=15;r++){
+   const row=document.createElement('div');row.className='roundrow';
+   picksForRound(r).forEach(p=>{
+     const cell=document.createElement('div');cell.className='pick'+(mine(p)?' mine':'');
+     const item=state.drafted.find(x=>x.pick===p),team=teamForPick(p);
+     if(item)cell.innerHTML=`<div class="meta">R${r} · ${p}<span class="teamlabel"> · ${team}</span></div><div class="pname"><span class="posdot" style="background:${COLORS[item.pos]}"></span>${item.name}</div>`;
+     else cell.innerHTML=`<div class="meta">R${r} · ${p}<span class="teamlabel"> · ${team}</span></div><div class="pname">—</div>`;
+     row.appendChild(cell);
+   });
+   board.appendChild(row);
+ }
+}
+function applyView(){
+ const z=Number(document.getElementById('zoomRange').value);document.getElementById('zoomLabel').textContent=z+'%';
+ const app=document.getElementById('app');app.style.setProperty('--cell',Math.round(128*z/100)+'px');app.style.setProperty('--font',Math.max(10,Math.round(15*z/100))+'px');
+ app.classList.toggle('compact',document.getElementById('compactToggle').checked);
+ const f=document.getElementById('focusToggle').checked;['summary','researchArea'].forEach(id=>document.getElementById(id).classList.toggle('hidden',f));
+}
+function render(){
+ document.getElementById('status').innerHTML=`<div class="title">${state.pick<=150?'Current pick: '+state.pick+' · '+teamForPick(state.pick):'Draft complete'}</div><div class="body">${strategyAdvice()}</div>`;
+ document.getElementById('voiceBrief').value=currentBrief();
+ renderAvailable();renderRoster();renderBoard();applyView();
+ document.getElementById('oneBtn').disabled=sleeperLiveMode||mine(state.pick)||state.pick>150;
+ document.getElementById('autoBtn').disabled=sleeperLiveMode||mine(state.pick)||state.pick>150;
+}
+async function copyBrief(){
+ const text=document.getElementById('voiceBrief').value;
+ try{await navigator.clipboard.writeText(text);alert('Voice brief copied.');}
+ catch(e){document.getElementById('voiceBrief').focus();document.getElementById('voiceBrief').select();alert('Clipboard was blocked. The brief is selected so you can copy it manually.');}
+}
+async function shareBrief(){
+ const text=document.getElementById('voiceBrief').value;
+ if(navigator.share){try{await navigator.share({title:'Fantasy draft voice brief',text});}catch(e){}}
+ else{copyBrief()}
+}
+
+document.getElementById('autoBtn').addEventListener('click',autoToMine);
+document.getElementById('oneBtn').addEventListener('click',one);
+document.getElementById('resetBtn').addEventListener('click',reset);
+document.getElementById('scenario').addEventListener('change',reset);
+document.getElementById('openingPlan').addEventListener('change',render);
+document.getElementById('zoomRange').addEventListener('input',applyView);
+document.getElementById('compactToggle').addEventListener('change',applyView);
+document.getElementById('focusToggle').addEventListener('change',applyView);
+document.getElementById('copyBtn').addEventListener('click',copyBrief);
+document.getElementById('shareBtn').addEventListener('click',shareBrief);
+document.getElementById('timerPauseBtn').addEventListener('click',togglePickTimer);
+document.getElementById('timerResetBtn').addEventListener('click',restartPickTimer);
+document.getElementById('sleeperSyncBtn').addEventListener('click',syncSleeperDraft);
+document.getElementById('sleeperLiveToggle').addEventListener('change',e=>setSleeperLiveMode(e.target.checked));
+
+document.getElementById('playerSearch').addEventListener('input',e=>{
+ availableUI.search=e.target.value;
+ renderAvailable();
+});
+document.getElementById('sortAvailable').addEventListener('change',e=>{
+ availableUI.sort=e.target.value;
+ renderAvailable();
+});
+document.getElementById('showAllBtn').addEventListener('click',()=>{
+ availableUI.showAll=!availableUI.showAll;
+ renderAvailable();
+});
+document.querySelectorAll('#positionFilters button').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+   availableUI.pos=btn.dataset.pos;
+   document.querySelectorAll('#positionFilters button').forEach(b=>b.classList.toggle('active',b===btn));
+   renderAvailable();
+ });
+});
+
+reset();
+startTimerLoop();
+</script>
+</body>
+</html>
