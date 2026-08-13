@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v4.1</title>
+<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v4.2</title>
 <style>
 :root{
   --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
@@ -91,8 +91,8 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v4.1</span></h1>
-  <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation</p>
+  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v4.2</span></h1>
+  <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market snapshot Aug. 12, 2026</p>
 
   <div class="timerbar" aria-live="polite">
     <div class="timer-left">
@@ -184,7 +184,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
       <div class="avail-controls">
         <input id="playerSearch" type="search" placeholder="Search player…">
         <select id="sortAvailable" aria-label="Sort available players">
-          <option value="rank">Sort: practice rank</option>
+          <option value="rank">Sort: market rank</option>
           <option value="posrank">Sort: position then rank</option>
           <option value="name">Sort: name A–Z</option>
         </select>
@@ -238,6 +238,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
       <div class="node"><span class="badge">Waivers</span>You and generaljjj have had high waiver activity partly from injuries, so transaction count is not treated as pure drafting style.</div>
       <div class="node"><span class="badge">Playoffs</span>Your postseason runs <b>Weeks 15–17</b>. Bye weeks are a tiebreaker, not a reason to pass a clearly better player.</div>
       <div class="node"><span class="badge">Late rounds</span>Do not spend early/mid picks on K/DEF. Default plan is to fill them in the <b>final two rounds</b>, unless the board forces something unusual.</div>
+      <div class="node"><span class="badge">v4.2 market fix</span>Best Available and CPU drafting now use a refreshed market-rank layer. Major corrections include Travis Etienne, Cam Skattebo, Quinshon Judkins, Terry McLaurin and D.J. Moore moving up, while Xavier Worthy, Emmett Johnson, MarShawn Lloyd and Roschon Johnson move down.</div>
     </div>
 
     <h2 style="margin-top:16px">Opponent tells</h2>
@@ -254,7 +255,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     </div>
   </div>
 
-  <p class="footer">Practice tool, not a live ranking service. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns and now includes roster-depth guardrails so CPU teams do not hoard running backs. Player order is a frozen 2026 training pool based on our current work. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement. v4.1 expands the late-round RB pool, prevents unrealistic CPU RB hoarding, removes retired Amari Cooper, and adds optional Sleeper live draft syncing; it retains the timer, search, filters, sorting, and full player view.</p>
+  <p class="footer">Practice tool, not a live ranking service. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns and now includes roster-depth guardrails so CPU teams do not hoard running backs. Player order uses a frozen Aug. 12, 2026 PPR market snapshot with explicit corrections for players that were badly mispriced in prior mocks. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement. v4.2 refreshes player-market ordering, corrects the mid/late-round RB and WR values exposed by our test mocks, de-duplicates the pool, and keeps Sleeper live sync, roster guardrails, timer, search, filters and sorting.</p>
 </div>
 
 <script>
@@ -288,7 +289,7 @@ const raw=[
 ['Blake Corum','RB'],['Javonte Williams','RB'],['Austin Ekeler','RB'],['Derrick Henry','RB'],['Najee Harris','RB'],
 ['Courtland Sutton','WR'],['Terry McLaurin','WR'],['Mike Evans','WR'],['Chris Godwin','WR'],['Christian Watson','WR'],
 ['Michael Pittman Jr.','WR'],['Ricky Pearsall','WR'],['Khalil Shakir','WR'],['Jameson Williams','WR'],['Calvin Ridley','WR'],
-['Brian Thomas Jr.','WR'],['DJ Moore','WR'],['Jakobi Meyers','WR'],['Deebo Samuel','WR'],['Josh Downs','WR'],
+['Brian Thomas Jr.','WR'],['Jakobi Meyers','WR'],['Deebo Samuel','WR'],['Josh Downs','WR'],
 ['Jauan Jennings','WR'],['Jerry Jeudy','WR'],['Rashid Shaheed','WR'],['Marvin Harrison Jr.','WR'],['Tyler Lockett','WR'],
 ['Romeo Doubs','WR'],['Joshua Palmer','WR'],['Quentin Johnston','WR'],['Luther Burden','WR'],
 ['Parker Washington','WR'],['Michael Wilson','WR'],['Cooper Kupp','WR'],['Travis Hunter','WR'],['Keenan Allen','WR'],
@@ -305,7 +306,87 @@ const raw=[
 ["Ka'imi Fairbairn",'K'],['Harrison Butker','K'],['Jake Elliott','K'],['Chris Boswell','K'],['Jake Bates','K'],
 ['Tyler Bass','K'],['Younghoe Koo','K'],['Brandon McManus','K'],['Daniel Carlson','K'],['Chase McLaughlin','K']
 ];
-const players=raw.map((x,i)=>({name:x[0],pos:x[1],rank:i+1}));
+// v4.2 market snapshot.
+// These overrides correct the biggest stale-value problems exposed by our mocks.
+// They are a frozen draft-prep snapshot, not a live ranking feed.
+const MARKET_RANK={
+  'Jahmyr Gibbs':1,
+  'Bijan Robinson':2,
+  "Ja'Marr Chase":3,
+  'Puka Nacua':4,
+  'Jaxon Smith-Njigba':5,
+  'Christian McCaffrey':6,
+  'Jonathan Taylor':7,
+  'Amon-Ra St. Brown':8,
+  'James Cook':9,
+  'CeeDee Lamb':10,
+  'Justin Jefferson':11,
+  'Drake London':12,
+
+  'Trey McBride':18,
+  'Chase Brown':18.5,
+  'Rashee Rice':19,
+  'Brock Bowers':22,
+  "De'Von Achane":22.5,
+  'Omarion Hampton':23,
+  'Saquon Barkley':25,
+
+  'Josh Allen':23.5,
+  'Travis Etienne':35,
+  'Cam Skattebo':36,
+  'Lamar Jackson':38,
+  'Colston Loveland':44,
+  'Quinshon Judkins':45,
+  'Tyler Warren':48,
+
+  'Terry McLaurin':53,
+  'Drake Maye':54,
+  'D.J. Moore':54.5,
+  'Joe Burrow':58,
+  'Jayden Daniels':64,
+  'Kyle Pitts':66,
+  'Carnell Tate':67,
+  'Jalen Hurts':68,
+  'Tony Pollard':71,
+
+  'Ricky Pearsall':99,
+  'Kenneth Gainwell':100,
+  'Xavier Worthy':122,
+  'Khalil Shakir':125,
+  'Zach Charbonnet':126,
+  'Tyrone Tracy Jr.':128,
+  'Alvin Kamara':133,
+  'Isaiah Pacheco':137,
+
+  'Braelon Allen':166,
+  'James Conner':170,
+  'Emmett Johnson':187,
+  'MarShawn Lloyd':266,
+  'Roschon Johnson':300,
+  'Trevor Etienne':377
+};
+
+function playerKey(name){
+ return String(name||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+}
+
+// Remove accidental duplicate spellings (for example D.J. Moore / DJ Moore)
+// before the player pool is built.
+const seenPlayerKeys=new Set();
+const players=raw
+ .filter(x=>{
+   const k=playerKey(x[0]);
+   if(seenPlayerKeys.has(k))return false;
+   seenPlayerKeys.add(k);
+   return true;
+ })
+ .map((x,i)=>({
+   name:x[0],
+   pos:x[1],
+   sourceRank:i+1,
+   rank:MARKET_RANK[x[0]] ?? (i+1)
+ }));
+
 
 const profile={
 'DubsV':{early:['RB','QB','WR'],qb:1.60,rb:1.05,wr:.95,te:.8},
@@ -582,10 +663,12 @@ function choice(team,pick){
  if(sc==='teSwipe'&&round<=4)bias.TE*=1.85;
  if(sc==='chaos')Object.keys(bias).forEach(k=>bias[k]*=.72+Math.random()*1.45);
 
- const pool=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,32);
+ const pool=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,round>=9?52:36);
  let best=pool[0],bestScore=-1e9;
  for(const p of pool){
-   let base=220-p.rank;
+   // Market rank drives value. Use a smooth positive curve so players ranked
+   // beyond 220 still remain draftable rather than producing negative scores.
+   let base=260/(1+Math.max(0,p.rank-1)/55);
    let s=base*(bias[p.pos]||1)*needsWeight(p.pos,c,round)*(.9+Math.random()*.2);
    if(round<=1&&(p.pos==='QB'||p.pos==='TE'))s*=.55;
    if(round<=10&&(p.pos==='DST'||p.pos==='K'))s*=.2;
@@ -635,7 +718,8 @@ function currentBrief(){
  const turn=state.pick<=150?`overall ${state.pick}, Round ${roundForPick(state.pick)}, ${teamForPick(state.pick)} on clock`:'draft complete';
  const research=`League research to use: 10-team full PPR with 2 FLEX. Historical room: exactly 8 RBs gone by pick 20 in each of 2023-25; usually 2-3 QBs by pick 20, about 6 by pick 40, about 8 by pick 60; only 0-1 TEs by pick 20, then a TE run between 40 and 60. FgFluet and josh1975 are strong RB-drain threats. generaljjj is a strong early-QB threat. Kzma is the main elite-TE threat. SuperSaiyan has the strongest multi-year scoring profile and has paid for early QB. User has had injury-heavy seasons, so early secure volume and later upside/injury resilience matter. Playoffs Weeks 15-17.`;
  return `CURRENT MOCK STATE
-Trainer version: v4.1
+Trainer version: v4.2
+Market snapshot: Aug. 12, 2026 PPR values
 Board source: ${sleeperLiveMode?'Sleeper live sync':'mock simulator'}
 Scenario: ${sc}
 Turn: ${turn}
@@ -680,7 +764,7 @@ function renderAvailable(){
 
  visible.forEach(p=>{
    const row=document.createElement('div');row.className='player';
-   row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}</div><div class="player-sub">${p.pos} · practice rank ${p.rank}</div></div>`;
+   row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}</div><div class="player-sub">${p.pos} · market rank ${p.rank}</div></div>`;
    if(!sleeperLiveMode&&mine(state.pick)&&state.pick<=150){
      const b=document.createElement('button');
      b.className='draftbtn';
