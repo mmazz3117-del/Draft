@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v4.7</title>
+<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v4.8</title>
 <style>
 :root{
   --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
@@ -110,7 +110,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v4.7</span></h1>
+  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v4.8</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market refresh Aug. 16, 2026 + Champion Process + calibrated room model</p>
 
   <div class="timerbar" aria-live="polite">
@@ -135,7 +135,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card">
     <h2>Sleeper live sync <span class="badge">draft night</span></h2>
     <p class="muted" style="font-size:12px;margin:0 0 10px">
-      Pull completed picks directly from Sleeper's public draft API. During mocks, leave Live mode off.
+      Pull completed picks directly from Sleeper's public draft API. In Live mode, make picks in Sleeper; the trainer is the analysis layer.
     </p>
     <div class="syncgrid">
       <label>Draft ID
@@ -149,10 +149,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player-rank refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v4.7 uses our current PPR market corrections first, then Sleeper's player search rank as a fallback for the rest of the pool.
+      v4.8 uses our current PPR market corrections first, then Sleeper's player search rank as a fallback. Live sync now canonicalizes Sleeper D/ST abbreviations and common player-name aliases.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper player ranks</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using embedded v4.7 ranks. Sleeper fallback has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using embedded v4.8 ranks. Sleeper fallback has not been refreshed yet.</div>
   </div>
 
   <div id="summary" class="grid stats">
@@ -218,7 +218,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
           ADP/rank is an opponent map — not an instruction sheet.
         </div>
       </div>
-      <div class="champion-pill">v4.7 decision layer</div>
+      <div class="champion-pill">v4.8 decision layer</div>
     </div>
     <div id="championList" class="champion-list"></div>
   </div>
@@ -277,17 +277,18 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <h2>Research embedded in the trainer</h2>
     <div class="grid research">
       <div class="node"><span class="badge">Room pattern</span>RBs gone by pick 20: <b>8 in 2023, 8 in 2024, 8 in 2025.</b> That is why an elite RB start remains attractive.</div>
-      <div class="node"><span class="badge">QB market</span>Your room took roughly <b>2–3 QBs by pick 20, ~6 by pick 40, ~8 by pick 60</b>. v4.7 adds room-level soft targets plus hard catch-up floors so elite QBs cannot unrealistically survive into the late rounds.</div>
+      <div class="node"><span class="badge">QB market</span>Your room took roughly <b>2–3 QBs by pick 20, ~6 by pick 40, ~8 by pick 60</b>. v4.8 adds room-level soft targets plus hard catch-up floors so elite QBs cannot unrealistically survive into the late rounds.</div>
       <div class="node"><span class="badge">TE market</span>Usually <b>0–1 TE by pick 20</b>, around <b>3 by pick 40</b>, then a run before pick 60. If Bowers/McBride miss 20/21, 40/41 is the Loveland/Warren pivot.</div>
       <div class="node"><span class="badge">Construction</span>Because you start <b>2 FLEX</b>, RB/WR depth is highly usable. After QB + TE are secured, favor RB/WR ceiling over backup QB/TE.</div>
       <div class="node"><span class="badge">Injury resilience</span>Your past seasons have been injury-heavy. We cannot predict injuries, so early picks emphasize <b>secure volume</b>; bench picks emphasize players whose roles can jump sharply.</div>
       <div class="node"><span class="badge">Waivers</span>You and generaljjj have had high waiver activity partly from injuries, so transaction count is not treated as pure drafting style.</div>
       <div class="node"><span class="badge">Playoffs</span>Your postseason runs <b>Weeks 15–17</b>. Bye weeks are a tiebreaker, not a reason to pass a clearly better player.</div>
       <div class="node"><span class="badge">Late rounds</span>Do not spend early/mid picks on K/DEF. Default plan is to fill them in the <b>final two rounds</b>, unless the board forces something unusual.</div>
-      <div class="node"><span class="badge">v4.7 hybrid ranks</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
+      <div class="node"><span class="badge">v4.8 hybrid ranks</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
       <div class="node"><span class="badge">Champion Process</span>Repeat-winner principles are now scored on every pick: market value, positional cliffs, estimated survival to your next turn, roster construction, and asymmetric upside. QB/TE run-chasing and redundant backups are penalized.</div>
-      <div class="node"><span class="badge">League QB scoring</span>v4.7 separates rushing-leverage QBs from pocket passers. With 4-point passing TDs and 6-point rushing TDs, Allen/Lamar/Daniels/Hurts-type profiles receive a meaningful boost; Mahomes/Burrow/Herbert-type profiles must win on value rather than generic QB-run pressure.</div>
-      <div class="node"><span class="badge">v4.7 calibration</span>Current anchors now include Brian Thomas Jr. and Jaxson Dart, refreshed QB market values, current top D/ST and kicker tiers, and a final-turn DEF+K pairing rule.</div>
+      <div class="node"><span class="badge">League QB scoring</span>v4.8 separates rushing-leverage QBs from pocket passers. With 4-point passing TDs and 6-point rushing TDs, Allen/Lamar/Daniels/Hurts-type profiles receive a meaningful boost; Mahomes/Burrow/Herbert-type profiles must win on value rather than generic QB-run pressure.</div>
+      <div class="node"><span class="badge">v4.8 calibration</span>Current anchors now include Brian Thomas Jr. and Jaxson Dart, refreshed QB market values, current top D/ST and kicker tiers, and a final-turn DEF+K pairing rule.</div>
+      <div class="node"><span class="badge">v4.8 live-sync fix</span>Sleeper D/ST abbreviations now map to trainer names (for example HOU → Texans, DEN → Broncos, NE → Patriots). Known player aliases such as Kenny/Kenneth Gainwell are canonicalized, unmatched Sleeper picks are surfaced, and confirmed season-long exclusions are removed from Best Available.</div>
     </div>
 
     <h2 style="margin-top:16px">Opponent tells</h2>
@@ -304,7 +305,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     </div>
   </div>
 
-  <p class="footer">Practice tool with a hybrid ranking layer; it is not a licensed live ADP feed. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns and now includes roster-depth guardrails so CPU teams do not hoard running backs. Player order uses a frozen Aug. 12, 2026 PPR market snapshot with explicit corrections for players that were badly mispriced in prior mocks. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement. v4.7 refreshes player-market ordering, corrects the mid/late-round RB and WR values exposed by our test mocks, de-duplicates the pool, and keeps Sleeper live sync, roster guardrails, timer, search, filters and sorting. v4.7 is a calibration release: stronger room-level QB depletion targets, mobile-QB preference for CPU teams under your scoring, refreshed major ranking anchors, Jaxson Dart and missing late-round D/ST/K options, and an explicit final-turn DEF+K pairing. It retains Champion Process, the resilient 3-minute timer/alarm, Sleeper live sync, daily rank refresh, roster guardrails, search, filters, sorting, Voice Brief, and the 15-round board.</p>
+  <p class="footer">Practice tool with a hybrid ranking layer; it is not a licensed live ADP feed. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns and now includes roster-depth guardrails so CPU teams do not hoard running backs. Player order uses a frozen Aug. 16, 2026 PPR market snapshot with explicit corrections for players that were badly mispriced in prior mocks. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement. v4.8 refreshes player-market ordering, corrects the mid/late-round RB and WR values exposed by our test mocks, de-duplicates the pool, and keeps Sleeper live sync, roster guardrails, timer, search, filters and sorting. v4.8 is a live-sync reliability release: canonical Sleeper D/ST mapping, a surgical player-alias layer, explicit warnings for Sleeper picks outside the local ranked pool, and confirmed season-long exclusions from Best Available. It retains the v4.7 room calibration, Champion Process, resilient 3-minute timer/alarm, Sleeper live sync, daily rank refresh, roster guardrails, search, filters, sorting, Voice Brief, and the 15-round board.</p>
 </div>
 
 <script>
@@ -355,7 +356,7 @@ const raw=[
 ["Ka'imi Fairbairn",'K'],['Harrison Butker','K'],['Jake Elliott','K'],['Chris Boswell','K'],['Jake Bates','K'],
 ['Tyler Bass','K'],['Younghoe Koo','K'],['Brandon McManus','K'],['Daniel Carlson','K'],['Chase McLaughlin','K']
 ];
-// v4.7 market snapshot.
+// v4.8 market snapshot.
 // These overrides correct the biggest stale-value problems exposed by our mocks.
 // They are a frozen draft-prep snapshot, not a live ranking feed.
 const MARKET_RANK={
@@ -408,7 +409,6 @@ const MARKET_RANK={
   'Kyle Monangai':91,
 
   // Late-round anchors uncovered during our tests
-  'Ricky Pearsall':99,
   'Kenneth Gainwell':100,
   'Quentin Johnston':108,
   'Xavier Worthy':122,
@@ -432,7 +432,7 @@ const MARKET_RANK={
   'Malachi Fields':245,
   'Kaytron Allen':305,
   'Robert Henry Jr.':325,
-  // v4.7 current calibration anchors
+  // v4.8 current calibration anchors
   "Josh Allen":31,
   "Lamar Jackson":42,
   "Drake Maye":52,
@@ -492,11 +492,19 @@ function rankSourceForPlayer(name){
  return 'fallback';
 }
 
-// Remove accidental duplicate spellings before the player pool is built.
+// Players who should never appear in Best Available for this redraft season.
+// Keep this deliberately small and explicit; update only for confirmed season-long absences.
+const EXCLUDED_PLAYERS=new Set([
+  playerKey('Ricky Pearsall')
+]);
+
+// Remove accidental duplicate spellings and confirmed season-long exclusions
+// before the player pool is built.
 const seenPlayerKeys=new Set();
 const players=raw
  .filter(x=>{
    const k=playerKey(x[0]);
+   if(EXCLUDED_PLAYERS.has(k))return false;
    if(seenPlayerKeys.has(k))return false;
    seenPlayerKeys.add(k);
    return true;
@@ -834,38 +842,77 @@ async function refreshSleeperPlayerRanks(force=true){
    const d=new Date(sleeperRankLastUpdated);
    setRankRefreshStatus(`Sleeper fallback ranks refreshed ${d.toLocaleString()}. Embedded PPR corrections still take priority.`,'ok');
  }catch(err){
-   setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded v4.7 PPR ranks are still active.`,'err');
+   setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded v4.8 PPR ranks are still active.`,'err');
  }finally{
    if(btn)btn.disabled=false;
  }
 }
 
-function sleeperNameFromPick(p){
- const m=p.metadata||{};
- const pos=(m.position||'').toUpperCase();
- if(pos==='DEF' || pos==='DST'){
-   return m.team ? `${m.team} Defense` : (m.last_name||m.first_name||'Defense');
- }
- const full=[m.first_name,m.last_name].filter(Boolean).join(' ').trim();
- return full || m.player_id || 'Unknown player';
-}
+const SLEEPER_DST_MAP={
+ ARI:'Cardinals',ATL:'Falcons',BAL:'Ravens',BUF:'Bills',CAR:'Panthers',CHI:'Bears',
+ CIN:'Bengals',CLE:'Browns',DAL:'Cowboys',DEN:'Broncos',DET:'Lions',GB:'Packers',
+ HOU:'Texans',IND:'Colts',JAX:'Jaguars',JAC:'Jaguars',KC:'Chiefs',LAC:'Chargers',
+ LAR:'Rams',LA:'Rams',LV:'Raiders',MIA:'Dolphins',MIN:'Vikings',NE:'Patriots',
+ NO:'Saints',NYG:'Giants',NYJ:'Jets',PHI:'Eagles',PIT:'Steelers',SEA:'Seahawks',
+ SF:'49ers',SFO:'49ers',TB:'Buccaneers',TEN:'Titans',WAS:'Commanders',WSH:'Commanders'
+};
+
+// Sleeper occasionally uses a nickname or shortened first name that differs
+// from the trainer's canonical display name. Keep aliases surgical, not fuzzy.
+const SLEEPER_PLAYER_ALIASES={
+ 'kennygainwell':'Kenneth Gainwell'
+};
+
 function normalizePlayerName(s){
  return String(s||'').toLowerCase()
    .replace(/defense|d\/st|dst/g,'')
    .replace(/[^a-z0-9]/g,'');
 }
-function findPracticePlayer(name,pos){
+
+function sleeperDefenseName(teamOrName){
+ const raw=String(teamOrName||'').trim();
+ const abbr=raw.toUpperCase().replace(/[^A-Z]/g,'');
+ if(SLEEPER_DST_MAP[abbr])return SLEEPER_DST_MAP[abbr];
+
+ // Handle forms such as "HOU Defense" if Sleeper metadata changes shape.
+ const normalized=normalizePlayerName(raw);
+ for(const [code,name] of Object.entries(SLEEPER_DST_MAP)){
+   if(normalized===normalizePlayerName(code) || normalized===normalizePlayerName(name))return name;
+ }
+ return raw || 'Defense';
+}
+
+function canonicalSleeperPlayerName(name,pos){
+ if(pos==='DST')return sleeperDefenseName(name);
  const n=normalizePlayerName(name);
+ return SLEEPER_PLAYER_ALIASES[n] || name;
+}
+
+function sleeperNameFromPick(p){
+ const m=p.metadata||{};
+ const posRaw=(m.position||'').toUpperCase();
+ const pos=(posRaw==='DEF' || posRaw==='DST') ? 'DST' : posRaw;
+ if(pos==='DST'){
+   return sleeperDefenseName(m.team || m.last_name || m.first_name || p.player_id);
+ }
+ const full=[m.first_name,m.last_name].filter(Boolean).join(' ').trim();
+ return canonicalSleeperPlayerName(full || m.player_id || 'Unknown player',pos);
+}
+
+function findPracticePlayer(name,pos){
+ const canonical=canonicalSleeperPlayerName(name,pos);
+ const n=normalizePlayerName(canonical);
  let exact=state.available.find(x=>normalizePlayerName(x.name)===n);
  if(exact)return exact;
 
- // Sleeper may return III/II suffixes or team-defense labels differently.
+ // Sleeper may return III/II/Jr suffixes differently.
  exact=state.available.find(x=>{
    const a=normalizePlayerName(x.name), b=n;
    return x.pos===pos && (a===b || a.replace(/iii$|ii$|jr$/,'')===b.replace(/iii$|ii$|jr$/,''));
  });
  return exact||null;
 }
+
 function setSleeperStatus(msg,type=''){
  const el=document.getElementById('sleeperSyncStatus');
  if(!el)return;
@@ -890,18 +937,21 @@ async function syncSleeperDraft(){
    const freshAvailable=players.map(p=>({...p}));
    const freshRosters=Object.fromEntries(teams.map(t=>[t,[]]));
    const freshDrafted=[];
+   const unmatched=[];
 
    const sorted=picks.slice().sort((a,b)=>(a.pick_no||0)-(b.pick_no||0));
    for(const sp of sorted){
      const pickNo=Number(sp.pick_no);
      if(!pickNo || pickNo>150)continue;
      const posRaw=((sp.metadata||{}).position||'').toUpperCase();
-     const pos=posRaw==='DEF'?'DST':posRaw;
-     const nm=sleeperNameFromPick(sp);
+     const pos=(posRaw==='DEF'||posRaw==='DST')?'DST':posRaw;
+     const nm=canonicalSleeperPlayerName(sleeperNameFromPick(sp),pos);
 
      // Search the fresh pool so taken players disappear from Best Available.
+     // D/ST abbreviations (HOU -> Texans, DEN -> Broncos, etc.) and known
+     // player aliases are canonicalized before this comparison.
      const n=normalizePlayerName(nm);
-     let pi=freshAvailable.findIndex(x=>normalizePlayerName(x.name)===n);
+     let pi=freshAvailable.findIndex(x=>x.pos===pos && normalizePlayerName(x.name)===n);
      if(pi<0){
        pi=freshAvailable.findIndex(x=>{
          if(x.pos!==pos)return false;
@@ -915,6 +965,9 @@ async function syncSleeperDraft(){
      if(pi>=0){
        base=freshAvailable.splice(pi,1)[0];
      }else{
+       // This can be legitimate if Sleeper drafts a deep player/defense that
+       // is outside our local ranked pool. Surface it so mismatches never hide.
+       unmatched.push(`#${pickNo} ${nm} (${pos||'?'})`);
        base={name:nm,pos:pos||'WR',rank:999};
      }
 
@@ -934,7 +987,13 @@ async function syncSleeperDraft(){
    render();
 
    const next=state.pick<=150 ? ` Next: #${state.pick} (${teamForPick(state.pick)}).` : ' Draft complete.';
-   setSleeperStatus(`Synced ${lastSleeperPickNo} completed pick${lastSleeperPickNo===1?'':'s'}.${next}`,'ok');
+   if(unmatched.length){
+     const preview=unmatched.slice(0,3).join(', ');
+     const more=unmatched.length>3?` +${unmatched.length-3} more`:'';
+     setSleeperStatus(`Synced ${lastSleeperPickNo} picks.${next} ${unmatched.length} Sleeper pick${unmatched.length===1?' is':'s are'} outside the local ranked pool: ${preview}${more}.`,'err');
+   }else{
+     setSleeperStatus(`Synced ${lastSleeperPickNo} completed pick${lastSleeperPickNo===1?'':'s'}.${next}`,'ok');
+   }
  }catch(err){
    setSleeperStatus(`Sleeper sync failed: ${err.message}. If Safari blocks the API, keep using screenshots/Voice Brief as the fallback.`,'err');
  }
@@ -1409,7 +1468,7 @@ function currentBrief(){
 
  const research=`League research to use: 10-team full PPR with 2 FLEX. Historical room: exactly 8 RBs gone by pick 20 in each of 2023-25; usually 2-3 QBs by pick 20, about 6 by pick 40, about 8 by pick 60; only 0-1 TEs by pick 20, then a TE run between 40 and 60. FgFluet and josh1975 are strong RB-drain threats. generaljjj is a strong early-QB threat. Kzma is the main elite-TE threat. SuperSaiyan has the strongest multi-year scoring profile and has paid for early QB. User has had injury-heavy seasons, so early secure volume and later upside/injury resilience matter. Playoffs Weeks 15-17.`;
  return `CURRENT MOCK STATE
-Trainer version: v4.7
+Trainer version: v4.8
 Market snapshot: Aug. 16, 2026 PPR refresh + Champion Process + calibrated room model
 Board source: ${sleeperLiveMode?'Sleeper live sync':'mock simulator'}
 Pick timer: deadline-based 3:00 countdown; ${alarmArmed?'alarm armed':'alarm not armed'}
