@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v4.6</title>
+<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v4.7</title>
 <style>
 :root{
   --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
@@ -110,8 +110,8 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v4.6</span></h1>
-  <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market snapshot Aug. 12, 2026 + Champion Process + league-scoring QB model</p>
+  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v4.7</span></h1>
+  <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market refresh Aug. 16, 2026 + Champion Process + calibrated room model</p>
 
   <div class="timerbar" aria-live="polite">
     <div class="timer-left">
@@ -149,10 +149,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player-rank refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v4.6 uses our current PPR market corrections first, then Sleeper's player search rank as a fallback for the rest of the pool.
+      v4.7 uses our current PPR market corrections first, then Sleeper's player search rank as a fallback for the rest of the pool.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper player ranks</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using embedded v4.6 ranks. Sleeper fallback has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using embedded v4.7 ranks. Sleeper fallback has not been refreshed yet.</div>
   </div>
 
   <div id="summary" class="grid stats">
@@ -218,7 +218,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
           ADP/rank is an opponent map — not an instruction sheet.
         </div>
       </div>
-      <div class="champion-pill">v4.6 decision layer</div>
+      <div class="champion-pill">v4.7 decision layer</div>
     </div>
     <div id="championList" class="champion-list"></div>
   </div>
@@ -277,16 +277,17 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <h2>Research embedded in the trainer</h2>
     <div class="grid research">
       <div class="node"><span class="badge">Room pattern</span>RBs gone by pick 20: <b>8 in 2023, 8 in 2024, 8 in 2025.</b> That is why an elite RB start remains attractive.</div>
-      <div class="node"><span class="badge">QB market</span>Your room took roughly <b>2–3 QBs by pick 20, ~6 by pick 40, ~8 by pick 60</b>. Baseline mode is now explicitly calibrated to reproduce that early-QB pressure more often.</div>
+      <div class="node"><span class="badge">QB market</span>Your room took roughly <b>2–3 QBs by pick 20, ~6 by pick 40, ~8 by pick 60</b>. v4.7 adds room-level soft targets plus hard catch-up floors so elite QBs cannot unrealistically survive into the late rounds.</div>
       <div class="node"><span class="badge">TE market</span>Usually <b>0–1 TE by pick 20</b>, around <b>3 by pick 40</b>, then a run before pick 60. If Bowers/McBride miss 20/21, 40/41 is the Loveland/Warren pivot.</div>
       <div class="node"><span class="badge">Construction</span>Because you start <b>2 FLEX</b>, RB/WR depth is highly usable. After QB + TE are secured, favor RB/WR ceiling over backup QB/TE.</div>
       <div class="node"><span class="badge">Injury resilience</span>Your past seasons have been injury-heavy. We cannot predict injuries, so early picks emphasize <b>secure volume</b>; bench picks emphasize players whose roles can jump sharply.</div>
       <div class="node"><span class="badge">Waivers</span>You and generaljjj have had high waiver activity partly from injuries, so transaction count is not treated as pure drafting style.</div>
       <div class="node"><span class="badge">Playoffs</span>Your postseason runs <b>Weeks 15–17</b>. Bye weeks are a tiebreaker, not a reason to pass a clearly better player.</div>
       <div class="node"><span class="badge">Late rounds</span>Do not spend early/mid picks on K/DEF. Default plan is to fill them in the <b>final two rounds</b>, unless the board forces something unusual.</div>
-      <div class="node"><span class="badge">v4.6 hybrid ranks</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
+      <div class="node"><span class="badge">v4.7 hybrid ranks</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
       <div class="node"><span class="badge">Champion Process</span>Repeat-winner principles are now scored on every pick: market value, positional cliffs, estimated survival to your next turn, roster construction, and asymmetric upside. QB/TE run-chasing and redundant backups are penalized.</div>
-      <div class="node"><span class="badge">League QB scoring</span>v4.6 separates rushing-leverage QBs from pocket passers. With 4-point passing TDs and 6-point rushing TDs, Allen/Lamar/Daniels/Hurts-type profiles receive a meaningful boost; Mahomes/Burrow/Herbert-type profiles must win on value rather than generic QB-run pressure.</div>
+      <div class="node"><span class="badge">League QB scoring</span>v4.7 separates rushing-leverage QBs from pocket passers. With 4-point passing TDs and 6-point rushing TDs, Allen/Lamar/Daniels/Hurts-type profiles receive a meaningful boost; Mahomes/Burrow/Herbert-type profiles must win on value rather than generic QB-run pressure.</div>
+      <div class="node"><span class="badge">v4.7 calibration</span>Current anchors now include Brian Thomas Jr. and Jaxson Dart, refreshed QB market values, current top D/ST and kicker tiers, and a final-turn DEF+K pairing rule.</div>
     </div>
 
     <h2 style="margin-top:16px">Opponent tells</h2>
@@ -303,7 +304,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     </div>
   </div>
 
-  <p class="footer">Practice tool with a hybrid ranking layer; it is not a licensed live ADP feed. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns and now includes roster-depth guardrails so CPU teams do not hoard running backs. Player order uses a frozen Aug. 12, 2026 PPR market snapshot with explicit corrections for players that were badly mispriced in prior mocks. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement. v4.6 refreshes player-market ordering, corrects the mid/late-round RB and WR values exposed by our test mocks, de-duplicates the pool, and keeps Sleeper live sync, roster guardrails, timer, search, filters and sorting. v4.6 adds a league-scoring QB model to Champion Process, separating elite rushing-leverage QBs from pocket passers so generic QB-run pressure cannot overrate Mahomes/Burrow-type profiles in this 4-pass-TD format. It retains the resilient 3-minute timer/alarm, Champion Process, Sleeper live sync, daily rank refresh, CPU roster guardrails, search, filters, sorting, Voice Brief, and the 15-round board.</p>
+  <p class="footer">Practice tool with a hybrid ranking layer; it is not a licensed live ADP feed. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns and now includes roster-depth guardrails so CPU teams do not hoard running backs. Player order uses a frozen Aug. 12, 2026 PPR market snapshot with explicit corrections for players that were badly mispriced in prior mocks. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement. v4.7 refreshes player-market ordering, corrects the mid/late-round RB and WR values exposed by our test mocks, de-duplicates the pool, and keeps Sleeper live sync, roster guardrails, timer, search, filters and sorting. v4.7 is a calibration release: stronger room-level QB depletion targets, mobile-QB preference for CPU teams under your scoring, refreshed major ranking anchors, Jaxson Dart and missing late-round D/ST/K options, and an explicit final-turn DEF+K pairing. It retains Champion Process, the resilient 3-minute timer/alarm, Sleeper live sync, daily rank refresh, roster guardrails, search, filters, sorting, Voice Brief, and the 15-round board.</p>
 </div>
 
 <script>
@@ -343,18 +344,18 @@ const raw=[
 ['Parker Washington','WR'],['Michael Wilson','WR'],['Cooper Kupp','WR'],['Travis Hunter','WR'],['Keenan Allen','WR'],
 ['Patrick Mahomes','QB'],['Justin Herbert','QB'],['Jordan Love','QB'],['Jared Goff','QB'],['Brock Purdy','QB'],
 ['Trevor Lawrence','QB'],['Dak Prescott','QB'],['Bo Nix','QB'],['Baker Mayfield','QB'],['C.J. Stroud','QB'],
-['Tua Tagovailoa','QB'],['Justin Fields','QB'],['George Kittle','TE'],['Dalton Kincaid','TE'],['Jake Ferguson','TE'],
+['Tua Tagovailoa','QB'],['Justin Fields','QB'],['Jaxson Dart','QB'],['George Kittle','TE'],['Dalton Kincaid','TE'],['Jake Ferguson','TE'],
 ['Travis Kelce','TE'],['Hunter Henry','TE'],['Dallas Goedert','TE'],['David Njoku','TE'],['Kyle Pitts','TE'],
 ['T.J. Hockenson','TE'],['Sam LaPorta','TE'],['Mark Andrews','TE'],['Cole Kmet','TE'],['Tucker Kraft','TE'],
 ['Isaiah Likely','TE'],['Jonnu Smith','TE'],['Brenton Strange','TE'],['Harold Fannin Jr.','TE'],['Mason Taylor','TE'],
 ['Steelers','DST'],['Chiefs','DST'],['Jaguars','DST'],['Giants','DST'],['Chargers','DST'],['Packers','DST'],
-['Rams','DST'],['Texans','DST'],['Seahawks','DST'],['Eagles','DST'],['Bills','DST'],['Lions','DST'],
+['Rams','DST'],['Texans','DST'],['Seahawks','DST'],['Eagles','DST'],['Patriots','DST'],['Bills','DST'],['Lions','DST'],
 ['Vikings','DST'],['Ravens','DST'],['Broncos','DST'],['49ers','DST'],['Jets','DST'],['Cowboys','DST'],
-['Brandon Aubrey','K'],['Cameron Dicker','K'],['Jason Myers','K'],['Harrison Mevis','K'],['Andy Borregales','K'],
+['Brandon Aubrey','K'],['Cameron Dicker','K'],['Jason Myers','K'],['Cam Little','K'],['Harrison Mevis','K'],['Eddy Pineiro','K'],['Tyler Loop','K'],['Andy Borregales','K'],
 ["Ka'imi Fairbairn",'K'],['Harrison Butker','K'],['Jake Elliott','K'],['Chris Boswell','K'],['Jake Bates','K'],
 ['Tyler Bass','K'],['Younghoe Koo','K'],['Brandon McManus','K'],['Daniel Carlson','K'],['Chase McLaughlin','K']
 ];
-// v4.6 market snapshot.
+// v4.7 market snapshot.
 // These overrides correct the biggest stale-value problems exposed by our mocks.
 // They are a frozen draft-prep snapshot, not a live ranking feed.
 const MARKET_RANK={
@@ -380,7 +381,6 @@ const MARKET_RANK={
   'George Pickens':19,
   'Omarion Hampton':20,
   'Trey McBride':21,
-  'Josh Allen':23,
   'Kenneth Walker III':23.5,
   "De'Von Achane":24,
 
@@ -388,23 +388,18 @@ const MARKET_RANK={
   'Chase Brown':18.5,
   'Rashee Rice':20,
   'Cam Skattebo':36,
-  'Lamar Jackson':38,
   'Garrett Wilson':39,
   'Colston Loveland':44,
   'Quinshon Judkins':45,
   'Ladd McConkey':46,
   'Tyler Warren':48,
   'Terry McLaurin':53,
-  'Drake Maye':54,
-  'Joe Burrow':58,
   'Jameson Williams':58,
   'Bhayshul Tuten':59,
   'Mike Evans':61,
-  'Jayden Daniels':64,
   'Kyle Pitts':66,
   'Christian Watson':67,
   'Carnell Tate':67.5,
-  'Jalen Hurts':68,
   'Tony Pollard':71,
   'Courtland Sutton':73,
   'R.J. Harvey':79,
@@ -437,6 +432,37 @@ const MARKET_RANK={
   'Malachi Fields':245,
   'Kaytron Allen':305,
   'Robert Henry Jr.':325,
+  // v4.7 current calibration anchors
+  "Josh Allen":31,
+  "Lamar Jackson":42,
+  "Drake Maye":52,
+  "Joe Burrow":63,
+  "Jalen Hurts":64,
+  "Jayden Daniels":70,
+  "Jaxson Dart":84,
+  "Brian Thomas Jr.":75,
+  "Texans":140,
+  "Broncos":141,
+  "Rams":142,
+  "Seahawks":143,
+  "Eagles":144,
+  "Patriots":149,
+  "Lions":150,
+  "Jaguars":151,
+  "Chargers":152,
+  "Vikings":153,
+  "Chiefs":154,
+  "Steelers":155,
+  "Brandon Aubrey":140,
+  "Ka'imi Fairbairn":141,
+  "Cameron Dicker":142,
+  "Jason Myers":143,
+  "Cam Little":144,
+  "Harrison Mevis":145,
+  "Eddy Pineiro":146,
+  "Tyler Loop":147,
+  "Chase McLaughlin":148,
+  "Andy Borregales":149,
 };
 
 function playerKey(name){
@@ -808,7 +834,7 @@ async function refreshSleeperPlayerRanks(force=true){
    const d=new Date(sleeperRankLastUpdated);
    setRankRefreshStatus(`Sleeper fallback ranks refreshed ${d.toLocaleString()}. Embedded PPR corrections still take priority.`,'ok');
  }catch(err){
-   setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded v4.6 PPR ranks are still active.`,'err');
+   setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded v4.7 PPR ranks are still active.`,'err');
  }finally{
    if(btn)btn.disabled=false;
  }
@@ -983,6 +1009,29 @@ function draftedByPos(pos,throughPick){
  return state.drafted.filter(x=>x.pos===pos && x.pick<=throughPick).length;
 }
 
+
+function cpuQBLeagueMultiplier(p){
+ if(p.pos!=='QB')return 1;
+ const fit=QB_LEAGUE_PROFILE[p.name]?.fit ?? 62;
+ if(fit>=95)return 1.30;
+ if(fit>=90)return 1.22;
+ if(fit>=82)return 1.12;
+ if(fit<62)return .92;
+ return 1;
+}
+
+function bestAvailableQBForRoom(){
+ const qbs=state.available.filter(p=>p.pos==='QB');
+ if(!qbs.length)return null;
+ return qbs.sort((a,b)=>{
+   const af=QB_LEAGUE_PROFILE[a.name]?.fit ?? 62;
+   const bf=QB_LEAGUE_PROFILE[b.name]?.fit ?? 62;
+   const ascore=a.rank-(af-60)*.32;
+   const bscore=b.rank-(bf-60)*.32;
+   return ascore-bscore;
+ })[0] || null;
+}
+
 function choice(team,pick){
  const round=roundForPick(pick),sc=document.getElementById('scenario').value;
  const prof=profile[team]||{early:['WR','RB','WR'],qb:1,rb:1,wr:1,te:1};
@@ -991,30 +1040,56 @@ function choice(team,pick){
 
  if(round<=3&&prof.early[round-1])bias[prof.early[round-1]]*=1.75;
 
- // League-specific calibration from the 2023-2025 boards.
- // Baseline target: usually 2-3 QBs by pick 20, about 8 RBs by pick 20,
- // and only 0-1 TEs by pick 20.
- if(sc==='baseline' && pick<=20){
-   const qbGone=draftedByPos('QB',pick-1);
-   const rbGone=draftedByPos('RB',pick-1);
-   const teGone=draftedByPos('TE',pick-1);
+ const qbGone=draftedByPos('QB',pick-1);
+ const rbGone=draftedByPos('RB',pick-1);
+ const teGone=draftedByPos('TE',pick-1);
 
-   // Managers with repeat early-QB behavior get a stronger push at their
-   // second-round turns if the room has not yet reached its normal QB count.
-   if(['SuperSaiyan','reliving…','generaljjj','DubsV'].includes(team)){
-     if(pick>=12 && qbGone<2) bias.QB*=2.25;
-     else if(pick>=15 && qbGone<3) bias.QB*=1.70;
-     else bias.QB*=1.15;
+ // ----------------------------------------------------------
+ // Baseline room calibration from the user's actual 2023-25 drafts.
+ // Historical shape: ~2-3 QBs by 20, ~6 by 40, ~8 by 60.
+ // ----------------------------------------------------------
+ if(sc==='baseline'){
+   // Existing manager-specific tendencies.
+   if(pick<=20 && ['SuperSaiyan','reliving…','generaljjj','DubsV'].includes(team)){
+     if(pick>=12 && qbGone<2) bias.QB*=2.45;
+     else if(pick>=15 && qbGone<3) bias.QB*=1.85;
+     else bias.QB*=1.18;
    }
 
-   // Protect the historical RB drain without forcing every specific manager.
-   if(rbGone<7 && pick>=14) bias.RB*=1.18;
-   if(rbGone>=9) bias.RB*=0.78;
+   // Room-level soft catch-up. This prevents a single random mock from
+   // drifting far below the real league's long-run QB behavior.
+   if(c.QB===0){
+     if(pick>=12 && pick<=20 && qbGone<3) bias.QB*=qbGone<2?3.0:1.75;
+     if(pick>=21 && pick<=40 && qbGone<6) bias.QB*=qbGone<5?2.75:1.70;
+     if(pick>=41 && pick<=60 && qbGone<8) bias.QB*=qbGone<7?2.55:1.60;
+     if(pick>=61 && pick<=90 && qbGone<9) bias.QB*=1.85;
+     if(pick>=91 && c.QB===0) bias.QB*=2.55;
+   }
 
-   // Kzma is the clearest elite-TE threat; otherwise suppress a second
-   // first-20 TE unless the room has not taken one yet.
-   if(team==='Kzma' && teGone===0 && pick>=13) bias.TE*=1.85;
-   else if(teGone>=1) bias.TE*=0.55;
+   // Hard floors only if the simulation is severely behind history.
+   // These do not force an exact historical draft; they stop unrealistic
+   // outcomes such as Daniels/Hurts surviving into Rounds 10-12.
+   let hardFloor=0;
+   if(pick>=18 && pick<=40) hardFloor=2;
+   if(pick>=38 && pick<=60) hardFloor=5;
+   if(pick>=58 && pick<=90) hardFloor=7;
+   if(pick>=88) hardFloor=9;
+
+   if(c.QB===0 && qbGone<hardFloor){
+     const forced=bestAvailableQBForRoom();
+     if(forced)return forced;
+   }
+
+   // Protect the historic early RB drain without forcing every manager.
+   if(pick<=20){
+     if(rbGone<7 && pick>=14) bias.RB*=1.18;
+     if(rbGone>=9) bias.RB*=0.78;
+
+     // Kzma is the clearest elite-TE threat; otherwise suppress a second
+     // first-20 TE unless the room has not taken one yet.
+     if(team==='Kzma' && teGone===0 && pick>=13) bias.TE*=1.85;
+     else if(teGone>=1) bias.TE*=0.55;
+   }
  }
 
  if(sc==='qbRush'&&round<=4)bias.QB*=2.05;
@@ -1022,13 +1097,19 @@ function choice(team,pick){
  if(sc==='teSwipe'&&round<=4)bias.TE*=1.85;
  if(sc==='chaos')Object.keys(bias).forEach(k=>bias[k]*=.72+Math.random()*1.45);
 
- const pool=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,round>=9?52:36);
+ const pool=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,round>=9?58:40);
  let best=pool[0],bestScore=-1e9;
+
  for(const p of pool){
    // Market rank drives value. Use a smooth positive curve so players ranked
    // beyond 220 still remain draftable rather than producing negative scores.
    let base=260/(1+Math.max(0,p.rank-1)/55);
    let s=base*(bias[p.pos]||1)*needsWeight(p.pos,c,round)*(.9+Math.random()*.2);
+
+   // All teams in this league play under the same 4-pass-TD / 6-rush-TD rules,
+   // so mobile QBs should be favored when a manager decides to take a QB.
+   s*=cpuQBLeagueMultiplier(p);
+
    if(round<=1&&(p.pos==='QB'||p.pos==='TE'))s*=.55;
    if(round<=10&&(p.pos==='DST'||p.pos==='K'))s*=.2;
    if(s>bestScore){bestScore=s;best=p}
@@ -1083,6 +1164,7 @@ const QB_LEAGUE_PROFILE={
   'Drake Maye':{fit:88,tier:'rushing plus',note:'Adds enough rushing to separate from pure pocket passers.'},
   'Caleb Williams':{fit:84,tier:'rushing plus',note:'Rushing raises ceiling relative to pocket-only options.'},
   'Justin Fields':{fit:90,tier:'rushing plus',note:'Rushing is fantasy-friendly if he holds a starting job.'},
+  'Jaxson Dart':{fit:91,tier:'rushing plus',note:'Meaningful rushing volume gives him extra value in 4-point passing-TD scoring.'},
   'Bo Nix':{fit:82,tier:'mobile',note:'Some rushing value, but less separation than the elite rushing tier.'},
   'Patrick Mahomes':{fit:68,tier:'pocket elite',note:'Excellent NFL QB, but 4-point passing TDs reduce his fantasy edge relative to rushing QBs.'},
   'Joe Burrow':{fit:66,tier:'pocket elite',note:'Passing ceiling is elite, but this league does not reward it as much as rushing production.'},
@@ -1222,10 +1304,37 @@ function championReason(x){
 
 function getChampionBoard(limit=5){
  if(!state||state.pick>150)return [];
- return state.available
+
+ const all=state.available
   .map(p=>championScore(p,state.pick))
-  .sort((a,b)=>b.total-a.total||a.player.rank-b.player.rank)
-  .slice(0,limit);
+  .sort((a,b)=>b.total-a.total||a.player.rank-b.player.rank);
+
+ // On the final 140/141 turn, roster completion is the job:
+ // always compare the best remaining D/ST and kicker directly.
+ if(mine(state.pick) && state.pick>=140){
+   const c=counts('MMazz3117');
+   const special=[];
+
+   if(c.DST===0){
+     const dst=all
+       .filter(x=>x.player.pos==='DST')
+       .sort((a,b)=>a.player.rank-b.player.rank)[0];
+     if(dst)special.push(dst);
+   }
+
+   if(c.K===0){
+     const k=all
+       .filter(x=>x.player.pos==='K')
+       .sort((a,b)=>a.player.rank-b.player.rank)[0];
+     if(k)special.push(k);
+   }
+
+   const used=new Set(special.map(x=>x.player.name));
+   const rest=all.filter(x=>!used.has(x.player.name));
+   return special.concat(rest).slice(0,limit);
+ }
+
+ return all.slice(0,limit);
 }
 
 function renderChampionProcess(){
@@ -1282,7 +1391,7 @@ function strategyAdvice(){
  if(p===80||p===81)return'Build FLEX and injury resilience: target RB/WR with secure role or clear path to a workload jump.';
  if(p===100||p===101)return'Bench upside phase. Prefer asymmetric RB/WR bets over backup QB/TE.';
  if(p===120||p===121)return'Continue upside bench construction. Avoid K/DEF unless the skill-player board is unusually weak.';
- if(p===140||p===141)return'Final turn: default to DEF + K, unless one is already filled.';
+ if(p===140||p===141)return'Final turn: fill exactly one D/ST and one K. Champion Process will surface the best available option at each required position.';
  if(r>=11)return'Late rounds: prioritize RB/WR upside, then finish DEF/K. Avoid low-ceiling backup QB/TE.';
  return'Favor RB/WR value and reliable weekly volume. Bye weeks are a tiebreaker.';
 }
@@ -1300,8 +1409,8 @@ function currentBrief(){
 
  const research=`League research to use: 10-team full PPR with 2 FLEX. Historical room: exactly 8 RBs gone by pick 20 in each of 2023-25; usually 2-3 QBs by pick 20, about 6 by pick 40, about 8 by pick 60; only 0-1 TEs by pick 20, then a TE run between 40 and 60. FgFluet and josh1975 are strong RB-drain threats. generaljjj is a strong early-QB threat. Kzma is the main elite-TE threat. SuperSaiyan has the strongest multi-year scoring profile and has paid for early QB. User has had injury-heavy seasons, so early secure volume and later upside/injury resilience matter. Playoffs Weeks 15-17.`;
  return `CURRENT MOCK STATE
-Trainer version: v4.6
-Market snapshot: Aug. 12, 2026 PPR values + Champion Process + league-scoring QB model
+Trainer version: v4.7
+Market snapshot: Aug. 16, 2026 PPR refresh + Champion Process + calibrated room model
 Board source: ${sleeperLiveMode?'Sleeper live sync':'mock simulator'}
 Pick timer: deadline-based 3:00 countdown; ${alarmArmed?'alarm armed':'alarm not armed'}
 Scenario: ${sc}
