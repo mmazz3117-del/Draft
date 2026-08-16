@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v4.4</title>
+<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v4.6</title>
 <style>
 :root{
   --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
@@ -76,6 +76,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 .timer-sub{font-size:12px;color:var(--muted);margin-top:2px}
 .timer-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .timer-actions button{padding:8px 10px;font-size:13px}
+.alarm-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.alarm-state{font-size:11px;color:var(--muted)}
+.alarm-state.ready{color:#bff4d8}
+.alarm-state.warn{color:#ffd166}
 .syncgrid{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
 .syncgrid input{width:100%;background:#0f1730;color:var(--text);border:1px solid var(--border);border-radius:11px;padding:10px 11px;font-size:15px}
 .syncstatus{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
@@ -89,7 +93,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 .champ-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
 .champ-name{font-weight:900}.champ-score{font-size:22px;font-weight:900}
 .champ-reason{font-size:12px;color:#d6def1;line-height:1.35;margin-top:6px}
-.factor-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin-top:8px}
+.factor-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;margin-top:8px}
 .factor{border:1px solid var(--border);border-radius:9px;padding:6px 5px;text-align:center}
 .factor .f-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
 .factor .f-val{font-size:14px;font-weight:800;margin-top:2px}
@@ -106,8 +110,8 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v4.4</span></h1>
-  <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market snapshot Aug. 12, 2026 + Champion Process</p>
+  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v4.6</span></h1>
+  <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market snapshot Aug. 12, 2026 + Champion Process + league-scoring QB model</p>
 
   <div class="timerbar" aria-live="polite">
     <div class="timer-left">
@@ -120,7 +124,12 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div class="timer-actions">
       <button id="timerPauseBtn" type="button">Pause</button>
       <button id="timerResetBtn" type="button">Reset 3:00</button>
+      <button id="alarmEnableBtn" type="button">Enable alarm</button>
+      <button id="alarmTestBtn" type="button">Test alarm</button>
     </div>
+  </div>
+  <div class="alarm-row">
+    <span id="alarmState" class="alarm-state">Alarm not armed yet. Tap “Enable alarm” once after loading the page.</span>
   </div>
 
   <div class="card">
@@ -140,10 +149,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player-rank refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v4.4 uses our current PPR market corrections first, then Sleeper's player search rank as a fallback for the rest of the pool.
+      v4.6 uses our current PPR market corrections first, then Sleeper's player search rank as a fallback for the rest of the pool.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper player ranks</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using embedded v4.4 ranks. Sleeper fallback has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using embedded v4.6 ranks. Sleeper fallback has not been refreshed yet.</div>
   </div>
 
   <div id="summary" class="grid stats">
@@ -205,11 +214,11 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
       <div>
         <h2>Champion Process</h2>
         <div class="champion-explain">
-          Repeat-winner lens: value now, positional cliff before your next turn, survival chance, roster fit, and upside/role growth.
+          Repeat-winner lens: value now, positional cliff before your next turn, survival chance, roster fit, upside/role growth, and league-scoring fit.
           ADP/rank is an opponent map — not an instruction sheet.
         </div>
       </div>
-      <div class="champion-pill">v4.4 decision layer</div>
+      <div class="champion-pill">v4.6 decision layer</div>
     </div>
     <div id="championList" class="champion-list"></div>
   </div>
@@ -275,8 +284,9 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
       <div class="node"><span class="badge">Waivers</span>You and generaljjj have had high waiver activity partly from injuries, so transaction count is not treated as pure drafting style.</div>
       <div class="node"><span class="badge">Playoffs</span>Your postseason runs <b>Weeks 15–17</b>. Bye weeks are a tiebreaker, not a reason to pass a clearly better player.</div>
       <div class="node"><span class="badge">Late rounds</span>Do not spend early/mid picks on K/DEF. Default plan is to fill them in the <b>final two rounds</b>, unless the board forces something unusual.</div>
-      <div class="node"><span class="badge">v4.4 hybrid ranks</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
+      <div class="node"><span class="badge">v4.6 hybrid ranks</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
       <div class="node"><span class="badge">Champion Process</span>Repeat-winner principles are now scored on every pick: market value, positional cliffs, estimated survival to your next turn, roster construction, and asymmetric upside. QB/TE run-chasing and redundant backups are penalized.</div>
+      <div class="node"><span class="badge">League QB scoring</span>v4.6 separates rushing-leverage QBs from pocket passers. With 4-point passing TDs and 6-point rushing TDs, Allen/Lamar/Daniels/Hurts-type profiles receive a meaningful boost; Mahomes/Burrow/Herbert-type profiles must win on value rather than generic QB-run pressure.</div>
     </div>
 
     <h2 style="margin-top:16px">Opponent tells</h2>
@@ -293,7 +303,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     </div>
   </div>
 
-  <p class="footer">Practice tool with a hybrid ranking layer; it is not a licensed live ADP feed. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns and now includes roster-depth guardrails so CPU teams do not hoard running backs. Player order uses a frozen Aug. 12, 2026 PPR market snapshot with explicit corrections for players that were badly mispriced in prior mocks. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement. v4.4 refreshes player-market ordering, corrects the mid/late-round RB and WR values exposed by our test mocks, de-duplicates the pool, and keeps Sleeper live sync, roster guardrails, timer, search, filters and sorting. v4.4 adds the Champion Process decision layer on top of hybrid rankings: market value, positional cliff, estimated survival to your next turn, roster fit, and role-growth upside. It retains Sleeper live sync, daily rank refresh, CPU roster guardrails, 3-minute timer, search, filters, sorting, Voice Brief, and the 15-round board.</p>
+  <p class="footer">Practice tool with a hybrid ranking layer; it is not a licensed live ADP feed. Baseline opponent logic is calibrated to your 2023–2025 room-level RB/QB/TE patterns and now includes roster-depth guardrails so CPU teams do not hoard running backs. Player order uses a frozen Aug. 12, 2026 PPR market snapshot with explicit corrections for players that were badly mispriced in prior mocks. Refresh before the real draft for injuries, suspensions, depth-chart changes and ADP movement. v4.6 refreshes player-market ordering, corrects the mid/late-round RB and WR values exposed by our test mocks, de-duplicates the pool, and keeps Sleeper live sync, roster guardrails, timer, search, filters and sorting. v4.6 adds a league-scoring QB model to Champion Process, separating elite rushing-leverage QBs from pocket passers so generic QB-run pressure cannot overrate Mahomes/Burrow-type profiles in this 4-pass-TD format. It retains the resilient 3-minute timer/alarm, Champion Process, Sleeper live sync, daily rank refresh, CPU roster guardrails, search, filters, sorting, Voice Brief, and the 15-round board.</p>
 </div>
 
 <script>
@@ -344,7 +354,7 @@ const raw=[
 ["Ka'imi Fairbairn",'K'],['Harrison Butker','K'],['Jake Elliott','K'],['Chris Boswell','K'],['Jake Bates','K'],
 ['Tyler Bass','K'],['Younghoe Koo','K'],['Brandon McManus','K'],['Daniel Carlson','K'],['Chase McLaughlin','K']
 ];
-// v4.4 market snapshot.
+// v4.6 market snapshot.
 // These overrides correct the biggest stale-value problems exposed by our mocks.
 // They are a frozen draft-prep snapshot, not a live ranking feed.
 const MARKET_RANK={
@@ -512,6 +522,11 @@ const PICK_SECONDS=180;
 let timerSeconds=PICK_SECONDS;
 let timerPaused=false;
 let timerInterval=null;
+let timerDeadlineMs=null;
+let timerPauseRemainingMs=PICK_SECONDS*1000;
+let alarmArmed=false;
+let alarmPlayedForDeadline=null;
+let audioCtx=null;
 
 let sleeperLiveMode=false;
 let sleeperPollInterval=null;
@@ -526,13 +541,32 @@ function formatTimer(sec){
  const s=sec%60;
  return `${m}:${String(s).padStart(2,'0')}`;
 }
+
+function getRemainingMs(){
+ if(timerPaused)return Math.max(0,timerPauseRemainingMs);
+ if(!timerDeadlineMs)return PICK_SECONDS*1000;
+ return Math.max(0,timerDeadlineMs-Date.now());
+}
+
+function syncTimerFromDeadline(){
+ const ms=getRemainingMs();
+ timerSeconds=Math.ceil(ms/1000);
+ if(ms<=0 && timerDeadlineMs && alarmPlayedForDeadline!==timerDeadlineMs){
+   alarmPlayedForDeadline=timerDeadlineMs;
+   firePickAlarm();
+ }
+ updateTimerDisplay();
+}
+
 function updateTimerDisplay(){
  const el=document.getElementById('pickTimer');
  const status=document.getElementById('timerStatus');
  if(!el||!status)return;
+
  el.textContent=formatTimer(timerSeconds);
  el.classList.toggle('warning',timerSeconds>0&&timerSeconds<=30);
  el.classList.toggle('expired',timerSeconds===0);
+
  if(state && state.pick>150){
    status.textContent='Draft complete.';
  }else if(timerSeconds===0){
@@ -540,29 +574,167 @@ function updateTimerDisplay(){
  }else if(timerPaused){
    status.textContent='Timer paused.';
  }else{
-   status.textContent='Resets automatically every time the current pick changes.';
+   status.textContent='Deadline-based timer keeps correct time even if Safari is backgrounded.';
  }
+
  const pauseBtn=document.getElementById('timerPauseBtn');
  if(pauseBtn)pauseBtn.textContent=timerPaused?'Resume':'Pause';
 }
+
+function setAlarmState(msg,cls=''){
+ const el=document.getElementById('alarmState');
+ if(!el)return;
+ el.textContent=msg;
+ el.classList.remove('ready','warn');
+ if(cls)el.classList.add(cls);
+}
+
+async function enablePickAlarm(){
+ try{
+   if(!audioCtx){
+     const AC=window.AudioContext||window.webkitAudioContext;
+     if(AC)audioCtx=new AC();
+   }
+   if(audioCtx && audioCtx.state==='suspended')await audioCtx.resume();
+
+   // Prime audio from a direct user gesture.
+   if(audioCtx){
+     const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+     g.gain.value=0.0001;
+     o.connect(g);g.connect(audioCtx.destination);
+     o.start();o.stop(audioCtx.currentTime+0.03);
+   }
+
+   alarmArmed=true;
+   localStorage.setItem('fantasyTrainerAlarmArmed','1');
+
+   // Ask for notification permission only where the browser exposes it.
+   // On iPhone, reliable background notifications require a Home Screen web app
+   // plus Web Push from a server; this permission is therefore best-effort only.
+   if('Notification' in window && Notification.permission==='default'){
+     try{await Notification.requestPermission();}catch(e){}
+   }
+
+   setAlarmState('Alarm armed. Sound/vibration will fire while the page is active, or immediately when you return if iOS suspended it.','ready');
+ }catch(e){
+   alarmArmed=true;
+   setAlarmState('Alarm armed with vibration/visual fallback. Browser blocked audio setup.','warn');
+ }
+}
+
+function playAlarmTone(){
+ try{
+   const AC=window.AudioContext||window.webkitAudioContext;
+   if(!audioCtx && AC)audioCtx=new AC();
+   if(!audioCtx)return false;
+   if(audioCtx.state==='suspended')audioCtx.resume();
+
+   const now=audioCtx.currentTime;
+   [0,0.32,0.64].forEach((offset,i)=>{
+     const osc=audioCtx.createOscillator();
+     const gain=audioCtx.createGain();
+     osc.type='sine';
+     osc.frequency.value=i===1?880:1046;
+     gain.gain.setValueAtTime(0.0001,now+offset);
+     gain.gain.exponentialRampToValueAtTime(0.35,now+offset+0.02);
+     gain.gain.exponentialRampToValueAtTime(0.0001,now+offset+0.24);
+     osc.connect(gain);gain.connect(audioCtx.destination);
+     osc.start(now+offset);osc.stop(now+offset+0.26);
+   });
+   return true;
+ }catch(e){
+   return false;
+ }
+}
+
+function firePickAlarm(force=false){
+ if(!alarmArmed && !force){
+   setAlarmState('Time expired. Alarm was not armed — tap Enable alarm once for future picks.','warn');
+   return;
+ }
+
+ playAlarmTone();
+
+ if(navigator.vibrate){
+   try{navigator.vibrate([350,180,350,180,650]);}catch(e){}
+ }
+
+ if('Notification' in window && Notification.permission==='granted' && document.visibilityState==='visible'){
+   try{new Notification('Fantasy draft pick timer',{body:'3 minutes are up — you are on the clock.'});}catch(e){}
+ }
+
+ setAlarmState(
+   document.visibilityState==='hidden'
+     ? 'Timer expired while the page was backgrounded.'
+     : 'TIME UP — pick alarm fired.',
+   'warn'
+ );
+}
+
+function testPickAlarm(){
+ if(!alarmArmed){
+   setAlarmState('Tap Enable alarm first, then test it.','warn');
+   return;
+ }
+ firePickAlarm(true);
+}
+
 function restartPickTimer(){
- timerSeconds=PICK_SECONDS;
  timerPaused=false;
+ timerPauseRemainingMs=PICK_SECONDS*1000;
+ timerDeadlineMs=Date.now()+timerPauseRemainingMs;
+ alarmPlayedForDeadline=null;
+ timerSeconds=PICK_SECONDS;
+ persistTimerState();
  updateTimerDisplay();
 }
+
 function togglePickTimer(){
- timerPaused=!timerPaused;
- updateTimerDisplay();
+ if(timerPaused){
+   timerPaused=false;
+   timerDeadlineMs=Date.now()+timerPauseRemainingMs;
+ }else{
+   timerPauseRemainingMs=getRemainingMs();
+   timerPaused=true;
+ }
+ persistTimerState();
+ syncTimerFromDeadline();
 }
+
+function persistTimerState(){
+ try{
+   localStorage.setItem('fantasyTrainerTimerV45',JSON.stringify({
+     deadlineMs:timerDeadlineMs,
+     paused:timerPaused,
+     pauseRemainingMs:timerPauseRemainingMs
+   }));
+ }catch(e){}
+}
+
+function restoreTimerState(){
+ try{
+   const x=JSON.parse(localStorage.getItem('fantasyTrainerTimerV45')||'null');
+   if(x && Number.isFinite(Number(x.deadlineMs))){
+     timerDeadlineMs=Number(x.deadlineMs);
+     timerPaused=!!x.paused;
+     timerPauseRemainingMs=Number(x.pauseRemainingMs)||PICK_SECONDS*1000;
+   }
+   alarmArmed=localStorage.getItem('fantasyTrainerAlarmArmed')==='1';
+   if(alarmArmed)setAlarmState('Alarm preference remembered. Tap Enable alarm again after a fresh page load if sound is blocked.','ready');
+ }catch(e){}
+}
+
 function startTimerLoop(){
  if(timerInterval)clearInterval(timerInterval);
- timerInterval=setInterval(()=>{
-   if(timerPaused || !state || state.pick>150)return;
-   if(timerSeconds>0){
-     timerSeconds--;
-     updateTimerDisplay();
-   }
- },1000);
+ timerInterval=setInterval(syncTimerFromDeadline,250);
+
+ // iOS may suspend background tabs. These events make the displayed timer
+ // catch up instantly when Safari becomes active again.
+ document.addEventListener('visibilitychange',()=>{
+   syncTimerFromDeadline();
+ });
+ window.addEventListener('pageshow',syncTimerFromDeadline);
+ window.addEventListener('focus',syncTimerFromDeadline);
 }
 
 
@@ -636,7 +808,7 @@ async function refreshSleeperPlayerRanks(force=true){
    const d=new Date(sleeperRankLastUpdated);
    setRankRefreshStatus(`Sleeper fallback ranks refreshed ${d.toLocaleString()}. Embedded PPR corrections still take priority.`,'ok');
  }catch(err){
-   setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded v4.4 PPR ranks are still active.`,'err');
+   setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded v4.6 PPR ranks are still active.`,'err');
  }finally{
    if(btn)btn.disabled=false;
  }
@@ -902,10 +1074,58 @@ function nextUserTurnPick(fromPick){
  return p<=150?p:151;
 }
 
-function positionPressure(pos,pick){
+
+const QB_LEAGUE_PROFILE={
+  'Josh Allen':{fit:98,tier:'elite rushing',note:'6-point rushing TDs materially boost his weekly edge.'},
+  'Lamar Jackson':{fit:99,tier:'elite rushing',note:'6-point rushing TDs materially boost his weekly edge.'},
+  'Jayden Daniels':{fit:97,tier:'elite rushing',note:'Rushing floor and rushing-TD scoring create premium leverage.'},
+  'Jalen Hurts':{fit:96,tier:'elite rushing',note:'Goal-line rushing is especially valuable in 4-pass-TD scoring.'},
+  'Drake Maye':{fit:88,tier:'rushing plus',note:'Adds enough rushing to separate from pure pocket passers.'},
+  'Caleb Williams':{fit:84,tier:'rushing plus',note:'Rushing raises ceiling relative to pocket-only options.'},
+  'Justin Fields':{fit:90,tier:'rushing plus',note:'Rushing is fantasy-friendly if he holds a starting job.'},
+  'Bo Nix':{fit:82,tier:'mobile',note:'Some rushing value, but less separation than the elite rushing tier.'},
+  'Patrick Mahomes':{fit:68,tier:'pocket elite',note:'Excellent NFL QB, but 4-point passing TDs reduce his fantasy edge relative to rushing QBs.'},
+  'Joe Burrow':{fit:66,tier:'pocket elite',note:'Passing ceiling is elite, but this league does not reward it as much as rushing production.'},
+  'Justin Herbert':{fit:64,tier:'pocket',note:'Strong passer; league scoring makes him easier to wait on.'},
+  'Jordan Love':{fit:61,tier:'pocket',note:'Useful QB, but limited rushing leverage in this scoring.'},
+  'Jared Goff':{fit:57,tier:'pocket',note:'Low rushing ceiling makes him a value-only target.'},
+  'Brock Purdy':{fit:58,tier:'pocket',note:'Efficient passer, but little rushing leverage.'},
+  'Dak Prescott':{fit:60,tier:'pocket',note:'Some rushing but not enough to justify paying for a QB run.'},
+  'Baker Mayfield':{fit:59,tier:'pocket',note:'Good passing production; limited scoring-format advantage.'},
+  'C.J. Stroud':{fit:55,tier:'pocket',note:'Low rushing ceiling in a format that favors rushing QBs.'},
+  'Tua Tagovailoa':{fit:51,tier:'pocket',note:'Pure passing profile gets less help from this scoring system.'}
+};
+
+function leagueFitScore(p){
+ if(p.pos==='QB'){
+   return QB_LEAGUE_PROFILE[p.name]?.fit ?? 62;
+ }
+ if(p.pos==='RB'||p.pos==='WR'||p.pos==='TE'){
+   // Full PPR + two FLEX makes usable weekly skill-position volume valuable.
+   return 84;
+ }
+ if(p.pos==='DST'||p.pos==='K')return 40;
+ return 65;
+}
+
+function qbTierLabel(p){
+ if(p.pos!=='QB')return '';
+ return QB_LEAGUE_PROFILE[p.name]?.tier || 'QB';
+}
+
+function positionPressure(pos,pick,player=null){
  if(pos==='RB')return pick<=21?88:pick<=41?72:pick<=61?63:50;
  if(pos==='WR')return pick<=21?72:pick<=61?68:55;
- if(pos==='QB')return pick<=21?78:pick<=41?92:pick<=61?86:42;
+
+ if(pos==='QB'){
+   const fit=player?leagueFitScore(player):62;
+   // Your room drafts QB early, but the true cliff applies much more strongly
+   // to rushing-leverage QBs than to pocket passers.
+   if(fit>=90)return pick<=21?82:pick<=41?96:pick<=61?90:52;
+   if(fit>=82)return pick<=21?74:pick<=41?86:pick<=61?80:46;
+   return pick<=21?58:pick<=41?68:pick<=61?62:36;
+ }
+
  if(pos==='TE')return pick<=21?40:pick<=41?72:pick<=61?92:45;
  if(pos==='DST'||pos==='K')return pick>=140?95:8;
  return 50;
@@ -921,7 +1141,7 @@ function survivalChance(p,pick){
  const gap=next-pick;
  let chance=50+(p.rank-next)*1.45;
  chance+=Math.max(0,22-gap)*0.35;
- chance-=(positionPressure(p.pos,pick)-50)*0.22;
+ chance-=(positionPressure(p.pos,pick,p)-50)*0.22;
  return clamp(chance,3,97);
 }
 
@@ -951,18 +1171,35 @@ function upsideScore(p,pick){
 
 function championScore(p,pick){
  const value=valueScore(p,pick);
- const cliff=positionPressure(p.pos,pick);
+ const cliff=positionPressure(p.pos,pick,p);
  const survive=survivalChance(p,pick);
  const fit=rosterFitScore(p,pick);
  const upside=upsideScore(p,pick);
+ const leagueFit=leagueFitScore(p);
  const urgency=100-survive;
- let score=value*.30+cliff*.19+urgency*.17+fit*.24+upside*.10;
+
+ // Repeat-winner process plus league-specific scoring.
+ let score=value*.27 + cliff*.16 + urgency*.14 + fit*.22 + upside*.09 + leagueFit*.12;
+
  const c=counts('MMazz3117');
- if((p.pos==='QB'&&c.QB>=1)||(p.pos==='TE'&&c.TE>=1))score-=25;
+
+ // Strong penalty for redundant QB/TE.
+ if((p.pos==='QB'&&c.QB>=1)||(p.pos==='TE'&&c.TE>=1))score-=28;
+
+ // In your scoring, do not let generic "QB run" pressure elevate pocket QBs
+ // above elite skill-player value.
+ if(p.pos==='QB' && leagueFit<72 && pick<=61)score-=8;
+
+ // Conversely, give premium rushing QBs a small tie-break boost at the
+ // 40/41 and 60/61 decision windows.
+ if(p.pos==='QB' && leagueFit>=90 && pick>=35 && pick<=65)score+=6;
+
+ // Defend the 5 RB / 6 WR late-roster shape.
  const r=roundForPick(pick);
  if(r>=8&&p.pos==='RB'&&c.RB<5)score+=5;
  if(r>=8&&p.pos==='WR'&&c.WR<6)score+=5;
- return {player:p,total:clamp(score),value,cliff,survive,fit,upside};
+
+ return {player:p,total:clamp(score),value,cliff,survive,fit,upside,leagueFit};
 }
 
 function championReason(x){
@@ -972,8 +1209,14 @@ function championReason(x){
  if(x.survive<=28)parts.push('unlikely to survive your next turn');
  if(x.fit>=88)parts.push('strong roster fit');
  if(x.upside>=82)parts.push('high role-growth ceiling');
+ if(x.leagueFit>=90)parts.push('excellent fit for your scoring');
+ if(p.pos==='QB' && x.leagueFit<72)parts.push('pocket-QB scoring discount');
  if(!parts.length)parts.push('balanced value and fit');
- const note=UPSIDE_PROFILE[p.name]?.note;
+
+ let note=UPSIDE_PROFILE[p.name]?.note;
+ if(p.pos==='QB' && QB_LEAGUE_PROFILE[p.name]?.note){
+   note=QB_LEAGUE_PROFILE[p.name].note;
+ }
  return parts.join(' · ')+(note?` — ${note}`:'');
 }
 
@@ -1012,6 +1255,7 @@ function renderChampionProcess(){
        <div class="factor"><div class="f-label">Survive %</div><div class="f-val">${Math.round(x.survive)}</div></div>
        <div class="factor"><div class="f-label">Roster fit</div><div class="f-val">${Math.round(x.fit)}</div></div>
        <div class="factor"><div class="f-label">Upside</div><div class="f-val">${Math.round(x.upside)}</div></div>
+       <div class="factor"><div class="f-label">League fit</div><div class="f-val">${Math.round(x.leagueFit)}</div></div>
      </div>`;
    box.appendChild(row);
  });
@@ -1029,12 +1273,12 @@ function strategyAdvice(){
  }
  if(p===20||p===21)return'At 20/21: take the room’s mistake. Prefer a fallen WR plus the best RB/TE/WR value. Do not force a predetermined pair.';
  if(p===40||p===41){
-   if(!c.QB&&!c.TE)return'Key fork: premium QB vs. Loveland/Warren vs. falling RB/WR. Your room tends to drain QB before 60.';
-   if(!c.QB)return'Premium-QB decision window. If the premium tier is gone, do not panic-chase QB7.';
+   if(!c.QB&&!c.TE)return'Key fork: elite rushing QB vs. premium TE vs. falling RB/WR. Do not treat pocket QBs as the same scarcity tier.';
+   if(!c.QB)return'QB decision window: prioritize Allen/Lamar/Daniels/Hurts-type rushing leverage. If that tier is gone, take RB/WR/TE value rather than chase a pocket QB.';
    if(!c.TE)return'Planned TE pivot window. Loveland/Warren-type value is preferable to forcing TE later.';
    return'QB and TE are set. Hammer RB/WR value.';
  }
- if(p===60||p===61)return'Favor RB/WR starter depth. If QB or TE is still empty, address only if the value tier is appropriate.';
+ if(p===60||p===61)return'Favor RB/WR starter depth. If QB is empty, a rushing-leverage QB can be the exception; do not chase a pocket QB just because the room ran the position.';
  if(p===80||p===81)return'Build FLEX and injury resilience: target RB/WR with secure role or clear path to a workload jump.';
  if(p===100||p===101)return'Bench upside phase. Prefer asymmetric RB/WR bets over backup QB/TE.';
  if(p===120||p===121)return'Continue upside bench construction. Avoid K/DEF unless the skill-player board is unusually weak.';
@@ -1051,14 +1295,15 @@ function currentBrief(){
  const turn=state.pick<=150?`overall ${state.pick}, Round ${roundForPick(state.pick)}, ${teamForPick(state.pick)} on clock`:'draft complete';
  const champion=getChampionBoard(3);
  const championText=champion.length
-   ? champion.map((x,i)=>`${i+1}) ${x.player.name} (${x.player.pos}) — Champion ${Math.round(x.total)}; value ${Math.round(x.value)}, cliff ${Math.round(x.cliff)}, survive ${Math.round(x.survive)}%, fit ${Math.round(x.fit)}, upside ${Math.round(x.upside)}. ${championReason(x)}`).join('\n')
+   ? champion.map((x,i)=>`${i+1}) ${x.player.name} (${x.player.pos}) — Champion ${Math.round(x.total)}; value ${Math.round(x.value)}, cliff ${Math.round(x.cliff)}, survive ${Math.round(x.survive)}%, fit ${Math.round(x.fit)}, upside ${Math.round(x.upside)}, league-fit ${Math.round(x.leagueFit)}. ${championReason(x)}`).join('\n')
    : 'No Champion Process recommendations available.';
 
  const research=`League research to use: 10-team full PPR with 2 FLEX. Historical room: exactly 8 RBs gone by pick 20 in each of 2023-25; usually 2-3 QBs by pick 20, about 6 by pick 40, about 8 by pick 60; only 0-1 TEs by pick 20, then a TE run between 40 and 60. FgFluet and josh1975 are strong RB-drain threats. generaljjj is a strong early-QB threat. Kzma is the main elite-TE threat. SuperSaiyan has the strongest multi-year scoring profile and has paid for early QB. User has had injury-heavy seasons, so early secure volume and later upside/injury resilience matter. Playoffs Weeks 15-17.`;
  return `CURRENT MOCK STATE
-Trainer version: v4.4
-Market snapshot: Aug. 12, 2026 PPR values + Champion Process
+Trainer version: v4.6
+Market snapshot: Aug. 12, 2026 PPR values + Champion Process + league-scoring QB model
 Board source: ${sleeperLiveMode?'Sleeper live sync':'mock simulator'}
+Pick timer: deadline-based 3:00 countdown; ${alarmArmed?'alarm armed':'alarm not armed'}
 Scenario: ${sc}
 Turn: ${turn}
 My roster (${c.QB} QB, ${c.RB} RB, ${c.WR} WR, ${c.TE} TE, ${c.DST} DEF, ${c.K} K): ${mineRoster}
@@ -1181,6 +1426,8 @@ document.getElementById('copyBtn').addEventListener('click',copyBrief);
 document.getElementById('shareBtn').addEventListener('click',shareBrief);
 document.getElementById('timerPauseBtn').addEventListener('click',togglePickTimer);
 document.getElementById('timerResetBtn').addEventListener('click',restartPickTimer);
+document.getElementById('alarmEnableBtn').addEventListener('click',enablePickAlarm);
+document.getElementById('alarmTestBtn').addEventListener('click',testPickAlarm);
 document.getElementById('sleeperSyncBtn').addEventListener('click',syncSleeperDraft);
 document.getElementById('sleeperLiveToggle').addEventListener('change',e=>setSleeperLiveMode(e.target.checked));
 document.getElementById('rankRefreshBtn').addEventListener('click',()=>refreshSleeperPlayerRanks(true));
@@ -1205,8 +1452,10 @@ document.querySelectorAll('#positionFilters button').forEach(btn=>{
  });
 });
 
+restoreTimerState();
 reset();
 startTimerLoop();
+if(alarmArmed)setAlarmState('Alarm preference remembered. Tap Enable alarm once after loading if you want to guarantee audio is unlocked.','ready');
 if(!loadCachedSleeperRanks()){
   // One automatic refresh when there is no valid <24h cache.
   // This keeps the page current without repeatedly hitting Sleeper's player endpoint.
