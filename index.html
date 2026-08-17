@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v5.0.1</title>
+<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v5.1</title>
 <style>
 :root{
   --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
@@ -110,7 +110,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v5.0.1</span></h1>
+  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v5.1</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market refresh Aug. 16, 2026 + Champion Process + calibrated room model</p>
 
   <div class="timerbar" aria-live="polite">
@@ -149,7 +149,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player-rank refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v5.0.1 uses current PPR evaluation ranks plus Sleeper market timing and ID-aware player matching. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v5.1 separates Sleeper CPU Mock behavior from Real League Draft behavior, while keeping ID-aware player matching and live market timing. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper player ranks</button>
     <div id="rankRefreshStatus" class="syncstatus">Using embedded v5.0.1 evaluation ranks. Sleeper market/identity data has not been refreshed yet.</div>
@@ -173,7 +173,17 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
           <option value="chaos">Chaos / mixed reaches</option>
         </select>
       </label>
-      <label>Your 1.01 plan
+      
+<label>Draft mode
+<select id="draftMode">
+  <option value="cpu">Sleeper CPU Mock</option>
+  <option value="real">Real League Draft</option>
+</select>
+<div class="muted" style="font-size:12px;margin-top:6px">
+CPU Mock uses Sleeper market behavior for survival. Real League activates your 2023–25 room model and manager tendencies.
+</div>
+</label>
+<label>Your 1.01 plan
         <select id="openingPlan">
           <option value="rb">Elite RB first</option>
           <option value="wr">Elite WR first</option>
@@ -306,7 +316,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     </div>
   </div>
 
-  <p class="footer">Practice tool with a hybrid ranking layer; Sleeper live sync remains the real-board source of truth. v5.0.1 fixes the live-sync Available Players rendering regression from v5.0 and retains three mock-driven safeguards: (1) Sleeper-aware timing that runs the 3:00 clock only while MMazz3117 is actually on the clock, (2) a market-timing/reach guardrail that separates player evaluation from “draft him now” urgency and warns when Sleeper market rank suggests the player can be taken at a later turn, and (3) identity-safe matching that prefers Sleeper player_id and blocks ambiguous similar-name/suffix matches instead of guessing. It retains the calibrated 2023–2025 room model, Champion Process, current-health penalties, v4.8 D/ST protections, v4.9 rank corrections, daily Sleeper refresh, roster guardrails, search, filters, sorting, Voice Brief, and the full 15-round board.</p>
+  <p class="footer">v5.1 separates practice behavior from real-draft behavior. Sleeper CPU Mock mode disables manager-specific historical survival assumptions and uses live Sleeper market/search rank aggressively for draft timing, preventing Golden/Shakir/Pineiro-style reaches. Real League Draft mode preserves the calibrated 2023–2025 room model, manager tendencies, positional-run history, and 4-point-pass-TD strategy; Sleeper ADP remains a reference rather than an instruction sheet. v5.1 also reconciles active Sleeper players missing from the local pool, keeps Sleeper player_id as the identity source of truth, blocks ambiguous similar-name matches, and retains the Sleeper-aware pick timer, Champion Process, current-health penalties, D/ST protections, search, filters, Voice Brief, and full 15-round board.</p>
 </div>
 
 <script>
@@ -481,6 +491,7 @@ const MARKET_RANK={
   "Travis Hunter":165,
   "Woody Marks":105,
   "Rachaad White":113,
+  'David Montgomery':88,
 };
 
 function playerKey(name){
@@ -515,6 +526,28 @@ let sleeperRankById={};
 let sleeperIdentityById={};
 let sleeperIdentityConflicts=[];
 let sleeperRankLastUpdated=null;
+let draftMode='cpu';
+
+function isCpuMockMode(){ return draftMode==='cpu'; }
+function isRealLeagueMode(){ return draftMode==='real'; }
+
+function setDraftMode(mode){
+ draftMode = mode==='real' ? 'real' : 'cpu';
+ try{ localStorage.setItem('fantasyTrainerDraftModeV51',draftMode); }catch(e){}
+ const el=document.getElementById('draftMode');
+ if(el && el.value!==draftMode)el.value=draftMode;
+ render();
+}
+
+function loadDraftMode(){
+ try{
+   const saved=localStorage.getItem('fantasyTrainerDraftModeV51');
+   if(saved==='real'||saved==='cpu')draftMode=saved;
+ }catch(e){}
+ const el=document.getElementById('draftMode');
+ if(el)el.value=draftMode;
+}
+
 
 function getSleeperRank(name,sleeperId=null){
  if(sleeperId && Number.isFinite(Number(sleeperRankById[String(sleeperId)]))){
@@ -973,6 +1006,7 @@ async function refreshSleeperPlayerRanks(force=true){
    sleeperIdentityById=identityById;
    sleeperIdentityConflicts=conflicts;
    sleeperRankLastUpdated=Date.now();
+   const addedPoolPlayers=reconcilePlayerPoolFromSleeper();
 
    try{
      localStorage.setItem('fantasyTrainerSleeperRanksV50',JSON.stringify({
@@ -989,12 +1023,43 @@ async function refreshSleeperPlayerRanks(force=true){
    render();
    const d=new Date(sleeperRankLastUpdated);
    const conflictMsg=conflicts.length?` ${conflicts.length} ambiguous identity match${conflicts.length===1?'':'es'} blocked from auto-matching.`:' No ambiguous player identities detected.';
-   setRankRefreshStatus(`Sleeper ranks/IDs refreshed ${d.toLocaleString()}.${conflictMsg}`,'ok');
+   const addMsg=addedPoolPlayers?` Added ${addedPoolPlayers} active Sleeper player${addedPoolPlayers===1?'':'s'} missing from the embedded pool.`:'';
+   setRankRefreshStatus(`Sleeper ranks/IDs refreshed ${d.toLocaleString()}.${conflictMsg}${addMsg}`,'ok');
  }catch(err){
    setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded v5.0.1 PPR ranks are still active.`,'err');
  }finally{
    if(btn)btn.disabled=false;
  }
+}
+
+
+function reconcilePlayerPoolFromSleeper(){
+ // v5.1: add active fantasy-relevant Sleeper players missing from the embedded pool.
+ // These additions use Sleeper identity/search rank only; they do not inherit
+ // another player's embedded evaluation, injury tag, or aliases.
+ const existingIds=new Set(players.map(p=>String(p.sleeperId||'')).filter(Boolean));
+ const existingKeys=new Set(players.map(p=>`${playerKey(p.name)}|${p.pos}`));
+ let added=0;
+ for(const rec of Object.values(sleeperIdentityById||{})){
+   if(!rec || !['QB','RB','WR','TE','K'].includes(rec.pos))continue;
+   const sr=Number(rec.rank);
+   if(!Number.isFinite(sr) || sr<=0 || sr>400)continue;
+   const key=`${playerKey(rec.name)}|${rec.pos}`;
+   if(existingIds.has(String(rec.id)) || existingKeys.has(key))continue;
+   players.push({
+     name:rec.name,pos:rec.pos,team:rec.team||'',
+     sourceRank:sr,rank:sr,rankSource:'Sleeper',
+     sleeperId:String(rec.id),identityStatus:'verified',
+     dynamicallyAdded:true
+   });
+   existingIds.add(String(rec.id));
+   existingKeys.add(key);
+   added++;
+ }
+ if(added){
+   players.sort((a,b)=>(a.rank||9999)-(b.rank||9999));
+ }
+ return added;
 }
 
 const SLEEPER_DST_MAP={
@@ -1527,11 +1592,23 @@ function championScore(p,pick){
  const nextTurn=nextMyPickAfter(pick);
  const reachGap=Number.isFinite(liveMarketRank)?liveMarketRank-pick:0;
  let reachPenalty=0;
+
  if(Number.isFinite(liveMarketRank) && nextTurn){
-   if(liveMarketRank>=nextTurn+8)reachPenalty=22;
-   else if(reachGap>=35)reachPenalty=16;
-   else if(reachGap>=22)reachPenalty=10;
-   else if(reachGap>=14)reachPenalty=5;
+   if(isCpuMockMode()){
+     // CPU mocks should closely respect Sleeper's current market timing because
+     // the opponents are not your historical league mates.
+     if(liveMarketRank>=nextTurn+8)reachPenalty=28;
+     else if(reachGap>=35)reachPenalty=22;
+     else if(reachGap>=22)reachPenalty=14;
+     else if(reachGap>=14)reachPenalty=8;
+     else if(reachGap>=8)reachPenalty=4;
+   }else{
+     // Real draft: ADP is an opponent-behavior map, not an instruction sheet.
+     // Keep only a light anti-reach guardrail so actual room tendencies can override.
+     if(liveMarketRank>=nextTurn+18)reachPenalty=10;
+     else if(reachGap>=30)reachPenalty=7;
+     else if(reachGap>=18)reachPenalty=4;
+   }
  }
  score-=reachPenalty;
 
@@ -1767,7 +1844,7 @@ function applyView(){
  const f=document.getElementById('focusToggle').checked;['summary','researchArea'].forEach(id=>document.getElementById(id).classList.toggle('hidden',f));
 }
 function render(){
- document.getElementById('status').innerHTML=`<div class="title">${state.pick<=150?'Current pick: '+state.pick+' · '+teamForPick(state.pick):'Draft complete'}</div><div class="body">${strategyAdvice()}</div>`;
+ document.getElementById('status').innerHTML=`<div class="title">${state.pick<=150?'Current pick: '+state.pick+' · '+teamForPick(state.pick):'Draft complete'}</div><div class="body"><b>${isCpuMockMode()?'Sleeper CPU Mock':'Real League Draft'}</b> · ${strategyAdvice()}</div>`;
  document.getElementById('voiceBrief').value=currentBrief();
  renderAvailable();renderRoster();renderBoard();renderChampionProcess();applyView();
  document.getElementById('oneBtn').disabled=sleeperLiveMode||mine(state.pick)||state.pick>150;
@@ -1788,6 +1865,7 @@ document.getElementById('autoBtn').addEventListener('click',autoToMine);
 document.getElementById('oneBtn').addEventListener('click',one);
 document.getElementById('resetBtn').addEventListener('click',reset);
 document.getElementById('scenario').addEventListener('change',reset);
+document.getElementById('draftMode').addEventListener('change',e=>setDraftMode(e.target.value));
 document.getElementById('openingPlan').addEventListener('change',render);
 document.getElementById('zoomRange').addEventListener('input',applyView);
 document.getElementById('compactToggle').addEventListener('change',applyView);
@@ -1823,6 +1901,7 @@ document.querySelectorAll('#positionFilters button').forEach(btn=>{
 });
 
 restoreTimerState();
+loadDraftMode();
 reset();
 startTimerLoop();
 if(alarmArmed)setAlarmState('Alarm preference remembered. Tap Enable alarm once after loading if you want to guarantee audio is unlocked.','ready');
