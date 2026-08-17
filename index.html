@@ -112,7 +112,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge">v5.2</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge">v5.2.1</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market refresh Aug. 16, 2026 + Champion Process + calibrated room model</p>
 
   <div class="timerbar" aria-live="polite">
@@ -151,7 +151,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player-rank refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v5.2 separates Sleeper CPU Mock behavior from Real League Draft behavior, while keeping ID-aware player matching and live market timing. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v5.2.1 separates Sleeper CPU Mock behavior from Real League Draft behavior, while keeping ID-aware player matching and live market timing. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
     <div id="rankRefreshStatus" class="syncstatus">Using curated v5.2 evaluation ranks. Sleeper market/identity data has not been refreshed yet.</div>
@@ -327,7 +327,7 @@ CPU Mock uses Sleeper market behavior for survival. Real League activates your 2
     </div>
   </div>
 
-  <p class="footer">v5.2 adds draft-night GREEN/YELLOW/RED verification, live-market omission detection, and CPU-mode copy-state sorting by Sleeper market timing. Sleeper remains the source of truth. The trainer no longer bulk-imports Sleeper's full player universe into Champion Process, preventing retired/deep/stale records from contaminating Best Available. Completed picks outside the curated pool are reconciled by Sleeper player_id/metadata for board and roster tracking without entering recommendations. Copy Draft State is now the primary handoff and sits directly below Sleeper Live Sync; it reports the correct version, CPU Mock vs Real League Draft mode, roster, curated availability, Champion Process, and mode-specific instructions. CPU Mock keeps historical manager tendencies out of survival predictions; Real League Draft preserves the 2023–2025 opponent model.</p>
+  <p class="footer">v5.2.1 calibrates draft-night GREEN/YELLOW/RED verification, live-market omission detection, and CPU-mode copy-state sorting by Sleeper market timing. Sleeper remains the source of truth. The trainer no longer bulk-imports Sleeper's full player universe into Champion Process, preventing retired/deep/stale records from contaminating Best Available. Completed picks outside the curated pool are reconciled by Sleeper player_id/metadata for board and roster tracking without entering recommendations. Copy Draft State is now the primary handoff and sits directly below Sleeper Live Sync; it reports the correct version, CPU Mock vs Real League Draft mode, roster, curated availability, Champion Process, and mode-specific instructions. CPU Mock keeps historical manager tendencies out of survival predictions; Real League Draft preserves the 2023–2025 opponent model.</p>
 </div>
 
 <script>
@@ -924,7 +924,7 @@ function setRankRefreshStatus(msg,type=''){
 
 function loadCachedSleeperRanks(){
  try{
-   const rawCache=localStorage.getItem('fantasyTrainerSleeperRanksV50');
+   const rawCache=localStorage.getItem('fantasyTrainerSleeperRanksV521');
    if(!rawCache)return false;
    const parsed=JSON.parse(rawCache);
    if(!parsed || !parsed.ranks || !parsed.savedAt)return false;
@@ -975,7 +975,7 @@ async function refreshSleeperPlayerRanks(force=true){
        const team=String(p.team||'').toUpperCase();
        if(!full || !pos)continue;
 
-       identityById[String(id)]={id:String(id),name:full,pos,team,rank:sr};
+       identityById[String(id)]={id:String(id),name:full,pos,team,rank:sr,active:p.active!==false,status:String(p.status||''),yearsExp:Number(p.years_exp)};
        const k=playerKey(full);
        (candidatesByKey[k] ||= []).push(identityById[String(id)]);
        const stripped=strippedSuffixKey(k);
@@ -1021,7 +1021,7 @@ async function refreshSleeperPlayerRanks(force=true){
    const addedPoolPlayers=reconcilePlayerPoolFromSleeper();
 
    try{
-     localStorage.setItem('fantasyTrainerSleeperRanksV50',JSON.stringify({
+     localStorage.setItem('fantasyTrainerSleeperRanksV521',JSON.stringify({
        savedAt:sleeperRankLastUpdated,
        ranks:sleeperRankMap,
        ranksById:sleeperRankById,
@@ -1751,7 +1751,10 @@ function topSleeperMarketAvailable(limit=12){
  if(!state)return [];
  const draftedIds=new Set(state.drafted.map(x=>String(x.sleeperId||'')).filter(Boolean));
  return Object.values(sleeperIdentityById||{})
-  .filter(x=>['QB','RB','WR','TE','K'].includes(x.pos) && Number.isFinite(Number(x.rank)) && Number(x.rank)>0 && !draftedIds.has(String(x.id)))
+  // Verification only considers rostered NFL players. Sleeper's player feed can
+  // retain stale/retired free-agent records with surprisingly high search_rank
+  // (for example Todd Gurley). Those records must not create a draft-night RED.
+  .filter(x=>['QB','RB','WR','TE','K'].includes(x.pos) && x.team && x.active!==false && Number.isFinite(Number(x.rank)) && Number(x.rank)>0 && !draftedIds.has(String(x.id)))
   .sort((a,b)=>Number(a.rank)-Number(b.rank))
   .slice(0,limit);
 }
@@ -1766,7 +1769,7 @@ function reliabilityCheck(){
  if(!sleeperRankLastUpdated || now-sleeperRankLastUpdated>24*60*60*1000)warnings.push('Sleeper market/ID refresh is older than 24 hours or missing');
  if(sleeperIdentityConflicts.length)warnings.push(`${sleeperIdentityConflicts.length} ambiguous player identity match${sleeperIdentityConflicts.length===1?'':'es'}`);
 
- // Critical cross-check: compare Sleeper's best undrafted market names with the curated pool.
+ // RED data-integrity cross-check: a rostered, active, high-market Sleeper player missing from the curated pool can invalidate recommendations.
  const curatedIds=new Set(state.available.map(x=>String(x.sleeperId||'')).filter(Boolean));
  const curatedKeys=new Set(state.available.map(x=>playerKey(x.name)));
  const missing=topSleeperMarketAvailable(18).filter(x=>!curatedIds.has(String(x.id)) && !curatedKeys.has(playerKey(x.name)));
@@ -1775,13 +1778,13 @@ function reliabilityCheck(){
    issues.push(`top live-market player${missing.length===1?' is':'s are'} outside the curated pool: ${names}${missing.length>4?'…':''}`);
  }
 
- // CPU mocks should never hide the strongest live-market values in the copy handoff.
+ // YELLOW strategy cross-check: market-vs-Champion disagreement is useful context, not a data-integrity failure.
  if(isCpuMockMode() && state.pick<=150){
    const topMarket=state.available.slice().sort(cpuMarketSort).slice(0,5);
    const champs=getChampionBoard(5).map(x=>x.player.name);
    const urgent=topMarket.filter(p=>Number.isFinite(liveMarketRankForPlayer(p)) && liveMarketRankForPlayer(p)<=state.pick+8);
    const omitted=urgent.filter(p=>!champs.includes(p.name));
-   if(omitted.length)warnings.push(`Champion Top 5 omits urgent Sleeper value: ${omitted.slice(0,3).map(p=>p.name).join(', ')}`);
+   if(omitted.length)warnings.push(`Sleeper market differs from Champion Top 5: ${omitted.slice(0,3).map(p=>p.name).join(', ')}`);
  }
  const level=issues.length?'red':warnings.length?'yellow':'green';
  return {level,issues,warnings};
@@ -1796,7 +1799,7 @@ function renderReliability(){
  const parts=[];
  if(r.issues.length)parts.push(`<b>Problem:</b> ${r.issues.join(' · ')}`);
  if(r.warnings.length)parts.push(`<b>Check:</b> ${r.warnings.join(' · ')}`);
- if(!parts.length)parts.push('<b>Passed:</b> Sleeper sync is current, market/IDs are fresh, no top live-market omissions were detected, and no identity conflicts are active.');
+ if(!parts.length)parts.push('<b>Passed:</b> Sleeper sync is current, market/IDs are fresh, no active rostered top-market players are missing from the curated pool, and no identity conflicts are active.');
  body.innerHTML=parts.join('<br>');
 }
 
