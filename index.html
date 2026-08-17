@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v5.1.1</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v5.2</title>
 <style>
 :root{
   --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
@@ -99,6 +99,8 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 .factor .f-val{font-size:14px;font-weight:800;margin-top:2px}
 .watch-chip{display:inline-block;font-size:10px;border:1px solid #46567c;background:#1c2e57;border-radius:999px;padding:2px 6px;margin-left:5px;color:#dce5ff}
 .champion-explain{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
+.reliability{padding:12px 14px;margin-top:12px;border:1px solid var(--border);border-radius:14px;background:var(--card)}
+.reliability-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.reliability-title{font-weight:900}.reliability-light{font-size:12px;font-weight:900;border-radius:999px;padding:5px 9px}.reliability-light.green{background:#163b2b;color:#bff4d8}.reliability-light.yellow{background:#493b14;color:#ffe39a}.reliability-light.red{background:#4a2026;color:#ffb3b3}.reliability-body{font-size:12px;line-height:1.4;color:var(--muted);margin-top:7px}.reliability-body b{color:var(--text)}
 .footer{font-size:12px;color:var(--muted);line-height:1.4;margin-top:16px}
 .hidden{display:none!important}
 @media(max-width:760px){
@@ -110,7 +112,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge">v5.1.1</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge">v5.2</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market refresh Aug. 16, 2026 + Champion Process + calibrated room model</p>
 
   <div class="timerbar" aria-live="polite">
@@ -149,12 +151,17 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player-rank refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v5.1.1 separates Sleeper CPU Mock behavior from Real League Draft behavior, while keeping ID-aware player matching and live market timing. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v5.2 separates Sleeper CPU Mock behavior from Real League Draft behavior, while keeping ID-aware player matching and live market timing. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v5.1.1 evaluation ranks. Sleeper market/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v5.2 evaluation ranks. Sleeper market/identity data has not been refreshed yet.</div>
   </div>
 
+
+  <div id="reliabilityCard" class="reliability" aria-live="polite">
+    <div class="reliability-head"><div class="reliability-title">Draft-night verification</div><div id="reliabilityLight" class="reliability-light yellow">YELLOW · CHECK</div></div>
+    <div id="reliabilityBody" class="reliability-body">Refresh Sleeper market + IDs, then sync the draft. Green means the synced board and recommendation pool passed the live-market checks.</div>
+  </div>
 
   <div class="voicebox" id="copyStateCard">
     <h2>Copy Draft State</h2>
@@ -232,7 +239,7 @@ CPU Mock uses Sleeper market behavior for survival. Real League activates your 2
           ADP/rank is an opponent map — not an instruction sheet.
         </div>
       </div>
-      <div class="champion-pill">v5.1.1 decision layer</div>
+      <div class="champion-pill">v5.2 decision layer</div>
     </div>
     <div id="championList" class="champion-list"></div>
   </div>
@@ -320,7 +327,7 @@ CPU Mock uses Sleeper market behavior for survival. Real League activates your 2
     </div>
   </div>
 
-  <p class="footer">v5.1.1 is a draft-night reliability cleanup. Sleeper remains the source of truth. The trainer no longer bulk-imports Sleeper's full player universe into Champion Process, preventing retired/deep/stale records from contaminating Best Available. Completed picks outside the curated pool are reconciled by Sleeper player_id/metadata for board and roster tracking without entering recommendations. Copy Draft State is now the primary handoff and sits directly below Sleeper Live Sync; it reports the correct version, CPU Mock vs Real League Draft mode, roster, curated availability, Champion Process, and mode-specific instructions. CPU Mock keeps historical manager tendencies out of survival predictions; Real League Draft preserves the 2023–2025 opponent model.</p>
+  <p class="footer">v5.2 adds draft-night GREEN/YELLOW/RED verification, live-market omission detection, and CPU-mode copy-state sorting by Sleeper market timing. Sleeper remains the source of truth. The trainer no longer bulk-imports Sleeper's full player universe into Champion Process, preventing retired/deep/stale records from contaminating Best Available. Completed picks outside the curated pool are reconciled by Sleeper player_id/metadata for board and roster tracking without entering recommendations. Copy Draft State is now the primary handoff and sits directly below Sleeper Live Sync; it reports the correct version, CPU Mock vs Real League Draft mode, roster, curated availability, Champion Process, and mode-specific instructions. CPU Mock keeps historical manager tendencies out of survival predictions; Real League Draft preserves the 2023–2025 opponent model.</p>
 </div>
 
 <script>
@@ -537,7 +544,7 @@ function isRealLeagueMode(){ return draftMode==='real'; }
 
 function setDraftMode(mode){
  draftMode = mode==='real' ? 'real' : 'cpu';
- try{ localStorage.setItem('fantasyTrainerDraftModeV51',draftMode); }catch(e){}
+ try{ localStorage.setItem('fantasyTrainerDraftModeV52',draftMode); }catch(e){}
  const el=document.getElementById('draftMode');
  if(el && el.value!==draftMode)el.value=draftMode;
  render();
@@ -545,7 +552,7 @@ function setDraftMode(mode){
 
 function loadDraftMode(){
  try{
-   const saved=localStorage.getItem('fantasyTrainerDraftModeV51');
+   const saved=localStorage.getItem('fantasyTrainerDraftModeV52');
    if(saved==='real'||saved==='cpu')draftMode=saved;
  }catch(e){}
  const el=document.getElementById('draftMode');
@@ -669,6 +676,7 @@ let audioCtx=null;
 let sleeperLiveMode=false;
 let sleeperPollInterval=null;
 let lastSleeperPickNo=0;
+let lastSleeperSyncAt=null;
 let timerPickNo=null;
 
 function roundForPick(p){return Math.floor((p-1)/10)+1}
@@ -1037,7 +1045,7 @@ async function refreshSleeperPlayerRanks(force=true){
 
 
 function reconcilePlayerPoolFromSleeper(){
- // v5.1.1: do NOT bulk-import Sleeper's full player universe into Best
+ // v5.2: do NOT bulk-import Sleeper's full player universe into Best
  // Available / Champion Process. That universe can include stale, retired,
  // deep, or special-teams records. Completed picks outside the curated pool
  // are reconciled safely inside syncSleeperDraft().
@@ -1129,6 +1137,7 @@ async function syncSleeperDraft(){
    if(!Array.isArray(picks))throw new Error('Unexpected Sleeper response');
 
    const before=lastSleeperPickNo;
+   lastSleeperSyncAt=Date.now();
 
    // In live mode, Sleeper is the source of truth. Rebuild from completed picks.
    const freshAvailable=players.map(p=>({...p}));
@@ -1171,7 +1180,7 @@ async function syncSleeperDraft(){
      if(pi>=0){
        base=freshAvailable.splice(pi,1)[0];
      }else{
-       // v5.1.1: completed picks can be tracked even if the player is outside
+       // v5.2: completed picks can be tracked even if the player is outside
        // the curated recommendation pool. Prefer authoritative Sleeper ID data
        // and fall back to pick metadata. Do not add this record to Best Available.
        const rec=sleeperId ? sleeperIdentityById[String(sleeperId)] : null;
@@ -1233,6 +1242,7 @@ function setSleeperLiveMode(on){
 function reset(){
  sleeperLiveMode=false;
  lastSleeperPickNo=0;
+ lastSleeperSyncAt=null;
  if(sleeperPollInterval){clearInterval(sleeperPollInterval);sleeperPollInterval=null;}
  const liveToggle=document.getElementById('sleeperLiveToggle'); if(liveToggle)liveToggle.checked=false;
  state={pick:1,drafted:[],available:players.map(p=>({...p})),rosters:Object.fromEntries(teams.map(t=>[t,[]]))};
@@ -1729,10 +1739,71 @@ function strategyAdvice(){
  return'Favor RB/WR value and reliable weekly volume. Bye weeks are a tiebreaker.';
 }
 
+function cpuMarketSort(a,b){
+ const ar=liveMarketRankForPlayer(a), br=liveMarketRankForPlayer(b);
+ if(Number.isFinite(ar)&&Number.isFinite(br))return ar-br||a.rank-b.rank;
+ if(Number.isFinite(ar))return -1;
+ if(Number.isFinite(br))return 1;
+ return a.rank-b.rank;
+}
+
+function topSleeperMarketAvailable(limit=12){
+ if(!state)return [];
+ const draftedIds=new Set(state.drafted.map(x=>String(x.sleeperId||'')).filter(Boolean));
+ return Object.values(sleeperIdentityById||{})
+  .filter(x=>['QB','RB','WR','TE','K'].includes(x.pos) && Number.isFinite(Number(x.rank)) && Number(x.rank)>0 && !draftedIds.has(String(x.id)))
+  .sort((a,b)=>Number(a.rank)-Number(b.rank))
+  .slice(0,limit);
+}
+
+function reliabilityCheck(){
+ const issues=[];
+ const warnings=[];
+ const now=Date.now();
+ if(sleeperLiveMode){
+   if(!lastSleeperSyncAt || now-lastSleeperSyncAt>12000)issues.push('Sleeper draft sync is stale');
+ }else warnings.push('Live sync is off');
+ if(!sleeperRankLastUpdated || now-sleeperRankLastUpdated>24*60*60*1000)warnings.push('Sleeper market/ID refresh is older than 24 hours or missing');
+ if(sleeperIdentityConflicts.length)warnings.push(`${sleeperIdentityConflicts.length} ambiguous player identity match${sleeperIdentityConflicts.length===1?'':'es'}`);
+
+ // Critical cross-check: compare Sleeper's best undrafted market names with the curated pool.
+ const curatedIds=new Set(state.available.map(x=>String(x.sleeperId||'')).filter(Boolean));
+ const curatedKeys=new Set(state.available.map(x=>playerKey(x.name)));
+ const missing=topSleeperMarketAvailable(18).filter(x=>!curatedIds.has(String(x.id)) && !curatedKeys.has(playerKey(x.name)));
+ if(missing.length){
+   const names=missing.slice(0,4).map(x=>`${x.name} (${x.pos}, Sleeper ${Math.round(Number(x.rank))})`).join(', ');
+   issues.push(`top live-market player${missing.length===1?' is':'s are'} outside the curated pool: ${names}${missing.length>4?'…':''}`);
+ }
+
+ // CPU mocks should never hide the strongest live-market values in the copy handoff.
+ if(isCpuMockMode() && state.pick<=150){
+   const topMarket=state.available.slice().sort(cpuMarketSort).slice(0,5);
+   const champs=getChampionBoard(5).map(x=>x.player.name);
+   const urgent=topMarket.filter(p=>Number.isFinite(liveMarketRankForPlayer(p)) && liveMarketRankForPlayer(p)<=state.pick+8);
+   const omitted=urgent.filter(p=>!champs.includes(p.name));
+   if(omitted.length)warnings.push(`Champion Top 5 omits urgent Sleeper value: ${omitted.slice(0,3).map(p=>p.name).join(', ')}`);
+ }
+ const level=issues.length?'red':warnings.length?'yellow':'green';
+ return {level,issues,warnings};
+}
+
+function renderReliability(){
+ const light=document.getElementById('reliabilityLight'), body=document.getElementById('reliabilityBody');
+ if(!light||!body||!state)return;
+ const r=reliabilityCheck();
+ light.className=`reliability-light ${r.level}`;
+ light.textContent=r.level==='green'?'GREEN · VERIFIED':r.level==='yellow'?'YELLOW · CHECK':'RED · STOP & CHECK';
+ const parts=[];
+ if(r.issues.length)parts.push(`<b>Problem:</b> ${r.issues.join(' · ')}`);
+ if(r.warnings.length)parts.push(`<b>Check:</b> ${r.warnings.join(' · ')}`);
+ if(!parts.length)parts.push('<b>Passed:</b> Sleeper sync is current, market/IDs are fresh, no top live-market omissions were detected, and no identity conflicts are active.');
+ body.innerHTML=parts.join('<br>');
+}
+
 function currentBrief(){
  const c=counts('MMazz3117');
  const mineRoster=state.rosters.MMazz3117.map(x=>`${x.pos} ${x.name} (#${x.pick})`).join(', ')||'none yet';
- const top=state.available.slice().sort((a,b)=>a.rank-b.rank).slice(0,12)
+ const top=state.available.slice().sort(isCpuMockMode()?cpuMarketSort:(a,b)=>a.rank-b.rank).slice(0,12)
    .map(x=>`${x.name} (${x.pos})${Number.isFinite(liveMarketRankForPlayer(x))?` [Sleeper ${Math.round(liveMarketRankForPlayer(x))}]`:''}`)
    .join(', ');
  const sc=document.getElementById('scenario').selectedOptions[0].text;
@@ -1746,13 +1817,16 @@ function currentBrief(){
  const realResearch=`REAL LEAGUE ROOM MODEL — USE FOR SURVIVAL/BEHAVIOR: 10-team full PPR with 2 FLEX. Exactly 8 RBs were gone by pick 20 in each of 2023-25; usually 2-3 QBs by pick 20, about 6 by pick 40, about 8 by pick 60; only 0-1 TEs by pick 20, then TE tends to run from 40-60. FgFluet and josh1975 are strong RB-drain threats. generaljjj strongly prefers premium QB early. Kzma is the main elite-TE threat. SuperSaiyan has the strongest multi-year scoring profile and has paid for early QB. Injury resilience matters. Playoffs Weeks 15-17.`;
  const cpuResearch=`CPU MOCK RULE — DO NOT use named managers or 2023-25 league tendencies to predict survival. Sleeper live market/search rank and what the CPU room is actually doing are the opponent-behavior signals. League scoring, roster construction, current news, and injury resilience still matter.`;
  const research=isCpuMockMode()?cpuResearch:realResearch;
+ const verify=reliabilityCheck();
+ const verifyText=`Draft-night verification: ${verify.level.toUpperCase()}${verify.issues.length?` — ${verify.issues.join(' · ')}`:''}${verify.warnings.length?` — ${verify.warnings.join(' · ')}`:''}`;
 
  return `CURRENT DRAFT STATE
-Trainer version: v5.1.1
+Trainer version: v5.2
 Draft mode: ${mode}
 Market snapshot: Aug. 16, 2026 PPR refresh + Champion Process
 Board source: ${sleeperLiveMode?'Sleeper live sync':'mock simulator'}
 Source-of-truth rule: Sleeper determines drafted/available status. Never recommend a player who is not in the synced available pool.
+${verifyText}
 Pick timer: Sleeper-aware 3:00 countdown; ${alarmArmed?'alarm armed':'alarm not armed'}
 Scenario: ${sc}
 Turn: ${turn}
@@ -1851,7 +1925,8 @@ function applyView(){
 function render(){
  document.getElementById('status').innerHTML=`<div class="title">${state.pick<=150?'Current pick: '+state.pick+' · '+teamForPick(state.pick):'Draft complete'}</div><div class="body"><b>${isCpuMockMode()?'Sleeper CPU Mock':'Real League Draft'}</b> · ${strategyAdvice()}</div>`;
  document.getElementById('voiceBrief').value=currentBrief();
- renderAvailable();renderRoster();renderBoard();renderChampionProcess();applyView();
+ renderAvailable();renderRoster();renderBoard();renderChampionProcess();
+ renderReliability();applyView();
  document.getElementById('oneBtn').disabled=sleeperLiveMode||mine(state.pick)||state.pick>150;
  document.getElementById('autoBtn').disabled=sleeperLiveMode||mine(state.pick)||state.pick>150;
 }
