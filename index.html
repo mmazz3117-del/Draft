@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v5.0</title>
+<title>2026 Fantasy Draft Voice Trainer — Full 15 Rounds v5.0.1</title>
 <style>
 :root{
   --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
@@ -110,7 +110,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v5.0</span></h1>
+  <h1>2026 Fantasy Draft Voice Trainer — Full Draft <span class="version-badge">v5.0.1</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market refresh Aug. 16, 2026 + Champion Process + calibrated room model</p>
 
   <div class="timerbar" aria-live="polite">
@@ -149,10 +149,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player-rank refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v4.9 uses expanded PPR market corrections first, then alias-aware Sleeper player ranks as a fallback. Suffix/name mismatches such as Pittman Jr. can no longer silently drop a player to the stale raw-list fallback.
+      v5.0.1 uses current PPR evaluation ranks plus Sleeper market timing and ID-aware player matching. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper player ranks</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using embedded v4.9 ranks. Sleeper fallback has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using embedded v5.0.1 evaluation ranks. Sleeper market/identity data has not been refreshed yet.</div>
   </div>
 
   <div id="summary" class="grid stats">
@@ -306,7 +306,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     </div>
   </div>
 
-  <p class="footer">Practice tool with a hybrid ranking layer; Sleeper live sync remains the real-board source of truth. v5.0 adds three mock-driven safeguards: (1) Sleeper-aware timing that runs the 3:00 clock only while MMazz3117 is actually on the clock, (2) a market-timing/reach guardrail that separates player evaluation from “draft him now” urgency and warns when Sleeper market rank suggests the player can be taken at a later turn, and (3) identity-safe matching that prefers Sleeper player_id and blocks ambiguous similar-name/suffix matches instead of guessing. It retains the calibrated 2023–2025 room model, Champion Process, current-health penalties, v4.8 D/ST protections, v4.9 rank corrections, daily Sleeper refresh, roster guardrails, search, filters, sorting, Voice Brief, and the full 15-round board.</p>
+  <p class="footer">Practice tool with a hybrid ranking layer; Sleeper live sync remains the real-board source of truth. v5.0.1 fixes the live-sync Available Players rendering regression from v5.0 and retains three mock-driven safeguards: (1) Sleeper-aware timing that runs the 3:00 clock only while MMazz3117 is actually on the clock, (2) a market-timing/reach guardrail that separates player evaluation from “draft him now” urgency and warns when Sleeper market rank suggests the player can be taken at a later turn, and (3) identity-safe matching that prefers Sleeper player_id and blocks ambiguous similar-name/suffix matches instead of guessing. It retains the calibrated 2023–2025 room model, Champion Process, current-health penalties, v4.8 D/ST protections, v4.9 rank corrections, daily Sleeper refresh, roster guardrails, search, filters, sorting, Voice Brief, and the full 15-round board.</p>
 </div>
 
 <script>
@@ -991,7 +991,7 @@ async function refreshSleeperPlayerRanks(force=true){
    const conflictMsg=conflicts.length?` ${conflicts.length} ambiguous identity match${conflicts.length===1?'':'es'} blocked from auto-matching.`:' No ambiguous player identities detected.';
    setRankRefreshStatus(`Sleeper ranks/IDs refreshed ${d.toLocaleString()}.${conflictMsg}`,'ok');
  }catch(err){
-   setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded v5.0 PPR ranks are still active.`,'err');
+   setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded v5.0.1 PPR ranks are still active.`,'err');
  }finally{
    if(btn)btn.disabled=false;
  }
@@ -1720,7 +1720,7 @@ function renderAvailable(){
  visible.forEach(p=>{
    const row=document.createElement('div');row.className='player';
    const riskChip=currentRiskFor(p)?` <span class="watch-chip">${currentRiskFor(p).label}</span>`:'';
-   row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}${riskChip}</div><div class="player-sub">${p.pos} · eval rank ${Math.round(p.rank)} · ${p.rankSource||'market'}${Number.isFinite(x.liveMarketRank)?` · Sleeper market ${Math.round(x.liveMarketRank)}`:''}${p.sleeperId?` · ID ${p.sleeperId}`:''}</div></div>`;
+   row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}${riskChip}</div><div class="player-sub">${p.pos} · eval rank ${Math.round(p.rank)} · ${p.rankSource||'market'}${Number.isFinite(liveMarketRankForPlayer(p))?` · Sleeper market ${Math.round(liveMarketRankForPlayer(p))}`:''}${p.sleeperId?` · ID ${p.sleeperId}`:''}</div></div>`;
    if(!sleeperLiveMode&&mine(state.pick)&&state.pick<=150){
      const b=document.createElement('button');
      b.className='draftbtn';
