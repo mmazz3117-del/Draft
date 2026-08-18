@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v5.3</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v5.4</title>
 <style>
 :root{
   --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
@@ -113,7 +113,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v5.3</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v5.4</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · market refresh Aug. 16, 2026 + Champion Process + calibrated room model</p>
 
   <div class="timerbar" aria-live="polite">
@@ -152,10 +152,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player/identity refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v5.3 uses Sleeper's full active rostered player universe for eligibility, while keeping CPU Mock and Real League Draft behavior separate. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v5.4 uses Sleeper's full active rostered player universe for eligibility, while keeping CPU Mock and Real League Draft behavior separate. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v5.3 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v5.4 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
 
@@ -176,6 +176,13 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     </div>
   </div>
 
+
+  <div class="card" style="margin-bottom:14px">
+    <h2 style="margin:0 0 6px">Market source</h2>
+    <div class="muted" style="font-size:13px">
+      v5.4 prefers the observed Sleeper in-app draft-room ADP snapshot from Aug. 18, 2026 when available. Sleeper API search rank is used only as a fallback and is labeled separately.
+    </div>
+  </div>
   <div id="summary" class="grid stats">
     <div class="metric"><div class="label">Your picks</div><div class="value">1 / 20-21</div><div class="detail">then 40-41, 60-61…</div></div>
     <div class="metric"><div class="label">Roster</div><div class="value">15</div><div class="detail">QB, 2 RB, 2 WR, TE, 2 FLEX, DEF, K, 5 bench</div></div>
@@ -240,7 +247,7 @@ CPU Mock uses Sleeper API search behavior for survival. Real League activates yo
           ADP/rank is an opponent map — not an instruction sheet.
         </div>
       </div>
-      <div class="champion-pill">v5.3 decision layer</div>
+      <div class="champion-pill">v5.4 decision layer</div>
     </div>
     <div id="championList" class="champion-list"></div>
   </div>
@@ -328,11 +335,100 @@ CPU Mock uses Sleeper API search behavior for survival. Real League activates yo
     </div>
   </div>
 
-  <p class="footer">v5.3 changes the trainer architecture: Sleeper's full active, rostered player universe is now eligible for Best Available and Champion Process, while curated profiles supply the deeper football intelligence where available. Players not yet in the curated profile set remain visible and are marked UNSCOUTED with a modest confidence penalty instead of being silently excluded. Sleeper completed picks and player IDs remain the source of truth for availability. The trainer now explicitly distinguishes Sleeper API search_rank from the in-app draft-room ADP, provides top available players by position in Copy Draft State, and uses one APP_VERSION constant for the copied version. CPU Mock and Real League Draft behavior remain separated.</p>
+  <p class="footer">v5.4 adds a distinct Sleeper draft-room ADP layer based on exact in-app ADPs observed during the Aug. 18, 2026 CPU mocks. Champion Process and CPU market sorting now prefer that observed draft-room ADP when it exists and fall back to Sleeper API search_rank only when necessary. The two sources are explicitly labeled so API search order can no longer masquerade as ADP. Sleeper's full active candidate universe, unscouted-player handling, CPU/Real separation, live-sync source-of-truth rules, and draft-night verification from v5.3 remain intact.</p>
 </div>
 
 <script>
-const APP_VERSION='v5.3';
+const APP_VERSION='v5.4';
+const SLEEPER_DRAFT_ROOM_ADP_SNAPSHOT = {
+  "A.J. Brown": 18.4,
+  "Kenneth Walker III": 19.6,
+  "Brock Bowers": 22.8,
+  "Josh Allen": 23.1,
+  "George Pickens": 23.4,
+  "Nico Collins": 25.6,
+  "Jeremiyah Love": 26.9,
+  "Rashee Rice": 27.9,
+  "Malik Nabers": 28.0,
+  "Kyren Williams": 29.8,
+  "Chris Olave": 30.7,
+  "Emeka Egbuka": 39.2,
+  "Colston Loveland": 41.8,
+  "Zay Flowers": 42.3,
+  "Cam Skattebo": 43.9,
+  "Travis Etienne": 44.5,
+  "Garrett Wilson": 45.8,
+  "Tyler Warren": 46.3,
+  "Jaylen Waddle": 47.6,
+  "Drake Maye": 48.0,
+  "Luther Burden": 49.9,
+  "Tucker Kraft": 65.3,
+  "Harold Fannin Jr.": 67.9,
+  "Kyle Pitts": 68.1,
+  "Jordyn Tyson": 77.0,
+  "Parker Washington": 78.8,
+  "Courtland Sutton": 79.4,
+  "Michael Wilson": 83.3,
+  "Makai Lemon": 86.5,
+  "Chris Godwin": 95.9,
+  "Alec Pierce": 97.8,
+  "Jakobi Meyers": 102.3,
+  "Michael Pittman Jr.": 103.6,
+  "Jordan Addison": 105.8,
+  "Quentin Johnston": 107.8,
+  "Jayden Reed": 114.6,
+  "Stefon Diggs": 116.0,
+  "Aaron Jones": 121.3,
+  "Jonathon Brooks": 123.8,
+  "Romeo Doubs": 127.1,
+  "Rachaad White": 127.8,
+  "KC Concepcion": 129.3,
+  "Matthew Golden": 131.9,
+  "Deebo Samuel": 137.2,
+  "Khalil Shakir": 138.3,
+  "Xavier Worthy": 139.4,
+  "Jayden Higgins": 140.2,
+  "Zach Charbonnet": 141.1,
+  "Patriots": 143.8,
+  "Jalen Coker": 145.7,
+  "Brian Robinson Jr.": 147.0,
+  "Tyler Allgeier": 148.0,
+  "Harrison Mevis": 149.3,
+  "Vikings": 151.7,
+  "Andy Borregales": 153.9,
+  "Chris Boswell": 154.7,
+  "Jake Bates": 155.9,
+  "Chris Rodriguez Jr.": 156.1,
+  "Rashid Shaheed": 157.6,
+  "Tyrone Tracy Jr.": 159.1,
+  "Dylan Boston": 162.2,
+  "Woody Marks": 165.4,
+  "Will Reichard": 166.9,
+  "Eddy Pineiro": 173.1,
+  "Harrison Butker": 180.3,
+  "Evan McPherson": 182.4,
+  "Tyler Loop": 201.0,
+  "Cairo Santos": 213.5,
+  "Jake Elliott": 220.9
+};
+
+const SLEEPER_DRAFT_ROOM_ADP_SNAPSHOT_DATE='2026-08-18';
+
+function sleeperDraftRoomAdpForPlayer(p){
+  if(!p)return null;
+  const direct=SLEEPER_DRAFT_ROOM_ADP_SNAPSHOT[p.name];
+  if(Number.isFinite(Number(direct))) return Number(direct);
+  return null;
+}
+
+function marketSignalForPlayer(p){
+  const adp=sleeperDraftRoomAdpForPlayer(p);
+  if(Number.isFinite(adp)) return {value:adp,source:'Sleeper draft-room ADP'};
+  const api=liveMarketRankForPlayer(p);
+  if(Number.isFinite(api)) return {value:api,source:'Sleeper API search'};
+  return {value:null,source:'none'};
+}
+
 document.title=`2026 Fantasy Draft Trainer — Full 15 Rounds ${APP_VERSION}`;
 document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent=APP_VERSION);
@@ -1263,7 +1359,7 @@ async function syncSleeperDraft(){
      if(pi>=0){
        base=freshAvailable.splice(pi,1)[0];
      }else{
-       // v5.3: completed picks can be tracked even if the player is outside
+       // v5.4: completed picks can be tracked even if the player is outside
        // the curated recommendation pool. Prefer authoritative Sleeper ID data
        // and fall back to pick metadata. Do not add this record to Best Available.
        const rec=sleeperId ? sleeperIdentityById[String(sleeperId)] : null;
@@ -1678,7 +1774,9 @@ function championScore(p,pick){
  // Sleeper's live search rank is an opponent-behavior/timing signal, not our
  // evaluation rank. Penalize major reaches when the player is likely to remain
  // available at the user's next turn.
- const liveMarketRank=liveMarketRankForPlayer(p);
+ const marketSignal=marketSignalForPlayer(p);
+ const liveMarketRank=marketSignal.value;
+ const marketSource=marketSignal.source;
  const nextTurn=nextMyPickAfter(pick);
  const reachGap=Number.isFinite(liveMarketRank)?liveMarketRank-pick:0;
  let reachPenalty=0;
@@ -1702,13 +1800,13 @@ function championScore(p,pick){
  }
  score-=reachPenalty;
 
- // Full Sleeper candidate universe is eligible in v5.3. If a player has no
+ // Full Sleeper candidate universe is eligible in v5.4. If a player has no
  // curated evaluation profile, keep him visible but apply a modest confidence
  // penalty so an API search rank alone cannot masquerade as football analysis.
  const unscoutedPenalty=p.curated===false?8:0;
  score-=unscoutedPenalty;
 
- return {player:p,total:clamp(score),value,cliff,survive,fit,upside,leagueFit,riskPenalty,liveMarketRank,reachGap,reachPenalty,nextTurn,unscoutedPenalty};
+ return {player:p,total:clamp(score),value,cliff,survive,fit,upside,leagueFit,riskPenalty,liveMarketRank,marketSource,reachGap,reachPenalty,nextTurn,unscoutedPenalty};
 }
 
 function championReason(x){
@@ -1720,8 +1818,8 @@ function championReason(x){
  if(x.upside>=82)parts.push('high role-growth ceiling');
  if(x.leagueFit>=90)parts.push('excellent fit for your scoring');
  if(p.pos==='QB' && x.leagueFit<72)parts.push('pocket-QB scoring discount');
- if(x.reachPenalty>=16 && x.nextTurn)parts.push(`WAIT: Sleeper API search order suggests ${x.nextTurn} or later`);
- else if(x.reachPenalty>=5)parts.push('reach warning: Sleeper API search order is later');
+ if(x.reachPenalty>=16 && x.nextTurn)parts.push(`WAIT: ${x.marketSource||'market'} suggests ${x.nextTurn} or later`);
+ else if(x.reachPenalty>=5)parts.push(`reach warning: ${(x.marketSource||'market')} is later`);
  if(x.unscoutedPenalty)parts.push('UNSCOUTED: verify current role/news before drafting');
  const risk=currentRiskFor(p);
  if(risk)parts.push(`health watch: ${risk.label}`);
@@ -1832,11 +1930,12 @@ function strategyAdvice(){
 }
 
 function cpuMarketSort(a,b){
- const ar=liveMarketRankForPlayer(a), br=liveMarketRankForPlayer(b);
- if(Number.isFinite(ar)&&Number.isFinite(br))return ar-br||a.rank-b.rank;
- if(Number.isFinite(ar))return -1;
- if(Number.isFinite(br))return 1;
- return a.rank-b.rank;
+ const ma=marketSignalForPlayer(a);
+ const mb=marketSignalForPlayer(b);
+ const av=Number.isFinite(ma.value)?ma.value:9999;
+ const bv=Number.isFinite(mb.value)?mb.value:9999;
+ if(av!==bv)return av-bv;
+ return (a.rank||9999)-(b.rank||9999);
 }
 
 function topSleeperMarketAvailable(limit=12){
@@ -1870,7 +1969,7 @@ function reliabilityCheck(){
    issues.push('full Sleeper candidate universe is not loaded');
  }
 
- // In v5.3, missing-from-curated is no longer a data-integrity failure because
+ // In v5.4, missing-from-curated is no longer a data-integrity failure because
  // the full active Sleeper universe is eligible. Instead, flag UNSCOUTED
  // high-search players as context for ChatGPT/current-web verification.
  if(state && state.pick<=150){
@@ -1893,6 +1992,11 @@ function reliabilityCheck(){
    if(omitted.length)warnings.push(`Sleeper API search order differs from Champion Top 5: ${omitted.slice(0,3).map(p=>p.name).join(', ')}`);
  }
 
+ if(isCpuMockMode() && state && state.pick<=150){
+   const near=state.available.slice().sort(cpuMarketSort).slice(0,8);
+   const noAdp=near.filter(p=>!Number.isFinite(sleeperDraftRoomAdpForPlayer(p))).slice(0,4);
+   if(noAdp.length)warnings.push(`top candidates using API-search fallback instead of observed draft-room ADP: ${noAdp.map(p=>p.name).join(', ')}`);
+ }
  const level=issues.length?'red':warnings.length?'yellow':'green';
  return {level,issues,warnings};
 }
@@ -1913,7 +2017,7 @@ function renderReliability(){
 function currentBrief(){
  const c=counts('MMazz3117');
  const mineRoster=state.rosters.MMazz3117.map(x=>`${x.pos} ${x.name} (#${x.pick})`).join(', ')||'none yet';
- const fmt=(x)=>`${x.name} (${x.pos})${Number.isFinite(liveMarketRankForPlayer(x))?` [API search ${Math.round(liveMarketRankForPlayer(x))}]`:''}${x.curated===false?' [UNSCOUTED]':''}`;
+ const fmt=(x)=>{ const m=marketSignalForPlayer(x); return `${x.name} (${x.pos})${Number.isFinite(m.value)?` [${m.source} ${Number(m.value).toFixed(1)}]`:''}${x.curated===false?' [UNSCOUTED]':''}`; };
  const sorted=state.available.slice().sort(isCpuMockMode()?cpuMarketSort:(a,b)=>a.rank-b.rank);
  const top=sorted.slice(0,14).map(fmt).join(', ');
  const byPos={};
@@ -1930,7 +2034,7 @@ function currentBrief(){
    : 'No Champion Process recommendations available.';
 
  const realResearch=`REAL LEAGUE ROOM MODEL — USE FOR SURVIVAL/BEHAVIOR: 10-team full PPR with 2 FLEX. Exactly 8 RBs were gone by pick 20 in each of 2023-25; usually 2-3 QBs by pick 20, about 6 by pick 40, about 8 by pick 60; only 0-1 TEs by pick 20, then TE tends to run from 40-60. FgFluet and josh1975 are strong RB-drain threats. generaljjj strongly prefers premium QB early. Kzma is the main elite-TE threat. SuperSaiyan has the strongest multi-year scoring profile and has paid for early QB. Injury resilience matters. Playoffs Weeks 15-17.`;
- const cpuResearch=`CPU MOCK RULE — DO NOT use named managers or 2023-25 league tendencies to predict survival. Sleeper API player search order and what the CPU room actually drafts are opponent-behavior signals. IMPORTANT: Sleeper API search_rank is not the same thing as the in-app draft-room ADP shown on Sleeper's player screen. League scoring, roster construction, current news, and injury resilience still matter.`;
+ const cpuResearch=`CPU MOCK RULE — DO NOT use named managers or 2023-25 league tendencies to predict survival. Observed Sleeper in-app draft-room ADP is the preferred CPU market signal when available. Sleeper API search_rank is only the fallback and is not treated as equivalent to ADP. League scoring, roster construction, current news, and injury resilience still matter.`;
  const research=isCpuMockMode()?cpuResearch:realResearch;
  const verify=reliabilityCheck();
  const verifyText=`Draft-night verification: ${verify.level.toUpperCase()}${verify.issues.length?` — ${verify.issues.join(' · ')}`:''}${verify.warnings.length?` — ${verify.warnings.join(' · ')}`:''}`;
@@ -1940,7 +2044,7 @@ Trainer version: ${APP_VERSION}
 Draft mode: ${mode}
 Market snapshot: Aug. 16, 2026 PPR refresh + Champion Process
 Board source: ${sleeperLiveMode?'Sleeper live sync':'mock simulator'}
-Source-of-truth rule: Sleeper completed picks + player IDs determine drafted/available status. Sleeper API search rank is NOT the same as the in-app draft-room ADP.
+Source-of-truth rule: Sleeper completed picks + player IDs determine drafted/available status. Market source prefers observed Sleeper in-app draft-room ADP (${SLEEPER_DRAFT_ROOM_ADP_SNAPSHOT_DATE}) when available, then falls back to Sleeper API search rank.
 ${verifyText}
 Pick timer: Sleeper-aware 3:00 countdown; ${alarmArmed?'alarm armed':'alarm not armed'}
 Scenario: ${sc}
