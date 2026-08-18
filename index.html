@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v5.5</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v5.6</title>
 <style>
 :root{
   --bg:#0b1020; --panel:#121a2f; --card:#17213b; --text:#f7f8fc; --muted:#aeb8d1;
@@ -113,7 +113,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v5.5</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v5.6</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · opponent-informed simulation · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 
   <div class="timerbar" aria-live="polite">
@@ -152,10 +152,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player/identity refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v5.5 uses Sleeper's full active rostered player universe for eligibility, while keeping CPU Mock and Real League Draft behavior separate. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v5.6 uses Sleeper's full active rostered player universe for eligibility, while keeping CPU Mock and Real League Draft behavior separate. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v5.5 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v5.6 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
 
@@ -180,7 +180,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v5.5 makes observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing.
+      v5.6 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -247,7 +247,7 @@ CPU Mock prefers fresh observed Sleeper draft-room ADP for market timing and use
           ADP/rank is an opponent map — not an instruction sheet.
         </div>
       </div>
-      <div class="champion-pill">v5.5 decision layer</div>
+      <div class="champion-pill">v5.6 decision layer</div>
     </div>
     <div id="championList" class="champion-list"></div>
   </div>
@@ -311,7 +311,7 @@ CPU Mock prefers fresh observed Sleeper draft-room ADP for market timing and use
       <div class="node"><span class="badge">Construction</span>Because you start <b>2 FLEX</b>, RB/WR depth is highly usable. After QB + TE are secured, favor RB/WR ceiling over backup QB/TE.</div>
       <div class="node"><span class="badge">Injury resilience</span>Your past seasons have been injury-heavy. We cannot predict injuries, so early picks emphasize <b>secure volume</b>; bench picks emphasize players whose roles can jump sharply.</div>
       <div class="node"><span class="badge">Waivers</span>You and generaljjj have had high waiver activity partly from injuries, so transaction count is not treated as pure drafting style.</div>
-      <div class="node"><span class="badge">Playoffs</span>Your postseason runs <b>Weeks 15–17</b>. Bye weeks are a tiebreaker, not a reason to pass a clearly better player.</div>
+      <div class="node"><span class="badge">Playoffs</span>Your postseason runs <b>Weeks 15–17</b>. 2026 bye weeks are tracked by NFL team and used only as a roster-balance tiebreaker, never as a reason to pass a clearly better player.</div>
       <div class="node"><span class="badge">Late rounds</span>Do not spend early/mid picks on K/DEF. Default plan is to fill them in the <b>final two rounds</b>, unless the board forces something unusual.</div>
       <div class="node"><span class="badge">Hybrid ranking layer</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
       <div class="node"><span class="badge">Champion Process</span>Repeat-winner principles are now scored on every pick: market value, positional cliffs, estimated survival to your next turn, roster construction, and asymmetric upside. QB/TE run-chasing and redundant backups are penalized.</div>
@@ -335,12 +335,18 @@ CPU Mock prefers fresh observed Sleeper draft-room ADP for market timing and use
     </div>
   </div>
 
-  <p class="footer">v5.5 makes Sleeper draft-room ADP time-aware without mixing market confidence into football evaluation. Observations are stored as dated history; 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Fresh/aging observations can guide draft timing with explicit confidence, stale observations remain historical context and yield to a current API fallback, Champion Top 5 players show market-status tags, and YELLOW verification names the exact players whose draft timing needs checking. Sleeper live sync, full candidate universe, UNSCOUTED handling, CPU/Real separation, roster logic, timer/alarm, and copy/paste workflow remain intact.</p>
+  <p class="footer">v5.6 keeps Sleeper draft-room ADP time-aware without mixing market confidence into football evaluation. Observations are stored as dated history; 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Fresh/aging observations can guide draft timing with explicit confidence, stale observations remain historical context and yield to a current API fallback, Champion Top 5 players show market-status tags, and YELLOW verification names the exact players whose draft timing needs checking. Market-rank sorting now uses the same time-aware market signal shown in the copied state; official 2026 NFL bye weeks and same-team exposure are tracked as small roster-level tiebreakers; same-day news can invalidate ADP timing without changing football quality; and paired-pick timing skips the adjacent pick correctly. Sleeper live sync, full candidate universe, CPU/Real separation, timer/alarm, and copy/paste workflow remain intact.</p>
 </div>
 
 <script>
-const APP_VERSION='v5.5';
+const APP_VERSION='v5.6';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
+// Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
+// Bye balance is a roster-level tiebreaker only; it never changes football quality.
+const NFL_BYE_WEEK_2026 = Object.freeze({CAR:5,KC:5,CIN:6,DET:6,MIA:6,MIN:6,BUF:7,JAX:7,LAC:7,WAS:7,WSH:7,HOU:8,NO:8,NYG:8,SF:8,PIT:9,TEN:9,CHI:10,DEN:10,PHI:10,TB:10,ATL:11,CLE:11,GB:11,LAR:11,NE:11,SEA:11,BAL:13,IND:13,LV:13,NYJ:13,ARI:14,DAL:14});
+const DST_TEAM_CODE = Object.freeze({Cardinals:'ARI',Falcons:'ATL',Ravens:'BAL',Bills:'BUF',Panthers:'CAR',Bears:'CHI',Bengals:'CIN',Browns:'CLE',Cowboys:'DAL',Broncos:'DEN',Lions:'DET',Packers:'GB',Texans:'HOU',Colts:'IND',Jaguars:'JAX',Chiefs:'KC',Raiders:'LV',Chargers:'LAC',Rams:'LAR',Dolphins:'MIA',Vikings:'MIN',Patriots:'NE',Saints:'NO',Giants:'NYG',Jets:'NYJ',Eagles:'PHI',Steelers:'PIT','49ers':'SF',Seahawks:'SEA',Buccaneers:'TB',Titans:'TEN',Commanders:'WAS'});
+// Same-day news can invalidate ADP timing confidence without changing player quality.
+const MARKET_NEWS_INVALIDATION = Object.freeze({'Jayden Higgins':{date:'2026-08-18',reason:'lower-body/leg injury in joint practice; severity not yet settled'},'Parker Washington':{date:'2026-08-18',reason:'day-to-day undisclosed injury; expected to miss the rest of the practice week'},'Emeka Egbuka':{date:'2026-08-18',reason:'toe sprain remains an active availability watch'}});
 // Market observations live here so draft-day refreshes never require editing Champion Process logic.
 // Add new observations to the front or end of a player's array; latest valid date wins.
 const SLEEPER_DRAFT_ROOM_ADP_HISTORY = {
@@ -487,6 +493,8 @@ function marketStatusForPlayer(p){
 function marketSignalForPlayer(p){
   const observed=latestObservedAdpForPlayer(p);
   const api=liveMarketRankForPlayer(p);
+  const news=MARKET_NEWS_INVALIDATION[p.name]||null;
+  if(news && observed && (observed.freshness==='FRESH'||observed.freshness==='AGING'))return {value:Number.isFinite(api)?api:null,source:Number.isFinite(api)?'Sleeper API search':'none',status:'NEWS INVALIDATED ADP',confidence:Number.isFinite(api)?.35:0,observed,news};
 
   if(observed?.freshness==='FRESH') return {value:observed.adp,source:'Sleeper draft-room ADP',status:'FRESH OBSERVED ADP',confidence:1,observed};
   if(observed?.freshness==='AGING') return {value:observed.adp,source:'Sleeper draft-room ADP',status:'AGING OBSERVED ADP',confidence:.65,observed};
@@ -501,6 +509,7 @@ function marketSignalDisplay(m){
   if(!m)return 'ADP UNKNOWN';
   const obs=m.observed;
   if(m.status==='FRESH OBSERVED ADP'||m.status==='AGING OBSERVED ADP')return `${m.status} ${obs.adp.toFixed(1)} · ${obs.observed} · ${obs.ageDays}d old`;
+  if(m.status==='NEWS INVALIDATED ADP')return `NEWS INVALIDATED ADP ${obs.adp.toFixed(1)} · ${obs.observed}${Number.isFinite(m.value)?` · timing falls back to ${m.source} ${Number(m.value).toFixed(1)}`:' · VERIFY SLEEPER'}`;
   if(m.status==='STALE OBSERVED ADP')return `STALE OBSERVED ADP ${obs.adp.toFixed(1)} · ${obs.observed} · ${obs.ageDays}d old${Number.isFinite(m.value)?` · timing uses ${m.source} ${Number(m.value).toFixed(1)}`:' · VERIFY DRAFT TIMING'}`;
   if(m.status==='API FALLBACK ONLY')return `API FALLBACK ONLY${Number.isFinite(m.value)?` ${Number(m.value).toFixed(1)}`:''}`;
   return 'ADP UNKNOWN — VERIFY DRAFT TIMING';
@@ -567,7 +576,8 @@ const raw=[
 ['Vikings','DST'],['Ravens','DST'],['Broncos','DST'],['49ers','DST'],['Jets','DST'],['Cowboys','DST'],
 ['Brandon Aubrey','K'],['Cameron Dicker','K'],['Jason Myers','K'],['Cam Little','K'],['Harrison Mevis','K'],['Eddy Pineiro','K'],['Tyler Loop','K'],['Andy Borregales','K'],
 ["Ka'imi Fairbairn",'K'],['Harrison Butker','K'],['Jake Elliott','K'],['Chris Boswell','K'],['Jake Bates','K'],
-['Tyler Bass','K'],['Younghoe Koo','K'],['Brandon McManus','K'],['Daniel Carlson','K'],['Chase McLaughlin','K']
+['Tyler Bass','K'],['Younghoe Koo','K'],['Brandon McManus','K'],['Daniel Carlson','K'],['Chase McLaughlin','K'],
+['David Montgomery','RB'],['Trey Benson','RB'],['Jonathon Brooks','RB'],['DK Metcalf','WR'],['Makai Lemon','WR'],['Alec Pierce','WR'],['Jayden Reed','WR'],['Jayden Higgins','WR']
 ];
 // v4.9 market snapshot.
 // These overrides correct the biggest stale-value problems exposed by our mocks.
@@ -645,6 +655,15 @@ const MARKET_RANK={
   'Malachi Fields':245,
   'Kaytron Allen':305,
   'Robert Henry Jr.':325,
+  // Current August 2026 refreshes for players that surfaced as UNSCOUTED in mocks.
+  'David Montgomery':62,
+  'DK Metcalf':68,
+  'Alec Pierce':70,
+  'Makai Lemon':101,
+  'Jayden Reed':94,
+  'Jayden Higgins':121,
+  'Trey Benson':114,
+  'Jonathon Brooks':124,
   // v4.9 current calibration anchors
   "Josh Allen":31,
   "Lamar Jackson":42,
@@ -834,6 +853,7 @@ function recomputePlayerRanks(){
      obj.rankSource=c.rankSource;
      obj.sleeperId=c.sleeperId||obj.sleeperId||null;
      obj.identityStatus=c.identityStatus||obj.identityStatus||'unverified';
+     obj.teamCode=c.teamCode||obj.teamCode||'';
    }
  };
  state.available.forEach(syncObj);
@@ -1133,6 +1153,8 @@ function loadCachedSleeperRanks(){
      if(id){
        p.sleeperId=String(id);
        p.identityStatus='verified';
+       const rec=sleeperIdentityById[String(id)];
+       if(rec?.team)p.teamCode=String(rec.team).toUpperCase();
      }
    }
    sleeperRankLastUpdated=Number(parsed.savedAt);
@@ -1197,6 +1219,7 @@ async function refreshSleeperPlayerRanks(force=true){
      if(found.length===1){
        p.sleeperId=found[0].id;
        p.identityStatus='verified';
+       p.teamCode=found[0].team||p.teamCode||'';
      }else if(found.length>1){
        p.sleeperId=null;
        p.identityStatus='conflict';
@@ -1447,7 +1470,7 @@ async function syncSleeperDraft(){
      if(pi>=0){
        base=freshAvailable.splice(pi,1)[0];
      }else{
-       // v5.5: completed picks can be tracked even if the player is outside
+       // v5.6: completed picks can be tracked even if the player is outside
        // the curated recommendation pool. Prefer authoritative Sleeper ID data
        // and fall back to pick metadata. Do not add this record to Best Available.
        const rec=sleeperId ? sleeperIdentityById[String(sleeperId)] : null;
@@ -1829,9 +1852,15 @@ function upsideScore(p,pick){
 }
 
 function nextMyPickAfter(pick){
- for(let n=pick+1;n<=150;n++)if(mine(n))return n;
- return null;
+ const n=nextUserTurnPick(pick);
+ return n<=150?n:null;
 }
+
+function teamCodeForPlayer(p){const code=String(p?.teamCode||'').toUpperCase();if(code)return code==='WSH'?'WAS':code;if(p?.pos==='DST')return DST_TEAM_CODE[p.name]||'';const rec=p?.sleeperId?sleeperIdentityById[String(p.sleeperId)]:null;const recCode=String(rec?.team||'').toUpperCase();return recCode==='WSH'?'WAS':recCode;}
+function byeWeekForPlayer(p){const t=teamCodeForPlayer(p);return t?NFL_BYE_WEEK_2026[t]||null:null;}
+function projectedStarterSet(){if(!state)return new Set();const r=state.rosters.MMazz3117||[],starters=[];const take=(pos,n)=>r.filter(p=>p.pos===pos).sort((a,b)=>(a.rank||9999)-(b.rank||9999)).slice(0,n).forEach(p=>starters.push(p));take('QB',1);take('RB',2);take('WR',2);take('TE',1);const used=new Set(starters.map(p=>p.name));r.filter(p=>['RB','WR','TE'].includes(p.pos)&&!used.has(p.name)).sort((a,b)=>(a.rank||9999)-(b.rank||9999)).slice(0,2).forEach(p=>starters.push(p));return new Set(starters.map(p=>p.name));}
+function rosterContextForCandidate(p){if(!state)return {adjustment:0,teamCount:0,byeCount:0,byeStarterCount:0,stack:false};const roster=state.rosters.MMazz3117||[],team=teamCodeForPlayer(p),bye=byeWeekForPlayer(p),starters=projectedStarterSet();const sameTeam=team?roster.filter(x=>teamCodeForPlayer(x)===team):[],sameBye=bye?roster.filter(x=>byeWeekForPlayer(x)===bye):[],byeStarters=sameBye.filter(x=>starters.has(x.name));const stack=!!team&&((p.pos==='QB'&&sameTeam.some(x=>x.pos==='WR'||x.pos==='TE'))||((p.pos==='WR'||p.pos==='TE')&&sameTeam.some(x=>x.pos==='QB')));let adjustment=0;if(sameTeam.length>=3)adjustment-=5;else if(sameTeam.length===2)adjustment-=2;if(stack&&sameTeam.length<3)adjustment+=1;if(sameBye.length>=4)adjustment-=3;else if(sameBye.length===3)adjustment-=1.5;if(byeStarters.length>=3)adjustment-=1;return {adjustment,team,bye,teamCount:sameTeam.length,byeCount:sameBye.length,byeStarterCount:byeStarters.length,stack};}
+function rosterExposureSummary(){if(!state)return {team:'none',bye:'none'};const r=state.rosters.MMazz3117||[],starters=projectedStarterSet(),teamMap={},byeMap={};for(const p of r){const t=teamCodeForPlayer(p),b=byeWeekForPlayer(p);if(t)(teamMap[t]||=[]).push(p);if(b)(byeMap[b]||=[]).push(p);}const team=Object.entries(teamMap).filter(([,a])=>a.length>=2).sort((a,b)=>b[1].length-a[1].length).map(([t,a])=>`${t} ×${a.length}`).join(', ')||'none';const bye=Object.entries(byeMap).filter(([,a])=>a.length>=2).sort((a,b)=>Number(a[0])-Number(b[0])).map(([w,a])=>`Week ${w} ×${a.length} (${a.filter(p=>starters.has(p.name)).length} projected starters)`).join(', ')||'none';return {team,bye};}
 
 function championScore(p,pick){
  const value=valueScore(p,pick);
@@ -1863,6 +1892,10 @@ function championScore(p,pick){
  const r=roundForPick(pick);
  if(r>=8&&p.pos==='RB'&&c.RB<5)score+=5;
  if(r>=8&&p.pos==='WR'&&c.WR<6)score+=5;
+
+ // Same-team concentration and bye balance are roster-level tiebreakers only.
+ const rosterContext=rosterContextForCandidate(p);
+ score+=rosterContext.adjustment;
 
  // Current injury/availability issues are a tiebreaker, not an automatic fade.
  const risk=currentRiskFor(p);
@@ -1902,28 +1935,29 @@ function championScore(p,pick){
  reachPenalty*=marketConfidence;
  score-=reachPenalty;
 
- // Full Sleeper candidate universe is eligible in v5.5. If a player has no
+ // Full Sleeper candidate universe is eligible in v5.6. If a player has no
  // curated evaluation profile, keep him visible but apply a modest confidence
  // penalty so an API search rank alone cannot masquerade as football analysis.
  const unscoutedPenalty=p.curated===false?8:0;
  score-=unscoutedPenalty;
 
- return {player:p,total:clamp(score),value,cliff,survive,fit,upside,leagueFit,riskPenalty,liveMarketRank,marketSource,marketStatus,marketConfidence,marketSignal,reachGap,reachPenalty,nextTurn,unscoutedPenalty};
+ return {player:p,total:clamp(score),value,cliff,survive,fit,upside,leagueFit,riskPenalty,liveMarketRank,marketSource,marketStatus,marketConfidence,marketSignal,reachGap,reachPenalty,nextTurn,unscoutedPenalty,rosterContext};
 }
 
 function championReason(x){
  const p=x.player, parts=[];
  if(x.value>=82)parts.push('strong football/evaluation value');
  if(x.cliff>=82)parts.push(`${p.pos} cliff is approaching`);
- if(x.survive<=28)parts.push('unlikely to survive your next turn');
+ if(x.survive<=28 && state?.pick<140)parts.push('unlikely to survive your next turn');
  if(x.fit>=88)parts.push('strong roster fit');
  if(x.upside>=82)parts.push('high role-growth ceiling');
  if(x.leagueFit>=90)parts.push('excellent fit for your scoring');
  if(p.pos==='QB' && x.leagueFit<72)parts.push('pocket-QB scoring discount');
- if(x.reachPenalty>=16 && x.nextTurn)parts.push(`WAIT: ${x.marketSource||'market'} suggests ${x.nextTurn} or later`);
- else if(x.reachPenalty>=5)parts.push(`reach warning: ${(x.marketSource||'market')} is later`);
+ if(state?.pick<140 && x.reachPenalty>=16 && x.nextTurn)parts.push(`WAIT: ${x.marketSource||'market'} suggests ${x.nextTurn} or later`);
+ else if(state?.pick<140 && x.reachPenalty>=5)parts.push(`reach warning: ${(x.marketSource||'market')} is later`);
  if(marketNeedsVerification(x.marketSignal))parts.push(x.marketStatus==='ADP UNKNOWN'?'ADP UNKNOWN — VERIFY DRAFT TIMING':`${x.marketStatus} — verify draft timing`);
  if(x.unscoutedPenalty)parts.push('UNSCOUTED: verify current role/news before drafting');
+ const rc=x.rosterContext;if(rc?.stack)parts.push('useful QB/receiver stack');if(rc?.teamCount>=2)parts.push(`team concentration: ${rc.team} would become ×${rc.teamCount+1}`);if(rc?.byeCount>=3)parts.push(`bye balance: Week ${rc.bye} would become ×${rc.byeCount+1}`);
  const risk=currentRiskFor(p);
  if(risk)parts.push(`health watch: ${risk.label}`);
  if(!parts.length)parts.push('balanced value and fit');
@@ -2073,7 +2107,7 @@ function reliabilityCheck(){
    issues.push('full Sleeper candidate universe is not loaded');
  }
 
- // In v5.5, missing-from-curated is no longer a data-integrity failure because
+ // In v5.6, missing-from-curated is no longer a data-integrity failure because
  // the full active Sleeper universe is eligible. Instead, flag UNSCOUTED
  // high-search players as context for ChatGPT/current-web verification.
  if(state && state.pick<=150){
@@ -2104,6 +2138,7 @@ function reliabilityCheck(){
      warnings.push(`ADP VERIFY: ${championMarket.map(({p,m})=>{
        if(m.status==='AGING OBSERVED ADP')return `${p.name} — observed ADP ${m.observed.ageDays} days old`;
        if(m.status==='STALE OBSERVED ADP')return `${p.name} — observed ADP stale (${m.observed.ageDays} days old)`;
+       if(m.status==='NEWS INVALIDATED ADP')return `${p.name} — observed ADP invalidated by news (${m.news?.reason||'verify current news'})`;
        if(m.status==='API FALLBACK ONLY')return `${p.name} — API fallback only`;
        return `${p.name} — ADP unknown`;
      }).join('; ')}`);
@@ -2128,7 +2163,8 @@ function renderReliability(){
 
 function currentBrief(){
  const c=counts('MMazz3117');
- const mineRoster=state.rosters.MMazz3117.map(x=>`${x.pos} ${x.name} (#${x.pick})`).join(', ')||'none yet';
+ const mineRoster=state.rosters.MMazz3117.map(x=>{const t=teamCodeForPlayer(x),b=byeWeekForPlayer(x);return `${x.pos} ${x.name}${t?` [${t}${b?` · Bye ${b}`:''}]`:''} (#${x.pick})`;}).join(', ')||'none yet';
+ const exposure=rosterExposureSummary();
  const fmt=(x)=>{ const m=marketSignalForPlayer(x); return `${x.name} (${x.pos}) [${marketSignalDisplay(m)}]${x.curated===false?' [UNSCOUTED]':''}`; };
  const sorted=state.available.slice().sort(isCpuMockMode()?cpuMarketSort:(a,b)=>a.rank-b.rank);
  const top=sorted.slice(0,14).map(fmt).join(', ');
@@ -2162,6 +2198,8 @@ Pick timer: Sleeper-aware 3:00 countdown; ${alarmArmed?'alarm armed':'alarm not 
 Scenario: ${sc}
 Turn: ${turn}
 My roster (${c.QB} QB, ${c.RB} RB, ${c.WR} WR, ${c.TE} TE, ${c.DST} DEF, ${c.K} K): ${mineRoster}
+NFL TEAM EXPOSURE: ${exposure.team}
+BYE EXPOSURE: ${exposure.bye}
 
 TOP AVAILABLE OVERALL FROM FULL SLEEPER CANDIDATE POOL
 ${top}
@@ -2182,7 +2220,7 @@ ${championText}
 
 ${research}
 
-CENTRAL RULE: MARKET DATA DETERMINES DRAFT TIMING CONFIDENCE; FOOTBALL EVALUATION DETERMINES PLAYER QUALITY. Do not downgrade football quality because ADP is missing/aging/stale. Give exact picks first with position. Use current August 2026 web research for player-specific news, injuries, roles, depth charts, preseason usage, transactions, and current market context. Respect the draft mode above. Sleeper availability is authoritative. If an option is marked UNSCOUTED, verify it before recommending it.`;
+CENTRAL RULE: MARKET DATA DETERMINES DRAFT TIMING CONFIDENCE; FOOTBALL EVALUATION DETERMINES PLAYER QUALITY. NFL-team concentration and bye weeks are roster-level tiebreakers only. Do not downgrade football quality because ADP is missing/aging/stale. Give exact picks first with position. Use current August 2026 web research for player-specific news, injuries, roles, depth charts, preseason usage, transactions, and current market context. Respect the draft mode above. Sleeper availability is authoritative. If an option is marked UNSCOUTED, verify it before recommending it.`;
 }
 
 
@@ -2199,9 +2237,10 @@ function renderAvailable(){
    list.sort((a,b)=>a.name.localeCompare(b.name)||a.rank-b.rank);
  }else if(availableUI.sort==='posrank'){
    const order={QB:0,RB:1,WR:2,TE:3,DST:4,K:5};
-   list.sort((a,b)=>(order[a.pos]??9)-(order[b.pos]??9)||a.rank-b.rank);
+   list.sort((a,b)=>(order[a.pos]??9)-(order[b.pos]??9)||cpuMarketSort(a,b));
  }else{
-   list.sort((a,b)=>a.rank-b.rank);
+   // This control is explicitly market rank: use the same time-aware market signal as CURRENT DRAFT STATE.
+   list.sort(cpuMarketSort);
  }
 
  const total=list.length;
@@ -2217,7 +2256,7 @@ function renderAvailable(){
  visible.forEach(p=>{
    const row=document.createElement('div');row.className='player';
    const riskChip=currentRiskFor(p)?` <span class="watch-chip">${currentRiskFor(p).label}</span>`:'';
-   row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}${riskChip}</div><div class="player-sub">${p.pos} · eval rank ${Math.round(p.rank)} · ${p.rankSource||'market'}${Number.isFinite(liveMarketRankForPlayer(p))?` · Sleeper API search ${Math.round(liveMarketRankForPlayer(p))}`:''}${p.sleeperId?` · ID ${p.sleeperId}`:''}</div></div>`;
+   row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}${riskChip}</div><div class="player-sub">${p.pos} · eval rank ${Math.round(p.rank)} · ${p.rankSource||'evaluation'} · ${marketSignalDisplay(marketSignalForPlayer(p))}${teamCodeForPlayer(p)?` · ${teamCodeForPlayer(p)}${byeWeekForPlayer(p)?` Bye ${byeWeekForPlayer(p)}`:''}`:''}${p.sleeperId?` · ID ${p.sleeperId}`:''}</div></div>`;
    if(!sleeperLiveMode&&mine(state.pick)&&state.pick<=150){
      const b=document.createElement('button');
      b.className='draftbtn';
@@ -2235,7 +2274,7 @@ function renderAvailable(){
 function renderRoster(){
  const box=document.getElementById('roster');box.innerHTML='';const r=state.rosters.MMazz3117;
  if(!r.length)box.innerHTML='<div class="muted" style="font-size:13px">No selections yet.</div>';
- r.forEach(p=>{const row=document.createElement('div');row.className='player';row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}</div><div class="player-sub">${p.pos} · overall ${p.pick}</div></div>`;box.appendChild(row)});
+ r.forEach(p=>{const row=document.createElement('div');row.className='player';const t=teamCodeForPlayer(p),b=byeWeekForPlayer(p);row.innerHTML=`<div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]}"></span>${p.name}</div><div class="player-sub">${p.pos} · overall ${p.pick}${t?` · ${t}${b?` · Bye ${b}`:''}`:''}</div></div>`;box.appendChild(row)});
  const c=counts('MMazz3117');['QB','RB','WR','TE','DST','K'].forEach(x=>document.getElementById('c'+x).textContent=c[x]);
 }
 function picksForRound(r){
