@@ -66,20 +66,6 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 .research .node{font-size:13px;line-height:1.4}
 .badge{display:inline-block;background:#20345f;border:1px solid var(--border);border-radius:999px;padding:3px 8px;font-size:11px;margin-right:5px}
 .version-badge{display:inline-block;vertical-align:3px;background:#20345f;border:1px solid var(--border);border-radius:999px;padding:4px 8px;font-size:12px;font-weight:800;margin-left:6px;color:#dce5ff}
-.timerbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 14px}
-.timer-left{display:flex;align-items:center;gap:12px;min-width:0}
-.timer-clock{font-size:30px;font-weight:900;letter-spacing:.5px;min-width:84px}
-.timer-clock.warning{color:#ffd166}
-.timer-clock.expired{color:#ff6b6b}
-.timer-copy{min-width:0}
-.timer-title{font-weight:800}
-.timer-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.timer-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.timer-actions button{padding:8px 10px;font-size:13px}
-.alarm-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
-.alarm-state{font-size:11px;color:var(--muted)}
-.alarm-state.ready{color:#bff4d8}
-.alarm-state.warn{color:#ffd166}
 .syncgrid{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end}
 .syncgrid input{width:100%;background:#0f1730;color:var(--text);border:1px solid var(--border);border-radius:11px;padding:10px 11px;font-size:15px}
 .syncstatus{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
@@ -111,35 +97,15 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 @media(max-width:760px){
   body{padding:12px 10px 36px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .controls,.two,.scouts,.research{grid-template-columns:1fr}.btns,.voice-actions{grid-template-columns:1fr}.btns .wide{grid-column:auto}
-  .counts{grid-template-columns:repeat(3,minmax(0,1fr))}.avail-controls{grid-template-columns:1fr}.posfilters{grid-template-columns:repeat(4,minmax(0,1fr))}.timerbar{align-items:flex-start}.timer-actions{flex-direction:column}.timer-actions button{width:100%}.syncgrid{grid-template-columns:1fr}.factor-grid{grid-template-columns:repeat(3,minmax(0,1fr))}h1{font-size:21px}
+  .counts{grid-template-columns:repeat(3,minmax(0,1fr))}.avail-controls{grid-template-columns:1fr}.posfilters{grid-template-columns:repeat(4,minmax(0,1fr))}.syncgrid{grid-template-columns:1fr}.factor-grid{grid-template-columns:repeat(3,minmax(0,1fr))}h1{font-size:21px}
 }
 </style>
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.1.1</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.1.2</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
-
-  <div class="timerbar" aria-live="polite">
-    <div class="timer-left">
-      <div id="pickTimer" class="timer-clock">3:00</div>
-      <div class="timer-copy">
-        <div class="timer-title">3-minute pick timer</div>
-        <div id="timerStatus" class="timer-sub">Sleeper-aware: runs only while MMazz3117 is on the clock.</div>
-      </div>
-    </div>
-    <div class="timer-actions">
-      <button id="timerPauseBtn" type="button">Pause</button>
-      <button id="timerResetBtn" type="button">Reset 3:00</button>
-      <button id="alarmEnableBtn" type="button">Enable alarm</button>
-      <button id="alarmTestBtn" type="button">Test alarm</button>
-    </div>
-  </div>
-  <div class="alarm-row">
-    <span id="alarmState" class="alarm-state">Alarm not armed yet. Tap “Enable alarm” once after loading the page.</span>
-  </div>
-
-  <div class="card">
+<div class="card">
     <h2>Sleeper live sync <span class="badge">draft night</span></h2>
     <p class="muted" style="font-size:12px;margin:0 0 10px">
       Pull completed picks directly from Sleeper's public draft API. Sleeper is the source of truth; this page tracks state, timing, market context, and copy/paste handoff.
@@ -156,10 +122,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player/identity refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v6.1.1 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, and auto-detects a league-linked live Sleeper draft versus a mock room. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v6.1.2 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, and auto-detects a league-linked live Sleeper draft versus a mock room. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.1.1 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.1.2 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
 
@@ -184,7 +150,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v6.1.1 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
+      v6.1.2 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 19 observed Sleeper draft-room values from the latest live mock have been added as a second snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -213,7 +179,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <option value="real">Real League Draft</option>
 </select>
 <div class="muted" style="font-size:12px;margin-top:6px">
-CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.1.1 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
+CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.1.2 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
 </div>
 </label>
 <label>Your 1.01 plan
@@ -344,86 +310,86 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer">v6.1.1 preserves the prior build’s collapsible Champion Process, time-aware Sleeper ADP, roster/bye awareness, paired-pick logic, timer/alarm, mobile layout, identity safeguards and three-mode opponent model. It adds live draft-type auto-detection, prevents Sleeper API search rank from masquerading as football evaluation, refreshes observed draft-room ADPs from today’s Sleeper screens, rebalances the 80/81 FLEX decision, recalibrates Jayden Reed, and gives the final DEF/K turn its own current-quality + Week 1 decision layer. CURRENT DRAFT STATE now explicitly confirms the repeat-winner framework is ACTIVE. v6.1.1 adds dated Aug. 19 injury/role verification, stale-news safeguards, and sudden-ADP-divergence verification. ADP divergence is snapshot-based and activates only when at least two observed Sleeper draft-room ADP points exist for a player; Sleeper API search rank is not treated as draft-room ADP.</p>
+  <p class="footer">v6.1.2 preserves the prior build’s collapsible Champion Process, time-aware Sleeper ADP, roster/bye awareness, paired-pick logic, mobile layout, identity safeguards and three-mode opponent model. It adds live draft-type auto-detection, prevents Sleeper API search rank from masquerading as football evaluation, refreshes observed draft-room ADPs from today’s Sleeper screens, rebalances the 80/81 FLEX decision, recalibrates Jayden Reed, and gives the final DEF/K turn its own current-quality + Week 1 decision layer. CURRENT DRAFT STATE now explicitly confirms the repeat-winner framework is ACTIVE. v6.1.2 adds the Aug. 19 Sleeper ADP snapshot, excludes confirmed season-ending Jayden Higgins, keeps the Quentin Johnston scare cleared with no active penalty, removes the unused timer/alarm UI, and retains dated injury/role verification plus stale-news and sudden-ADP-divergence safeguards. ADP divergence is snapshot-based and activates only when at least two observed Sleeper draft-room ADP points exist for a player; Sleeper API search rank is not treated as draft-room ADP.</p>
 </div>
 
 <script>
-const APP_VERSION='v6.1.1';
+const APP_VERSION='v6.1.2';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
 // Bye balance is a roster-level tiebreaker only; it never changes football quality.
 const NFL_BYE_WEEK_2026 = Object.freeze({CAR:5,KC:5,CIN:6,DET:6,MIA:6,MIN:6,BUF:7,JAX:7,LAC:7,WAS:7,WSH:7,HOU:8,NO:8,NYG:8,SF:8,PIT:9,TEN:9,CHI:10,DEN:10,PHI:10,TB:10,ATL:11,CLE:11,GB:11,LAR:11,NE:11,SEA:11,BAL:13,IND:13,LV:13,NYJ:13,ARI:14,DAL:14});
 const DST_TEAM_CODE = Object.freeze({Cardinals:'ARI',Falcons:'ATL',Ravens:'BAL',Bills:'BUF',Panthers:'CAR',Bears:'CHI',Bengals:'CIN',Browns:'CLE',Cowboys:'DAL',Broncos:'DEN',Lions:'DET',Packers:'GB',Texans:'HOU',Colts:'IND',Jaguars:'JAX',Chiefs:'KC',Raiders:'LV',Chargers:'LAC',Rams:'LAR',Dolphins:'MIA',Vikings:'MIN',Patriots:'NE',Saints:'NO',Giants:'NYG',Jets:'NYJ',Eagles:'PHI',Steelers:'PIT','49ers':'SF',Seahawks:'SEA',Buccaneers:'TB',Titans:'TEN',Commanders:'WAS'});
 // Same-day news can invalidate ADP timing confidence without changing player quality.
-const MARKET_NEWS_INVALIDATION = Object.freeze({'Jayden Higgins':{date:'2026-08-18',reason:'lower-body/leg injury in joint practice; severity not yet settled'},'Parker Washington':{date:'2026-08-18',reason:'day-to-day undisclosed injury; expected to miss the rest of the practice week'},'Jordyn Tyson':{date:'2026-08-18',reason:'hamstring timeline materially worsened; reported multi-week absence makes same-day ADP unsafe without verification'},'Emeka Egbuka':{date:'2026-08-18',reason:'toe sprain remains an active availability watch'}});
+const MARKET_NEWS_INVALIDATION = Object.freeze({'Parker Washington':{date:'2026-08-18',reason:'day-to-day undisclosed injury; expected to miss the rest of the practice week'},'Jordyn Tyson':{date:'2026-08-18',reason:'hamstring timeline materially worsened; reported multi-week absence makes same-day ADP unsafe without verification'},'Emeka Egbuka':{date:'2026-08-18',reason:'toe sprain remains an active availability watch'}});
 // Market observations live here so draft-day refreshes never require editing Champion Process logic.
 // Add new observations to the front or end of a player's array; latest valid date wins.
 const SLEEPER_DRAFT_ROOM_ADP_HISTORY = {
   "A.J. Brown": [{adp:18.4, observed:"2026-08-18"}],
   "Chase Brown": [{adp:17.4, observed:"2026-08-18"}],
   "Kenneth Walker III": [{adp:19.6, observed:"2026-08-18"}],
-  "Derrick Henry": [{adp:21.7, observed:"2026-08-18"}],
+  "Derrick Henry": [{adp:21.7, observed:"2026-08-18"},{adp:21.6, observed:"2026-08-19"}],
   "Brock Bowers": [{adp:22.8, observed:"2026-08-18"}],
-  "Josh Allen": [{adp:23.1, observed:"2026-08-18"}],
-  "George Pickens": [{adp:23.4, observed:"2026-08-18"}],
-  "Nico Collins": [{adp:25.6, observed:"2026-08-18"}],
-  "Jeremiyah Love": [{adp:26.9, observed:"2026-08-18"}],
-  "Rashee Rice": [{adp:27.9, observed:"2026-08-18"}],
-  "Malik Nabers": [{adp:28.0, observed:"2026-08-18"}],
-  "Kyren Williams": [{adp:29.8, observed:"2026-08-18"}],
-  "Chris Olave": [{adp:30.7, observed:"2026-08-18"}],
-  "Emeka Egbuka": [{adp:39.2, observed:"2026-08-18"}],
-  "Colston Loveland": [{adp:41.8, observed:"2026-08-18"}],
-  "Zay Flowers": [{adp:42.3, observed:"2026-08-18"}],
-  "Cam Skattebo": [{adp:43.9, observed:"2026-08-18"}],
-  "Travis Etienne": [{adp:44.5, observed:"2026-08-18"}],
-  "Garrett Wilson": [{adp:45.8, observed:"2026-08-18"}],
-  "Tyler Warren": [{adp:46.3, observed:"2026-08-18"}],
-  "Jaylen Waddle": [{adp:47.6, observed:"2026-08-18"}],
-  "Drake Maye": [{adp:48.0, observed:"2026-08-18"}],
-  "Luther Burden": [{adp:49.9, observed:"2026-08-18"}],
+  "Josh Allen": [{adp:23.1, observed:"2026-08-18"},{adp:24.7, observed:"2026-08-19"}],
+  "George Pickens": [{adp:23.4, observed:"2026-08-18"},{adp:23.3, observed:"2026-08-19"}],
+  "Nico Collins": [{adp:25.6, observed:"2026-08-18"},{adp:25.2, observed:"2026-08-19"}],
+  "Jeremiyah Love": [{adp:26.9, observed:"2026-08-18"},{adp:26.7, observed:"2026-08-19"}],
+  "Rashee Rice": [{adp:27.9, observed:"2026-08-18"},{adp:26.5, observed:"2026-08-19"}],
+  "Malik Nabers": [{adp:28.0, observed:"2026-08-18"},{adp:28.4, observed:"2026-08-19"}],
+  "Kyren Williams": [{adp:29.8, observed:"2026-08-18"},{adp:29.9, observed:"2026-08-19"}],
+  "Chris Olave": [{adp:30.7, observed:"2026-08-18"},{adp:30.9, observed:"2026-08-19"}],
+  "Emeka Egbuka": [{adp:39.2, observed:"2026-08-18"},{adp:40.0, observed:"2026-08-19"}],
+  "Colston Loveland": [{adp:41.8, observed:"2026-08-18"},{adp:41.0, observed:"2026-08-19"}],
+  "Zay Flowers": [{adp:42.3, observed:"2026-08-18"},{adp:42.3, observed:"2026-08-19"}],
+  "Cam Skattebo": [{adp:43.9, observed:"2026-08-18"},{adp:43.9, observed:"2026-08-19"}],
+  "Travis Etienne": [{adp:44.5, observed:"2026-08-18"},{adp:44.7, observed:"2026-08-19"}],
+  "Garrett Wilson": [{adp:45.8, observed:"2026-08-18"},{adp:44.1, observed:"2026-08-19"}],
+  "Tyler Warren": [{adp:46.3, observed:"2026-08-18"},{adp:46.8, observed:"2026-08-19"}],
+  "Jaylen Waddle": [{adp:47.6, observed:"2026-08-18"},{adp:47.2, observed:"2026-08-19"}],
+  "Drake Maye": [{adp:48.0, observed:"2026-08-18"},{adp:48.6, observed:"2026-08-19"}],
+  "Luther Burden": [{adp:49.9, observed:"2026-08-18"},{adp:49.4, observed:"2026-08-19"}],
   "Mike Evans": [{adp:59.6, observed:"2026-08-18"}],
   "Jayden Daniels": [{adp:62.1, observed:"2026-08-18"}],
   "Jalen Hurts": [{adp:63.7, observed:"2026-08-18"}],
-  "Tucker Kraft": [{adp:65.3, observed:"2026-08-18"}],
-  "Harold Fannin Jr.": [{adp:67.9, observed:"2026-08-18"}],
-  "Kyle Pitts": [{adp:68.1, observed:"2026-08-18"}],
+  "Tucker Kraft": [{adp:65.3, observed:"2026-08-18"},{adp:65.4, observed:"2026-08-19"}],
+  "Harold Fannin Jr.": [{adp:67.9, observed:"2026-08-18"},{adp:67.0, observed:"2026-08-19"}],
+  "Kyle Pitts": [{adp:68.1, observed:"2026-08-18"},{adp:68.8, observed:"2026-08-19"}],
   "Christian Watson": [{adp:70.3, observed:"2026-08-18"}],
   "Jordyn Tyson": [{adp:77.0, observed:"2026-08-18"}],
-  "Parker Washington": [{adp:78.8, observed:"2026-08-18"}],
-  "Courtland Sutton": [{adp:79.4, observed:"2026-08-18"}],
+  "Parker Washington": [{adp:78.8, observed:"2026-08-18"},{adp:78.8, observed:"2026-08-19"}],
+  "Courtland Sutton": [{adp:79.4, observed:"2026-08-18"},{adp:80.9, observed:"2026-08-19"}],
   "Chuba Hubbard": [{adp:76.6, observed:"2026-08-18"}],
   "R.J. Harvey": [{adp:79.8, observed:"2026-08-18"}],
-  "Justin Herbert": [{adp:84.4, observed:"2026-08-18"}],
+  "Justin Herbert": [{adp:84.4, observed:"2026-08-18"},{adp:84.7, observed:"2026-08-19"}],
   "Rhamondre Stevenson": [{adp:85.1, observed:"2026-08-18"}],
-  "Michael Wilson": [{adp:83.3, observed:"2026-08-18"}],
-  "Makai Lemon": [{adp:86.5, observed:"2026-08-18"}],
-  "Rico Dowdle": [{adp:87.3, observed:"2026-08-18"}],
-  "Tony Pollard": [{adp:87.3, observed:"2026-08-18"}],
+  "Michael Wilson": [{adp:83.3, observed:"2026-08-18"},{adp:83.5, observed:"2026-08-19"}],
+  "Makai Lemon": [{adp:86.5, observed:"2026-08-18"},{adp:86.8, observed:"2026-08-19"}],
+  "Rico Dowdle": [{adp:87.3, observed:"2026-08-18"},{adp:88.5, observed:"2026-08-19"}],
+  "Tony Pollard": [{adp:87.3, observed:"2026-08-18"},{adp:87.5, observed:"2026-08-19"}],
   "J.K. Dobbins": [{adp:92.6, observed:"2026-08-18"}],
   "Kyle Monangai": [{adp:95.1, observed:"2026-08-18"}],
   "Chris Godwin": [{adp:95.9, observed:"2026-08-18"}],
   "Alec Pierce": [{adp:97.8, observed:"2026-08-18"}],
   "Jakobi Meyers": [{adp:102.3, observed:"2026-08-18"}],
   "Michael Pittman Jr.": [{adp:103.6, observed:"2026-08-18"}],
-  "Blake Corum": [{adp:104.0, observed:"2026-08-18"}],
+  "Blake Corum": [{adp:104.0, observed:"2026-08-18"},{adp:104.6, observed:"2026-08-19"}],
   "Jordan Addison": [{adp:105.8, observed:"2026-08-18"}],
-  "Quentin Johnston": [{adp:107.8, observed:"2026-08-18"}],
-  "WanDale Robinson": [{adp:109.0, observed:"2026-08-18"}],
+  "Quentin Johnston": [{adp:107.8, observed:"2026-08-18"},{adp:107.4, observed:"2026-08-19"}],
+  "WanDale Robinson": [{adp:109.0, observed:"2026-08-18"},{adp:109.1, observed:"2026-08-19"}],
   "Jacory Croskey-Merritt": [{adp:111.4, observed:"2026-08-18"}],
-  "Kenneth Gainwell": [{adp:111.8, observed:"2026-08-18"}],
+  "Kenneth Gainwell": [{adp:111.8, observed:"2026-08-18"},{adp:111.0, observed:"2026-08-19"}],
   "Jayden Reed": [{adp:114.6, observed:"2026-08-18"}],
-  "Stefon Diggs": [{adp:116.0, observed:"2026-08-18"}],
-  "Aaron Jones": [{adp:121.3, observed:"2026-08-18"}],
+  "Stefon Diggs": [{adp:116.0, observed:"2026-08-18"},{adp:115.4, observed:"2026-08-19"}],
+  "Aaron Jones": [{adp:121.3, observed:"2026-08-18"},{adp:123.4, observed:"2026-08-19"}],
   "Jordan Mason": [{adp:120.0, observed:"2026-08-18"}],
-  "Jonathon Brooks": [{adp:123.8, observed:"2026-08-18"}],
+  "Jonathon Brooks": [{adp:123.8, observed:"2026-08-18"},{adp:119.7, observed:"2026-08-19"}],
   "Broncos": [{adp:122.6, observed:"2026-08-18"}],
-  "Eagles": [{adp:125.0, observed:"2026-08-18"}],
-  "Romeo Doubs": [{adp:127.1, observed:"2026-08-18"}],
-  "Rachaad White": [{adp:127.8, observed:"2026-08-18"}],
-  "KC Concepcion": [{adp:129.3, observed:"2026-08-18"}],
-  "Mark Andrews": [{adp:130.4, observed:"2026-08-18"}],
-  "Matthew Golden": [{adp:131.9, observed:"2026-08-18"}],
+  "Eagles": [{adp:125.0, observed:"2026-08-18"},{adp:125.3, observed:"2026-08-19"}],
+  "Romeo Doubs": [{adp:127.1, observed:"2026-08-18"},{adp:129.2, observed:"2026-08-19"}],
+  "Rachaad White": [{adp:127.8, observed:"2026-08-18"},{adp:128.5, observed:"2026-08-19"}],
+  "KC Concepcion": [{adp:129.3, observed:"2026-08-18"},{adp:127.0, observed:"2026-08-19"}],
+  "Mark Andrews": [{adp:130.4, observed:"2026-08-18"},{adp:130.5, observed:"2026-08-19"}],
+  "Matthew Golden": [{adp:131.9, observed:"2026-08-18"},{adp:131.5, observed:"2026-08-19"}],
   "Deebo Samuel": [{adp:137.2, observed:"2026-08-18"}],
   "Khalil Shakir": [{adp:138.3, observed:"2026-08-18"}],
   "Xavier Worthy": [{adp:139.4, observed:"2026-08-18"}],
@@ -433,29 +399,56 @@ const SLEEPER_DRAFT_ROOM_ADP_HISTORY = {
   "Jalen Coker": [{adp:145.7, observed:"2026-08-18"}],
   "Brian Robinson Jr.": [{adp:147.0, observed:"2026-08-18"}],
   "Tyler Allgeier": [{adp:148.0, observed:"2026-08-18"}],
-  "Harrison Mevis": [{adp:149.3, observed:"2026-08-18"}],
-  "Lions": [{adp:151.1, observed:"2026-08-18"}],
-  "Vikings": [{adp:151.7, observed:"2026-08-18"}],
-  "Steelers": [{adp:161.1, observed:"2026-08-18"}],
-  "Jaguars": [{adp:171.9, observed:"2026-08-18"}],
-  "Chargers": [{adp:179.3, observed:"2026-08-18"}],
-  "Packers": [{adp:202.8, observed:"2026-08-18"}],
-  "Chiefs": [{adp:208.0, observed:"2026-08-18"}],
-  "Andy Borregales": [{adp:153.9, observed:"2026-08-18"}],
-  "Chris Boswell": [{adp:154.7, observed:"2026-08-18"}],
-  "Jake Bates": [{adp:155.9, observed:"2026-08-18"}],
+  "Harrison Mevis": [{adp:149.3, observed:"2026-08-18"},{adp:148.0, observed:"2026-08-19"}],
+  "Lions": [{adp:151.1, observed:"2026-08-18"},{adp:152.9, observed:"2026-08-19"}],
+  "Vikings": [{adp:151.7, observed:"2026-08-18"},{adp:151.0, observed:"2026-08-19"}],
+  "Steelers": [{adp:161.1, observed:"2026-08-18"},{adp:161.5, observed:"2026-08-19"}],
+  "Jaguars": [{adp:171.9, observed:"2026-08-18"},{adp:172.6, observed:"2026-08-19"}],
+  "Chargers": [{adp:179.3, observed:"2026-08-18"},{adp:179.0, observed:"2026-08-19"}],
+  "Packers": [{adp:202.8, observed:"2026-08-18"},{adp:201.8, observed:"2026-08-19"}],
+  "Chiefs": [{adp:208.0, observed:"2026-08-18"},{adp:212.2, observed:"2026-08-19"}],
+  "Andy Borregales": [{adp:153.9, observed:"2026-08-18"},{adp:152.9, observed:"2026-08-19"}],
+  "Chris Boswell": [{adp:154.7, observed:"2026-08-18"},{adp:154.1, observed:"2026-08-19"}],
+  "Jake Bates": [{adp:155.9, observed:"2026-08-18"},{adp:156.3, observed:"2026-08-19"}],
   "Chris Rodriguez Jr.": [{adp:156.1, observed:"2026-08-18"}],
   "Rashid Shaheed": [{adp:157.6, observed:"2026-08-18"}],
   "Tyrone Tracy Jr.": [{adp:159.1, observed:"2026-08-18"}],
   "Dylan Boston": [{adp:162.2, observed:"2026-08-18"}],
   "Woody Marks": [{adp:165.4, observed:"2026-08-18"}],
-  "Will Reichard": [{adp:166.9, observed:"2026-08-18"}],
-  "Eddy Pineiro": [{adp:173.1, observed:"2026-08-18"}],
-  "Harrison Butker": [{adp:180.3, observed:"2026-08-18"}],
-  "Evan McPherson": [{adp:182.4, observed:"2026-08-18"}],
-  "Tyler Loop": [{adp:201.0, observed:"2026-08-18"}],
-  "Cairo Santos": [{adp:213.5, observed:"2026-08-18"}],
-  "Jake Elliott": [{adp:220.9, observed:"2026-08-18"}]
+  "Will Reichard": [{adp:166.9, observed:"2026-08-18"},{adp:167.0, observed:"2026-08-19"}],
+  "Eddy Pineiro": [{adp:173.1, observed:"2026-08-18"},{adp:174.3, observed:"2026-08-19"}],
+  "Harrison Butker": [{adp:180.3, observed:"2026-08-18"},{adp:181.8, observed:"2026-08-19"}],
+  "Evan McPherson": [{adp:182.4, observed:"2026-08-18"},{adp:184.0, observed:"2026-08-19"}],
+  "Tyler Loop": [{adp:201.0, observed:"2026-08-18"},{adp:200.0, observed:"2026-08-19"}],
+  "Cairo Santos": [{adp:213.5, observed:"2026-08-18"},{adp:214.7, observed:"2026-08-19"}],
+  "Jake Elliott": [{adp:220.9, observed:"2026-08-18"},{adp:220.7, observed:"2026-08-19"}],
+  "Drake London": [{adp:16.8, observed:"2026-08-19"}],
+  "Trey McBride": [{adp:20.4, observed:"2026-08-19"}],
+  "Josh Jacobs": [{adp:31.1, observed:"2026-08-19"}],
+  "Davante Adams": [{adp:50.7, observed:"2026-08-19"}],
+  "David Montgomery": [{adp:51.9, observed:"2026-08-19"}],
+  "Sam LaPorta": [{adp:60.5, observed:"2026-08-19"}],
+  "Jaxson Dart": [{adp:82.8, observed:"2026-08-19"}],
+  "Dalton Kincaid": [{adp:89.7, observed:"2026-08-19"}],
+  "Rams": [{adp:89.8, observed:"2026-08-19"}],
+  "George Kittle": [{adp:91.9, observed:"2026-08-19"}],
+  "Travis Kelce": [{adp:93.1, observed:"2026-08-19"}],
+  "Trevor Lawrence": [{adp:98.5, observed:"2026-08-19"}],
+  "Matthew Stafford": [{adp:98.7, observed:"2026-08-19"}],
+  "Jake Ferguson": [{adp:100.2, observed:"2026-08-19"}],
+  "Texans": [{adp:101.7, observed:"2026-08-19"}],
+  "Patrick Mahomes": [{adp:106.0, observed:"2026-08-19"}],
+  "Seahawks": [{adp:107.5, observed:"2026-08-19"}],
+  "Josh Downs": [{adp:110.3, observed:"2026-08-19"}],
+  "Oronde Gadsden": [{adp:116.8, observed:"2026-08-19"}],
+  "Dallas Goedert": [{adp:124.2, observed:"2026-08-19"}],
+  "Jason Myers": [{adp:125.2, observed:"2026-08-19"}],
+  "Cowboys": [{adp:197.5, observed:"2026-08-19"}],
+  "Colts": [{adp:219.0, observed:"2026-08-19"}],
+  "Bills": [{adp:221.4, observed:"2026-08-19"}],
+  "49ers": [{adp:222.4, observed:"2026-08-19"}],
+  "Bears": [{adp:224.4, observed:"2026-08-19"}],
+  "Chase McLaughlin": [{adp:224.5, observed:"2026-08-19"}],
 };
 
 function utcDayNumber(isoDate){
@@ -877,7 +870,7 @@ function fallbackRank(sourceRank,pos){
 // Embedded PPR anchors remain our football evaluation layer; Sleeper search rank
 // tells us how urgently the room is likely to force a selection.
 function rankForPlayer(name,pos,sourceRank,sleeperId=null){
- // v6.1.1: API search rank is timing/identity data only. It must never become a
+ // v6.1.2: API search rank is timing/identity data only. It must never become a
  // curated player's football/evaluation rank. Unanchored curated players use a
  // conservative fallback evaluation until current research supplies an anchor.
  if(Object.prototype.hasOwnProperty.call(MARKET_RANK,name)) return MARKET_RANK[name];
@@ -897,7 +890,8 @@ function rankSourceForPlayer(name,sleeperId=null){
 // Players who should never appear in Best Available for this redraft season.
 // Keep this deliberately small and explicit; update only for confirmed season-long absences.
 const EXCLUDED_PLAYERS=new Set([
-  playerKey('Ricky Pearsall')
+  playerKey('Ricky Pearsall'),
+  playerKey('Jayden Higgins') // confirmed torn ACL; out for the 2026 season
 ]);
 
 // Remove accidental duplicate spellings and confirmed season-long exclusions
@@ -1066,257 +1060,16 @@ function toggleChampionCollapsed(){
  try{localStorage.setItem('fantasyTrainerChampionCollapsed',championCollapsed?'1':'0');}catch(e){}
  applyChampionCollapsedState();
 }
-const PICK_SECONDS=180;
-let timerSeconds=PICK_SECONDS;
-let timerPaused=false;
-let timerInterval=null;
-let timerDeadlineMs=null;
-let timerPauseRemainingMs=PICK_SECONDS*1000;
-let alarmArmed=false;
-let alarmPlayedForDeadline=null;
-let audioCtx=null;
-
 let sleeperLiveMode=false;
 let sleeperPollInterval=null;
 let sleeperDraftMetadata=null;
 let lastSleeperPickNo=0;
 let lastSleeperSyncAt=null;
-let timerPickNo=null;
 
 function roundForPick(p){return Math.floor((p-1)/10)+1}
 function slotForPick(p){const r=roundForPick(p),w=(p-1)%10;return r%2===1?w:9-w}
 function teamForPick(p){return teams[slotForPick(p)]}
 function mine(p){return teamForPick(p)==='MMazz3117'}
-function formatTimer(sec){
- const m=Math.floor(sec/60);
- const s=sec%60;
- return `${m}:${String(s).padStart(2,'0')}`;
-}
-
-function getRemainingMs(){
- if(timerPaused)return Math.max(0,timerPauseRemainingMs);
- if(!timerDeadlineMs)return PICK_SECONDS*1000;
- return Math.max(0,timerDeadlineMs-Date.now());
-}
-
-function syncTimerFromDeadline(){
- const ms=getRemainingMs();
- timerSeconds=Math.ceil(ms/1000);
- if(ms<=0 && timerDeadlineMs && alarmPlayedForDeadline!==timerDeadlineMs){
-   alarmPlayedForDeadline=timerDeadlineMs;
-   firePickAlarm();
- }
- updateTimerDisplay();
-}
-
-function updateTimerDisplay(){
- const el=document.getElementById('pickTimer');
- const status=document.getElementById('timerStatus');
- if(!el||!status)return;
-
- el.textContent=formatTimer(timerSeconds);
- el.classList.toggle('warning',timerSeconds>0&&timerSeconds<=30);
- el.classList.toggle('expired',timerSeconds===0);
-
- if(state && state.pick>150){
-   status.textContent='Draft complete.';
- }else if(sleeperLiveMode && state && !mine(state.pick)){
-   status.textContent=`Waiting — ${teamForPick(state.pick)} is on the clock. Your timer is stopped.`;
- }else if(timerSeconds===0){
-   status.textContent='Time expired — make the pick or reset the clock.';
- }else if(timerPaused){
-   status.textContent='Timer paused.';
- }else if(sleeperLiveMode){
-   status.textContent=`Your clock: pick #${state.pick}. Deadline stays accurate if Safari is backgrounded.`;
- }else{
-   status.textContent='Practice timer — deadline stays accurate if Safari is backgrounded.';
- }
-
- const pauseBtn=document.getElementById('timerPauseBtn');
- if(pauseBtn)pauseBtn.textContent=timerPaused?'Resume':'Pause';
-}
-
-function setAlarmState(msg,cls=''){
- const el=document.getElementById('alarmState');
- if(!el)return;
- el.textContent=msg;
- el.classList.remove('ready','warn');
- if(cls)el.classList.add(cls);
-}
-
-async function enablePickAlarm(){
- try{
-   if(!audioCtx){
-     const AC=window.AudioContext||window.webkitAudioContext;
-     if(AC)audioCtx=new AC();
-   }
-   if(audioCtx && audioCtx.state==='suspended')await audioCtx.resume();
-
-   // Prime audio from a direct user gesture.
-   if(audioCtx){
-     const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-     g.gain.value=0.0001;
-     o.connect(g);g.connect(audioCtx.destination);
-     o.start();o.stop(audioCtx.currentTime+0.03);
-   }
-
-   alarmArmed=true;
-   localStorage.setItem('fantasyTrainerAlarmArmed','1');
-
-   // Ask for notification permission only where the browser exposes it.
-   // On iPhone, reliable background notifications require a Home Screen web app
-   // plus Web Push from a server; this permission is therefore best-effort only.
-   if('Notification' in window && Notification.permission==='default'){
-     try{await Notification.requestPermission();}catch(e){}
-   }
-
-   setAlarmState('Alarm armed. Sound/vibration will fire while the page is active, or immediately when you return if iOS suspended it.','ready');
- }catch(e){
-   alarmArmed=true;
-   setAlarmState('Alarm armed with vibration/visual fallback. Browser blocked audio setup.','warn');
- }
-}
-
-function playAlarmTone(){
- try{
-   const AC=window.AudioContext||window.webkitAudioContext;
-   if(!audioCtx && AC)audioCtx=new AC();
-   if(!audioCtx)return false;
-   if(audioCtx.state==='suspended')audioCtx.resume();
-
-   const now=audioCtx.currentTime;
-   [0,0.32,0.64].forEach((offset,i)=>{
-     const osc=audioCtx.createOscillator();
-     const gain=audioCtx.createGain();
-     osc.type='sine';
-     osc.frequency.value=i===1?880:1046;
-     gain.gain.setValueAtTime(0.0001,now+offset);
-     gain.gain.exponentialRampToValueAtTime(0.35,now+offset+0.02);
-     gain.gain.exponentialRampToValueAtTime(0.0001,now+offset+0.24);
-     osc.connect(gain);gain.connect(audioCtx.destination);
-     osc.start(now+offset);osc.stop(now+offset+0.26);
-   });
-   return true;
- }catch(e){
-   return false;
- }
-}
-
-function firePickAlarm(force=false){
- if(!alarmArmed && !force){
-   setAlarmState('Time expired. Alarm was not armed — tap Enable alarm once for future picks.','warn');
-   return;
- }
-
- playAlarmTone();
-
- if(navigator.vibrate){
-   try{navigator.vibrate([350,180,350,180,650]);}catch(e){}
- }
-
- if('Notification' in window && Notification.permission==='granted' && document.visibilityState==='visible'){
-   try{new Notification('Fantasy draft pick timer',{body:'3 minutes are up — you are on the clock.'});}catch(e){}
- }
-
- setAlarmState(
-   document.visibilityState==='hidden'
-     ? 'Timer expired while the page was backgrounded.'
-     : 'TIME UP — pick alarm fired.',
-   'warn'
- );
-}
-
-function testPickAlarm(){
- if(!alarmArmed){
-   setAlarmState('Tap Enable alarm first, then test it.','warn');
-   return;
- }
- firePickAlarm(true);
-}
-
-function restartPickTimer(){
- timerPaused=false;
- timerPauseRemainingMs=PICK_SECONDS*1000;
- timerDeadlineMs=Date.now()+timerPauseRemainingMs;
- timerPickNo=state?.pick||null;
- alarmPlayedForDeadline=null;
- timerSeconds=PICK_SECONDS;
- setAlarmState(alarmArmed?'Alarm armed.':'Alarm not armed.',alarmArmed?'ready':'');
- persistTimerState();
- updateTimerDisplay();
-}
-
-function stopPickTimerForOpponent(){
- timerPaused=true;
- timerPauseRemainingMs=PICK_SECONDS*1000;
- timerDeadlineMs=null;
- timerPickNo=null;
- timerSeconds=PICK_SECONDS;
- alarmPlayedForDeadline=null;
- persistTimerState();
- updateTimerDisplay();
-}
-
-function syncTimerToSleeperTurn(){
- if(!sleeperLiveMode || !state || state.pick>150)return;
- if(mine(state.pick)){
-   if(timerPickNo!==state.pick || !timerDeadlineMs)restartPickTimer();
- }else{
-   stopPickTimerForOpponent();
- }
-}
-
-function togglePickTimer(){
- if(timerPaused){
-   timerPaused=false;
-   timerDeadlineMs=Date.now()+timerPauseRemainingMs;
- }else{
-   timerPauseRemainingMs=getRemainingMs();
-   timerPaused=true;
- }
- persistTimerState();
- syncTimerFromDeadline();
-}
-
-function persistTimerState(){
- try{
-   localStorage.setItem('fantasyTrainerTimerV45',JSON.stringify({
-     deadlineMs:timerDeadlineMs,
-     paused:timerPaused,
-     pauseRemainingMs:timerPauseRemainingMs,
-     pickNo:timerPickNo
-   }));
- }catch(e){}
-}
-
-function restoreTimerState(){
- try{
-   const x=JSON.parse(localStorage.getItem('fantasyTrainerTimerV45')||'null');
-   if(x && Number.isFinite(Number(x.deadlineMs))){
-     timerDeadlineMs=Number(x.deadlineMs);
-     timerPaused=!!x.paused;
-     timerPauseRemainingMs=Number(x.pauseRemainingMs)||PICK_SECONDS*1000;
-     timerPickNo=Number(x.pickNo)||null;
-   }
-   alarmArmed=localStorage.getItem('fantasyTrainerAlarmArmed')==='1';
-   if(alarmArmed)setAlarmState('Alarm preference remembered. Tap Enable alarm again after a fresh page load if sound is blocked.','ready');
- }catch(e){}
-}
-
-function startTimerLoop(){
- if(timerInterval)clearInterval(timerInterval);
- timerInterval=setInterval(syncTimerFromDeadline,250);
-
- // iOS may suspend background tabs. These events make the displayed timer
- // catch up instantly when Safari becomes active again.
- document.addEventListener('visibilitychange',()=>{
-   syncTimerFromDeadline();
- });
- window.addEventListener('pageshow',syncTimerFromDeadline);
- window.addEventListener('focus',syncTimerFromDeadline);
-}
-
-
 
 function setRankRefreshStatus(msg,type=''){
  const el=document.getElementById('rankRefreshStatus');
@@ -1455,6 +1208,7 @@ async function refreshSleeperPlayerRanks(force=true){
 
 function isEligibleSleeperCandidate(rec){
  if(!rec)return false;
+ if(EXCLUDED_PLAYERS.has(playerKey(rec.name)))return false;
  if(!['QB','RB','WR','TE','K'].includes(rec.pos))return false;
  if(rec.active===false)return false;
  if(!rec.team)return false; // removes retired/free-agent historical records such as Todd Gurley
@@ -1703,7 +1457,6 @@ async function syncSleeperDraft(){
    lastSleeperPickNo=sorted.length ? Math.max(...sorted.map(x=>Number(x.pick_no)||0)) : 0;
    state.pick=Math.min(151,lastSleeperPickNo+1);
 
-   syncTimerToSleeperTurn();
    render();
 
    const next=state.pick<=150 ? ` Next: #${state.pick} (${teamForPick(state.pick)}).` : ' Draft complete.';
@@ -1726,7 +1479,6 @@ function setSleeperLiveMode(on){
    sleeperPollInterval=setInterval(syncSleeperDraft,5000);
  }else{
    setSleeperStatus('Live mode off. The mock simulator is controlling the board.');
-   restartPickTimer();
  }
  render();
 }
@@ -1744,7 +1496,6 @@ function reset(){
  const search=document.getElementById('playerSearch'); if(search) search.value='';
  const sort=document.getElementById('sortAvailable'); if(sort) sort.value='rank';
  document.querySelectorAll('#positionFilters button').forEach(b=>b.classList.toggle('active',b.dataset.pos==='ALL'));
- restartPickTimer();
  render();
 }
 function counts(team){
@@ -1756,7 +1507,6 @@ function take(player,team,pick){
  state.available=state.available.filter(p=>p.name!==player.name);
  const item={...player,team,pick,round:roundForPick(pick)};
  state.drafted.push(item);state.rosters[team].push(item);state.pick++;
- restartPickTimer();
 }
 
 function needsWeight(pos,c,round){
@@ -2293,7 +2043,7 @@ function isFinalUserTurn(){
  return !!state && (state.pick===140||state.pick===141) && mine(state.pick);
 }
 
-// v6.1.1 final-turn layer: once there is no future turn, ADP/survival are nearly
+// v6.1.2 final-turn layer: once there is no future turn, ADP/survival are nearly
 // irrelevant. These dated current-quality scores blend present D/ST/K ranking
 // context with the Week 1 matchup/role picture; roster/bye concentration remains
 // only a tiebreaker. Refresh this small table close to draft night.
@@ -2491,7 +2241,6 @@ Market divergence safeguard: ACTIVE when a player has 2+ observed Sleeper draft-
 Board source: ${sleeperLiveMode?(isRealLeagueMode()?'Sleeper live league-draft sync':'Sleeper live mock sync'):isRealLeagueMode()?'AWAITING SLEEPER LIVE SYNC':isRealLeagueSimulationMode()?'real-league simulator':'Sleeper-market mock simulator'}
 Source-of-truth rule: Sleeper completed picks + player IDs determine drafted/available status. ADP freshness thresholds: FRESH 0–${ADP_FRESHNESS_DAYS.FRESH_MAX} days; AGING ${ADP_FRESHNESS_DAYS.FRESH_MAX+1}–${ADP_FRESHNESS_DAYS.AGING_MAX} days; STALE ${ADP_FRESHNESS_DAYS.AGING_MAX+1}+ days. Stale observations are historical context and do not automatically beat current fallback timing data.
 ${verifyText}
-Pick timer: Sleeper-aware 3:00 countdown; ${alarmArmed?'alarm armed':'alarm not armed'}
 Scenario: ${sc}
 Turn: ${turn}
 My roster (${c.QB} QB, ${c.RB} RB, ${c.WR} WR, ${c.TE} TE, ${c.DST} DEF, ${c.K} K): ${mineRoster}
@@ -2634,10 +2383,6 @@ document.getElementById('compactToggle').addEventListener('change',applyView);
 document.getElementById('focusToggle').addEventListener('change',applyView);
 document.getElementById('copyBtn').addEventListener('click',copyBrief);
 document.getElementById('shareBtn').addEventListener('click',shareBrief);
-document.getElementById('timerPauseBtn').addEventListener('click',togglePickTimer);
-document.getElementById('timerResetBtn').addEventListener('click',restartPickTimer);
-document.getElementById('alarmEnableBtn').addEventListener('click',enablePickAlarm);
-document.getElementById('alarmTestBtn').addEventListener('click',testPickAlarm);
 document.getElementById('sleeperSyncBtn').addEventListener('click',syncSleeperDraft);
 document.getElementById('sleeperLiveToggle').addEventListener('change',e=>setSleeperLiveMode(e.target.checked));
 document.getElementById('rankRefreshBtn').addEventListener('click',()=>refreshSleeperPlayerRanks(true));
@@ -2663,11 +2408,8 @@ document.querySelectorAll('#positionFilters button').forEach(btn=>{
  });
 });
 
-restoreTimerState();
 loadDraftMode();
 reset();
-startTimerLoop();
-if(alarmArmed)setAlarmState('Alarm preference remembered. Tap Enable alarm once after loading if you want to guarantee audio is unlocked.','ready');
 if(!loadCachedSleeperRanks()){
   // One automatic refresh when there is no valid <24h cache.
   // This keeps the page current without repeatedly hitting Sleeper's player endpoint.
