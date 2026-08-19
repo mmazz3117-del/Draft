@@ -117,7 +117,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v5.9</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.1</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 
   <div class="timerbar" aria-live="polite">
@@ -156,10 +156,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player/identity refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v5.9 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, and auto-detects a league-linked live Sleeper draft versus a mock room. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v6.1 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, and auto-detects a league-linked live Sleeper draft versus a mock room. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v5.9 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.1 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
 
@@ -184,7 +184,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v5.8 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing.
+      v6.1 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -213,7 +213,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <option value="real">Real League Draft</option>
 </select>
 <div class="muted" style="font-size:12px;margin-top:6px">
-CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v5.9 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
+CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.1 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
 </div>
 </label>
 <label>Your 1.01 plan
@@ -344,11 +344,11 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer">v6.0 preserves the prior build’s collapsible Champion Process, time-aware Sleeper ADP, roster/bye awareness, paired-pick logic, timer/alarm, mobile layout, identity safeguards and three-mode opponent model. It adds live draft-type auto-detection, prevents Sleeper API search rank from masquerading as football evaluation, refreshes observed draft-room ADPs from today’s Sleeper screens, rebalances the 80/81 FLEX decision, recalibrates Jayden Reed, and gives the final DEF/K turn its own current-quality + Week 1 decision layer. CURRENT DRAFT STATE now explicitly confirms the repeat-winner framework is ACTIVE. v6.0 adds Aug. 18–19 injury/role overrides plus automatic sudden-ADP-divergence verification safeguards.</p>
+  <p class="footer">v6.1 preserves the prior build’s collapsible Champion Process, time-aware Sleeper ADP, roster/bye awareness, paired-pick logic, timer/alarm, mobile layout, identity safeguards and three-mode opponent model. It adds live draft-type auto-detection, prevents Sleeper API search rank from masquerading as football evaluation, refreshes observed draft-room ADPs from today’s Sleeper screens, rebalances the 80/81 FLEX decision, recalibrates Jayden Reed, and gives the final DEF/K turn its own current-quality + Week 1 decision layer. CURRENT DRAFT STATE now explicitly confirms the repeat-winner framework is ACTIVE. v6.1 adds dated Aug. 19 injury/role verification, stale-news safeguards, and sudden-ADP-divergence verification. ADP divergence is snapshot-based and activates only when at least two observed Sleeper draft-room ADP points exist for a player; Sleeper API search rank is not treated as draft-room ADP.</p>
 </div>
 
 <script>
-const APP_VERSION='v6.0';
+const APP_VERSION='v6.1';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
 // Bye balance is a roster-level tiebreaker only; it never changes football quality.
@@ -521,13 +521,26 @@ function marketDivergenceForPlayer(p){
   if(dayGap<=3 && Math.abs(shift)>=12)return {shift,dayGap,newest,older};
   return null;
 }
+function datedIntelAgeDays(date){
+  const d=utcDayNumber(date), now=localCalendarDayNumber();
+  if(d===null||now===null)return null;
+  return Math.max(0,now-d);
+}
+function marketNewsForPlayer(p){
+  const base=MARKET_NEWS_INVALIDATION[p.name]||null;
+  if(!base)return null;
+  const ageDays=datedIntelAgeDays(base.date);
+  const stale=Number.isFinite(ageDays)?ageDays>2:true;
+  return {...base,ageDays,stale};
+}
 
 function marketSignalForPlayer(p){
   const observed=latestObservedAdpForPlayer(p);
   const api=liveMarketRankForPlayer(p);
-  const news=MARKET_NEWS_INVALIDATION[p.name]||null;
+  const news=marketNewsForPlayer(p);
   const divergence=marketDivergenceForPlayer(p);
-  if(news && observed && (observed.freshness==='FRESH'||observed.freshness==='AGING'))return {value:Number.isFinite(api)?api:null,source:Number.isFinite(api)?'Sleeper API search':'none',status:'NEWS INVALIDATED ADP',confidence:Number.isFinite(api)?.20:0,observed,news};
+  if(news && !news.stale && observed && (observed.freshness==='FRESH'||observed.freshness==='AGING'))return {value:Number.isFinite(api)?api:null,source:Number.isFinite(api)?'Sleeper API search':'none',status:'NEWS INVALIDATED ADP',confidence:Number.isFinite(api)?.20:0,observed,news};
+  if(news?.stale && observed && (observed.freshness==='FRESH'||observed.freshness==='AGING'))return {value:observed.adp,source:'Sleeper draft-room ADP',status:'STALE NEWS — VERIFY',confidence:.50,observed,news};
   if(divergence && observed && (observed.freshness==='FRESH'||observed.freshness==='AGING'))return {value:observed.adp,source:'Sleeper draft-room ADP',status:'MARKET DIVERGENCE',confidence:.40,observed,divergence};
 
   if(observed?.freshness==='FRESH') return {value:observed.adp,source:'Sleeper draft-room ADP',status:'FRESH OBSERVED ADP',confidence:1,observed};
@@ -544,6 +557,7 @@ function marketSignalDisplay(m){
   const obs=m.observed;
   if(m.status==='FRESH OBSERVED ADP'||m.status==='AGING OBSERVED ADP')return `${m.status} ${obs.adp.toFixed(1)} · ${obs.observed} · ${obs.ageDays}d old`;
   if(m.status==='NEWS INVALIDATED ADP')return `NEWS INVALIDATED ADP ${obs.adp.toFixed(1)} · ${obs.observed}${Number.isFinite(m.value)?` · timing falls back to ${m.source} ${Number(m.value).toFixed(1)}`:' · VERIFY SLEEPER'}`;
+  if(m.status==='STALE NEWS — VERIFY')return `STALE NEWS — VERIFY CURRENT STATUS · last verified ${m.news?.date||'unknown'} · ADP ${obs.adp.toFixed(1)}`;
   if(m.status==='MARKET DIVERGENCE')return `MARKET DIVERGENCE — VERIFY BEFORE DRAFTING · ADP ${m.divergence.older.adp.toFixed(1)} → ${m.divergence.newest.adp.toFixed(1)} in ${m.divergence.dayGap}d`;
   if(m.status==='STALE OBSERVED ADP')return `STALE OBSERVED ADP ${obs.adp.toFixed(1)} · ${obs.observed} · ${obs.ageDays}d old${Number.isFinite(m.value)?` · timing uses ${m.source} ${Number(m.value).toFixed(1)}`:' · VERIFY DRAFT TIMING'}`;
   if(m.status==='API FALLBACK ONLY')return `API FALLBACK ONLY${Number.isFinite(m.value)?` ${Number(m.value).toFixed(1)}`:''}`;
@@ -858,7 +872,7 @@ function fallbackRank(sourceRank,pos){
 // Embedded PPR anchors remain our football evaluation layer; Sleeper search rank
 // tells us how urgently the room is likely to force a selection.
 function rankForPlayer(name,pos,sourceRank,sleeperId=null){
- // v5.9: API search rank is timing/identity data only. It must never become a
+ // v6.1: API search rank is timing/identity data only. It must never become a
  // curated player's football/evaluation rank. Unanchored curated players use a
  // conservative fallback evaluation until current research supplies an anchor.
  if(Object.prototype.hasOwnProperty.call(MARKET_RANK,name)) return MARKET_RANK[name];
@@ -1880,14 +1894,18 @@ function draftMe(name){if(sleeperLiveMode||isRealLeagueMode()||!mine(state.pick)
 
 
 const CURRENT_RISK_PROFILE={
- 'Jordyn Tyson':{penalty:28,label:'hamstring / multi-week absence',note:'Reported roughly two-month hamstring timeline creates major early-season availability and bench-opportunity-cost risk.'},
- 'Zach Charbonnet':{penalty:20,label:'PUP / ACL recovery',note:'ACL recovery and PUP status create meaningful early-season availability risk.'},
- 'Jeremiyah Love':{penalty:15,label:'high ankle sprain',note:'High ankle sprain raises early-season readiness, workload and reinjury risk; keep on board but discount versus healthy peers.'},
- 'Parker Washington':{penalty:6,label:'day-to-day injury',note:'Temporary undisclosed injury watch; expected short absence warrants only a small current penalty unless recovery stalls.'}
+ 'Jordyn Tyson':{penalty:28,label:'hamstring / roughly two-month absence',verified:'2026-08-19',staleAfterDays:2,note:'Current reporting says he could miss roughly two months, creating major early-season availability and bench-opportunity-cost risk.'},
+ 'Zach Charbonnet':{penalty:20,label:'PUP / ACL recovery',verified:'2026-08-19',staleAfterDays:3,note:'Seattle has him on PUP while he rehabs the January ACL tear; do not assume a specific regular-season return until the team clarifies his status.'},
+ 'Jeremiyah Love':{penalty:15,label:'high ankle sprain',verified:'2026-08-19',staleAfterDays:2,note:'High ankle sprain is expected to end his preseason; Arizona is hopeful for Week 1, so keep him on the board but discount versus healthy peers.'},
+ 'Parker Washington':{penalty:6,label:'day-to-day undisclosed injury',verified:'2026-08-19',staleAfterDays:2,note:'Jacksonville described him as day-to-day and expected him to miss the rest of the practice week, so this remains a small temporary penalty unless recovery stalls.'}
 };
 
 function currentRiskFor(p){
- return CURRENT_RISK_PROFILE[p.name]||null;
+ const base=CURRENT_RISK_PROFILE[p.name]||null;
+ if(!base)return null;
+ const ageDays=datedIntelAgeDays(base.verified);
+ const stale=Number.isFinite(ageDays)?ageDays>(base.staleAfterDays??2):true;
+ return {...base,ageDays,stale};
 }
 
 const UPSIDE_PROFILE={
@@ -2149,7 +2167,7 @@ function championReason(x){
  if(usesHistoricalRoomModel()&&x.roomThreatAdjustment>=4)parts.push('real-room profile improves wait odds');
  const rc=x.rosterContext;if(rc?.stack)parts.push('useful QB/receiver stack');if(rc?.teamCount>=2)parts.push(`team concentration: ${rc.team} would become ×${rc.teamCount+1}`);if(rc?.byeCount>=3)parts.push(`bye balance: Week ${rc.bye} would become ×${rc.byeCount+1}`);
  const risk=currentRiskFor(p);
- if(risk)parts.push(`health watch: ${risk.label}`);
+ if(risk)parts.push(`health watch: ${risk.label}${risk.stale?' · NEWS STALE — VERIFY CURRENT STATUS':''}`);
  if(!parts.length)parts.push('balanced value and fit');
 
  let note=risk?.note || UPSIDE_PROFILE[p.name]?.note;
@@ -2270,7 +2288,7 @@ function isFinalUserTurn(){
  return !!state && (state.pick===140||state.pick===141) && mine(state.pick);
 }
 
-// v5.9 final-turn layer: once there is no future turn, ADP/survival are nearly
+// v6.1 final-turn layer: once there is no future turn, ADP/survival are nearly
 // irrelevant. These dated current-quality scores blend present D/ST/K ranking
 // context with the Week 1 matchup/role picture; roster/bye concentration remains
 // only a tiebreaker. Refresh this small table close to draft night.
@@ -2388,6 +2406,15 @@ function reliabilityCheck(){
  }
 
  if(state && state.pick<=150){
+   const staleRiskIntel=getChampionBoard(5)
+     .map(x=>({p:x.player,r:currentRiskFor(x.player)}))
+     .filter(x=>x.r?.stale);
+   if(staleRiskIntel.length){
+     warnings.push(`NEWS VERIFY: ${staleRiskIntel.map(({p,r})=>`${p.name} — injury/role intel last verified ${r.verified}${Number.isFinite(r.ageDays)?` (${r.ageDays}d old)`:''}`).join('; ')}`);
+   }
+ }
+
+ if(state && state.pick<=150){
    const championMarket=getChampionBoard(5)
      .map(x=>({p:x.player,m:x.marketSignal}))
      .filter(x=>marketNeedsVerification(x.m));
@@ -2396,6 +2423,7 @@ function reliabilityCheck(){
        if(m.status==='AGING OBSERVED ADP')return `${p.name} — observed ADP ${m.observed.ageDays} days old`;
        if(m.status==='STALE OBSERVED ADP')return `${p.name} — observed ADP stale (${m.observed.ageDays} days old)`;
        if(m.status==='NEWS INVALIDATED ADP')return `${p.name} — observed ADP invalidated by news (${m.news?.reason||'verify current news'})`;
+       if(m.status==='STALE NEWS — VERIFY')return `${p.name} — player-news context last verified ${m.news?.date||'unknown'}; verify current status before drafting`;
        if(m.status==='MARKET DIVERGENCE')return `${p.name} — MARKET DIVERGENCE, ADP moved ${m.divergence.older.adp.toFixed(1)} → ${m.divergence.newest.adp.toFixed(1)} in ${m.divergence.dayGap}d; verify before drafting`;
        if(m.status==='API FALLBACK ONLY')return `${p.name} — API fallback only`;
        return `${p.name} — ADP unknown`;
@@ -2454,6 +2482,7 @@ Draft mode: ${mode}
 Opponent model: ${opponentModel}
 Market system: time-aware Sleeper ADP history + Champion Process
 Champion Process: repeat-winner framework ACTIVE — value, positional cliff, survival, roster fit, asymmetric upside, league-scoring fit
+Market divergence safeguard: ACTIVE when a player has 2+ observed Sleeper draft-room ADP snapshots; API search rank is not treated as ADP
 Board source: ${sleeperLiveMode?(isRealLeagueMode()?'Sleeper live league-draft sync':'Sleeper live mock sync'):isRealLeagueMode()?'AWAITING SLEEPER LIVE SYNC':isRealLeagueSimulationMode()?'real-league simulator':'Sleeper-market mock simulator'}
 Source-of-truth rule: Sleeper completed picks + player IDs determine drafted/available status. ADP freshness thresholds: FRESH 0–${ADP_FRESHNESS_DAYS.FRESH_MAX} days; AGING ${ADP_FRESHNESS_DAYS.FRESH_MAX+1}–${ADP_FRESHNESS_DAYS.AGING_MAX} days; STALE ${ADP_FRESHNESS_DAYS.AGING_MAX+1}+ days. Stale observations are historical context and do not automatically beat current fallback timing data.
 ${verifyText}
