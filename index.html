@@ -117,7 +117,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.1</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.1.1</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 
   <div class="timerbar" aria-live="polite">
@@ -156,10 +156,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
     <div style="height:1px;background:var(--border);margin:14px 0"></div>
     <h3 style="margin-bottom:6px">Player/identity refresh</h3>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v6.1 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, and auto-detects a league-linked live Sleeper draft versus a mock room. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v6.1.1 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, and auto-detects a league-linked live Sleeper draft versus a mock room. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.1 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.1.1 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
 
@@ -184,7 +184,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v6.1 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
+      v6.1.1 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -213,7 +213,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <option value="real">Real League Draft</option>
 </select>
 <div class="muted" style="font-size:12px;margin-top:6px">
-CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.1 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
+CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.1.1 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
 </div>
 </label>
 <label>Your 1.01 plan
@@ -344,11 +344,11 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer">v6.1 preserves the prior build’s collapsible Champion Process, time-aware Sleeper ADP, roster/bye awareness, paired-pick logic, timer/alarm, mobile layout, identity safeguards and three-mode opponent model. It adds live draft-type auto-detection, prevents Sleeper API search rank from masquerading as football evaluation, refreshes observed draft-room ADPs from today’s Sleeper screens, rebalances the 80/81 FLEX decision, recalibrates Jayden Reed, and gives the final DEF/K turn its own current-quality + Week 1 decision layer. CURRENT DRAFT STATE now explicitly confirms the repeat-winner framework is ACTIVE. v6.1 adds dated Aug. 19 injury/role verification, stale-news safeguards, and sudden-ADP-divergence verification. ADP divergence is snapshot-based and activates only when at least two observed Sleeper draft-room ADP points exist for a player; Sleeper API search rank is not treated as draft-room ADP.</p>
+  <p class="footer">v6.1.1 preserves the prior build’s collapsible Champion Process, time-aware Sleeper ADP, roster/bye awareness, paired-pick logic, timer/alarm, mobile layout, identity safeguards and three-mode opponent model. It adds live draft-type auto-detection, prevents Sleeper API search rank from masquerading as football evaluation, refreshes observed draft-room ADPs from today’s Sleeper screens, rebalances the 80/81 FLEX decision, recalibrates Jayden Reed, and gives the final DEF/K turn its own current-quality + Week 1 decision layer. CURRENT DRAFT STATE now explicitly confirms the repeat-winner framework is ACTIVE. v6.1.1 adds dated Aug. 19 injury/role verification, stale-news safeguards, and sudden-ADP-divergence verification. ADP divergence is snapshot-based and activates only when at least two observed Sleeper draft-room ADP points exist for a player; Sleeper API search rank is not treated as draft-room ADP.</p>
 </div>
 
 <script>
-const APP_VERSION='v6.1';
+const APP_VERSION='v6.1.1';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
 // Bye balance is a roster-level tiebreaker only; it never changes football quality.
@@ -462,6 +462,11 @@ function utcDayNumber(isoDate){
   if(!/^\d{4}-\d{2}-\d{2}$/.test(String(isoDate||'')))return null;
   const ms=Date.parse(`${isoDate}T00:00:00Z`);
   return Number.isFinite(ms)?Math.floor(ms/86400000):null;
+}
+
+function localCalendarDayNumber(today=new Date()){
+  if(!(today instanceof Date) || !Number.isFinite(today.getTime()))return null;
+  return Math.floor(Date.UTC(today.getFullYear(),today.getMonth(),today.getDate())/86400000);
 }
 
 function adpAgeDays(observed,today=new Date()){
@@ -872,7 +877,7 @@ function fallbackRank(sourceRank,pos){
 // Embedded PPR anchors remain our football evaluation layer; Sleeper search rank
 // tells us how urgently the room is likely to force a selection.
 function rankForPlayer(name,pos,sourceRank,sleeperId=null){
- // v6.1: API search rank is timing/identity data only. It must never become a
+ // v6.1.1: API search rank is timing/identity data only. It must never become a
  // curated player's football/evaluation rank. Unanchored curated players use a
  // conservative fallback evaluation until current research supplies an anchor.
  if(Object.prototype.hasOwnProperty.call(MARKET_RANK,name)) return MARKET_RANK[name];
@@ -2288,7 +2293,7 @@ function isFinalUserTurn(){
  return !!state && (state.pick===140||state.pick===141) && mine(state.pick);
 }
 
-// v6.1 final-turn layer: once there is no future turn, ADP/survival are nearly
+// v6.1.1 final-turn layer: once there is no future turn, ADP/survival are nearly
 // irrelevant. These dated current-quality scores blend present D/ST/K ranking
 // context with the Week 1 matchup/role picture; roster/bye concentration remains
 // only a tiebreaker. Refresh this small table close to draft night.
