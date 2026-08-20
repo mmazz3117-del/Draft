@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v6.3</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v6.4</title>
 <meta name="theme-color" content="#0b1020">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -112,7 +112,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.3</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.4</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 <div class="card">
     <h2>Sleeper live sync <span class="badge">draft night</span></h2>
@@ -144,10 +144,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" id="identityRefreshCard">
     <h2 style="margin-bottom:6px">Player/identity refresh</h2>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v6.3 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, auto-detects a league-linked live Sleeper draft versus a mock room, and restores saved Real League Simulation progress after refresh/reopen. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v6.4 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, auto-detects a league-linked live Sleeper draft versus a mock room, and restores saved Real League Simulation progress after refresh/reopen. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.3 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.4 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
   <div id="reliabilityCard" class="reliability" aria-live="polite">
@@ -158,7 +158,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v6.3 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 20 observed Sleeper draft-room values from the latest live mock have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
+      v6.4 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 20 observed Sleeper draft-room values from the latest live mock have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -187,7 +187,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <option value="real">Real League Draft</option>
 </select>
 <div class="muted" style="font-size:12px;margin-top:6px">
-CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.3 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
+CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.4 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
 </div>
 </label>
 <label>Your 1.01 plan
@@ -228,7 +228,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       </div>
       <div class="champion-actions">
         <button id="championToggleBtn" class="champion-toggle" type="button" aria-expanded="true">Collapse ▲</button>
-        <div class="champion-pill">v5.8 decision layer</div>
+        <div class="champion-pill">v6.4 decision layer</div>
       </div>
     </div>
     <div id="championList" class="champion-list"></div>
@@ -318,11 +318,11 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer">v6.3 preserves the prior build’s three draft modes, Champion Process, live Sleeper source-of-truth sync, time-aware ADP history, identity safeguards, bye/team context, final-turn logic, football icon package and mobile layout. This update adds automatic Real League Simulation save/restore plus reset confirmation, makes Copy Draft State market-first while always including Champion candidates, promotes KC Concepcion into the curated pool, and fills the major fallback-evaluation gaps exposed by the simulation using the Aug. 20 Rotoworld PPR Top 200 as current football-evaluation anchors. Market confidence remains separate from football evaluation; API search rank remains only a weak timing clue, never a curated football rank.</p>
+  <p class="footer">v6.4 preserves v6.3’s three draft modes, Champion Process, live Sleeper source-of-truth sync, time-aware ADP history, identity safeguards, bye/team context, final-turn logic, football icon package and mobile layout. This update adds per-pick Real League Simulation save/restore plus reset confirmation, makes Copy Draft State market-first while always including Champion candidates, forces Available/Champion/handoff through one drafted-player identity exclusion set, adds an explicit board/handoff consistency warning, promotes KC Concepcion into the curated pool, and fills the major fallback-evaluation gaps exposed by the simulation with current multi-source PPR football anchors. Market confidence remains separate from football evaluation; API search rank remains only a weak timing clue, never a curated football rank.</p>
 </div>
 
 <script>
-const APP_VERSION='v6.3';
+const APP_VERSION='v6.4';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
 // Bye balance is a roster-level tiebreaker only; it never changes football quality.
@@ -696,7 +696,7 @@ const MARKET_RANK={
   'Carnell Tate':67.5,
   'Tony Pollard':71,
   'Courtland Sutton':73,
-  'R.J. Harvey':79,
+  'R.J. Harvey':111.5,
   'Parker Washington':86,
   'WanDale Robinson':89,
   'Kyle Monangai':91,
@@ -784,37 +784,39 @@ const MARKET_RANK={
   "Rachaad White":113,
   'David Montgomery':88,
 
-  // v6.3 Aug. 20 curated PPR evaluation refresh. These fill the major
-  // fallback-evaluation gaps exposed by Real League Simulation. They are
-  // football-quality anchors only; Sleeper ADP remains a separate timing signal.
-  'Malik Nabers':22,
-  'Chris Olave':27,
-  'Travis Etienne':28,
-  'Kyren Williams':29,
-  'Josh Jacobs':30,
-  'Javonte Williams':33,
+  // v6.4 curated PPR evaluation refresh. These fill the major fallback-evaluation
+  // gaps exposed by Real League Simulation. Core anchors below blend the Aug. 17
+  // Field Yates and Aug. 19 Mike Clay ESPN PPR ranks; remaining refresh anchors
+  // preserve the prior current-research calibration. Football quality stays
+  // separate from Sleeper ADP, which remains a draft-timing signal only.
+  'Malik Nabers':27,
+  'Chris Olave':26.5,
+  'Travis Etienne':37,
+  'Kyren Williams':35,
+  'Josh Jacobs':25,
+  'Javonte Williams':30.5,
   'Tetairoa McMillan':34,
-  'Tee Higgins':36,
-  'Breece Hall':37,
-  'Zay Flowers':38,
+  'Tee Higgins':51.5,
+  'Breece Hall':27,
+  'Zay Flowers':37.5,
   'DeVonta Smith':40,
   'Bucky Irving':41,
-  'Jaylen Waddle':43,
-  "D'Andre Swift":45,
+  'Jaylen Waddle':45.5,
+  "D'Andre Swift":53.5,
   'Emeka Egbuka':49,
   'TreVeyon Henderson':52,
-  'Davante Adams':53,
+  'Davante Adams':46.5,
   'Jadarian Price':54,
-  'Luther Burden':58,
-  'Rome Odunze':62,
+  'Luther Burden':65,
+  'Rome Odunze':57.5,
   'Jaylen Warren':65,
   'Blake Corum':67,
   'Harold Fannin Jr.':72,
   'Rico Dowdle':73,
   'Rhamondre Stevenson':75,
-  'Jordan Addison':76,
+  'Jordan Addison':101.5,
   'J.K. Dobbins':77,
-  'Tucker Kraft':80,
+  'Tucker Kraft':94.5,
   'Sam LaPorta':88,
   'Chris Godwin':93,
   'Chuba Hubbard':94,
@@ -829,7 +831,7 @@ const MARKET_RANK={
   'Travis Kelce':120,
   'Mark Andrews':125,
   'Bo Nix':126,
-  'George Kittle':128,
+  'George Kittle':83,
   'Tyler Allgeier':129,
   'Baker Mayfield':131,
   'Dallas Goedert':132,
@@ -945,21 +947,35 @@ function getSleeperRank(name,sleeperId=null){
 }
 
 function fallbackRank(sourceRank,pos){
- // Do not let an old hard-coded list accidentally make deep sleepers look like
- // 8th-round values. This is intentionally conservative until Sleeper refreshes.
+ // For players discovered only through Sleeper, keep a conservative generic
+ // evaluation. Sleeper API search rank is timing/identity data, not football quality.
  const floor={QB:95,RB:115,WR:115,TE:105,DST:145,K:145}[pos]||140;
  return Math.max(sourceRank,floor + Math.max(0,sourceRank-70)*0.55);
 }
+function curatedEvalVerifyRank(sourceRank,pos){
+ // A missing hand-built anchor must not make an otherwise relevant curated player
+ // look like a bad football player. Preserve a neutral placeholder near the middle
+ // of the draftable range and explicitly mark it EVAL VERIFY until refreshed.
+ const floor={QB:72,RB:68,WR:68,TE:78,DST:145,K:145}[pos]||85;
+ const n=Number(sourceRank);
+ return Math.max(Number.isFinite(n)?n:floor,floor);
+}
+function unscoutedNeutralRank(pos){
+ // Unknown-to-curation Sleeper players remain eligible without converting API
+ // search rank into football quality. Champion applies an UNSCOUTED penalty and
+ // the reliability layer requires verification before recommendation.
+ return {QB:96,RB:88,WR:88,TE:94,K:145,DST:145}[pos]||100;
+}
 
-// v5.0 deliberately separates "evaluation rank" from "draft-now market timing."
+// Evaluation rank is deliberately separated from draft-now market timing.
 // Embedded PPR anchors remain our football evaluation layer; Sleeper search rank
 // tells us how urgently the room is likely to force a selection.
 function rankForPlayer(name,pos,sourceRank,sleeperId=null){
- // v6.3: API search rank is timing/identity data only. It must never become a
+ // v6.4: API search rank is timing/identity data only. It must never become a
  // curated player's football/evaluation rank. Unanchored curated players use a
  // conservative fallback evaluation until current research supplies an anchor.
  if(Object.prototype.hasOwnProperty.call(MARKET_RANK,name)) return MARKET_RANK[name];
- return fallbackRank(sourceRank,pos);
+ return curatedEvalVerifyRank(sourceRank,pos);
 }
 
 function liveMarketRankForPlayer(p){
@@ -969,7 +985,7 @@ function liveMarketRankForPlayer(p){
 
 function rankSourceForPlayer(name,sleeperId=null){
  if(Object.prototype.hasOwnProperty.call(MARKET_RANK,name)) return 'PPR evaluation';
- return 'fallback evaluation';
+ return 'EVAL VERIFY placeholder';
 }
 
 // Players who should never appear in Best Available for this redraft season.
@@ -1128,10 +1144,37 @@ function realLeagueSurvivalAdjustment(p,pick){
 
 let state;
 let availableUI={pos:'ALL',showAll:false,search:'',sort:'rank'};
-const REAL_SIM_SAVE_KEY='fantasyTrainerRealLeagueSimulationV63';
+const REAL_SIM_SAVE_KEY='fantasyTrainerRealLeagueSimulationV64';
+const REAL_SIM_LEGACY_SAVE_KEY='fantasyTrainerRealLeagueSimulationV63';
+
+function draftedAuthoritySets(){
+ const ids=new Set(),keys=new Set();
+ for(const p of (state?.drafted||[])){
+   if(p?.sleeperId)ids.add(String(p.sleeperId));
+   if(p?.name&&p?.pos)keys.add(`${playerKey(p.name)}|${p.pos}`);
+ }
+ return {ids,keys};
+}
+function playerIdentityKey(p){
+ if(p?.sleeperId)return `id:${String(p.sleeperId)}`;
+ return `name:${playerKey(p?.name)}|${p?.pos||''}`;
+}
+function isDraftedByAuthority(p,sets=draftedAuthoritySets()){
+ if(!p)return true;
+ if(p.sleeperId && sets.ids.has(String(p.sleeperId)))return true;
+ return sets.keys.has(`${playerKey(p.name)}|${p.pos}`);
+}
+function authoritativeAvailablePlayers(){
+ if(!state)return [];
+ const sets=draftedAuthoritySets();
+ return state.available.filter(p=>!isDraftedByAuthority(p,sets));
+}
 
 function clearSavedRealSimulation(){
- try{localStorage.removeItem(REAL_SIM_SAVE_KEY);}catch(e){}
+ try{
+   localStorage.removeItem(REAL_SIM_SAVE_KEY);
+   localStorage.removeItem(REAL_SIM_LEGACY_SAVE_KEY);
+ }catch(e){}
 }
 function saveRealSimulationState(){
  if(!state || !isRealLeagueSimulationMode() || sleeperLiveMode)return;
@@ -1140,22 +1183,34 @@ function saveRealSimulationState(){
      version:APP_VERSION,
      savedAt:new Date().toISOString(),
      scenario:document.getElementById('scenario')?.value||state.scenario||'baseline',
-     state
+     openingPlan:document.getElementById('openingPlan')?.value||'rb',
+     manager2026Weights:Object.fromEntries(teams.map(t=>[t,live2026WeightForTeam(t)])),
+     state:{...state,simulated2026BehaviorWeights:Object.fromEntries(teams.map(t=>[t,live2026WeightForTeam(t)]))}
    }));
  }catch(e){}
 }
 function restoreRealSimulationState(){
  if(!isRealLeagueSimulationMode())return false;
  try{
-   const raw=localStorage.getItem(REAL_SIM_SAVE_KEY);
+   let raw=localStorage.getItem(REAL_SIM_SAVE_KEY);
+   let migratedLegacy=false;
+   if(!raw){
+     raw=localStorage.getItem(REAL_SIM_LEGACY_SAVE_KEY);
+     migratedLegacy=!!raw;
+   }
    if(!raw)return false;
    const saved=JSON.parse(raw);
    const st=saved?.state;
    if(!st || !Number.isFinite(Number(st.pick)) || !Array.isArray(st.available) || !Array.isArray(st.drafted) || !st.rosters)return false;
    state=st;
    state.pick=Number(state.pick);
+   state.simulated2026BehaviorWeights=saved.manager2026Weights||state.simulated2026BehaviorWeights||Object.fromEntries(teams.map(t=>[t,live2026WeightForTeam(t)]));
    state.scenario=saved.scenario||state.scenario||'baseline';
    const sc=document.getElementById('scenario'); if(sc)sc.value=state.scenario;
+   const op=document.getElementById('openingPlan'); if(op&&saved.openingPlan)op.value=saved.openingPlan;
+   if(migratedLegacy){
+     try{localStorage.setItem(REAL_SIM_SAVE_KEY,raw);}catch(e){}
+   }
    availableUI={pos:'ALL',showAll:false,search:'',sort:'rank'};
    const search=document.getElementById('playerSearch'); if(search)search.value='';
    const sort=document.getElementById('sortAvailable'); if(sort)sort.value='rank';
@@ -1319,7 +1374,7 @@ async function refreshSleeperPlayerRanks(force=true){
    setRankRefreshStatus(`Sleeper API search/IDs refreshed ${d.toLocaleString()}.${conflictMsg} ${candidateCount} active rostered Sleeper candidates are eligible; curated profiles are used where available.`,'ok');
    if(sleeperLiveMode)await syncSleeperDraft();
  }catch(err){
-   setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded v5.0.1 PPR ranks are still active.`,'err');
+   setRankRefreshStatus(`Rank refresh failed: ${err.message}. Embedded curated PPR evaluation ranks are still active.`,'err');
  }finally{
    if(btn)btn.disabled=false;
  }
@@ -1369,8 +1424,8 @@ function playerFromSleeperRecord(rec){
    pos:rec.pos,
    teamCode:rec.team||'',
    sourceRank:sr,
-   rank:fallbackRank(sr,rec.pos),
-   rankSource:'Sleeper API / unscouted',
+   rank:unscoutedNeutralRank(rec.pos),
+   rankSource:'EVAL VERIFY / unscouted',
    sleeperId:String(rec.id),
    identityStatus:'verified-api',
    apiSearchRank:sr,
@@ -1524,7 +1579,7 @@ async function syncSleeperDraft(){
      // player aliases are canonicalized before this comparison.
      const n=normalizePlayerName(nm);
      const sleeperId=String(sp.player_id||'');
-     // v5.0: Sleeper player_id is authoritative whenever we have verified it.
+     // Sleeper player_id is authoritative whenever we have verified it.
      let pi=sleeperId ? freshAvailable.findIndex(x=>String(x.sleeperId||'')===sleeperId) : -1;
      if(pi<0){
        const exactCandidates=freshAvailable.filter(x=>x.pos===pos && normalizePlayerName(x.name)===n);
@@ -1546,7 +1601,7 @@ async function syncSleeperDraft(){
      if(pi>=0){
        base=freshAvailable.splice(pi,1)[0];
      }else{
-       // v5.8: completed picks can be tracked even if the player is outside
+       // Completed picks can be tracked even if the player is outside
        // the curated recommendation pool. Prefer authoritative Sleeper ID data
        // and fall back to pick metadata. Do not add this record to Best Available.
        const rec=sleeperId ? sleeperIdentityById[String(sleeperId)] : null;
@@ -1606,7 +1661,7 @@ function setSleeperLiveMode(on){
 function reset(options={}){
  const force=!!options.force;
  if(isRealLeagueSimulationMode() && state?.pick>1 && !force){
-   const ok=window.confirm('Start a new Real League Simulation? This will erase the saved simulation progress on this device.');
+   const ok=window.confirm('This will erase the current simulation. Start over?');
    if(!ok)return false;
  }
  sleeperLiveMode=false;
@@ -1643,9 +1698,14 @@ function counts(team){
  return c;
 }
 function take(player,team,pick){
- state.available=state.available.filter(p=>p.name!==player.name);
+ state.available=state.available.filter(p=>{
+   if(player?.sleeperId && p?.sleeperId)return String(p.sleeperId)!==String(player.sleeperId);
+   return !(playerKey(p.name)===playerKey(player.name) && p.pos===player.pos);
+ });
  const item={...player,team,pick,round:roundForPick(pick)};
  state.drafted.push(item);state.rosters[team].push(item);state.pick++;
+ // Save after EVERY simulated or user pick so a refresh cannot roll back a turn.
+ saveRealSimulationState();
 }
 
 function needsWeight(pos,c,round){
@@ -1781,11 +1841,10 @@ function choice(team,pick){
 function autoToMine(){
  if(sleeperLiveMode||isRealLeagueMode())return;
  while(state.pick<=150&&!mine(state.pick)){const t=teamForPick(state.pick);take(choice(t,state.pick),t,state.pick)}
- saveRealSimulationState();
  render();
 }
-function one(){if(sleeperLiveMode||isRealLeagueMode()||state.pick>150||mine(state.pick))return;const t=teamForPick(state.pick);take(choice(t,state.pick),t,state.pick);saveRealSimulationState();render()}
-function draftMe(name){if(sleeperLiveMode||isRealLeagueMode()||!mine(state.pick))return;const p=state.available.find(x=>x.name===name);if(!p)return;take(p,'MMazz3117',state.pick);saveRealSimulationState();render()}
+function one(){if(sleeperLiveMode||isRealLeagueMode()||state.pick>150||mine(state.pick))return;const t=teamForPick(state.pick);take(choice(t,state.pick),t,state.pick);render()}
+function draftMe(name){if(sleeperLiveMode||isRealLeagueMode()||!mine(state.pick))return;const p=authoritativeAvailablePlayers().find(x=>x.name===name);if(!p)return;take(p,'MMazz3117',state.pick);render()}
 
 
 const CURRENT_RISK_PROFILE={
@@ -2002,7 +2061,7 @@ function championScore(p,pick){
  const riskPenalty=risk?.penalty||0;
  score-=riskPenalty;
 
- // v5.0 reach guardrail: liking a player is separate from needing him now.
+ // Reach guardrail: liking a player is separate from needing him now.
  // Sleeper's live search rank is an opponent-behavior/timing signal, not our
  // evaluation rank. Penalize major reaches when the player is likely to remain
  // available at the user's next turn.
@@ -2078,7 +2137,7 @@ function championReason(x){
 function getChampionBoard(limit=5){
  if(!state||state.pick>150)return [];
 
- const all=state.available
+ const all=authoritativeAvailablePlayers()
   .map(p=>championScore(p,state.pick))
   .sort((a,b)=>b.total-a.total||a.player.rank-b.player.rank);
 
@@ -2186,7 +2245,7 @@ function isFinalUserTurn(){
  return !!state && (state.pick===140||state.pick===141) && mine(state.pick);
 }
 
-// v6.3 final-turn layer: once there is no future turn, ADP/survival are nearly
+// v6.4 final-turn layer: once there is no future turn, ADP/survival are nearly
 // irrelevant. These dated current-quality scores blend present D/ST/K ranking
 // context with the Week 1 matchup/role picture; roster/bye concentration remains
 // only a tiebreaker. Refresh this small table close to draft night.
@@ -2273,11 +2332,11 @@ function reliabilityCheck(){
    issues.push('full Sleeper candidate universe is not loaded');
  }
 
- // In v5.8, missing-from-curated is no longer a data-integrity failure because
+ // Missing-from-curated is not a data-integrity failure because
  // the full active Sleeper universe is eligible. Instead, flag UNSCOUTED
  // high-search players as context for ChatGPT/current-web verification.
  if(state && state.pick<=150){
-   const unscouted=state.available
+   const unscouted=authoritativeAvailablePlayers()
      .filter(p=>p.curated===false && Number.isFinite(liveMarketRankForPlayer(p)))
      .sort(cpuMarketSort)
      .filter(p=>liveMarketRankForPlayer(p)<=state.pick+12)
@@ -2289,7 +2348,7 @@ function reliabilityCheck(){
 
  // Strategy disagreement is YELLOW context only.
  if(isCpuMockMode() && state && state.pick<=150){
-   const topMarket=state.available.slice().sort(cpuMarketSort).slice(0,5);
+   const topMarket=authoritativeAvailablePlayers().slice().sort(cpuMarketSort).slice(0,5);
    const champs=getChampionBoard(5).map(x=>x.player.name);
    const urgent=topMarket.filter(p=>Number.isFinite(liveMarketRankForPlayer(p)) && liveMarketRankForPlayer(p)<=state.pick+8);
    const omitted=urgent.filter(p=>!champs.includes(p.name));
@@ -2297,7 +2356,7 @@ function reliabilityCheck(){
  }
 
  if(state && state.pick<=150){
-   const evalFallback=getChampionBoard(5).filter(x=>x.player.curated!==false && x.player.rankSource==='fallback evaluation');
+   const evalFallback=getChampionBoard(5).filter(x=>x.player.curated!==false && String(x.player.rankSource||'').includes('EVAL VERIFY'));
    if(evalFallback.length){
      warnings.push(`EVAL VERIFY: ${evalFallback.slice(0,3).map(x=>x.player.name).join(', ')} — no current curated football anchor; ChatGPT/current research should verify before drafting`);
    }
@@ -2328,6 +2387,23 @@ function reliabilityCheck(){
      }).join('; ')}`);
    }
  }
+ // v6.4 representation safeguard: Champion, visible Available, and copied state
+ // must all resolve from the same drafted-player identity exclusion set.
+ if(state && state.pick<=150){
+   const handoff=buildHandoffAvailableContext();
+   const topKeys=new Set(handoff.topList.map(playerIdentityKey));
+   const byPosKeys=new Set(Object.values(handoff.byPos).flat().map(playerIdentityKey));
+   const missingChampion=handoff.championPlayers.filter(p=>!topKeys.has(playerIdentityKey(p)) && !byPosKeys.has(playerIdentityKey(p)));
+   if(missingChampion.length)warnings.push(`BOARD/HANDOFF INCONSISTENCY: Champion candidate missing from copied available context — ${missingChampion.map(p=>p.name).join(', ')}`);
+
+   const marketLeaders=authoritativeAvailablePlayers().slice().sort(cpuMarketSort).slice(0,10);
+   const missingMarket=marketLeaders.filter(p=>!topKeys.has(playerIdentityKey(p)));
+   if(missingMarket.length)warnings.push(`BOARD/HANDOFF INCONSISTENCY: top-market available player missing from copied overall context — ${missingMarket.map(p=>p.name).join(', ')}`);
+
+   const draftedSets=draftedAuthoritySets();
+   const leaked=handoff.topList.filter(p=>isDraftedByAuthority(p,draftedSets));
+   if(leaked.length)issues.push(`DRAFTED-PLAYER LEAK: copied available context contains drafted player(s) ${leaked.map(p=>p.name).join(', ')}`);
+ }
  const level=issues.length?'red':warnings.length?'yellow':'green';
  return {level,issues,warnings};
 }
@@ -2355,23 +2431,32 @@ function uniqueCandidateList(list){
  return out;
 }
 function handoffMarketSorted(){
- return state.available.slice().sort(isFinalUserTurn()?finalTurnValueSort:cpuMarketSort);
+ return authoritativeAvailablePlayers().slice().sort(isFinalUserTurn()?finalTurnValueSort:cpuMarketSort);
+}
+function buildHandoffAvailableContext(){
+ const sorted=handoffMarketSorted();
+ const championPlayers=getChampionBoard(5).map(x=>x.player);
+ const topList=uniqueCandidateList([...sorted.slice(0,14),...championPlayers]);
+ const byPos={};
+ for(const pos of ['QB','RB','WR','TE','DST','K']){
+   const n=(pos==='DST'||pos==='K')?6:7;
+   byPos[pos]=uniqueCandidateList([
+     ...sorted.filter(x=>x.pos===pos).slice(0,n),
+     ...championPlayers.filter(x=>x.pos===pos)
+   ]);
+ }
+ return {sorted,championPlayers,topList,byPos};
 }
 function currentBrief(){
  const c=counts('MMazz3117');
  const mineRoster=state.rosters.MMazz3117.map(x=>{const t=teamCodeForPlayer(x),b=byeWeekForPlayer(x);return `${x.pos} ${x.name}${t?` [${t}${b?` · Bye ${b}`:''}]`:''} (#${x.pick})`;}).join(', ')||'none yet';
  const exposure=rosterExposureSummary();
  const fmt=(x)=>{ const m=marketSignalForPlayer(x); return `${x.name} (${x.pos}) [${marketSignalDisplay(m)}]${x.curated===false?' [UNSCOUTED]':''}`; };
- const sorted=handoffMarketSorted();
- const championPlayers=getChampionBoard(5).map(x=>x.player);
- const topList=uniqueCandidateList([...sorted.slice(0,14),...championPlayers]);
- const top=topList.map(fmt).join(', ');
+ const handoff=buildHandoffAvailableContext();
+ const top=handoff.topList.map(fmt).join(', ');
  const byPos={};
  for(const pos of ['QB','RB','WR','TE','DST','K']){
-   const n=(pos==='DST'||pos==='K')?6:7;
-   const marketAtPos=sorted.filter(x=>x.pos===pos).slice(0,n);
-   const championAtPos=championPlayers.filter(x=>x.pos===pos);
-   byPos[pos]=uniqueCandidateList([...marketAtPos,...championAtPos]).map(fmt).join(', ')||'none';
+   byPos[pos]=handoff.byPos[pos].map(fmt).join(', ')||'none';
  }
  const sc=document.getElementById('scenario').selectedOptions[0].text;
  const mode=draftModeLabel();
@@ -2434,7 +2519,7 @@ function renderAvailable(){
  const box=document.getElementById('available');box.innerHTML='';
 
  const q=(availableUI.search||'').trim().toLowerCase();
- let list=state.available.slice();
+ let list=authoritativeAvailablePlayers().slice();
 
  if(availableUI.pos!=='ALL') list=list.filter(p=>p.pos===availableUI.pos);
  if(q) list=list.filter(p=>p.name.toLowerCase().includes(q));
@@ -2538,7 +2623,7 @@ document.getElementById('oneBtn').addEventListener('click',one);
 document.getElementById('resetBtn').addEventListener('click',()=>reset());
 document.getElementById('scenario').addEventListener('change',handleScenarioChange);
 document.getElementById('draftMode').addEventListener('change',e=>setDraftMode(e.target.value));
-document.getElementById('openingPlan').addEventListener('change',render);
+document.getElementById('openingPlan').addEventListener('change',()=>{saveRealSimulationState();render();});
 document.getElementById('zoomRange').addEventListener('input',applyView);
 document.getElementById('compactToggle').addEventListener('change',applyView);
 document.getElementById('focusToggle').addEventListener('change',applyView);
