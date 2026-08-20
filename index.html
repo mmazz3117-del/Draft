@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v6.2</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v6.3</title>
 <meta name="theme-color" content="#0b1020">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -112,7 +112,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.2</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.3</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 <div class="card">
     <h2>Sleeper live sync <span class="badge">draft night</span></h2>
@@ -144,10 +144,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" id="identityRefreshCard">
     <h2 style="margin-bottom:6px">Player/identity refresh</h2>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v6.2 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, and auto-detects a league-linked live Sleeper draft versus a mock room. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v6.3 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, auto-detects a league-linked live Sleeper draft versus a mock room, and restores saved Real League Simulation progress after refresh/reopen. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.2 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.3 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
   <div id="reliabilityCard" class="reliability" aria-live="polite">
@@ -158,7 +158,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v6.2 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 20 observed Sleeper draft-room values from the latest live mock have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
+      v6.3 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 20 observed Sleeper draft-room values from the latest live mock have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -187,7 +187,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <option value="real">Real League Draft</option>
 </select>
 <div class="muted" style="font-size:12px;margin-top:6px">
-CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.2 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
+CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.3 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
 </div>
 </label>
 <label>Your 1.01 plan
@@ -318,11 +318,11 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer">v6.2 preserves the prior build’s collapsible Champion Process, three-mode draft intelligence, live Sleeper source-of-truth sync, time-aware ADP history, identity safeguards, roster/bye awareness, paired-pick logic, repeat-winner framework and mobile layout. This update moves Copy Draft State directly beneath Sleeper Live Sync for faster handoff, adds a dedicated home-screen/PWA icon package, integrates the Aug. 20 Sleeper draft-room observations from today’s live mock, adds D.J. Moore’s observed 58.2 market point, adds Tyler Warren’s temporary groin/adductor verification layer, adds Sam LaPorta’s Aug. 20 hip/Week 1 uncertainty safeguard, recalibrates Trey Benson as a later contingent-upside back with role/health uncertainty, and refreshes the final DEF/K current-quality layer to Aug. 20. Market confidence remains separate from football evaluation; API search rank remains only a weak timing clue, never a curated football rank.</p>
+  <p class="footer">v6.3 preserves the prior build’s three draft modes, Champion Process, live Sleeper source-of-truth sync, time-aware ADP history, identity safeguards, bye/team context, final-turn logic, football icon package and mobile layout. This update adds automatic Real League Simulation save/restore plus reset confirmation, makes Copy Draft State market-first while always including Champion candidates, promotes KC Concepcion into the curated pool, and fills the major fallback-evaluation gaps exposed by the simulation using the Aug. 20 Rotoworld PPR Top 200 as current football-evaluation anchors. Market confidence remains separate from football evaluation; API search rank remains only a weak timing clue, never a curated football rank.</p>
 </div>
 
 <script>
-const APP_VERSION='v6.2';
+const APP_VERSION='v6.3';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
 // Bye balance is a roster-level tiebreaker only; it never changes football quality.
@@ -618,7 +618,7 @@ const raw=[
 ['Caleb Williams','QB'],['Jaylen Waddle','WR'],['Davante Adams','WR'],['Jordan Addison','WR'],['Jadarian Price','RB'],
 ['Jaylen Warren','RB'],["D'Andre Swift",'RB'],['Tony Pollard','RB'],['Rhamondre Stevenson','RB'],['Chuba Hubbard','RB'],
 ['Rico Dowdle','RB'],['R.J. Harvey','RB'],['Xavier Worthy','WR'],['Stefon Diggs','WR'],['WanDale Robinson','WR'],
-['Matthew Golden','WR'],['Jalen Coker','WR'],['Carnell Tate','WR'],['Jordyn Tyson','WR'],['Denzel Boston','WR'],
+['Matthew Golden','WR'],['Jalen Coker','WR'],['Carnell Tate','WR'],['KC Concepcion','WR'],['Jordyn Tyson','WR'],['Denzel Boston','WR'],
 ['Omar Cooper Jr.','WR'],['Caleb Douglas','WR'],['Zachariah Branch','WR'],['Malachi Fields','WR'],['Keaton Mitchell','RB'],['Rachaad White','RB'],['Brian Robinson Jr.','RB'],['Jordan Mason','RB'],
 ['Jonah Coleman','RB'],['Emmett Johnson','RB'],['Tank Bigsby','RB'],['Will Shipley','RB'],['Dameon Pierce','RB'],
 ['Jaydon Blue','RB'],['Phil Mafah','RB'],['Ray Davis','RB'],['Braelon Allen','RB'],['Tyjae Spears','RB'],
@@ -783,6 +783,62 @@ const MARKET_RANK={
   "Woody Marks":105,
   "Rachaad White":113,
   'David Montgomery':88,
+
+  // v6.3 Aug. 20 curated PPR evaluation refresh. These fill the major
+  // fallback-evaluation gaps exposed by Real League Simulation. They are
+  // football-quality anchors only; Sleeper ADP remains a separate timing signal.
+  'Malik Nabers':22,
+  'Chris Olave':27,
+  'Travis Etienne':28,
+  'Kyren Williams':29,
+  'Josh Jacobs':30,
+  'Javonte Williams':33,
+  'Tetairoa McMillan':34,
+  'Tee Higgins':36,
+  'Breece Hall':37,
+  'Zay Flowers':38,
+  'DeVonta Smith':40,
+  'Bucky Irving':41,
+  'Jaylen Waddle':43,
+  "D'Andre Swift":45,
+  'Emeka Egbuka':49,
+  'TreVeyon Henderson':52,
+  'Davante Adams':53,
+  'Jadarian Price':54,
+  'Luther Burden':58,
+  'Rome Odunze':62,
+  'Jaylen Warren':65,
+  'Blake Corum':67,
+  'Harold Fannin Jr.':72,
+  'Rico Dowdle':73,
+  'Rhamondre Stevenson':75,
+  'Jordan Addison':76,
+  'J.K. Dobbins':77,
+  'Tucker Kraft':80,
+  'Sam LaPorta':88,
+  'Chris Godwin':93,
+  'Chuba Hubbard':94,
+  'Aaron Jones':97,
+  'Jakobi Meyers':99,
+  'Chris Rodriguez Jr.':101,
+  'KC Concepcion':108,
+  'Jacory Croskey-Merritt':110,
+  'Jake Ferguson':115,
+  'Trevor Lawrence':117,
+  'Dalton Kincaid':119,
+  'Travis Kelce':120,
+  'Mark Andrews':125,
+  'Bo Nix':126,
+  'George Kittle':128,
+  'Tyler Allgeier':129,
+  'Baker Mayfield':131,
+  'Dallas Goedert':132,
+  'Deebo Samuel':133,
+  'Dylan Sampson':135,
+  'Jauan Jennings':140,
+  'Calvin Ridley':156,
+  'Hunter Henry':158,
+  'Brenton Strange':164,
 };
 
 function playerKey(name){
@@ -833,10 +889,16 @@ function draftModeLabel(){
 }
 
 function setDraftMode(mode){
+ const previous=draftMode;
+ if(previous==='real_sim')saveRealSimulationState();
  draftMode = ['cpu','real_sim','real'].includes(mode) ? mode : 'cpu';
  try{ localStorage.setItem('fantasyTrainerDraftModeV59',draftMode); }catch(e){}
  const el=document.getElementById('draftMode');
  if(el && el.value!==draftMode)el.value=draftMode;
+ if(previous!==draftMode){
+   if(draftMode==='real_sim' && restoreRealSimulationState()){render();return;}
+   if(!sleeperLiveMode){reset({force:true});return;}
+ }
  render();
 }
 
@@ -893,7 +955,7 @@ function fallbackRank(sourceRank,pos){
 // Embedded PPR anchors remain our football evaluation layer; Sleeper search rank
 // tells us how urgently the room is likely to force a selection.
 function rankForPlayer(name,pos,sourceRank,sleeperId=null){
- // v6.2: API search rank is timing/identity data only. It must never become a
+ // v6.3: API search rank is timing/identity data only. It must never become a
  // curated player's football/evaluation rank. Unanchored curated players use a
  // conservative fallback evaluation until current research supplies an anchor.
  if(Object.prototype.hasOwnProperty.call(MARKET_RANK,name)) return MARKET_RANK[name];
@@ -1066,6 +1128,41 @@ function realLeagueSurvivalAdjustment(p,pick){
 
 let state;
 let availableUI={pos:'ALL',showAll:false,search:'',sort:'rank'};
+const REAL_SIM_SAVE_KEY='fantasyTrainerRealLeagueSimulationV63';
+
+function clearSavedRealSimulation(){
+ try{localStorage.removeItem(REAL_SIM_SAVE_KEY);}catch(e){}
+}
+function saveRealSimulationState(){
+ if(!state || !isRealLeagueSimulationMode() || sleeperLiveMode)return;
+ try{
+   localStorage.setItem(REAL_SIM_SAVE_KEY,JSON.stringify({
+     version:APP_VERSION,
+     savedAt:new Date().toISOString(),
+     scenario:document.getElementById('scenario')?.value||state.scenario||'baseline',
+     state
+   }));
+ }catch(e){}
+}
+function restoreRealSimulationState(){
+ if(!isRealLeagueSimulationMode())return false;
+ try{
+   const raw=localStorage.getItem(REAL_SIM_SAVE_KEY);
+   if(!raw)return false;
+   const saved=JSON.parse(raw);
+   const st=saved?.state;
+   if(!st || !Number.isFinite(Number(st.pick)) || !Array.isArray(st.available) || !Array.isArray(st.drafted) || !st.rosters)return false;
+   state=st;
+   state.pick=Number(state.pick);
+   state.scenario=saved.scenario||state.scenario||'baseline';
+   const sc=document.getElementById('scenario'); if(sc)sc.value=state.scenario;
+   availableUI={pos:'ALL',showAll:false,search:'',sort:'rank'};
+   const search=document.getElementById('playerSearch'); if(search)search.value='';
+   const sort=document.getElementById('sortAvailable'); if(sort)sort.value='rank';
+   document.querySelectorAll('#positionFilters button').forEach(b=>b.classList.toggle('active',b.dataset.pos==='ALL'));
+   return true;
+ }catch(e){return false;}
+}
 let championCollapsed=false;
 try{championCollapsed=localStorage.getItem('fantasyTrainerChampionCollapsed')==='1';}catch(e){}
 
@@ -1506,20 +1603,39 @@ function setSleeperLiveMode(on){
  render();
 }
 
-function reset(){
+function reset(options={}){
+ const force=!!options.force;
+ if(isRealLeagueSimulationMode() && state?.pick>1 && !force){
+   const ok=window.confirm('Start a new Real League Simulation? This will erase the saved simulation progress on this device.');
+   if(!ok)return false;
+ }
  sleeperLiveMode=false;
  lastSleeperPickNo=0;
  lastSleeperSyncAt=null;
  sleeperDraftMetadata=null;
  if(sleeperPollInterval){clearInterval(sleeperPollInterval);sleeperPollInterval=null;}
  const liveToggle=document.getElementById('sleeperLiveToggle'); if(liveToggle)liveToggle.checked=false;
+ if(isRealLeagueSimulationMode())clearSavedRealSimulation();
  const resetUniverse=(sleeperCandidatePool&&sleeperCandidatePool.length)?sleeperCandidatePool:players;
- state={pick:1,drafted:[],available:resetUniverse.map(p=>({...p})),rosters:Object.fromEntries(teams.map(t=>[t,[]]))};
+ const scenario=document.getElementById('scenario')?.value||'baseline';
+ state={pick:1,drafted:[],available:resetUniverse.map(p=>({...p})),rosters:Object.fromEntries(teams.map(t=>[t,[]])),scenario};
  availableUI={pos:'ALL',showAll:false,search:'',sort:'rank'};
  const search=document.getElementById('playerSearch'); if(search) search.value='';
  const sort=document.getElementById('sortAvailable'); if(sort) sort.value='rank';
  document.querySelectorAll('#positionFilters button').forEach(b=>b.classList.toggle('active',b.dataset.pos==='ALL'));
+ if(isRealLeagueSimulationMode())saveRealSimulationState();
  render();
+ return true;
+}
+function handleScenarioChange(e){
+ const previous=state?.scenario||'baseline';
+ const next=e.target.value;
+ if(isInternalSimulationMode() && state?.pick>1){
+   const ok=window.confirm('Changing opponent behavior starts a new simulation. Continue?');
+   if(!ok){e.target.value=previous;return;}
+ }
+ state && (state.scenario=next);
+ reset({force:true});
 }
 function counts(team){
  const c={QB:0,RB:0,WR:0,TE:0,DST:0,K:0};
@@ -1665,10 +1781,11 @@ function choice(team,pick){
 function autoToMine(){
  if(sleeperLiveMode||isRealLeagueMode())return;
  while(state.pick<=150&&!mine(state.pick)){const t=teamForPick(state.pick);take(choice(t,state.pick),t,state.pick)}
+ saveRealSimulationState();
  render();
 }
-function one(){if(sleeperLiveMode||isRealLeagueMode()||state.pick>150||mine(state.pick))return;const t=teamForPick(state.pick);take(choice(t,state.pick),t,state.pick);render()}
-function draftMe(name){if(sleeperLiveMode||isRealLeagueMode()||!mine(state.pick))return;const p=state.available.find(x=>x.name===name);if(!p)return;take(p,'MMazz3117',state.pick);render()}
+function one(){if(sleeperLiveMode||isRealLeagueMode()||state.pick>150||mine(state.pick))return;const t=teamForPick(state.pick);take(choice(t,state.pick),t,state.pick);saveRealSimulationState();render()}
+function draftMe(name){if(sleeperLiveMode||isRealLeagueMode()||!mine(state.pick))return;const p=state.available.find(x=>x.name===name);if(!p)return;take(p,'MMazz3117',state.pick);saveRealSimulationState();render()}
 
 
 const CURRENT_RISK_PROFILE={
@@ -2069,7 +2186,7 @@ function isFinalUserTurn(){
  return !!state && (state.pick===140||state.pick===141) && mine(state.pick);
 }
 
-// v6.2 final-turn layer: once there is no future turn, ADP/survival are nearly
+// v6.3 final-turn layer: once there is no future turn, ADP/survival are nearly
 // irrelevant. These dated current-quality scores blend present D/ST/K ranking
 // context with the Week 1 matchup/role picture; roster/bye concentration remains
 // only a tiebreaker. Refresh this small table close to draft night.
@@ -2228,17 +2345,33 @@ function renderReliability(){
  body.innerHTML=parts.join('<br>');
 }
 
+function uniqueCandidateList(list){
+ const seen=new Set(),out=[];
+ for(const p of list){
+   const key=p?.sleeperId?`id:${p.sleeperId}`:`name:${playerKey(p?.name)}`;
+   if(!p||seen.has(key))continue;
+   seen.add(key);out.push(p);
+ }
+ return out;
+}
+function handoffMarketSorted(){
+ return state.available.slice().sort(isFinalUserTurn()?finalTurnValueSort:cpuMarketSort);
+}
 function currentBrief(){
  const c=counts('MMazz3117');
  const mineRoster=state.rosters.MMazz3117.map(x=>{const t=teamCodeForPlayer(x),b=byeWeekForPlayer(x);return `${x.pos} ${x.name}${t?` [${t}${b?` · Bye ${b}`:''}]`:''} (#${x.pick})`;}).join(', ')||'none yet';
  const exposure=rosterExposureSummary();
  const fmt=(x)=>{ const m=marketSignalForPlayer(x); return `${x.name} (${x.pos}) [${marketSignalDisplay(m)}]${x.curated===false?' [UNSCOUTED]':''}`; };
- const sorted=state.available.slice().sort(isFinalUserTurn()?finalTurnValueSort:isCpuMockMode()?cpuMarketSort:(a,b)=>a.rank-b.rank);
- const top=sorted.slice(0,14).map(fmt).join(', ');
+ const sorted=handoffMarketSorted();
+ const championPlayers=getChampionBoard(5).map(x=>x.player);
+ const topList=uniqueCandidateList([...sorted.slice(0,14),...championPlayers]);
+ const top=topList.map(fmt).join(', ');
  const byPos={};
  for(const pos of ['QB','RB','WR','TE','DST','K']){
    const n=(pos==='DST'||pos==='K')?6:7;
-   byPos[pos]=sorted.filter(x=>x.pos===pos).slice(0,n).map(fmt).join(', ')||'none';
+   const marketAtPos=sorted.filter(x=>x.pos===pos).slice(0,n);
+   const championAtPos=championPlayers.filter(x=>x.pos===pos);
+   byPos[pos]=uniqueCandidateList([...marketAtPos,...championAtPos]).map(fmt).join(', ')||'none';
  }
  const sc=document.getElementById('scenario').selectedOptions[0].text;
  const mode=draftModeLabel();
@@ -2268,13 +2401,13 @@ Board source: ${sleeperLiveMode?(isRealLeagueMode()?'Sleeper live league-draft s
 Source-of-truth rule: Sleeper completed picks + player IDs determine drafted/available status. ADP freshness thresholds: FRESH 0–${ADP_FRESHNESS_DAYS.FRESH_MAX} days; AGING ${ADP_FRESHNESS_DAYS.FRESH_MAX+1}–${ADP_FRESHNESS_DAYS.AGING_MAX} days; STALE ${ADP_FRESHNESS_DAYS.AGING_MAX+1}+ days. Stale observations are historical context and do not automatically beat current fallback timing data.
 ${verifyText}
 Scenario: ${sc}
-Turn: ${turn}
+${isRealLeagueSimulationMode()?'Simulation autosave: ACTIVE — progress is restored after refresh/reopen on this device\n':''}Turn: ${turn}
 My roster (${c.QB} QB, ${c.RB} RB, ${c.WR} WR, ${c.TE} TE, ${c.DST} DEF, ${c.K} K): ${mineRoster}
 NFL TEAM EXPOSURE: ${exposure.team}
 BYE EXPOSURE: ${exposure.bye}
 REAL LEAGUE THREAT WINDOW: ${threat.text}
 
-TOP AVAILABLE OVERALL FROM FULL SLEEPER CANDIDATE POOL
+TOP AVAILABLE OVERALL FROM FULL SLEEPER CANDIDATE POOL (MARKET-FIRST + CHAMPION INCLUSIONS)
 ${top}
 
 TOP AVAILABLE BY POSITION
@@ -2379,7 +2512,9 @@ function applyView(){
  const f=document.getElementById('focusToggle').checked;['summary','researchArea'].forEach(id=>document.getElementById(id).classList.toggle('hidden',f));
 }
 function render(){
- document.getElementById('status').innerHTML=`<div class="title">${state.pick<=150?'Current pick: '+state.pick+' · '+teamForPick(state.pick):'Draft complete'}</div><div class="body"><b>${draftModeLabel()}</b> · ${strategyAdvice()}</div>`;
+ const simSaveNote=isRealLeagueSimulationMode()&&!sleeperLiveMode?' · simulation autosave ACTIVE':'';
+ document.getElementById('status').innerHTML=`<div class="title">${state.pick<=150?'Current pick: '+state.pick+' · '+teamForPick(state.pick):'Draft complete'}</div><div class="body"><b>${draftModeLabel()}</b> · ${strategyAdvice()}${simSaveNote}</div>`;
+ const resetBtn=document.getElementById('resetBtn'); if(resetBtn)resetBtn.textContent=isRealLeagueSimulationMode()?'Start New Simulation':'Reset mock';
  document.getElementById('voiceBrief').value=currentBrief();
  renderAvailable();renderRoster();renderBoard();renderChampionProcess();
  applyChampionCollapsedState();
@@ -2400,8 +2535,8 @@ async function shareBrief(){
 
 document.getElementById('autoBtn').addEventListener('click',autoToMine);
 document.getElementById('oneBtn').addEventListener('click',one);
-document.getElementById('resetBtn').addEventListener('click',reset);
-document.getElementById('scenario').addEventListener('change',reset);
+document.getElementById('resetBtn').addEventListener('click',()=>reset());
+document.getElementById('scenario').addEventListener('change',handleScenarioChange);
 document.getElementById('draftMode').addEventListener('change',e=>setDraftMode(e.target.value));
 document.getElementById('openingPlan').addEventListener('change',render);
 document.getElementById('zoomRange').addEventListener('input',applyView);
@@ -2435,7 +2570,11 @@ document.querySelectorAll('#positionFilters button').forEach(btn=>{
 });
 
 loadDraftMode();
-reset();
+if(restoreRealSimulationState()){
+  render();
+}else{
+  reset({force:true});
+}
 if(!loadCachedSleeperRanks()){
   // One automatic refresh when there is no valid <24h cache.
   // This keeps the page current without repeatedly hitting Sleeper's player endpoint.
