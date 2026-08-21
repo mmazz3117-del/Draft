@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v6.5</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v6.6</title>
 <meta name="theme-color" content="#0b1020">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -112,7 +112,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.5</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v6.6</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 <div class="card">
     <h2>Sleeper live sync <span class="badge">draft night</span></h2>
@@ -144,10 +144,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" id="identityRefreshCard">
     <h2 style="margin-bottom:6px">Player/identity refresh</h2>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v6.5 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, auto-detects a league-linked live Sleeper draft versus a mock room, and restores saved Real League Simulation progress after refresh/reopen. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v6.6 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, auto-detects a league-linked live Sleeper draft versus a mock room, and restores saved Real League Simulation progress after refresh/reopen. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.5 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v6.6 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
   <div id="reliabilityCard" class="reliability" aria-live="polite">
@@ -158,7 +158,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v6.5 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 20 observed Sleeper draft-room values from the latest live mock have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
+      v6.6 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 20 observed Sleeper draft-room values from the latest live mock have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -187,7 +187,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <option value="real">Real League Draft</option>
 </select>
 <div class="muted" style="font-size:12px;margin-top:6px">
-CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.5 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
+CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v6.6 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
 </div>
 </label>
 <label>Your 1.01 plan
@@ -228,7 +228,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       </div>
       <div class="champion-actions">
         <button id="championToggleBtn" class="champion-toggle" type="button" aria-expanded="true">Collapse ▲</button>
-        <div class="champion-pill">v6.5 decision layer</div>
+        <div class="champion-pill">v6.6 decision layer</div>
       </div>
     </div>
     <div id="championList" class="champion-list"></div>
@@ -318,11 +318,11 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer">v6.5 preserves v6.4’s three draft modes, Champion Process, live Sleeper source-of-truth sync, time-aware ADP history, identity safeguards, per-pick Real League Simulation save/restore, bye/team context, final-turn logic, football icon package and mobile layout. This update fixes the false final-turn BOARD/HANDOFF inconsistency warning by validating against the same ordering used in the copied handoff, expands the copied overall pool to preserve market leaders plus Champion inclusions, prevents EVAL VERIFY/UNSCOUTED placeholders from turning into artificial 90–100 football-value scores in late rounds, applies a stronger verification-confidence penalty before such players can enter Champion Top 5, and adds a stale-historical Sleeper-record safeguard for obvious retired/inactive veteran records. Market confidence remains separate from football evaluation; API search rank remains only a weak timing clue, never a curated football rank.</p>
+  <p class="footer">v6.6 preserves v6.5’s three draft modes, Champion Process, live Sleeper source-of-truth sync, time-aware ADP history, identity safeguards, per-pick Real League Simulation save/restore, bye/team context, final-turn logic, football icon package and mobile layout. This update adds a hard roster-completion safeguard: if the starting QB is still empty at the 80/81 turn, Champion Process forces the best available QB into the recommendation set and the strategy banner explicitly says QB is required; an empty TE becomes mandatory by 100/101. Missing core starters override the normal final-turn D/ST+K rule, the reliability card escalates late missing-starter situations, and roster-fit scoring no longer falls back to a weak QB score after pick 61. The goal is to prevent a value-heavy draft from reaching Round 14 without a playable starting lineup while still preserving normal RB/WR upside strategy when required starters are filled.</p>
 </div>
 
 <script>
-const APP_VERSION='v6.5';
+const APP_VERSION='v6.6';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
 // Bye balance is a roster-level tiebreaker only; it never changes football quality.
@@ -784,7 +784,7 @@ const MARKET_RANK={
   "Rachaad White":113,
   'David Montgomery':88,
 
-  // v6.5 curated PPR evaluation refresh. These fill the major fallback-evaluation
+  // v6.6 curated PPR evaluation refresh. These fill the major fallback-evaluation
   // gaps exposed by Real League Simulation. Core anchors below blend the Aug. 17
   // Field Yates and Aug. 19 Mike Clay ESPN PPR ranks; remaining refresh anchors
   // preserve the prior current-research calibration. Football quality stays
@@ -971,7 +971,7 @@ function unscoutedNeutralRank(pos){
 // Embedded PPR anchors remain our football evaluation layer; Sleeper search rank
 // tells us how urgently the room is likely to force a selection.
 function rankForPlayer(name,pos,sourceRank,sleeperId=null){
- // v6.5: API search rank is timing/identity data only. It must never become a
+ // v6.6: API search rank is timing/identity data only. It must never become a
  // curated player's football/evaluation rank. Unanchored curated players use a
  // conservative fallback evaluation until current research supplies an anchor.
  if(Object.prototype.hasOwnProperty.call(MARKET_RANK,name)) return MARKET_RANK[name];
@@ -1144,8 +1144,8 @@ function realLeagueSurvivalAdjustment(p,pick){
 
 let state;
 let availableUI={pos:'ALL',showAll:false,search:'',sort:'rank'};
-const REAL_SIM_SAVE_KEY='fantasyTrainerRealLeagueSimulationV65';
-const REAL_SIM_LEGACY_SAVE_KEYS=['fantasyTrainerRealLeagueSimulationV64','fantasyTrainerRealLeagueSimulationV63'];
+const REAL_SIM_SAVE_KEY='fantasyTrainerRealLeagueSimulationV66';
+const REAL_SIM_LEGACY_SAVE_KEYS=['fantasyTrainerRealLeagueSimulationV65','fantasyTrainerRealLeagueSimulationV64','fantasyTrainerRealLeagueSimulationV63'];
 
 function draftedAuthoritySets(){
  const ids=new Set(),keys=new Set();
@@ -1964,7 +1964,7 @@ function positionPressure(pos,pick,player=null){
 }
 
 function valueScore(p,pick){
- // v6.5: an EVAL VERIFY / UNSCOUTED placeholder is not a football-quality grade.
+ // v6.6: an EVAL VERIFY / UNSCOUTED placeholder is not a football-quality grade.
  // Keep the player eligible and visible, but do not let a neutral placeholder
  // turn into an artificial 90-100 "value" score simply because the draft is late.
  const needsEvalVerify=p?.curated===false || String(p?.rankSource||'').includes('EVAL VERIFY');
@@ -1995,6 +1995,49 @@ function survivalChance(p,pick,marketSignal=null){
  return clamp(chance,3,97);
 }
 
+function coreStarterNeeds(){
+ const c=counts('MMazz3117');
+ const needs=[];
+ if(c.QB<1)needs.push('QB');
+ if(c.RB<2)needs.push('RB');
+ if(c.WR<2)needs.push('WR');
+ if(c.TE<1)needs.push('TE');
+ return needs;
+}
+
+function mandatoryRosterPositions(pick=state?.pick||1){
+ const c=counts('MMazz3117');
+ const needs=[];
+ // The trainer may wait on quarterback through the 60/61 turn, but it may not
+ // leave the 80/81 turn without one. This protects the one-QB starting lineup
+ // while still allowing the earlier value-first / rushing-QB strategy to work.
+ if(c.QB<1 && pick>=80)needs.push('QB');
+ // Tight end is allowed to slide a little longer, but must be secured by 100/101.
+ if(c.TE<1 && pick>=100)needs.push('TE');
+ // Basic starting RB/WR minimums should already be met; if a chaotic simulation
+ // breaks that assumption, force them before the late bench phase.
+ if(c.RB<2 && pick>=80)needs.push('RB');
+ if(c.WR<2 && pick>=80)needs.push('WR');
+ return [...new Set(needs)];
+}
+
+function rosterCompletionBonus(p,pick){
+ const c=counts('MMazz3117');
+ if(p.pos==='QB' && c.QB<1){
+   if(pick>=100)return 42;
+   if(pick>=80)return 34;
+   if(pick>=60)return 12;
+ }
+ if(p.pos==='TE' && c.TE<1){
+   if(pick>=120)return 34;
+   if(pick>=100)return 28;
+   if(pick>=60)return 8;
+ }
+ if(p.pos==='RB' && c.RB<2 && pick>=80)return 30;
+ if(p.pos==='WR' && c.WR<2 && pick>=80)return 30;
+ return 0;
+}
+
 function rosterFitScore(p,pick){
  const c=counts('MMazz3117'), r=roundForPick(pick);
  if(p.pos==='QB'&&c.QB>=1)return 8;
@@ -2005,8 +2048,8 @@ function rosterFitScore(p,pick){
  if((p.pos==='DST'||p.pos==='K')&&r>=14)return 96;
  if(p.pos==='RB')return c.RB<2?94:c.RB<3?84:c.RB<5?(r>=7?88:72):28;
  if(p.pos==='WR')return c.WR<2?95:c.WR<3?90:c.WR<6?88:30;
- if(p.pos==='QB'&&c.QB===0)return pick<=41?80:pick<=61?90:68;
- if(p.pos==='TE'&&c.TE===0)return pick<=21?62:pick<=61?92:72;
+ if(p.pos==='QB'&&c.QB===0)return pick<=41?80:pick<=61?92:100;
+ if(p.pos==='TE'&&c.TE===0)return pick<=21?62:pick<=61?92:pick<=99?94:100;
  return 55;
 }
 
@@ -2045,6 +2088,8 @@ function championScore(p,pick){
  let score=value*.27 + cliff*.16 + urgency*.14 + fit*.22 + upside*.09 + leagueFit*.12;
 
  const c=counts('MMazz3117');
+ const completionBonus=rosterCompletionBonus(p,pick);
+ score+=completionBonus;
 
  // Strong penalty for redundant QB/TE.
  if((p.pos==='QB'&&c.QB>=1)||(p.pos==='TE'&&c.TE>=1))score-=28;
@@ -2119,7 +2164,7 @@ function championScore(p,pick){
  // decision-relevant once there is no future pick to wait for.
  if(pick>=140 && (p.pos==='DST'||p.pos==='K'))score=finalTurnDecisionScore(p);
 
- return {player:p,total:clamp(score),value,cliff,survive,fit,upside,leagueFit,riskPenalty,liveMarketRank,marketSource,marketStatus,marketConfidence,marketSignal,reachGap,reachPenalty,nextTurn,unscoutedPenalty,rosterContext,roomThreatAdjustment};
+ return {player:p,total:clamp(score),value,cliff,survive,fit,upside,leagueFit,riskPenalty,liveMarketRank,marketSource,marketStatus,marketConfidence,marketSignal,reachGap,reachPenalty,nextTurn,unscoutedPenalty,rosterContext,roomThreatAdjustment,completionBonus};
 }
 
 function championReason(x){
@@ -2130,6 +2175,8 @@ function championReason(x){
  if(x.fit>=88)parts.push('strong roster fit');
  if(x.upside>=82)parts.push('high role-growth ceiling');
  if(x.leagueFit>=90)parts.push('excellent fit for your scoring');
+ if(x.completionBonus>=28)parts.push(`ROSTER REQUIREMENT: starting ${p.pos} is still empty`);
+ else if(x.completionBonus>0)parts.push(`roster-completion pressure: ${p.pos} still needed`);
  if(state?.pick>=140 && (p.pos==='DST'||p.pos==='K'))parts.push(`final-turn current-quality layer ${FINAL_TURN_PROFILE_UPDATED}`);
  if(p.pos==='QB' && x.leagueFit<72)parts.push('pocket-QB scoring discount');
  if(state?.pick<140 && x.reachPenalty>=16 && x.nextTurn)parts.push(`WAIT: ${x.marketSource||'market'} suggests ${x.nextTurn} or later`);
@@ -2157,8 +2204,39 @@ function getChampionBoard(limit=5){
   .map(p=>championScore(p,state.pick))
   .sort((a,b)=>b.total-a.total||a.player.rank-b.player.rank);
 
- // On the final 140/141 turn, roster completion is the job:
- // always compare the best remaining D/ST and kicker directly.
+ // v6.6 roster-completion safeguard. When a required starting position has hit
+ // its deadline, guarantee that the best available player at that position is
+ // shown before ordinary value picks. This prevents a value-heavy board from
+ // carrying an empty QB/TE slot into the final rounds.
+ const mandatory=mandatoryRosterPositions(state.pick);
+ if(mine(state.pick) && mandatory.length){
+   const special=[];
+   for(const pos of mandatory){
+     const best=all.filter(x=>x.player.pos===pos && !special.some(y=>playerIdentityKey(y.player)===playerIdentityKey(x.player)))[0];
+     if(best)special.push(best);
+   }
+   const used=new Set(special.map(x=>playerIdentityKey(x.player)));
+
+   // If this is the last 140/141 turn and a core starter is still missing,
+   // core starters outrank D/ST and K. Add ancillary positions only after the
+   // missing starter recommendations so the user can see the damage-control path.
+   if(state.pick>=140){
+     const c=counts('MMazz3117');
+     if(c.DST===0){
+       const dst=all.filter(x=>x.player.pos==='DST'&&!used.has(playerIdentityKey(x.player))).sort((a,b)=>b.total-a.total||a.player.rank-b.player.rank)[0];
+       if(dst){special.push(dst);used.add(playerIdentityKey(dst.player));}
+     }
+     if(c.K===0){
+       const k=all.filter(x=>x.player.pos==='K'&&!used.has(playerIdentityKey(x.player))).sort((a,b)=>b.total-a.total||a.player.rank-b.player.rank)[0];
+       if(k){special.push(k);used.add(playerIdentityKey(k.player));}
+     }
+   }
+
+   return special.concat(all.filter(x=>!used.has(playerIdentityKey(x.player)))).slice(0,limit);
+ }
+
+ // Normal final turn: roster completion is the job only after all core starters
+ // are filled. Then compare the best remaining D/ST and kicker directly.
  if(mine(state.pick) && state.pick>=140){
    const c=counts('MMazz3117');
    const special=[];
@@ -2226,6 +2304,13 @@ function strategyAdvice(){
  if(state.pick>150)return'Full 15-round mock complete.';
  if(!mine(state.pick))return`Pick ${state.pick}: ${teamForPick(state.pick)} is on the clock.`;
  const p=state.pick,r=roundForPick(p),c=counts('MMazz3117');
+ const mandatory=mandatoryRosterPositions(p);
+ if(mandatory.length){
+   const first=mandatory[0];
+   if(first==='QB')return'ROSTER COMPLETION: QB is required now. Draft the best available starting QB before adding more RB/WR depth. Do not use the normal late-round or final-turn DEF/K plan until QB is filled.';
+   if(first==='TE')return'ROSTER COMPLETION: TE is required now. Draft the best available starting TE before adding more bench depth or moving to DEF/K.';
+   return`ROSTER COMPLETION: ${first} is still below the starting minimum. Fill that starter now before adding more bench depth.`;
+ }
  if(p===1){
    const op=document.getElementById('openingPlan').value;
    return op==='rb'?'Default: elite RB first. Gibbs/Bijan path preserves flexibility at 20/21.'
@@ -2235,15 +2320,15 @@ function strategyAdvice(){
  if(p===20||p===21)return'At 20/21: take the room’s mistake. Prefer a fallen WR plus the best RB/TE/WR value. Do not force a predetermined pair.';
  if(p===40||p===41){
    if(!c.QB&&!c.TE)return'Key fork: elite rushing QB vs. premium TE vs. falling RB/WR. Do not treat pocket QBs as the same scarcity tier.';
-   if(!c.QB)return'QB decision window: prioritize Allen/Lamar/Daniels/Hurts-type rushing leverage. If that tier is gone, take RB/WR/TE value rather than chase a pocket QB.';
+   if(!c.QB)return'QB decision window: prioritize Allen/Lamar/Daniels/Hurts-type rushing leverage. If that tier is gone, take RB/WR/TE value rather than chase a pocket QB — but QB becomes mandatory by 80/81.';
    if(!c.TE)return'Planned TE pivot window. Loveland/Warren-type value is preferable to forcing TE later.';
    return'QB and TE are set. Hammer RB/WR value.';
  }
- if(p===60||p===61)return'Favor RB/WR starter depth. If QB is empty, a rushing-leverage QB can be the exception; do not chase a pocket QB just because the room ran the position.';
+ if(p===60||p===61)return c.QB===0?'QB is still empty. Prefer a rushing-leverage QB if one is viable; if you pass again, the trainer will force QB at 80/81.':'Favor RB/WR starter depth. QB is already secured; do not add a backup QB.';
  if(p===80||p===81)return'Build FLEX and injury resilience: target RB/WR with secure role or clear path to a workload jump.';
  if(p===100||p===101)return'Bench upside phase. Prefer asymmetric RB/WR bets over backup QB/TE.';
  if(p===120||p===121)return'Continue upside bench construction. Avoid K/DEF unless the skill-player board is unusually weak.';
- if(p===140||p===141)return'Final turn: fill exactly one D/ST and one K. Use the dated current-quality + Week 1 layer; ADP/survival no longer drives the decision.';
+ if(p===140||p===141)return'Final turn: fill exactly one D/ST and one K only because all core starters are already complete. Use the dated current-quality + Week 1 layer; ADP/survival no longer drives the decision.';
  if(r>=11)return'Late rounds: prioritize RB/WR upside, then finish DEF/K. Avoid low-ceiling backup QB/TE.';
  return'Favor RB/WR value and reliable weekly volume. Bye weeks are a tiebreaker.';
 }
@@ -2261,7 +2346,7 @@ function isFinalUserTurn(){
  return !!state && (state.pick===140||state.pick===141) && mine(state.pick);
 }
 
-// v6.5 final-turn layer: once there is no future turn, ADP/survival are nearly
+// v6.6 final-turn layer: once there is no future turn, ADP/survival are nearly
 // irrelevant. These dated current-quality scores blend present D/ST/K ranking
 // context with the Week 1 matchup/role picture; roster/bye concentration remains
 // only a tiebreaker. Refresh this small table close to draft night.
@@ -2348,6 +2433,20 @@ function reliabilityCheck(){
    issues.push('full Sleeper candidate universe is not loaded');
  }
 
+ // Roster-completion verification. Missing a starting QB by 80/81 or TE by
+ // 100/101 is no longer treated as a normal strategy variation.
+ if(state && state.pick<=150){
+   const c=counts('MMazz3117');
+   if(c.QB===0 && state.pick>=120)issues.push('ROSTER INCOMPLETE: starting QB is still empty after the QB deadline');
+   else if(c.QB===0 && state.pick>=80)warnings.push('ROSTER WARNING: starting QB is empty — QB is mandatory at this turn');
+   if(c.TE===0 && state.pick>=120)issues.push('ROSTER INCOMPLETE: starting TE is still empty after the TE deadline');
+   else if(c.TE===0 && state.pick>=100)warnings.push('ROSTER WARNING: starting TE is empty — TE is mandatory at this turn');
+   if(state.pick>=140){
+     const core=coreStarterNeeds();
+     if(core.length)issues.push(`FINAL-TURN ROSTER FAILURE: missing required starter${core.length===1?'':'s'} ${core.join(', ')}; core starter(s) override D/ST + K`);
+   }
+ }
+
  // Missing-from-curated is not a data-integrity failure because
  // the full active Sleeper universe is eligible. Instead, flag UNSCOUTED
  // high-search players as context for ChatGPT/current-web verification.
@@ -2403,7 +2502,7 @@ function reliabilityCheck(){
      }).join('; ')}`);
    }
  }
- // v6.5 representation safeguard: Champion, visible Available, and copied state
+ // v6.6 representation safeguard: Champion, visible Available, and copied state
  // must all resolve from the same drafted-player identity exclusion set.
  if(state && state.pick<=150){
    const handoff=buildHandoffAvailableContext();
