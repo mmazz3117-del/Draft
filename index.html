@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v7.0</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v7.1</title>
 <meta name="theme-color" content="#0b1020">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -112,7 +112,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v7.0</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v7.1</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 <div class="card">
     <h2>Sleeper live sync <span class="badge">draft night</span></h2>
@@ -227,7 +227,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       </div>
       <div class="champion-actions">
         <button id="championToggleBtn" class="champion-toggle" type="button" aria-expanded="true">Collapse ▲</button>
-        <div class="champion-pill">v7.0 STABLE</div>
+        <div class="champion-pill">v7.1</div>
       </div>
     </div>
     <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -318,11 +318,11 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer"><b>v7.0 STABLE / feature freeze.</b> The trainer is now a reliable state, market, roster and shortlist tool—not an autonomous draft picker. Sleeper/player IDs remain authoritative for drafted/available status; ADP remains timing context; roster-completion guardrails remain active. The Draft Decision Shortlist is intentionally not a pick order. Player news, injuries, changing roles and close player-vs-player judgments should be resolved from the copied Draft State with current ChatGPT research rather than by adding more one-off code patches. Future code changes should be limited to true data-integrity, identity, sync or roster-rule defects.</p>
+  <p class="footer"><b>v7.1.</b> Adds an RB game-script resilience tiebreak layer: receiving/two-minute utility and expected scoring environment can protect a back when trailing, while rush-dependent profiles receive a modest script-sensitivity discount. This is football evaluation only—never ADP—and unprofiled RBs remain neutral rather than guessed at. Sleeper/player IDs remain authoritative for availability; the Draft Decision Shortlist remains contextual, not a pick order.</p>
 </div>
 
 <script>
-const APP_VERSION='v7.0';
+const APP_VERSION='v7.1';
 const TRAINER_STATUS='STABLE_FEATURE_FREEZE';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
@@ -1898,6 +1898,48 @@ const UPSIDE_PROFILE={
  'Jeremiyah Love':{score:88,note:'High-end rookie RB ceiling; health is a tiebreaker.'}
 };
 
+
+
+// v7.1 RB game-script resilience layer.
+// This is intentionally a tiebreak-strength football factor, not a market/ADP input.
+// It rewards backs whose receiving/two-minute role and team environment protect fantasy
+// usage when trailing, and modestly discounts rush-dependent profiles that can lose work
+// in negative scripts. Unprofiled RBs stay neutral rather than being guessed at.
+const RB_GAME_SCRIPT_PROFILE=Object.freeze({
+  'Jahmyr Gibbs':{score:96,label:'script-proof',note:'High-value receiving work plus a strong scoring environment protects him when game flow turns pass-heavy.'},
+  'Bijan Robinson':{score:95,label:'script-proof',note:'Three-down receiving utility keeps him involved across both positive and negative game scripts.'},
+  'Christian McCaffrey':{score:94,label:'script-proof',note:'Receiving and two-minute value make his fantasy workload unusually resilient to score differential.'},
+  "De'Von Achane":{score:96,label:'script-proof',note:'Elite receiving value means trailing scripts can create targets instead of simply removing carries.'},
+  'Chase Brown':{score:91,label:'script-resistant',note:'Passing-game involvement materially protects his PPR value if the offense has to chase points.'},
+  'Breece Hall':{score:90,label:'script-resistant',note:'Receiving ability gives him a path to production even when conventional rushing volume falls.'},
+  'Bucky Irving':{score:90,label:'script-resistant',note:'Receiving utility and all-situation usage reduce dependence on his team playing from ahead.'},
+  'TreVeyon Henderson':{score:89,label:'script-resistant',note:'Receiving explosiveness gives him a strong negative-script path if his passing-down role holds.'},
+  'Cam Skattebo':{score:88,label:'script-resistant',note:'Receiving utility gives him more protection than a pure early-down back in trailing games.'},
+  'Jaylen Warren':{score:89,label:'script-resistant',note:'Passing-down utility keeps him relevant when his offense is forced away from the run.'},
+  "D'Andre Swift":{score:88,label:'script-resistant',note:'Receiving involvement cushions the loss of carries that can come with negative game script.'},
+  'Tony Pollard':{score:86,label:'script-resistant',note:'Receiving ability provides a usable PPR floor when rushing opportunity is squeezed by score.'},
+  'Rhamondre Stevenson':{score:85,label:'script-resistant',note:'Pass-catching ability reduces, but does not erase, concern about a poor team environment.'},
+  'Chuba Hubbard':{score:85,label:'script-resistant',note:'Receiving work gives him a better path through trailing scripts than a rush-only profile.'},
+  'James Cook':{score:84,label:'balanced',note:'Strong offense helps create scoring chances; receiving role offers some protection if game flow flips.'},
+  'Saquon Barkley':{score:84,label:'balanced',note:'High-quality scoring environment offsets some dependence on rushing volume.'},
+  'Jonathan Taylor':{score:82,label:'balanced',note:'Premium rushing/TD environment is valuable, though his fantasy ceiling remains somewhat more carry-dependent.'},
+  'Josh Jacobs':{score:82,label:'balanced',note:'Goal-line and team-scoring environment help, with moderate protection from receiving work.'},
+  'Kyren Williams':{score:81,label:'balanced',note:'Strong touch and scoring profile is valuable, but he is somewhat more sensitive to lost carries than elite receiving backs.'},
+  'Kenneth Walker III':{score:78,label:'moderately script-sensitive',note:'Big-play rushing talent remains attractive, but value is more dependent on carry volume than the most receiving-heavy RBs.'},
+  'Ashton Jeanty':{score:78,label:'moderately script-sensitive',note:'Workload ceiling is strong, but team environment and passing-down usage matter more if his offense frequently trails.'},
+  'Omarion Hampton':{score:80,label:'balanced',note:'Three-down potential helps, but NFL role certainty and team game environment still matter.'},
+  'Rico Dowdle':{score:73,label:'script-sensitive',note:'More of the fantasy case depends on conventional rushing volume, making sustained negative scripts a meaningful risk.'}
+});
+
+function rbGameScriptScore(p){
+ if(p?.pos!=='RB')return 70;
+ return RB_GAME_SCRIPT_PROFILE[p.name]?.score ?? 70;
+}
+function rbGameScriptLabel(p){
+ if(p?.pos!=='RB')return '';
+ return RB_GAME_SCRIPT_PROFILE[p.name]?.label || 'neutral / verify role';
+}
+
 function clamp(n,min=0,max=100){return Math.max(min,Math.min(max,n))}
 
 function nextUserTurnPick(fromPick){
@@ -2157,10 +2199,11 @@ function championScore(p,pick){
  const fit=rosterFitScore(p,pick);
  const upside=upsideScore(p,pick);
  const leagueFit=leagueFitScore(p);
+ const gameScript=rbGameScriptScore(p);
  const urgency=100-survive;
 
  // Repeat-winner process plus league-specific scoring.
- let score=value*.27 + cliff*.16 + urgency*.14 + fit*.22 + upside*.09 + leagueFit*.12;
+ let score=value*.25 + cliff*.16 + urgency*.14 + fit*.20 + upside*.09 + leagueFit*.10 + (p.pos==='RB'?gameScript:70)*.06;
 
  const c=counts('MMazz3117');
  const completionBonus=rosterCompletionBonus(p,pick);
@@ -2249,7 +2292,7 @@ function championScore(p,pick){
  // decision-relevant once there is no future pick to wait for.
  if(pick>=140 && (p.pos==='DST'||p.pos==='K'))score=finalTurnDecisionScore(p);
 
- return {player:p,total:clamp(score),value,cliff,survive,fit,upside,leagueFit,riskPenalty,liveMarketRank,marketSource,marketStatus,marketConfidence,marketSignal,reachGap,reachPenalty,nextTurn,unscoutedPenalty,rosterContext,roomThreatAdjustment,completionBonus};
+ return {player:p,total:clamp(score),value,cliff,survive,fit,upside,leagueFit,gameScript,riskPenalty,liveMarketRank,marketSource,marketStatus,marketConfidence,marketSignal,reachGap,reachPenalty,nextTurn,unscoutedPenalty,rosterContext,roomThreatAdjustment,completionBonus};
 }
 
 function championReason(x){
@@ -2260,6 +2303,8 @@ function championReason(x){
  if(x.fit>=88)parts.push('strong roster fit');
  if(x.upside>=82)parts.push('high role-growth ceiling');
  if(x.leagueFit>=90)parts.push('excellent fit for your scoring');
+ if(p.pos==='RB' && x.gameScript>=88)parts.push(`game-script ${rbGameScriptLabel(p)}`);
+ if(p.pos==='RB' && x.gameScript<=75)parts.push(`game-script risk: ${rbGameScriptLabel(p)}`);
  if(x.completionBonus>=28)parts.push(`ROSTER REQUIREMENT: starting ${p.pos} is still empty`);
  else if(x.completionBonus>0)parts.push(`roster-completion pressure: ${p.pos} still needed`);
  if(state?.pick>=140 && (p.pos==='DST'||p.pos==='K'))parts.push(`final-turn current-quality layer ${FINAL_TURN_PROFILE_UPDATED}`);
@@ -2275,7 +2320,7 @@ function championReason(x){
  if(risk)parts.push(`health watch: ${risk.label}${risk.stale?' · NEWS STALE — VERIFY CURRENT STATUS':''}`);
  if(!parts.length)parts.push('balanced value and fit');
 
- let note=risk?.note || UPSIDE_PROFILE[p.name]?.note;
+ let note=risk?.note || UPSIDE_PROFILE[p.name]?.note || (p.pos==='RB'?RB_GAME_SCRIPT_PROFILE[p.name]?.note:null);
  if(p.pos==='QB' && QB_LEAGUE_PROFILE[p.name]?.note){
    note=QB_LEAGUE_PROFILE[p.name].note;
  }
@@ -2413,6 +2458,7 @@ function renderChampionProcess(){
        <div class="factor"><div class="f-label">Roster fit</div><div class="f-val">${Math.round(x.fit)}</div></div>
        <div class="factor"><div class="f-label">Upside</div><div class="f-val">${Math.round(x.upside)}</div></div>
        <div class="factor"><div class="f-label">League fit</div><div class="f-val">${Math.round(x.leagueFit)}</div></div>
+       ${p.pos==='RB'?`<div class="factor"><div class="f-label">Game script</div><div class="f-val">${Math.round(x.gameScript)}</div></div>`:''}
      </div>`;
    box.appendChild(row);
  });
@@ -2701,7 +2747,7 @@ function currentBrief(){
  const threat=realLeagueThreatWindow(state.pick);
  const champion=getChampionBoard(5);
  const championText=champion.length
-   ? champion.map((x,i)=>`${i+1}) ${x.player.name} (${x.player.pos}) — Champion ${Math.round(x.total)}; market status: ${marketSignalDisplay(x.marketSignal)}; football/evaluation value ${Math.round(x.value)}, cliff ${Math.round(x.cliff)}, survival estimate ${Math.round(x.survive)}%, fit ${Math.round(x.fit)}, upside ${Math.round(x.upside)}, league-fit ${Math.round(x.leagueFit)}${usesHistoricalRoomModel()&&Math.abs(x.roomThreatAdjustment)>=1?`, real-room survival adjustment ${x.roomThreatAdjustment>0?'+':''}${Math.round(x.roomThreatAdjustment)} pts`:''}${x.riskPenalty?`, current-risk penalty ${Math.round(x.riskPenalty)}`:''}${x.reachPenalty?`, timing/reach penalty ${Math.round(x.reachPenalty)}`:''}${x.unscoutedPenalty?`, unscouted-confidence penalty ${Math.round(x.unscoutedPenalty)}`:''}. ${championReason(x)}`).join('\n')
+   ? champion.map((x,i)=>`${i+1}) ${x.player.name} (${x.player.pos}) — Champion ${Math.round(x.total)}; market status: ${marketSignalDisplay(x.marketSignal)}; football/evaluation value ${Math.round(x.value)}, cliff ${Math.round(x.cliff)}, survival estimate ${Math.round(x.survive)}%, fit ${Math.round(x.fit)}, upside ${Math.round(x.upside)}, league-fit ${Math.round(x.leagueFit)}${x.player.pos==='RB'?`, game-script resilience ${Math.round(x.gameScript)}`:''}${usesHistoricalRoomModel()&&Math.abs(x.roomThreatAdjustment)>=1?`, real-room survival adjustment ${x.roomThreatAdjustment>0?'+':''}${Math.round(x.roomThreatAdjustment)} pts`:''}${x.riskPenalty?`, current-risk penalty ${Math.round(x.riskPenalty)}`:''}${x.reachPenalty?`, timing/reach penalty ${Math.round(x.reachPenalty)}`:''}${x.unscoutedPenalty?`, unscouted-confidence penalty ${Math.round(x.unscoutedPenalty)}`:''}. ${championReason(x)}`).join('\n')
    : 'No shortlist candidates available.';
 
  const realResearch=`REAL LEAGUE DRAFT RULE — Sleeper completed picks/player IDs are authoritative. 2023–25 manager tendencies are priors for survival/threat only; completed 2026 behavior progressively overrides those priors. Historical opponent data never changes football quality, injury evaluation, upside or ADP itself.`;
