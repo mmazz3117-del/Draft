@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v7.5</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v7.6</title>
 <meta name="theme-color" content="#0b1020">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -112,7 +112,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v7.5</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v7.6</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 <div class="card">
     <h2>Sleeper live sync <span class="badge">draft night</span></h2>
@@ -144,10 +144,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" id="identityRefreshCard">
     <h2 style="margin-bottom:6px">Player/identity refresh</h2>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v7.5 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, auto-detects a league-linked live Sleeper draft versus a mock room, and restores saved Real League Simulation progress after refresh/reopen. Ambiguous similar-name or suffix matches are blocked instead of guessed.
+      v7.6 uses Sleeper's full active rostered player universe for eligibility, keeps the three draft modes separate, auto-detects a league-linked live Sleeper draft versus a mock room, and restores saved Real League Simulation progress after refresh/reopen. Ambiguous similar-name or suffix matches are blocked instead of guessed.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v7.5 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v7.6 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
   <div id="reliabilityCard" class="reliability" aria-live="polite">
@@ -158,7 +158,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v7.5 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 20 observed Sleeper draft-room values from the latest live mock have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
+      v7.6 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 28 observed Sleeper draft-room values from live mock testing have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -187,7 +187,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <option value="real">Real League Draft</option>
 </select>
 <div class="muted" style="font-size:12px;margin-top:6px">
-CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v7.5 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
+CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v7.6 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
 </div>
 </label>
 <label>Your 1.01 plan
@@ -227,7 +227,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       </div>
       <div class="champion-actions">
         <button id="championToggleBtn" class="champion-toggle" type="button" aria-expanded="true">Collapse ▲</button>
-        <div class="champion-pill">v7.5</div>
+        <div class="champion-pill">v7.6</div>
       </div>
     </div>
     <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -299,7 +299,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       <div class="node"><span class="badge">Hybrid ranking layer</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
       <div class="node"><span class="badge">Champion Process</span>Repeat-winner principles are now scored on every pick: market value, positional cliffs, estimated survival to your next turn, roster construction, and asymmetric upside. QB/TE run-chasing and redundant backups are penalized.</div>
       <div class="node"><span class="badge">League QB scoring</span>The current scoring model separates rushing-leverage QBs from pocket passers. With 4-point passing TDs and 6-point rushing TDs, Allen/Lamar/Daniels/Hurts-type profiles receive a meaningful boost; Mahomes/Burrow/Herbert-type profiles must win on value rather than generic QB-run pressure.</div>
-      <div class="node"><span class="badge">Current calibration</span>Current anchors include Brian Thomas Jr. and Jaxson Dart, refreshed QB market values, current top D/ST and kicker tiers, and a final-turn DEF+K pairing rule. v7.5 uses graduated QB urgency: 80/81 stays a full QB/RB/WR opportunity-cost comparison, 100/101 is critical but not QB-only, and QB becomes mandatory only at 120/121.</div>
+      <div class="node"><span class="badge">Current calibration</span>Current anchors include Brian Thomas Jr. and Jaxson Dart, refreshed QB market values, current top D/ST and kicker tiers, and a final-turn DEF+K pairing rule. v7.6 uses graduated QB urgency: 80/81 stays a full QB/RB/WR opportunity-cost comparison, 100/101 is critical but not QB-only, and QB becomes mandatory only at 120/121.</div>
       <div class="node"><span class="badge">Live-sync safeguards</span>Sleeper D/ST abbreviations now map to trainer names (for example HOU → Texans, DEN → Broncos, NE → Patriots). Known player aliases such as Kenny/Kenneth Gainwell are canonicalized, unmatched Sleeper picks are surfaced, and confirmed season-long exclusions are removed from Best Available.</div>
       <div class="node"><span class="badge">Rank cleanup / identity safeguards</span>Michael Pittman Jr. is corrected to the current late-Round-9/10 value range, several established mid/late players now have embedded safety anchors, Sleeper rank matching is suffix-aware, and current injury watches can lower Champion Process scores without hard-excluding the player.</div>
     </div>
@@ -318,11 +318,11 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer"><b>v7.5.</b> Aug. 28 weekend lock-in refresh. Preserves the graduated QB-opportunity-cost architecture while updating Week 1 injury confidence, suspension/availability risk, starter-usage role signals, late-round sleepers, and current ADP-moving developments. Sleeper observations remain separate from external market movement; final roster cuts and Sunday news still require a last verification pass.</p>
+  <p class="footer"><b>v7.6.</b> Aug. 28 pre-weekend draft-board refresh. Preserves the graduated QB-opportunity-cost architecture, adds fresh Aug. 28 observed Sleeper ADP from live mock testing, and tightens current injury/role signals for Tyson, Jeanty, Walker, Etienne, Tracy, Pierce, Gadsden, WanDale Robinson and other late-round movers. External ADP remains research context only; Sunday afternoon still gets the final cuts/injury verification pass.</p>
 </div>
 
 <script>
-const APP_VERSION='v7.5';
+const APP_VERSION='v7.6';
 const TRAINER_STATUS='STABLE_FEATURE_FREEZE';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
@@ -340,7 +340,7 @@ const CURRENT_TEAM_OVERRIDES = Object.freeze({
 });
 // Same-day news can invalidate ADP timing confidence without changing player quality.
 const MARKET_NEWS_INVALIDATION = Object.freeze({
-  'Jordyn Tyson':{date:'2026-08-20',reason:'hamstring timeline materially worsened; reported roughly two-month absence makes prior healthy-market timing unsafe without verification'},
+  'Jordyn Tyson':{date:'2026-08-28',reason:'hamstring setback now carries a reported multi-week/roughly two-month absence; prior healthy-market timing is invalid for draft decisions'},
   'Emeka Egbuka':{date:'2026-08-18',reason:'toe sprain remains an active availability watch'},
   'Tyler Warren':{date:'2026-08-20',reason:'groin/adductor injury from Aug. 19 joint practice; initial assessment avoided a serious injury, but availability is not fully cleared yet'},
   'Sam LaPorta':{date:'2026-08-28',reason:'returned to practice and caught passes in Detroit scrimmage; prior injury-stale market assumptions should be rechecked upward'},
@@ -348,8 +348,8 @@ const MARKET_NEWS_INVALIDATION = Object.freeze({
   'Keon Coleman':{date:'2026-08-23',reason:'sprained foot/toe and walking-boot report materially changes healthy-market assumptions'},
   'Kyle Monangai':{date:'2026-08-23',reason:'hyperextended knee; week-to-week status changes early-season workload assumptions'},
   'Chuba Hubbard':{date:'2026-08-24',reason:'hamstring recovery plus confirmed Hubbard/Brooks committee changes prior healthy-workload assumptions'},
-  'Ashton Jeanty':{date:'2026-08-28',reason:'low ankle sprain; Raiders now say they are counting on him for Week 1, improving availability confidence but not fully erasing ankle risk'},
-  'Kenneth Walker III':{date:'2026-08-26',reason:'new foot issue briefly cost practice; latest reporting says he is fine, but prior healthy-market timing should be rechecked'},
+  'Ashton Jeanty':{date:'2026-08-28',reason:'low ankle sprain remains active; Raiders are hopeful for Week 1 but still describe him as on the mend, so healthy-market timing requires verification'},
+  'Kenneth Walker III':{date:'2026-08-28',reason:'ankle/foot scare now appears minor and cleat-related; keep only a light durability watch rather than a material downgrade'},
   'TreVeyon Henderson':{date:'2026-08-28',reason:'ankle issue proved minor and Week 1 is expected; prior injury-driven market assumptions should be rechecked'},
   'Mike Evans':{date:'2026-08-25',reason:'groin tightness after earlier quad issue; recent healthy-market assumptions require verification'},
   'Luther Burden':{date:'2026-08-28',reason:'returned to padded practice after groin injury; availability outlook improved, but persistent soft-tissue reinjury risk remains a tiebreaker'},
@@ -358,7 +358,7 @@ const MARKET_NEWS_INVALIDATION = Object.freeze({
   'Josh Jacobs':{date:'2026-08-28',reason:'possible NFL suspension after misdemeanor charges plus lingering groin issue materially changes availability assumptions'},
   'Puka Nacua':{date:'2026-08-28',reason:'psoas injury remains managed outside team drills; current healthy-market assumptions require verification'},
   'Alvin Kamara':{date:'2026-08-28',reason:'expected to miss at least roughly a month from Aug. 19 reporting; prior timing is no longer representative of a healthy Week 1 role'},
-  'Oronde Gadsden':{date:'2026-08-28',reason:'final preseason usage showed him functioning as the Chargers TE3; role projection materially worsened'},
+  'Oronde Gadsden':{date:'2026-08-28',reason:'final preseason/depth-chart usage leaves him behind the primary tight ends; prior breakout pricing is no longer trustworthy'},
   'Travis Hunter':{date:'2026-08-28',reason:'recent practices included no offensive team reps while Jacksonville evaluated him heavily on defense; offensive role confidence materially declined'},
   'Keenan Allen':{date:'2026-08-28',reason:'Colts signing materially changes target competition and has caused a major external ADP rise'},
   'Malachi Fields':{date:'2026-08-28',reason:'preseason starter usage now points to the Giants No. 2 outside-receiver role'},
@@ -369,79 +369,79 @@ const MARKET_NEWS_INVALIDATION = Object.freeze({
 const SLEEPER_DRAFT_ROOM_ADP_HISTORY = {
   "A.J. Brown": [{adp:18.4, observed:"2026-08-18"}],
   "Chase Brown": [{adp:17.4, observed:"2026-08-18"}],
-  "Kenneth Walker III": [{adp:19.6, observed:"2026-08-18"}],
+  "Kenneth Walker III": [{adp:19.6, observed:"2026-08-18"},{adp:19.7, observed:"2026-08-28"}],
   "Derrick Henry": [{adp:21.7, observed:"2026-08-18"},{adp:21.6, observed:"2026-08-19"},{adp:21.3, observed:"2026-08-20"}],
-  "Brock Bowers": [{adp:22.8, observed:"2026-08-18"},{adp:22.5, observed:"2026-08-20"}],
-  "Josh Allen": [{adp:23.1, observed:"2026-08-18"},{adp:24.7, observed:"2026-08-19"},{adp:23.8, observed:"2026-08-20"}],
-  "George Pickens": [{adp:23.4, observed:"2026-08-18"},{adp:23.3, observed:"2026-08-19"},{adp:23.9, observed:"2026-08-20"}],
-  "Nico Collins": [{adp:25.6, observed:"2026-08-18"},{adp:25.2, observed:"2026-08-19"},{adp:25.6, observed:"2026-08-20"}],
-  "Jeremiyah Love": [{adp:26.9, observed:"2026-08-18"},{adp:26.7, observed:"2026-08-19"},{adp:26.4, observed:"2026-08-20"}],
-  "Rashee Rice": [{adp:27.9, observed:"2026-08-18"},{adp:26.5, observed:"2026-08-19"},{adp:27.8, observed:"2026-08-20"}],
-  "Malik Nabers": [{adp:28.0, observed:"2026-08-18"},{adp:28.4, observed:"2026-08-19"},{adp:28.4, observed:"2026-08-20"}],
-  "Kyren Williams": [{adp:29.8, observed:"2026-08-18"},{adp:29.9, observed:"2026-08-19"},{adp:29.7, observed:"2026-08-20"}],
-  "Chris Olave": [{adp:30.7, observed:"2026-08-18"},{adp:30.9, observed:"2026-08-19"},{adp:29.3, observed:"2026-08-20"}],
+  "Brock Bowers": [{adp:22.8, observed:"2026-08-18"},{adp:22.5, observed:"2026-08-20"},{adp:23.3, observed:"2026-08-28"}],
+  "Josh Allen": [{adp:23.1, observed:"2026-08-18"},{adp:24.7, observed:"2026-08-19"},{adp:23.8, observed:"2026-08-20"},{adp:21.3, observed:"2026-08-28"}],
+  "George Pickens": [{adp:23.4, observed:"2026-08-18"},{adp:23.3, observed:"2026-08-19"},{adp:23.9, observed:"2026-08-20"},{adp:23.1, observed:"2026-08-28"}],
+  "Nico Collins": [{adp:25.6, observed:"2026-08-18"},{adp:25.2, observed:"2026-08-19"},{adp:25.6, observed:"2026-08-20"},{adp:25.3, observed:"2026-08-28"}],
+  "Jeremiyah Love": [{adp:26.9, observed:"2026-08-18"},{adp:26.7, observed:"2026-08-19"},{adp:26.4, observed:"2026-08-20"},{adp:26.7, observed:"2026-08-28"}],
+  "Rashee Rice": [{adp:27.9, observed:"2026-08-18"},{adp:26.5, observed:"2026-08-19"},{adp:27.8, observed:"2026-08-20"},{adp:28.7, observed:"2026-08-28"}],
+  "Malik Nabers": [{adp:28.0, observed:"2026-08-18"},{adp:28.4, observed:"2026-08-19"},{adp:28.4, observed:"2026-08-20"},{adp:27.6, observed:"2026-08-28"}],
+  "Kyren Williams": [{adp:29.8, observed:"2026-08-18"},{adp:29.9, observed:"2026-08-19"},{adp:29.7, observed:"2026-08-20"},{adp:29.5, observed:"2026-08-28"}],
+  "Chris Olave": [{adp:30.7, observed:"2026-08-18"},{adp:30.9, observed:"2026-08-19"},{adp:29.3, observed:"2026-08-20"},{adp:29.9, observed:"2026-08-28"}],
   "Emeka Egbuka": [{adp:39.2, observed:"2026-08-18"},{adp:40.0, observed:"2026-08-19"}],
-  "Colston Loveland": [{adp:41.8, observed:"2026-08-18"},{adp:41.0, observed:"2026-08-19"}],
+  "Colston Loveland": [{adp:41.8, observed:"2026-08-18"},{adp:41.0, observed:"2026-08-19"},{adp:40.8, observed:"2026-08-28"}],
   "Zay Flowers": [{adp:42.3, observed:"2026-08-18"},{adp:42.3, observed:"2026-08-19"},{adp:41.2, observed:"2026-08-20"}],
   "Cam Skattebo": [{adp:43.9, observed:"2026-08-18"},{adp:43.9, observed:"2026-08-19"}],
   "Travis Etienne": [{adp:44.5, observed:"2026-08-18"},{adp:44.7, observed:"2026-08-19"}],
   "Garrett Wilson": [{adp:45.8, observed:"2026-08-18"},{adp:44.1, observed:"2026-08-19"},{adp:45.6, observed:"2026-08-20"}],
-  "Tyler Warren": [{adp:46.3, observed:"2026-08-18"},{adp:46.8, observed:"2026-08-19"}],
+  "Tyler Warren": [{adp:46.3, observed:"2026-08-18"},{adp:46.8, observed:"2026-08-19"},{adp:47.5, observed:"2026-08-28"}],
   "Jaylen Waddle": [{adp:47.6, observed:"2026-08-18"},{adp:47.2, observed:"2026-08-19"},{adp:47.1, observed:"2026-08-20"}],
   "Drake Maye": [{adp:48.0, observed:"2026-08-18"},{adp:48.6, observed:"2026-08-19"}],
   "Luther Burden": [{adp:49.9, observed:"2026-08-18"},{adp:49.4, observed:"2026-08-19"},{adp:49.5, observed:"2026-08-20"}],
-  "Mike Evans": [{adp:59.6, observed:"2026-08-18"},{adp:59.1, observed:"2026-08-20"}],
-  "Jayden Daniels": [{adp:62.1, observed:"2026-08-18"}],
+  "Mike Evans": [{adp:59.6, observed:"2026-08-18"},{adp:59.1, observed:"2026-08-20"},{adp:61.0, observed:"2026-08-28"}],
+  "Jayden Daniels": [{adp:62.1, observed:"2026-08-18"},{adp:64.3, observed:"2026-08-28"}],
   "Jalen Hurts": [{adp:63.7, observed:"2026-08-18"}],
-  "Tucker Kraft": [{adp:65.3, observed:"2026-08-18"},{adp:65.4, observed:"2026-08-19"},{adp:65.8, observed:"2026-08-20"}],
-  "Harold Fannin Jr.": [{adp:67.9, observed:"2026-08-18"},{adp:67.0, observed:"2026-08-19"},{adp:67.3, observed:"2026-08-20"}],
-  "Kyle Pitts": [{adp:68.1, observed:"2026-08-18"},{adp:68.8, observed:"2026-08-19"},{adp:68.8, observed:"2026-08-20"}],
-  "Christian Watson": [{adp:70.3, observed:"2026-08-18"},{adp:70.7, observed:"2026-08-20"}],
-  "Jordyn Tyson": [{adp:77.0, observed:"2026-08-18"},{adp:77.1, observed:"2026-08-20"}],
-  "Parker Washington": [{adp:78.8, observed:"2026-08-18"},{adp:78.8, observed:"2026-08-19"}],
-  "Courtland Sutton": [{adp:79.4, observed:"2026-08-18"},{adp:80.9, observed:"2026-08-19"},{adp:80.3, observed:"2026-08-20"}],
+  "Tucker Kraft": [{adp:65.3, observed:"2026-08-18"},{adp:65.4, observed:"2026-08-19"},{adp:65.8, observed:"2026-08-20"},{adp:63.4, observed:"2026-08-28"}],
+  "Harold Fannin Jr.": [{adp:67.9, observed:"2026-08-18"},{adp:67.0, observed:"2026-08-19"},{adp:67.3, observed:"2026-08-20"},{adp:68.5, observed:"2026-08-28"}],
+  "Kyle Pitts": [{adp:68.1, observed:"2026-08-18"},{adp:68.8, observed:"2026-08-19"},{adp:68.8, observed:"2026-08-20"},{adp:69.8, observed:"2026-08-28"}],
+  "Christian Watson": [{adp:70.3, observed:"2026-08-18"},{adp:70.7, observed:"2026-08-20"},{adp:70.3, observed:"2026-08-28"}],
+  "Jordyn Tyson": [{adp:77.0, observed:"2026-08-18"},{adp:77.1, observed:"2026-08-20"},{adp:89.4, observed:"2026-08-28"}],
+  "Parker Washington": [{adp:78.8, observed:"2026-08-18"},{adp:78.8, observed:"2026-08-19"},{adp:76.0, observed:"2026-08-28"}],
+  "Courtland Sutton": [{adp:79.4, observed:"2026-08-18"},{adp:80.9, observed:"2026-08-19"},{adp:80.3, observed:"2026-08-20"},{adp:80.9, observed:"2026-08-28"}],
   "Chuba Hubbard": [{adp:76.6, observed:"2026-08-18"}],
   "R.J. Harvey": [{adp:79.8, observed:"2026-08-18"}],
   "Justin Herbert": [{adp:84.4, observed:"2026-08-18"},{adp:84.7, observed:"2026-08-19"}],
-  "Rhamondre Stevenson": [{adp:85.1, observed:"2026-08-18"}],
-  "Michael Wilson": [{adp:83.3, observed:"2026-08-18"},{adp:83.5, observed:"2026-08-19"},{adp:83.7, observed:"2026-08-20"}],
-  "Makai Lemon": [{adp:86.5, observed:"2026-08-18"},{adp:86.8, observed:"2026-08-19"},{adp:86.3, observed:"2026-08-20"}],
-  "Rico Dowdle": [{adp:87.3, observed:"2026-08-18"},{adp:88.5, observed:"2026-08-19"}],
-  "Tony Pollard": [{adp:87.3, observed:"2026-08-18"},{adp:87.5, observed:"2026-08-19"}],
+  "Rhamondre Stevenson": [{adp:85.1, observed:"2026-08-18"},{adp:81.6, observed:"2026-08-28"}],
+  "Michael Wilson": [{adp:83.3, observed:"2026-08-18"},{adp:83.5, observed:"2026-08-19"},{adp:83.7, observed:"2026-08-20"},{adp:83.0, observed:"2026-08-28"}],
+  "Makai Lemon": [{adp:86.5, observed:"2026-08-18"},{adp:86.8, observed:"2026-08-19"},{adp:86.3, observed:"2026-08-20"},{adp:86.4, observed:"2026-08-28"}],
+  "Rico Dowdle": [{adp:87.3, observed:"2026-08-18"},{adp:88.5, observed:"2026-08-19"},{adp:85.0, observed:"2026-08-28"}],
+  "Tony Pollard": [{adp:87.3, observed:"2026-08-18"},{adp:87.5, observed:"2026-08-19"},{adp:83.7, observed:"2026-08-28"}],
   "J.K. Dobbins": [{adp:92.6, observed:"2026-08-18"}],
   "Kyle Monangai": [{adp:95.1, observed:"2026-08-18"}],
   "Chris Godwin": [{adp:95.9, observed:"2026-08-18"},{adp:95.8, observed:"2026-08-20"}],
   "Alec Pierce": [{adp:97.8, observed:"2026-08-18"},{adp:97.0, observed:"2026-08-20"}],
-  "Jakobi Meyers": [{adp:102.3, observed:"2026-08-18"},{adp:104.3, observed:"2026-08-20"}],
-  "Michael Pittman Jr.": [{adp:103.6, observed:"2026-08-18"},{adp:101.4, observed:"2026-08-20"}],
+  "Jakobi Meyers": [{adp:102.3, observed:"2026-08-18"},{adp:104.3, observed:"2026-08-20"},{adp:115.5, observed:"2026-08-28"}],
+  "Michael Pittman Jr.": [{adp:103.6, observed:"2026-08-18"},{adp:101.4, observed:"2026-08-20"},{adp:101.3, observed:"2026-08-28"}],
   "Blake Corum": [{adp:104.0, observed:"2026-08-18"},{adp:104.6, observed:"2026-08-19"}],
-  "Jordan Addison": [{adp:105.8, observed:"2026-08-18"},{adp:105.3, observed:"2026-08-20"}],
-  "Quentin Johnston": [{adp:107.8, observed:"2026-08-18"},{adp:107.4, observed:"2026-08-19"},{adp:108.0, observed:"2026-08-20"}],
-  "WanDale Robinson": [{adp:109.0, observed:"2026-08-18"},{adp:109.1, observed:"2026-08-19"},{adp:109.9, observed:"2026-08-20"}],
+  "Jordan Addison": [{adp:105.8, observed:"2026-08-18"},{adp:105.3, observed:"2026-08-20"},{adp:104.7, observed:"2026-08-28"}],
+  "Quentin Johnston": [{adp:107.8, observed:"2026-08-18"},{adp:107.4, observed:"2026-08-19"},{adp:108.0, observed:"2026-08-20"},{adp:113.9, observed:"2026-08-28"}],
+  "WanDale Robinson": [{adp:109.0, observed:"2026-08-18"},{adp:109.1, observed:"2026-08-19"},{adp:109.9, observed:"2026-08-20"},{adp:116.3, observed:"2026-08-28"}],
   "Jacory Croskey-Merritt": [{adp:111.4, observed:"2026-08-18"}],
   "Kenneth Gainwell": [{adp:111.8, observed:"2026-08-18"},{adp:111.0, observed:"2026-08-19"}],
-  "Jayden Reed": [{adp:114.6, observed:"2026-08-18"},{adp:113.7, observed:"2026-08-20"}],
-  "Stefon Diggs": [{adp:116.0, observed:"2026-08-18"},{adp:115.4, observed:"2026-08-19"},{adp:115.7, observed:"2026-08-20"}],
-  "Aaron Jones": [{adp:121.3, observed:"2026-08-18"},{adp:123.4, observed:"2026-08-19"}],
+  "Jayden Reed": [{adp:114.6, observed:"2026-08-18"},{adp:113.7, observed:"2026-08-20"},{adp:112.9, observed:"2026-08-28"}],
+  "Stefon Diggs": [{adp:116.0, observed:"2026-08-18"},{adp:115.4, observed:"2026-08-19"},{adp:115.7, observed:"2026-08-20"},{adp:110.8, observed:"2026-08-28"}],
+  "Aaron Jones": [{adp:121.3, observed:"2026-08-18"},{adp:123.4, observed:"2026-08-19"},{adp:124.0, observed:"2026-08-28"}],
   "Jordan Mason": [{adp:120.0, observed:"2026-08-18"}],
-  "Jonathon Brooks": [{adp:123.8, observed:"2026-08-18"},{adp:119.7, observed:"2026-08-19"},{adp:117.6, observed:"2026-08-20"}],
-  "Broncos": [{adp:122.6, observed:"2026-08-18"}],
-  "Eagles": [{adp:125.0, observed:"2026-08-18"},{adp:125.3, observed:"2026-08-19"}],
-  "Romeo Doubs": [{adp:127.1, observed:"2026-08-18"},{adp:129.2, observed:"2026-08-19"},{adp:130.3, observed:"2026-08-20"}],
-  "Rachaad White": [{adp:127.8, observed:"2026-08-18"},{adp:128.5, observed:"2026-08-19"},{adp:128.4, observed:"2026-08-20"}],
-  "KC Concepcion": [{adp:129.3, observed:"2026-08-18"},{adp:127.0, observed:"2026-08-19"},{adp:127.0, observed:"2026-08-20"}],
-  "Mark Andrews": [{adp:130.4, observed:"2026-08-18"},{adp:130.5, observed:"2026-08-19"},{adp:129.9, observed:"2026-08-20"}],
-  "Matthew Golden": [{adp:131.9, observed:"2026-08-18"},{adp:131.5, observed:"2026-08-19"},{adp:131.7, observed:"2026-08-20"}],
-  "Deebo Samuel": [{adp:137.2, observed:"2026-08-18"},{adp:137.0, observed:"2026-08-20"}],
-  "Khalil Shakir": [{adp:138.3, observed:"2026-08-18"},{adp:137.3, observed:"2026-08-20"}],
-  "Xavier Worthy": [{adp:139.4, observed:"2026-08-18"},{adp:139.1, observed:"2026-08-20"}],
+  "Jonathon Brooks": [{adp:123.8, observed:"2026-08-18"},{adp:119.7, observed:"2026-08-19"},{adp:117.6, observed:"2026-08-20"},{adp:106.1, observed:"2026-08-28"}],
+  "Broncos": [{adp:122.6, observed:"2026-08-18"},{adp:119.0, observed:"2026-08-28"}],
+  "Eagles": [{adp:125.0, observed:"2026-08-18"},{adp:125.3, observed:"2026-08-19"},{adp:125.8, observed:"2026-08-28"}],
+  "Romeo Doubs": [{adp:127.1, observed:"2026-08-18"},{adp:129.2, observed:"2026-08-19"},{adp:130.3, observed:"2026-08-20"},{adp:131.8, observed:"2026-08-28"}],
+  "Rachaad White": [{adp:127.8, observed:"2026-08-18"},{adp:128.5, observed:"2026-08-19"},{adp:128.4, observed:"2026-08-20"},{adp:131.3, observed:"2026-08-28"}],
+  "KC Concepcion": [{adp:129.3, observed:"2026-08-18"},{adp:127.0, observed:"2026-08-19"},{adp:127.0, observed:"2026-08-20"},{adp:121.3, observed:"2026-08-28"}],
+  "Mark Andrews": [{adp:130.4, observed:"2026-08-18"},{adp:130.5, observed:"2026-08-19"},{adp:129.9, observed:"2026-08-20"},{adp:129.0, observed:"2026-08-28"}],
+  "Matthew Golden": [{adp:131.9, observed:"2026-08-18"},{adp:131.5, observed:"2026-08-19"},{adp:131.7, observed:"2026-08-20"},{adp:127.9, observed:"2026-08-28"}],
+  "Deebo Samuel": [{adp:137.2, observed:"2026-08-18"},{adp:137.0, observed:"2026-08-20"},{adp:137.4, observed:"2026-08-28"}],
+  "Khalil Shakir": [{adp:138.3, observed:"2026-08-18"},{adp:137.3, observed:"2026-08-20"},{adp:143.6, observed:"2026-08-28"}],
+  "Xavier Worthy": [{adp:139.4, observed:"2026-08-18"},{adp:139.1, observed:"2026-08-20"},{adp:140.4, observed:"2026-08-28"}],
   "Jayden Higgins": [{adp:140.2, observed:"2026-08-18"},{adp:142.7, observed:"2026-08-20"}],
-  "Zach Charbonnet": [{adp:141.1, observed:"2026-08-18"},{adp:141.2, observed:"2026-08-20"}],
+  "Zach Charbonnet": [{adp:141.1, observed:"2026-08-18"},{adp:141.2, observed:"2026-08-20"},{adp:148.6, observed:"2026-08-28"}],
   "Patriots": [{adp:143.8, observed:"2026-08-18"}],
-  "Jalen Coker": [{adp:145.7, observed:"2026-08-18"}],
+  "Jalen Coker": [{adp:145.7, observed:"2026-08-18"},{adp:145.8, observed:"2026-08-28"}],
   "Brian Robinson Jr.": [{adp:147.0, observed:"2026-08-18"},{adp:150.0, observed:"2026-08-20"}],
-  "Tyler Allgeier": [{adp:148.0, observed:"2026-08-18"},{adp:148.2, observed:"2026-08-20"}],
-  "Harrison Mevis": [{adp:149.3, observed:"2026-08-18"},{adp:148.0, observed:"2026-08-19"},{adp:149.0, observed:"2026-08-20"}],
+  "Tyler Allgeier": [{adp:148.0, observed:"2026-08-18"},{adp:148.2, observed:"2026-08-20"},{adp:146.1, observed:"2026-08-28"}],
+  "Harrison Mevis": [{adp:149.3, observed:"2026-08-18"},{adp:148.0, observed:"2026-08-19"},{adp:149.0, observed:"2026-08-20"},{adp:149.7, observed:"2026-08-28"}],
   "Lions": [{adp:151.1, observed:"2026-08-18"},{adp:152.9, observed:"2026-08-19"},{adp:153.9, observed:"2026-08-20"}],
   "Vikings": [{adp:151.7, observed:"2026-08-18"},{adp:151.0, observed:"2026-08-19"},{adp:152.5, observed:"2026-08-20"}],
   "Steelers": [{adp:161.1, observed:"2026-08-18"},{adp:161.5, observed:"2026-08-19"},{adp:161.9, observed:"2026-08-20"}],
@@ -453,7 +453,7 @@ const SLEEPER_DRAFT_ROOM_ADP_HISTORY = {
   "Chris Boswell": [{adp:154.7, observed:"2026-08-18"},{adp:154.1, observed:"2026-08-19"},{adp:155.2, observed:"2026-08-20"}],
   "Jake Bates": [{adp:155.9, observed:"2026-08-18"},{adp:156.3, observed:"2026-08-19"},{adp:157.5, observed:"2026-08-20"}],
   "Chris Rodriguez Jr.": [{adp:156.1, observed:"2026-08-18"},{adp:147.4, observed:"2026-08-20"}],
-  "Rashid Shaheed": [{adp:157.6, observed:"2026-08-18"}],
+  "Rashid Shaheed": [{adp:157.6, observed:"2026-08-18"},{adp:147.0, observed:"2026-08-28"}],
   "Tyrone Tracy Jr.": [{adp:159.1, observed:"2026-08-18"},{adp:161.0, observed:"2026-08-20"}],
   "Dylan Boston": [{adp:162.2, observed:"2026-08-18"}],
   "Woody Marks": [{adp:165.4, observed:"2026-08-18"},{adp:166.6, observed:"2026-08-20"}],
@@ -465,26 +465,26 @@ const SLEEPER_DRAFT_ROOM_ADP_HISTORY = {
   "Cairo Santos": [{adp:213.5, observed:"2026-08-18"},{adp:214.7, observed:"2026-08-19"},{adp:215.8, observed:"2026-08-20"}],
   "Jake Elliott": [{adp:220.9, observed:"2026-08-18"},{adp:220.7, observed:"2026-08-19"},{adp:220.6, observed:"2026-08-20"}],
   "Drake London": [{adp:16.8, observed:"2026-08-19"}],
-  "Trey McBride": [{adp:20.4, observed:"2026-08-19"},{adp:20.3, observed:"2026-08-20"}],
-  "Josh Jacobs": [{adp:31.1, observed:"2026-08-19"},{adp:31.9, observed:"2026-08-20"}],
+  "Trey McBride": [{adp:20.4, observed:"2026-08-19"},{adp:20.3, observed:"2026-08-20"},{adp:22.4, observed:"2026-08-28"}],
+  "Josh Jacobs": [{adp:31.1, observed:"2026-08-19"},{adp:31.9, observed:"2026-08-20"},{adp:31.7, observed:"2026-08-28"}],
   "Davante Adams": [{adp:50.7, observed:"2026-08-19"},{adp:50.5, observed:"2026-08-20"}],
   "David Montgomery": [{adp:51.9, observed:"2026-08-19"}],
-  "Sam LaPorta": [{adp:60.5, observed:"2026-08-19"},{adp:59.1, observed:"2026-08-20"}],
-  "Jaxson Dart": [{adp:82.8, observed:"2026-08-19"}],
-  "Dalton Kincaid": [{adp:89.7, observed:"2026-08-19"},{adp:89.4, observed:"2026-08-20"}],
+  "Sam LaPorta": [{adp:60.5, observed:"2026-08-19"},{adp:59.1, observed:"2026-08-20"},{adp:59.6, observed:"2026-08-28"}],
+  "Jaxson Dart": [{adp:82.8, observed:"2026-08-19"},{adp:91.5, observed:"2026-08-28"}],
+  "Dalton Kincaid": [{adp:89.7, observed:"2026-08-19"},{adp:89.4, observed:"2026-08-20"},{adp:87.4, observed:"2026-08-28"}],
   "Rams": [{adp:89.8, observed:"2026-08-19"}],
-  "George Kittle": [{adp:91.9, observed:"2026-08-19"},{adp:91.2, observed:"2026-08-20"}],
-  "Travis Kelce": [{adp:93.1, observed:"2026-08-19"},{adp:93.8, observed:"2026-08-20"}],
-  "Trevor Lawrence": [{adp:98.5, observed:"2026-08-19"}],
-  "Matthew Stafford": [{adp:98.7, observed:"2026-08-19"}],
-  "Jake Ferguson": [{adp:100.2, observed:"2026-08-19"},{adp:100.9, observed:"2026-08-20"}],
+  "George Kittle": [{adp:91.9, observed:"2026-08-19"},{adp:91.2, observed:"2026-08-20"},{adp:89.4, observed:"2026-08-28"}],
+  "Travis Kelce": [{adp:93.1, observed:"2026-08-19"},{adp:93.8, observed:"2026-08-20"},{adp:92.7, observed:"2026-08-28"}],
+  "Trevor Lawrence": [{adp:98.5, observed:"2026-08-19"},{adp:100.2, observed:"2026-08-28"}],
+  "Matthew Stafford": [{adp:98.7, observed:"2026-08-19"},{adp:95.8, observed:"2026-08-28"}],
+  "Jake Ferguson": [{adp:100.2, observed:"2026-08-19"},{adp:100.9, observed:"2026-08-20"},{adp:98.5, observed:"2026-08-28"}],
   "Texans": [{adp:101.7, observed:"2026-08-19"}],
-  "Patrick Mahomes": [{adp:106.0, observed:"2026-08-19"}],
-  "Seahawks": [{adp:107.5, observed:"2026-08-19"}],
-  "Josh Downs": [{adp:110.3, observed:"2026-08-19"},{adp:110.9, observed:"2026-08-20"}],
-  "Oronde Gadsden": [{adp:116.8, observed:"2026-08-19"},{adp:116.8, observed:"2026-08-20"}],
-  "Dallas Goedert": [{adp:124.2, observed:"2026-08-19"},{adp:124.2, observed:"2026-08-20"}],
-  "Jason Myers": [{adp:125.2, observed:"2026-08-19"}],
+  "Patrick Mahomes": [{adp:106.0, observed:"2026-08-19"},{adp:107.3, observed:"2026-08-28"}],
+  "Seahawks": [{adp:107.5, observed:"2026-08-19"},{adp:105.6, observed:"2026-08-28"}],
+  "Josh Downs": [{adp:110.3, observed:"2026-08-19"},{adp:110.9, observed:"2026-08-20"},{adp:107.6, observed:"2026-08-28"}],
+  "Oronde Gadsden": [{adp:116.8, observed:"2026-08-19"},{adp:116.8, observed:"2026-08-20"},{adp:128.7, observed:"2026-08-28"}],
+  "Dallas Goedert": [{adp:124.2, observed:"2026-08-19"},{adp:124.2, observed:"2026-08-20"},{adp:123.1, observed:"2026-08-28"}],
+  "Jason Myers": [{adp:125.2, observed:"2026-08-19"},{adp:125.7, observed:"2026-08-28"}],
   "Cowboys": [{adp:197.5, observed:"2026-08-19"},{adp:197.9, observed:"2026-08-20"}],
   "Colts": [{adp:219.0, observed:"2026-08-19"},{adp:219.0, observed:"2026-08-20"}],
   "Bills": [{adp:221.4, observed:"2026-08-19"},{adp:221.0, observed:"2026-08-20"}],
@@ -494,8 +494,8 @@ const SLEEPER_DRAFT_ROOM_ADP_HISTORY = {
   "Terry McLaurin": [{adp:55.3, observed:"2026-08-20"}],
   "Jameson Williams": [{adp:57.6, observed:"2026-08-20"}],
   "D.J. Moore": [{adp:58.2, observed:"2026-08-20"}],
-  "Carnell Tate": [{adp:64.8, observed:"2026-08-20"}],
-  "Rome Odunze": [{adp:65.6, observed:"2026-08-20"}],
+  "Carnell Tate": [{adp:64.8, observed:"2026-08-20"},{adp:65.9, observed:"2026-08-28"}],
+  "Rome Odunze": [{adp:65.6, observed:"2026-08-20"},{adp:65.0, observed:"2026-08-28"}],
   "Alvin Kamara": [{adp:160.8, observed:"2026-08-20"}],
   "Jonah Coleman": [{adp:169.3, observed:"2026-08-20"}],
   "Tyjae Spears": [{adp:170.7, observed:"2026-08-20"}],
@@ -734,7 +734,7 @@ const MARKET_RANK={
   'Quentin Johnston':108,
   'Xavier Worthy':122,
   'Zach Charbonnet':126,
-  'Tyrone Tracy Jr.':128,
+  'Tyrone Tracy Jr.':160,
   'Alvin Kamara':133,
   'Isaiah Pacheco':137,
   'Tyjae Spears':144,
@@ -758,7 +758,7 @@ const MARKET_RANK={
   // Current August 2026 refreshes for players that surfaced as UNSCOUTED in mocks.
   'David Montgomery':62,
   'DK Metcalf':68,
-  'Alec Pierce':70,
+  'Alec Pierce':94,
   'Makai Lemon':101,
   'Jayden Reed':110,
   'Jayden Higgins':121,
@@ -853,7 +853,7 @@ const MARKET_RANK={
   'Aaron Jones':97,
   'Jakobi Meyers':99,
   'Chris Rodriguez Jr.':101,
-  'KC Concepcion':108,
+  'KC Concepcion':116,
   'Jacory Croskey-Merritt':110,
   'Jake Ferguson':115,
   'Trevor Lawrence':117,
@@ -1902,11 +1902,11 @@ function draftMe(name){if(sleeperLiveMode||isRealLeagueMode()||!mine(state.pick)
 
 
 const CURRENT_RISK_PROFILE={
- 'Jordyn Tyson':{penalty:28,label:'hamstring / roughly two-month absence',verified:'2026-08-26',staleAfterDays:3,persistentSoftTissue:true,residualPenalty:8,note:'Major early-season absence plus hamstring reinjury risk creates substantial availability and bench-opportunity-cost risk.'},
+ 'Jordyn Tyson':{penalty:32,label:'hamstring setback / multi-week absence',verified:'2026-08-28',staleAfterDays:2,persistentSoftTissue:true,residualPenalty:9,note:'Reported extended absence plus recurrent hamstring history creates major availability and bench-opportunity-cost risk in a 10-team league. Treat falling ADP as injury pricing, not automatic value.'},
  'Zach Charbonnet':{penalty:20,label:'PUP / ACL recovery',verified:'2026-08-26',staleAfterDays:3,note:'Seattle has him on PUP while he rehabs the January ACL tear; do not assume a specific regular-season return until the team clarifies his status.'},
  'Jeremiyah Love':{penalty:15,label:'high ankle sprain',verified:'2026-08-26',staleAfterDays:3,note:'He is progressing but remains out this week. High-ankle injuries can impair burst/cutting even after return; keep a meaningful discount until full work is sustained.'},
- 'Ashton Jeanty':{penalty:4,label:'low ankle sprain / Week 1 expected',verified:'2026-08-28',staleAfterDays:2,note:'Raiders now say they are counting on Jeanty for Week 1. Preserve a modest ankle/early-workload tiebreaker rather than the prior larger availability discount.'},
- 'Kenneth Walker III':{penalty:2,label:'foot issue / latest report reassuring',verified:'2026-08-26',staleAfterDays:2,note:'Latest reporting says Walker is fine and no ranking move is necessary, but his lower-body history makes this a tiebreaker-level durability watch.'},
+ 'Ashton Jeanty':{penalty:8,label:'low ankle sprain / Week 1 still being assessed',verified:'2026-08-28',staleAfterDays:2,note:'The Raiders remain hopeful, but Jeanty is still described as on the mend and Week 1 workload/availability is not fully settled. Keep a meaningful but non-catastrophic discount.'},
+ 'Kenneth Walker III':{penalty:1,label:'ankle/foot scare / latest report reassuring',verified:'2026-08-28',staleAfterDays:2,note:'Latest reporting indicates the swelling was minor/cleat-related and no ranking move is warranted. Retain only a minimal durability tiebreaker.'},
  'TreVeyon Henderson':{penalty:2,label:'minor ankle issue / Week 1 expected',verified:'2026-08-28',staleAfterDays:2,note:'Testing was reassuring and Week 1 is expected. Keep only a small availability tiebreaker; pass-protection/role concerns are handled separately.'},
  'Tyler Warren':{penalty:7,label:'groin/adductor strain / persistent soft-tissue risk',verified:'2026-08-26',staleAfterDays:3,persistentSoftTissue:true,residualPenalty:3,note:'Week 1 remains the expectation, but a return to practice alone does not erase groin/adductor reinjury risk. Reduce the penalty only after sustained full practice/game participation.'},
  'Mike Evans':{penalty:7,label:'groin tightness / persistent soft-tissue risk',verified:'2026-08-26',staleAfterDays:3,persistentSoftTissue:true,residualPenalty:4,note:'Groin tightness follows an earlier quad issue. Expected return next week is encouraging, but explosive WR movement makes this a meaningful tiebreaker versus similarly valued healthy players.'},
@@ -1920,6 +1920,8 @@ const CURRENT_RISK_PROFILE={
  'Alvin Kamara':{penalty:24,label:'MCL sprain / expected to miss at least roughly a month',verified:'2026-08-28',staleAfterDays:3,note:'Current reporting points to a meaningful early-season absence. In a 10-team league with short benches, price both missed games and bench opportunity cost aggressively.'},
  'Tank Dell':{penalty:7,label:'limited return-to-work / readiness watch',verified:'2026-08-26',staleAfterDays:3,note:'Dell is back in the practice mix but not yet a fully clean availability projection; keep the late-round ceiling while pricing in readiness uncertainty.'},
  'Josh Jacobs':{penalty:15,label:'possible suspension + lingering groin risk',verified:'2026-08-28',staleAfterDays:2,persistentSoftTissue:true,residualPenalty:4,note:'Green Bay is preparing for a possible suspension after misdemeanor charges, while a lingering groin issue adds separate soft-tissue uncertainty. Talent remains high; availability risk is now material.'},
+ 'Alec Pierce':{penalty:3,label:'activated from PUP / ankle ramp-up',verified:'2026-08-28',staleAfterDays:2,note:'Activation materially improves availability confidence, but the delayed camp and ankle recovery justify a small ramp-up tiebreaker until full work is sustained.'},
+ 'WanDale Robinson':{penalty:1,label:'head-impact evaluation / monitor only',verified:'2026-08-28',staleAfterDays:2,note:'Current reporting does not indicate a confirmed concussion. Keep only a monitor flag unless symptoms/status worsen.'},
  'Puka Nacua':{penalty:6,label:'psoas soft-tissue management',verified:'2026-08-28',staleAfterDays:2,persistentSoftTissue:true,residualPenalty:3,note:'Nacua remains outside team drills while doing side work. Preserve elite ceiling but use the soft-tissue issue as a real tiebreaker at premium draft cost until full work is sustained.'},
  "De'Zhaun Stribling":{penalty:2,label:'shoulder / non-contact return',verified:'2026-08-26',staleAfterDays:3,note:'He is back in non-contact work and now projects for a major Week 1 role amid San Francisco injuries. Health is a small watch, not a reason to ignore the opportunity.'}
 };
@@ -1980,11 +1982,11 @@ const UPSIDE_PROFILE={
 // It captures trust, committee pressure, and role clarity so a player can remain talented
 // while losing draft appeal because his path to touches/targets is less secure.
 const ROLE_SECURITY_PROFILE=Object.freeze({
-  'Tyrone Tracy Jr.':{adjustment:-12,label:'volatile committee / role-loss risk',note:'Back-to-back costly preseason mistakes now matter more in a crowded Giants backfield; preserve most talent value but materially reduce workload confidence.'},
+  'Tyrone Tracy Jr.':{adjustment:-18,label:'role-loss / crowded-backfield risk',note:'Poor preseason execution plus healthy competition and first-team pressure materially weaken his workload case. Do not target aggressively unless price falls well beyond current market.'},
   'Aaron Jones':{adjustment:-8,label:'committee / early-down pressure',note:'Jordan Mason has earned a larger standalone role; Jones retains receiving utility but should no longer be valued as a secure volume back.'},
   'Jordan Mason':{adjustment:6,label:'rising standalone role',note:'Strong camp and co-starter/early-down signals increase his independent fantasy value rather than treating him as only a contingency play.'},
   'Kenneth Gainwell':{adjustment:4,label:'significant passing-down role',note:'Opening-possession usage and receiving work support a real PPR role, but Bucky Irving remains the lead runner.'},
-  'Travis Etienne':{adjustment:8,label:'strengthened lead/passing-down opportunity',note:'Kamara is expected to miss meaningful early time and Etienne owns the cleaner receiving efficiency profile. Treat him as the clear healthy backfield priority while Kamara ramps back.'},
+  'Travis Etienne':{adjustment:10,label:'clear early lead/passing-down opportunity',note:'Kamara is expected to miss multiple early games and current reporting points to Etienne handling the bulk of healthy backfield work. Raise near-term role confidence without confusing it with a talent regrade.'},
   "D'Andre Swift":{adjustment:4,label:'temporary opportunity bump',note:'Monangai injury increases near-term workload clarity; treat this as role opportunity rather than a talent regrade.'},
   'Jonathon Brooks':{adjustment:7,label:'confirmed committee opportunity',note:'Carolina has signaled a Hubbard/Brooks committee, giving Brooks standalone touches plus a path to earn more work.'},
   'Chuba Hubbard':{adjustment:-7,label:'confirmed committee / role pressure',note:'Week 1 availability is improving, but Dave Canales has indicated Hubbard and Brooks will operate in a committee. Injury and role are intentionally scored separately.'},
@@ -1998,13 +2000,15 @@ const ROLE_SECURITY_PROFILE=Object.freeze({
   'Trey Benson':{adjustment:-10,label:'cleared waivers / deep depth role',note:'Returning to Arizona after clearing waivers is better than being off-roster, but it is a strong negative signal for standalone workload security.'},
   'Zamir White':{adjustment:2,label:'Saints depth/contingency role',note:'Trade to New Orleans creates short-term relevance in an injured backfield, but Etienne remains the preferred healthy workload bet.'},
   'Rhamondre Stevenson':{adjustment:1,label:'early-down/pass-pro role edge',note:'Henderson is expected back for Week 1, so the injury contingency bump is mostly gone. Stevenson still retains some early role security from protection/trust.'},
-  'Oronde Gadsden':{adjustment:-12,label:'Chargers TE3 / reserve usage',note:'Final-preseason deployment showed Gadsden behind the top tight ends and barely used with Herbert. The rookie-season production is real, but the current role is a material redraft downgrade.'},
+  'Oronde Gadsden':{adjustment:-22,label:'buried TE role / avoid at old price',note:'Final preseason and depth-chart evidence leave him well behind the primary tight ends. Treat old ADP as stale and avoid in normal 10-team managed leagues unless the role changes.'},
   'Travis Hunter':{adjustment:-10,label:'offensive role uncertainty',note:'Recent practices included no offensive team reps while Jacksonville emphasized defense. Preserve talent, but materially lower target-volume confidence until offensive usage returns.'},
   'Malachi Fields':{adjustment:9,label:'Giants WR2 role signal',note:'Preseason starter usage points to Fields as the No. 2 outside receiver, with Calvin Austin injury further consolidating available targets.'},
   'Kaelon Black':{adjustment:9,label:'49ers RB2 signal',note:'Black started ahead of Jordan James in the finale and currently looks like the primary contingency back behind McCaffrey.'},
   'MarShawn Lloyd':{adjustment:9,label:'Jacobs contingency / possible lead role',note:'Healthy summer usage plus Green Bay preparing for a possible Jacobs suspension materially improves Lloyd’s near-term path to lead-back touches.'},
   'Keenan Allen':{adjustment:4,label:'Colts target-earner role',note:'The signing creates a credible PPR role, but Alec Pierce and Josh Downs keep Allen in a shared target tree rather than an automatic alpha role.'},
-  'Devaughn Vele':{adjustment:6,label:'temporary Saints WR2 path',note:'Jordyn Tyson’s expected absence creates first-half snaps and targets, though Juwan Johnson may remain the stronger secondary target earner.'}
+  'Devaughn Vele':{adjustment:6,label:'temporary Saints WR2 path',note:'Jordyn Tyson’s expected absence creates first-half snaps and targets, though Juwan Johnson may remain the stronger secondary target earner.'},
+  'Alec Pierce':{adjustment:6,label:'activated / outside-WR role strengthened',note:'Activation from PUP plus the current Indianapolis depth chart restores a credible starting outside/deep role; keep only a small health ramp-up penalty separately.'},
+  'KC Concepcion':{adjustment:8,label:'clearer Cleveland starting path',note:'Veteran depth-chart attrition and strong rookie momentum create a clearer path to meaningful snaps/targets. Treat as an upside bench target rather than a generic late-round name.'}
 });
 function roleSecurityFor(p){return ROLE_SECURITY_PROFILE[p?.name]||null;}
 
@@ -2238,7 +2242,7 @@ function coreStarterNeeds(){
 function mandatoryRosterPositions(pick=state?.pick||1){
  const c=counts('MMazz3117');
  const needs=[];
- // v7.5: QB urgency is graduated rather than hard-forced at 80/81.
+ // v7.6: QB urgency is graduated rather than hard-forced at 80/81.
  // Keep RB/WR opportunity-cost comparisons alive through 100/101.
  // QB becomes truly mandatory only at 120/121, leaving the final turn for D/ST + K.
  if(c.QB<1 && pick>=120)needs.push('QB');
@@ -2290,7 +2294,7 @@ function rosterFitScore(p,pick){
  if(p.pos==='RB')return c.RB<2?94:c.RB<3?84:c.RB<5?(r>=7?88:72):28;
  if(p.pos==='WR')return c.WR<2?95:c.WR<3?90:c.WR<6?88:30;
  if(p.pos==='QB'&&c.QB===0){
-   // v7.5: empty QB raises urgency gradually without making every QB a perfect roster fit.
+   // v7.6: empty QB raises urgency gradually without making every QB a perfect roster fit.
    if(pick<=41)return 80;
    if(pick<=61)return 86;
    if(pick<=81)return 90;
@@ -2426,7 +2430,7 @@ function championScore(p,pick){
  const unscoutedPenalty=(p.curated===false||evalVerify)?18:0;
  score-=unscoutedPenalty;
 
- // v7.5 verification guardrail: an unanchored QB may remain visible for research,
+ // v7.6 verification guardrail: an unanchored QB may remain visible for research,
  // but roster need alone cannot turn a placeholder football evaluation into a
  // high-confidence Champion recommendation.
  if(p.pos==='QB' && evalVerify && pick<120)score=Math.min(score,74);
@@ -2479,7 +2483,7 @@ function getChampionBoard(limit=5){
  let scored=authoritativeAvailablePlayers()
   .map(p=>championScore(p,state.pick));
 
- // v7.5 QB quality gate:
+ // v7.6 QB quality gate:
  // Do NOT collapse the board to two quarterbacks in the normal decision windows.
  // At 80/81 and 100/101 the Champion Process must compare the viable QB tier
  // against RB/WR opportunity cost. Only when QB is truly mandatory (120/121+)
@@ -2532,7 +2536,7 @@ function getChampionBoard(limit=5){
      }
    }
 
-   // v7.5: this mandatory-only lane now activates only at the true deadline
+   // v7.6: this mandatory-only lane now activates only at the true deadline
    // (QB 120/121+, existing TE deadline, or broken RB/WR starting minimums).
    // It no longer suppresses RB/WR opportunity-cost comparisons at 80/81.
    const mandatoryOnly=all.filter(x=>mandatory.includes(x.player.pos) && !used.has(playerIdentityKey(x.player)));
@@ -2742,7 +2746,7 @@ function reliabilityCheck(){
    issues.push('full Sleeper candidate universe is not loaded');
  }
 
- // v7.5 roster-completion verification: QB pressure is graduated.
+ // v7.6 roster-completion verification: QB pressure is graduated.
  // 80/81 = HIGH, 100/101 = CRITICAL, 120/121+ = MANDATORY.
  if(state && state.pick<=150){
    const c=counts('MMazz3117');
