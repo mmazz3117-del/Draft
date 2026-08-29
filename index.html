@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v7.7</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v7.8</title>
 <meta name="theme-color" content="#0b1020">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -112,7 +112,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v7.7</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v7.8</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 <div class="card">
     <h2>Sleeper live sync <span class="badge">draft night</span></h2>
@@ -144,10 +144,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" id="identityRefreshCard">
     <h2 style="margin-bottom:6px">Player/identity refresh</h2>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v7.7 adds QB Elite-Edge + protection/survival logic: buy a meaningful positional advantage, not raw QB points. It preserves the full Sleeper universe, three separate draft modes, live/mock auto-detection, saved Real League Simulation progress, and strict identity safeguards.
+      v7.8 adds QB Elite-Edge + protection/survival logic: buy a meaningful positional advantage, not raw QB points. It preserves the full Sleeper universe, three separate draft modes, live/mock auto-detection, saved Real League Simulation progress, and strict identity safeguards.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v7.7 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v7.8 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
   <div id="reliabilityCard" class="reliability" aria-live="polite">
@@ -158,7 +158,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v7.7 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 28 observed Sleeper draft-room values from live mock testing have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
+      v7.8 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 28 observed Sleeper draft-room values from live mock testing have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -187,7 +187,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <option value="real">Real League Draft</option>
 </select>
 <div class="muted" style="font-size:12px;margin-top:6px">
-CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v7.7 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
+CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v7.8 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
 </div>
 </label>
 <label>Your 1.01 plan
@@ -227,7 +227,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       </div>
       <div class="champion-actions">
         <button id="championToggleBtn" class="champion-toggle" type="button" aria-expanded="true">Collapse ▲</button>
-        <div class="champion-pill">v7.7</div>
+        <div class="champion-pill">v7.8</div>
       </div>
     </div>
     <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -299,7 +299,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       <div class="node"><span class="badge">Hybrid ranking layer</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
       <div class="node"><span class="badge">Champion Process</span>Repeat-winner principles are now scored on every pick: market value, positional cliffs, estimated survival to your next turn, roster construction, and asymmetric upside. QB/TE run-chasing and redundant backups are penalized.</div>
       <div class="node"><span class="badge">League QB scoring</span>The current scoring model separates rushing-leverage QBs from pocket passers. With 4-point passing TDs and 6-point rushing TDs, Allen/Lamar/Daniels/Hurts-type profiles receive a meaningful boost; Mahomes/Burrow/Herbert-type profiles must win on value rather than generic QB-run pressure.</div>
-      <div class="node"><span class="badge">Current calibration</span>QB Elite-Edge is ACTIVE: the trainer compares each QB's expected weekly edge over realistic later-QB alternatives against the RB/WR/TE opportunity cost. Protection environment and season-survival risk are separate from rushing ceiling. QB urgency remains graduated: 80/81 is a full opportunity-cost comparison, 100/101 is critical but not QB-only, and QB becomes mandatory only at 120/121.</div>
+      <div class="node"><span class="badge">Current calibration</span>QB Elite-Edge is ACTIVE and v7.8 is calibrated to a realistic later starter in this 10-team, 1-QB league. At 20/21, premium RB/WR/TE opportunity cost overrides QB survival pressure unless the skill-position board is unusually weak. Protection environment and season-survival risk are separate from rushing ceiling. QB urgency remains graduated: 80/81 is a full opportunity-cost comparison, 100/101 is critical but not QB-only, and QB becomes mandatory only at 120/121.</div>
       <div class="node"><span class="badge">Live-sync safeguards</span>Sleeper D/ST abbreviations now map to trainer names (for example HOU → Texans, DEN → Broncos, NE → Patriots). Known player aliases such as Kenny/Kenneth Gainwell are canonicalized, unmatched Sleeper picks are surfaced, and confirmed season-long exclusions are removed from Best Available.</div>
       <div class="node"><span class="badge">Rank cleanup / identity safeguards</span>Michael Pittman Jr. is corrected to the current late-Round-9/10 value range, several established mid/late players now have embedded safety anchors, Sleeper rank matching is suffix-aware, and current injury watches can lower Champion Process scores without hard-excluding the player.</div>
     </div>
@@ -318,12 +318,12 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer"><b>v7.7.</b> Aug. 29 QB value/protection update. Adds QB Elite-Edge thresholds, explicit opportunity-cost scoring, separate QB protection/season-survival risk, and a Washington OL discount for Jayden Daniels without erasing his rushing ceiling. Also incorporates the latest meaningful role/transaction signals for KC Concepcion, Fernando Mendoza, Kayshon Boutte and Jayden Higgins. External ADP remains timing context only.</p>
+  <p class="footer"><b>v7.8.</b> Aug. 29 QB opportunity-cost patch. Recalibrates QB Elite-Edge against a realistic later starter in this 10-team, 1-QB league and adds a strong Round-2 skill-position opportunity-cost guardrail. Elite QBs remain candidates, but QB survival pressure can no longer push Josh Allen/Lamar above premium RB/WR/TE value at 20/21 by itself. Existing protection, injury, role, market, identity, and live-sync logic is preserved.</p>
 </div>
 
 <script>
-const APP_VERSION='v7.7';
-const TRAINER_STATUS='QB_VALUE_PROTECTION_UPDATE';
+const APP_VERSION='v7.8';
+const TRAINER_STATUS='QB_VALUE_OPPORTUNITY_COST_PATCH';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
 // Bye balance is a roster-level tiebreaker only; it never changes football quality.
@@ -2094,17 +2094,20 @@ const QB_LEAGUE_PROFILE={
 };
 
 
-// v7.7 QB Elite-Edge / protection layer.
+// v7.8 QB Elite-Edge / protection layer.
 // In a 10-team, 1-QB league, raw QB points are not enough: score the expected
 // weekly advantage over a realistic later starter, then compare that edge with
 // the RB/WR/TE opportunity cost. Protection risk affects passing efficiency and
 // season-survival confidence separately from a mobile QB's rushing ceiling.
 const QB_ELITE_EDGE_PPG = Object.freeze({
-  'Josh Allen':5.0,'Lamar Jackson':4.8,'Jayden Daniels':3.5,'Jalen Hurts':3.4,
-  'Drake Maye':3.0,'Joe Burrow':2.6,'Caleb Williams':2.4,'Jaxson Dart':2.3,
-  'Justin Herbert':2.0,'Patrick Mahomes':1.9,'Bo Nix':1.8,'Dak Prescott':1.6,
-  'Brock Purdy':1.5,'Jared Goff':1.3,'Baker Mayfield':1.3,'Jordan Love':1.2,
-  'C.J. Stroud':1.0,'Tua Tagovailoa':0.8
+  // v7.8: edge is versus a realistic later starter in THIS 10-team, 1-QB league,
+  // not a generic replacement QB. This prevents QB1 raw scoring from masquerading
+  // as five points of lineup value at the 20/21 turn.
+  'Josh Allen':3.6,'Lamar Jackson':3.5,'Jayden Daniels':2.8,'Jalen Hurts':2.7,
+  'Drake Maye':2.5,'Joe Burrow':2.2,'Caleb Williams':2.0,'Jaxson Dart':1.9,
+  'Justin Herbert':1.7,'Patrick Mahomes':1.6,'Bo Nix':1.5,'Dak Prescott':1.4,
+  'Brock Purdy':1.3,'Jared Goff':1.2,'Baker Mayfield':1.2,'Jordan Love':1.1,
+  'C.J. Stroud':0.9,'Tua Tagovailoa':0.7
 });
 const QB_PROTECTION_PROFILE = Object.freeze({
   'Jayden Daniels':{penalty:5,label:'Washington OL / season-survival concern',note:'Apply a modest overall value discount concentrated in protection and full-season reliability. Do not erase the elite rushing ceiling; restore value if protection stabilizes, increase the discount if line/center instability worsens.'}
@@ -2115,12 +2118,21 @@ function qbProtectionFor(p){return p?.pos==='QB'?QB_PROTECTION_PROFILE[p.name]||
 function qbOpportunityCostAdjustment(p,pick){
  if(p?.pos!=='QB'||counts('MMazz3117').QB>=1)return 0;
  const e=qbEliteEdgePpg(p);
- // ≥4 PPG can justify paying up; 2.5–4 is a real consideration; 1.5–2.5
- // usually loses to strong skill-position value; <1.5 strongly favors waiting.
- let adj=e>=4?10:e>=2.5?4:e>=1.5?-5:-10;
- // Early/middle turns carry the largest skill-position opportunity cost.
- if(pick<=61 && e<2.5)adj-=4;
- if(pick>=100)adj+=4; // replacement window is closing.
+
+ // v7.8 shallow-league rule: QB edge must be measured against the starter we can
+ // realistically obtain later. The 20/21 turn carries a major RB/WR/TE opportunity
+ // cost, so even QB1 cannot rise merely because he will not survive to pick 40.
+ let adj=e>=4?8:e>=2.5?2:e>=1.5?-5:-10;
+
+ // Round 2: "take the room's mistake." Elite QB remains a candidate, but cannot
+ // independently outrank premium skill-position value on edge/survival alone.
+ if(pick<=21) adj-=12;
+ else if(pick<=41) adj-=5;
+ else if(pick<=61 && e<2.5) adj-=4;
+
+ // Later, as the realistic replacement window closes, QB urgency can rise.
+ if(pick>=80) adj+=2;
+ if(pick>=100) adj+=4;
  return adj;
 }
 
@@ -2276,7 +2288,7 @@ function coreStarterNeeds(){
 function mandatoryRosterPositions(pick=state?.pick||1){
  const c=counts('MMazz3117');
  const needs=[];
- // v7.7: QB urgency is graduated rather than hard-forced at 80/81.
+ // v7.8: QB urgency is graduated rather than hard-forced at 80/81.
  // Keep RB/WR opportunity-cost comparisons alive through 100/101.
  // QB becomes truly mandatory only at 120/121, leaving the final turn for D/ST + K.
  if(c.QB<1 && pick>=120)needs.push('QB');
@@ -2328,7 +2340,7 @@ function rosterFitScore(p,pick){
  if(p.pos==='RB')return c.RB<2?94:c.RB<3?84:c.RB<5?(r>=7?88:72):28;
  if(p.pos==='WR')return c.WR<2?95:c.WR<3?90:c.WR<6?88:30;
  if(p.pos==='QB'&&c.QB===0){
-   // v7.7: empty QB raises urgency gradually without making every QB a perfect roster fit.
+   // v7.8: empty QB raises urgency gradually without making every QB a perfect roster fit.
    if(pick<=41)return 80;
    if(pick<=61)return 86;
    if(pick<=81)return 90;
@@ -2470,7 +2482,7 @@ function championScore(p,pick){
  const unscoutedPenalty=(p.curated===false||evalVerify)?18:0;
  score-=unscoutedPenalty;
 
- // v7.7 verification guardrail: an unanchored QB may remain visible for research,
+ // v7.8 verification guardrail: an unanchored QB may remain visible for research,
  // but roster need alone cannot turn a placeholder football evaluation into a
  // high-confidence Champion recommendation.
  if(p.pos==='QB' && evalVerify && pick<120)score=Math.min(score,74);
@@ -2524,7 +2536,7 @@ function getChampionBoard(limit=5){
  let scored=authoritativeAvailablePlayers()
   .map(p=>championScore(p,state.pick));
 
- // v7.7 QB quality gate:
+ // v7.8 QB quality gate:
  // Do NOT collapse the board to two quarterbacks in the normal decision windows.
  // At 80/81 and 100/101 the Champion Process must compare the viable QB tier
  // against RB/WR opportunity cost. Only when QB is truly mandatory (120/121+)
@@ -2577,7 +2589,7 @@ function getChampionBoard(limit=5){
      }
    }
 
-   // v7.7: this mandatory-only lane now activates only at the true deadline
+   // v7.8: this mandatory-only lane now activates only at the true deadline
    // (QB 120/121+, existing TE deadline, or broken RB/WR starting minimums).
    // It no longer suppresses RB/WR opportunity-cost comparisons at 80/81.
    const mandatoryOnly=all.filter(x=>mandatory.includes(x.player.pos) && !used.has(playerIdentityKey(x.player)));
@@ -2672,7 +2684,7 @@ function strategyAdvice(){
       :op==='wr'?'WR-first test: take the elite WR, but recognize RB pressure at 20/21.'
       :'Compare elite RB and WR paths without forcing position.';
  }
- if(p===20||p===21)return'At 20/21: take the room’s mistake. Prefer a fallen WR plus the best RB/TE/WR value. Do not force a predetermined pair.';
+ if(p===20||p===21)return'At 20/21: take the room’s mistake. Prefer a fallen WR plus the best RB/TE/WR value. Elite QB may remain a candidate, but QB survival/ADP alone cannot outrank premium skill-position value in a 10-team, 1-QB league. Do not force a predetermined pair.';
  if(p===40||p===41){
    if(!c.QB&&!c.TE)return'Key fork: buy a true QB edge vs. premium TE vs. falling RB/WR. Use QB Elite-Edge: if the QB does not create enough weekly advantage over a later starter to beat the skill-position opportunity cost, wait.';
    if(!c.QB)return'QB decision window: buy advantage, not raw QB points. A ≥4 PPG edge is strong; 2.5–4 is legitimate; 1.5–2.5 usually favors RB/WR; <1.5 favors waiting.';
@@ -2788,7 +2800,7 @@ function reliabilityCheck(){
    issues.push('full Sleeper candidate universe is not loaded');
  }
 
- // v7.7 roster-completion verification: QB pressure is graduated.
+ // v7.8 roster-completion verification: QB pressure is graduated.
  // 80/81 = HIGH, 100/101 = CRITICAL, 120/121+ = MANDATORY.
  if(state && state.pick<=150){
    const c=counts('MMazz3117');
