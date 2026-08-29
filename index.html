@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v7.8</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v7.9</title>
 <meta name="theme-color" content="#0b1020">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -112,7 +112,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v7.8</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v7.9</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 <div class="card">
     <h2>Sleeper live sync <span class="badge">draft night</span></h2>
@@ -144,10 +144,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" id="identityRefreshCard">
     <h2 style="margin-bottom:6px">Player/identity refresh</h2>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v7.8 adds QB Elite-Edge + protection/survival logic: buy a meaningful positional advantage, not raw QB points. It preserves the full Sleeper universe, three separate draft modes, live/mock auto-detection, saved Real League Simulation progress, and strict identity safeguards.
+      v7.9 keeps QB Elite-Edge + protection/survival logic and adds CPU market-realism safeguards so practice rooms stay closer to observed Sleeper behavior. It preserves the full Sleeper universe, three separate draft modes, live/mock auto-detection, saved Real League Simulation progress, and strict identity safeguards.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v7.8 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v7.9 evaluation ranks. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
   <div id="reliabilityCard" class="reliability" aria-live="polite">
@@ -158,7 +158,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v7.8 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 28 observed Sleeper draft-room values from live mock testing have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
+      v7.9 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 28 observed Sleeper draft-room values from live mock testing have been added as the newest snapshot where available. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -187,7 +187,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <option value="real">Real League Draft</option>
 </select>
 <div class="muted" style="font-size:12px;margin-top:6px">
-CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v7.8 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
+CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v7.9 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
 </div>
 </label>
 <label>Your 1.01 plan
@@ -227,7 +227,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       </div>
       <div class="champion-actions">
         <button id="championToggleBtn" class="champion-toggle" type="button" aria-expanded="true">Collapse ▲</button>
-        <div class="champion-pill">v7.8</div>
+        <div class="champion-pill">v7.9</div>
       </div>
     </div>
     <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -299,7 +299,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       <div class="node"><span class="badge">Hybrid ranking layer</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
       <div class="node"><span class="badge">Champion Process</span>Repeat-winner principles are now scored on every pick: market value, positional cliffs, estimated survival to your next turn, roster construction, and asymmetric upside. QB/TE run-chasing and redundant backups are penalized.</div>
       <div class="node"><span class="badge">League QB scoring</span>The current scoring model separates rushing-leverage QBs from pocket passers. With 4-point passing TDs and 6-point rushing TDs, Allen/Lamar/Daniels/Hurts-type profiles receive a meaningful boost; Mahomes/Burrow/Herbert-type profiles must win on value rather than generic QB-run pressure.</div>
-      <div class="node"><span class="badge">Current calibration</span>QB Elite-Edge is ACTIVE and v7.8 is calibrated to a realistic later starter in this 10-team, 1-QB league. At 20/21, premium RB/WR/TE opportunity cost overrides QB survival pressure unless the skill-position board is unusually weak. Protection environment and season-survival risk are separate from rushing ceiling. QB urgency remains graduated: 80/81 is a full opportunity-cost comparison, 100/101 is critical but not QB-only, and QB becomes mandatory only at 120/121.</div>
+      <div class="node"><span class="badge">Current calibration</span>QB Elite-Edge remains calibrated to a realistic later starter in this 10-team, 1-QB league. v7.9 also adds CPU market-realism guardrails: weak API-only timing is delayed, stale observed ADP constrains implausible early jumps, baseline randomness is narrower, and fresh market values receive an overdue-player catch-up boost. Protection environment and season-survival risk are separate from rushing ceiling. QB urgency remains graduated: 80/81 is a full opportunity-cost comparison, 100/101 is critical but not QB-only, and QB becomes mandatory only at 120/121.</div>
       <div class="node"><span class="badge">Live-sync safeguards</span>Sleeper D/ST abbreviations now map to trainer names (for example HOU → Texans, DEN → Broncos, NE → Patriots). Known player aliases such as Kenny/Kenneth Gainwell are canonicalized, unmatched Sleeper picks are surfaced, and confirmed season-long exclusions are removed from Best Available.</div>
       <div class="node"><span class="badge">Rank cleanup / identity safeguards</span>Michael Pittman Jr. is corrected to the current late-Round-9/10 value range, several established mid/late players now have embedded safety anchors, Sleeper rank matching is suffix-aware, and current injury watches can lower Champion Process scores without hard-excluding the player.</div>
     </div>
@@ -318,12 +318,12 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer"><b>v7.8.</b> Aug. 29 QB opportunity-cost patch. Recalibrates QB Elite-Edge against a realistic later starter in this 10-team, 1-QB league and adds a strong Round-2 skill-position opportunity-cost guardrail. Elite QBs remain candidates, but QB survival pressure can no longer push Josh Allen/Lamar above premium RB/WR/TE value at 20/21 by itself. Existing protection, injury, role, market, identity, and live-sync logic is preserved.</p>
+  <p class="footer"><b>v7.9.</b> Aug. 29 CPU market-realism patch. Fresh/aging observed Sleeper ADP now anchors CPU timing; stale observations act as plausibility guardrails; API-only search rank is deliberately weakened and delayed; baseline randomness is reduced; and substantially overdue market-established players get a catch-up boost so recognizable QBs/TEs and other starters do not fall absurdly far merely because CPU roster needs were already filled. v7.8 QB opportunity-cost protections remain intact.</p>
 </div>
 
 <script>
-const APP_VERSION='v7.8';
-const TRAINER_STATUS='QB_VALUE_OPPORTUNITY_COST_PATCH';
+const APP_VERSION='v7.9';
+const TRAINER_STATUS='CPU_MARKET_REALISM_PATCH';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
 // Bye balance is a roster-level tiebreaker only; it never changes football quality.
@@ -1885,9 +1885,28 @@ function choice(team,pick){
    // CPU Mock starts from the current Sleeper timing signal; Real League
    // Simulation keeps the established evaluation base and layers manager priors.
    const m=marketSignalForPlayer(p);
-   const simRank=isCpuMockMode()&&Number.isFinite(m?.value)?m.value:p.rank;
+   const simRank=isCpuMockMode()?cpuTimingRank(p):(p.rank||9999);
    let base=260/(1+Math.max(0,simRank-1)/55);
-   let s=base*(bias[p.pos]||1)*needsWeight(p.pos,c,round)*(.9+Math.random()*.2);
+
+   // Baseline CPU rooms should be fairly stable. Save large randomness for the
+   // explicit Chaos scenario rather than allowing weak-data names to leap tiers.
+   const variance=isCpuMockMode()&&sc!=='chaos' ? (.95+Math.random()*.10) : (.9+Math.random()*.2);
+   let need=needsWeight(p.pos,c,round);
+   let s=base*(bias[p.pos]||1)*need*variance;
+
+   if(isCpuMockMode()){
+     const urgency=cpuMarketUrgencyMultiplier(p,pick);
+     s*=urgency;
+
+     // If a genuinely market-established player has fallen far past observed
+     // timing, permit a value backup/upgraded starter to compete instead of
+     // making QB/TE disappear forever after a roster fills one slot.
+     if(urgency>=1.75 && (p.pos==='QB'||p.pos==='TE') && ((p.pos==='QB'&&c.QB===1)||(p.pos==='TE'&&c.TE===1))){
+       s/=Math.max(.18,need);
+       s*=.38;
+     }
+   }
+
    s*=cpuQBLeagueMultiplier(p);
    if(round<=1&&(p.pos==='QB'||p.pos==='TE'))s*=.55;
    if(round<=10&&(p.pos==='DST'||p.pos==='K'))s*=.2;
@@ -2094,13 +2113,13 @@ const QB_LEAGUE_PROFILE={
 };
 
 
-// v7.8 QB Elite-Edge / protection layer.
+// v7.9 QB Elite-Edge / protection layer.
 // In a 10-team, 1-QB league, raw QB points are not enough: score the expected
 // weekly advantage over a realistic later starter, then compare that edge with
 // the RB/WR/TE opportunity cost. Protection risk affects passing efficiency and
 // season-survival confidence separately from a mobile QB's rushing ceiling.
 const QB_ELITE_EDGE_PPG = Object.freeze({
-  // v7.8: edge is versus a realistic later starter in THIS 10-team, 1-QB league,
+  // v7.9: edge is versus a realistic later starter in THIS 10-team, 1-QB league,
   // not a generic replacement QB. This prevents QB1 raw scoring from masquerading
   // as five points of lineup value at the 20/21 turn.
   'Josh Allen':3.6,'Lamar Jackson':3.5,'Jayden Daniels':2.8,'Jalen Hurts':2.7,
@@ -2119,7 +2138,7 @@ function qbOpportunityCostAdjustment(p,pick){
  if(p?.pos!=='QB'||counts('MMazz3117').QB>=1)return 0;
  const e=qbEliteEdgePpg(p);
 
- // v7.8 shallow-league rule: QB edge must be measured against the starter we can
+ // v7.9 shallow-league rule: QB edge must be measured against the starter we can
  // realistically obtain later. The 20/21 turn carries a major RB/WR/TE opportunity
  // cost, so even QB1 cannot rise merely because he will not survive to pick 40.
  let adj=e>=4?8:e>=2.5?2:e>=1.5?-5:-10;
@@ -2288,7 +2307,7 @@ function coreStarterNeeds(){
 function mandatoryRosterPositions(pick=state?.pick||1){
  const c=counts('MMazz3117');
  const needs=[];
- // v7.8: QB urgency is graduated rather than hard-forced at 80/81.
+ // v7.9: QB urgency is graduated rather than hard-forced at 80/81.
  // Keep RB/WR opportunity-cost comparisons alive through 100/101.
  // QB becomes truly mandatory only at 120/121, leaving the final turn for D/ST + K.
  if(c.QB<1 && pick>=120)needs.push('QB');
@@ -2340,7 +2359,7 @@ function rosterFitScore(p,pick){
  if(p.pos==='RB')return c.RB<2?94:c.RB<3?84:c.RB<5?(r>=7?88:72):28;
  if(p.pos==='WR')return c.WR<2?95:c.WR<3?90:c.WR<6?88:30;
  if(p.pos==='QB'&&c.QB===0){
-   // v7.8: empty QB raises urgency gradually without making every QB a perfect roster fit.
+   // v7.9: empty QB raises urgency gradually without making every QB a perfect roster fit.
    if(pick<=41)return 80;
    if(pick<=61)return 86;
    if(pick<=81)return 90;
@@ -2482,7 +2501,7 @@ function championScore(p,pick){
  const unscoutedPenalty=(p.curated===false||evalVerify)?18:0;
  score-=unscoutedPenalty;
 
- // v7.8 verification guardrail: an unanchored QB may remain visible for research,
+ // v7.9 verification guardrail: an unanchored QB may remain visible for research,
  // but roster need alone cannot turn a placeholder football evaluation into a
  // high-confidence Champion recommendation.
  if(p.pos==='QB' && evalVerify && pick<120)score=Math.min(score,74);
@@ -2536,7 +2555,7 @@ function getChampionBoard(limit=5){
  let scored=authoritativeAvailablePlayers()
   .map(p=>championScore(p,state.pick));
 
- // v7.8 QB quality gate:
+ // v7.9 QB quality gate:
  // Do NOT collapse the board to two quarterbacks in the normal decision windows.
  // At 80/81 and 100/101 the Champion Process must compare the viable QB tier
  // against RB/WR opportunity cost. Only when QB is truly mandatory (120/121+)
@@ -2589,7 +2608,7 @@ function getChampionBoard(limit=5){
      }
    }
 
-   // v7.8: this mandatory-only lane now activates only at the true deadline
+   // v7.9: this mandatory-only lane now activates only at the true deadline
    // (QB 120/121+, existing TE deadline, or broken RB/WR starting minimums).
    // It no longer suppresses RB/WR opportunity-cost comparisons at 80/81.
    const mandatoryOnly=all.filter(x=>mandatory.includes(x.player.pos) && !used.has(playerIdentityKey(x.player)));
@@ -2700,13 +2719,72 @@ function strategyAdvice(){
  return'Favor RB/WR value and reliable weekly volume. Bye weeks are a tiebreaker.';
 }
 
+// v7.9 CPU-market realism layer.
+// The normal marketSignalForPlayer() remains unchanged for user-facing timing.
+// CPU opponents use a more conservative timing estimate so weak Sleeper API
+// search rank cannot masquerade as observed ADP or pull unfamiliar players
+// several rounds ahead of actual draft-room evidence.
+function cpuTimingRank(p){
+ const m=marketSignalForPlayer(p);
+ const obs=m?.observed;
+ const api=Number.isFinite(m?.value)?Number(m.value):null;
+
+ if(m?.status==='FRESH OBSERVED ADP' && obs) return obs.adp;
+ if(m?.status==='AGING OBSERVED ADP' && obs) return obs.adp;
+
+ // A stale observed room price remains a historical plausibility guardrail.
+ // Current API rank may move timing earlier, but by no more than ~10 picks
+ // without a fresh/aging observed draft-room confirmation.
+ if(m?.status==='STALE OBSERVED ADP' && obs){
+   if(Number.isFinite(api)) return Math.max(api, obs.adp-10);
+   return obs.adp+6;
+ }
+
+ // News-invalidated ADP should not be treated as healthy-market precision.
+ // Keep the API only as a weak directional clue and add uncertainty.
+ if(m?.status==='NEWS INVALIDATED ADP'){
+   if(obs && Number.isFinite(api)) return Math.max(api+5, obs.adp-8);
+   if(Number.isFinite(api)) return api+10;
+ }
+
+ if(m?.status==='STALE NEWS — VERIFY' && obs) return obs.adp+4;
+ if(m?.status==='MARKET DIVERGENCE' && obs) return obs.adp+3;
+
+ // API-only players are deliberately delayed a little in CPU mocks.
+ // The API remains useful for relative ordering, but is not simulated as ADP.
+ if(m?.status==='API FALLBACK ONLY' && Number.isFinite(api)) return api+10;
+
+ if(obs) return obs.adp+8;
+ if(Number.isFinite(api)) return api+12;
+ return 9999;
+}
+
 function cpuMarketSort(a,b){
- const ma=marketSignalForPlayer(a);
- const mb=marketSignalForPlayer(b);
- const av=Number.isFinite(ma.value)?ma.value:9999;
- const bv=Number.isFinite(mb.value)?mb.value:9999;
+ const av=cpuTimingRank(a);
+ const bv=cpuTimingRank(b);
  if(av!==bv)return av-bv;
  return (a.rank||9999)-(b.rank||9999);
+}
+
+function cpuMarketUrgencyMultiplier(p,pick){
+ const timing=cpuTimingRank(p);
+ if(!Number.isFinite(timing)||timing>=9999)return 1;
+ const overdue=pick-timing;
+ const m=marketSignalForPlayer(p);
+ const strong=m?.status==='FRESH OBSERVED ADP'||m?.status==='AGING OBSERVED ADP';
+
+ // Fresh observed players should not fall multiple rounds simply because a CPU
+ // roster already filled that position. Weak-data players get a wider leash.
+ if(strong){
+   if(overdue>=22)return 2.35;
+   if(overdue>=14)return 1.75;
+   if(overdue>=8)return 1.30;
+ }else{
+   if(overdue>=32)return 1.75;
+   if(overdue>=22)return 1.40;
+   if(overdue>=14)return 1.18;
+ }
+ return 1;
 }
 
 function isFinalUserTurn(){
@@ -2800,7 +2878,7 @@ function reliabilityCheck(){
    issues.push('full Sleeper candidate universe is not loaded');
  }
 
- // v7.8 roster-completion verification: QB pressure is graduated.
+ // v7.9 roster-completion verification: QB pressure is graduated.
  // 80/81 = HIGH, 100/101 = CRITICAL, 120/121+ = MANDATORY.
  if(state && state.pick<=150){
    const c=counts('MMazz3117');
@@ -2957,7 +3035,7 @@ function currentBrief(){
 
  const realResearch=`REAL LEAGUE DRAFT RULE — Sleeper completed picks/player IDs are authoritative. 2023–25 manager tendencies are priors for survival/threat only; completed 2026 behavior progressively overrides those priors. Historical opponent data never changes football quality, injury evaluation, upside or ADP itself.`;
  const simResearch=`REAL LEAGUE SIMULATION RULE — simulate the named 2023–25 managers and room shape, while blending current 2026 roster behavior as picks accumulate. Use this to practice the actual league, not to model Sleeper CPU bots.`;
- const cpuResearch=`CPU MOCK RULE — named managers and 2023–25 league tendencies are OFF. Opponent simulation starts from current Sleeper market timing plus generic roster needs. Market timing hierarchy: FRESH observed Sleeper ADP; AGING observed ADP at reduced confidence; recent actual draft behavior when available; API search fallback as a weak timing clue only; then no reliable timing data.`;
+ const cpuResearch=`CPU MOCK RULE — named managers and 2023–25 league tendencies are OFF. Opponent simulation starts from current Sleeper market timing plus generic roster needs. v7.9 market-realism guardrails are ACTIVE: FRESH/AGING observed Sleeper ADP anchors timing; STALE observations remain historical plausibility bands; API search rank is only a weak relative clue and cannot by itself pull a player dramatically earlier; baseline randomness is reduced; substantially overdue market-established players receive a catch-up boost so recognizable starters do not fall unrealistically far.`;
  const research=isCpuMockMode()?cpuResearch:isRealLeagueSimulationMode()?simResearch:realResearch;
  const verify=reliabilityCheck();
  const verifyText=`Draft-night verification: ${verify.level.toUpperCase()}${verify.issues.length?` — ${verify.issues.join(' · ')}`:''}${verify.warnings.length?` — ${verify.warnings.join(' · ')}`:''}`;
