@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
-<title>2026 Fantasy Draft Trainer — Full 15 Rounds v7.9.9</title>
+<title>2026 Fantasy Draft Trainer — Full 15 Rounds v7.9.10</title>
 <meta name="theme-color" content="#0b1020">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -112,7 +112,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 </head>
 <body>
 <div id="app" class="wrap compact">
-  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v7.9.9</span></h1>
+  <h1>2026 Fantasy Draft Trainer — Full Draft <span class="version-badge" data-app-version>v7.9.10</span></h1>
   <p class="sub">10-team full PPR · 15 rounds · pick 1.01 · three-mode draft intelligence · time-aware Sleeper ADP + Champion Process + calibrated room model</p>
 <div class="card">
     <h2>Sleeper live sync <span class="badge">draft night</span></h2>
@@ -144,10 +144,10 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" id="identityRefreshCard">
     <h2 style="margin-bottom:6px">Player/identity refresh</h2>
     <p class="muted" style="font-size:12px;margin:0 0 9px">
-      v7.9.9 keeps QB Elite-Edge + protection/survival logic, CPU market-realism safeguards, the v7.9.7 live Sleeper availability gate, and the v7.9.8 Josh Jacobs / Packers backfield update. Live mode still checks Sleeper every 5 seconds, but background polls now rerender the board only when completed picks, draft mode, or another meaningful synced state actually changes. This removes the distracting five-second screen flash while preserving near-real-time updates.
+      v7.9.10 keeps the quiet five-second live sync, QB Elite-Edge, market-realism safeguards, strict Sleeper availability gating, and the Josh Jacobs late-fall-only override. It adds an Aug. 30 all-league deep-dive refresh focused on preseason starter usage, late-round PPR roles, legal/availability flags, and role-security nuances that can change 80/81, 100/101, and 120/121 decisions.
     </p>
     <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
-    <div id="rankRefreshStatus" class="syncstatus">Using curated v7.9.9 evaluation ranks with Aug. 30 pre-draft role/injury updates, stricter live-availability/health guardrails, and the Jacobs Commissioner’s Exempt List / Packers backfield update. Sleeper API search/identity data has not been refreshed yet.</div>
+    <div id="rankRefreshStatus" class="syncstatus">Using curated v7.9.10 evaluation ranks with the Aug. 30 all-league deep-dive refresh: starter-group usage, PPR role growth, legal/availability VERIFY flags, and stricter late-round role-security calibration. Sleeper API search/identity data has not been refreshed yet.</div>
   </div>
 
   <div id="reliabilityCard" class="reliability" aria-live="polite">
@@ -158,7 +158,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <div class="card" style="margin-bottom:14px">
     <h2 style="margin:0 0 6px">Market source</h2>
     <div class="muted" style="font-size:13px">
-      v7.9.9 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. Stale observations remain history/context and no longer silently outrank a current API fallback for draft timing. Aug. 28 observed Sleeper draft-room values remain in history, and the Aug. 29 live Sleeper room snapshot has now been added for A.J. Brown, Kenneth Walker III, Derrick Henry, Trey McBride, Brock Bowers, Nico Collins, Jeremiyah Love, Malik Nabers, and Rashee Rice. Sudden-ADP divergence is snapshot-based: it activates only after two or more observed Sleeper draft-room ADP points exist for that player; API search rank is never treated as a draft-room ADP observation.
+      v7.9.10 keeps observed Sleeper draft-room ADP time-aware: 0–2 days is FRESH, 3–5 days is AGING, and 6+ days is STALE. The deep-dive refresh changes football evaluation and role confidence, not historical ADP: starter-group snap/route evidence can raise or lower a player while Sleeper timing remains a separate signal. Sudden-ADP divergence still requires two or more observed Sleeper draft-room snapshots; API search rank is never treated as draft-room ADP.
     </div>
   </div>
   <div id="summary" class="grid stats">
@@ -187,7 +187,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
   <option value="real">Real League Draft</option>
 </select>
 <div class="muted" style="font-size:12px;margin-top:6px">
-CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v7.9.9 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
+CPU Mock uses current Sleeper market timing plus generic roster needs and intentionally excludes named-manager history. Real League Simulation practices against the 2023–25 room model. With live Sleeper sync, v7.9.10 auto-selects CPU Mock for a mock room and Real League Draft for a league-linked 2026 draft; manager history remains threat/survival context only in the real draft.
 </div>
 </label>
 <label>Your 1.01 plan
@@ -227,7 +227,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       </div>
       <div class="champion-actions">
         <button id="championToggleBtn" class="champion-toggle" type="button" aria-expanded="true">Collapse ▲</button>
-        <div class="champion-pill">v7.9.9</div>
+        <div class="champion-pill">v7.9.10</div>
       </div>
     </div>
     <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -291,7 +291,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       <div class="node"><span class="badge">Room pattern</span>RBs gone by pick 20: <b>8 in 2023, 8 in 2024, 8 in 2025.</b> That is why an elite RB start remains attractive.</div>
       <div class="node"><span class="badge">QB market</span>Your room took roughly <b>2–3 QBs by pick 20, ~6 by pick 40, ~8 by pick 60</b>. The current room model adds soft targets plus hard catch-up floors so elite QBs cannot unrealistically survive into the late rounds.</div>
       <div class="node"><span class="badge">TE market</span>Usually <b>0–1 TE by pick 20</b>, around <b>3 by pick 40</b>, then a run before pick 60. If Bowers/McBride miss 20/21, 40/41 is the Loveland/Warren pivot.</div>
-      <div class="node"><span class="badge">Construction</span>Because you start <b>2 FLEX</b>, RB/WR depth is highly usable, but v7.9.9 completes the required RB2/WR2 starter slots before treating RB3/WR3 as equivalent FLEX depth. After the core starters are balanced, favor RB/WR ceiling over backup QB/TE.</div>
+      <div class="node"><span class="badge">Construction</span>Because you start <b>2 FLEX</b>, RB/WR depth is highly usable, but v7.9.10 completes the required RB2/WR2 starter slots before treating RB3/WR3 as equivalent FLEX depth. After the core starters are balanced, favor RB/WR ceiling over backup QB/TE.</div>
       <div class="node"><span class="badge">Injury resilience</span>Your past seasons have been injury-heavy. We cannot predict injuries, so early picks emphasize <b>secure volume</b>; bench picks emphasize players whose roles can jump sharply.</div>
       <div class="node"><span class="badge">Waivers</span>You and generaljjj have had high waiver activity partly from injuries, so transaction count is not treated as pure drafting style.</div>
       <div class="node"><span class="badge">Playoffs</span>Your postseason runs <b>Weeks 15–17</b>. 2026 bye weeks are tracked by NFL team and used only as a roster-balance tiebreaker, never as a reason to pass a clearly better player.</div>
@@ -299,8 +299,8 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
       <div class="node"><span class="badge">Hybrid ranking layer</span>Best Available now uses embedded current PPR market anchors first, then a cached Sleeper player search rank for players we have not manually anchored. Deep players no longer inherit an artificially high old list position.</div>
       <div class="node"><span class="badge">Champion Process</span>Repeat-winner principles are now scored on every pick: market value, positional cliffs, estimated survival to your next turn, roster construction, and asymmetric upside. QB/TE run-chasing and redundant backups are penalized.</div>
       <div class="node"><span class="badge">League QB scoring</span>The current scoring model separates rushing-leverage QBs from pocket passers. With 4-point passing TDs and 6-point rushing TDs, Allen/Lamar/Daniels/Hurts-type profiles receive a meaningful boost; Mahomes/Burrow/Herbert-type profiles must win on value rather than generic QB-run pressure.</div>
-      <div class="node"><span class="badge">Current calibration</span>QB Elite-Edge remains calibrated to a realistic later starter in this 10-team, 1-QB league. v7.9.9 also keeps CPU market-realism guardrails: weak API-only timing is delayed, stale observed ADP constrains implausible early jumps, baseline randomness is narrower, and fresh market values receive an overdue-player catch-up boost. Protection environment and season-survival risk are separate from rushing ceiling. QB urgency remains graduated: 80/81 is a full opportunity-cost comparison, 100/101 is critical but not QB-only, and QB becomes mandatory only at 120/121.</div>
-      <div class="node"><span class="badge">Live-sync safeguards</span>v7.9.9 requires live recommendations to resolve in the current Sleeper player/ID universe, auto-refreshes that universe when live mode starts if it is stale, and performs a second alias-removal pass on every completed pick. Background live checks remain every 5 seconds, but the board now rerenders only when the Sleeper pick signature, auto-selected draft mode, or forced identity refresh changes meaningful state. D/ST abbreviations and known aliases are canonicalized, unmatched picks are surfaced, and confirmed season-long exclusions remain removed from Best Available.</div>
+      <div class="node"><span class="badge">Current calibration</span>QB Elite-Edge remains calibrated to a realistic later starter in this 10-team, 1-QB league. v7.9.10 also keeps CPU market-realism guardrails: weak API-only timing is delayed, stale observed ADP constrains implausible early jumps, baseline randomness is narrower, and fresh market values receive an overdue-player catch-up boost. Protection environment and season-survival risk are separate from rushing ceiling. QB urgency remains graduated: 80/81 is a full opportunity-cost comparison, 100/101 is critical but not QB-only, and QB becomes mandatory only at 120/121.</div>
+      <div class="node"><span class="badge">Live-sync safeguards</span>v7.9.10 requires live recommendations to resolve in the current Sleeper player/ID universe, auto-refreshes that universe when live mode starts if it is stale, and performs a second alias-removal pass on every completed pick. Background live checks remain every 5 seconds, but the board now rerenders only when the Sleeper pick signature, auto-selected draft mode, or forced identity refresh changes meaningful state. D/ST abbreviations and known aliases are canonicalized, unmatched picks are surfaced, and confirmed season-long exclusions remain removed from Best Available.</div>
       <div class="node"><span class="badge">Rank cleanup / identity safeguards</span>Michael Pittman Jr. is corrected to the current late-Round-9/10 value range, several established mid/late players now have embedded safety anchors, Sleeper rank matching is suffix-aware, and current injury watches can lower Champion Process scores without hard-excluding the player.</div>
     </div>
 
@@ -318,12 +318,12 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
     </div>
   </div>
 
-  <p class="footer"><b>v7.9.9.</b> Quiet live-sync refinement. Preserves the v7.9.8 Jacobs/Packers update and all live-availability/health safeguards. Sleeper is still polled every 5 seconds, but unchanged background polls no longer rebuild the full interface; the board rerenders immediately only when picks or other meaningful synced state change. Manual Sync still forces a visible refresh.</p>
+  <p class="footer"><b>v7.9.10.</b> Aug. 30 all-league deep-dive calibration. Preserves quiet 5-second live sync and every prior availability safeguard, while refreshing late-round PPR roles, starter-group usage, soft-tissue recovery, Achilles/legal review flags, and contingency-back hierarchies. Market timing remains separate from football quality.</p>
 </div>
 
 <script>
-const APP_VERSION='v7.9.9';
-const TRAINER_STATUS='AUG30_QUIET_LIVE_SYNC';
+const APP_VERSION='v7.9.10';
+const TRAINER_STATUS='AUG30_DEEP_DIVE_ROLE_REFRESH';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
 // Bye balance is a roster-level tiebreaker only; it never changes football quality.
@@ -338,7 +338,14 @@ const CURRENT_TEAM_OVERRIDES = Object.freeze({
   'Mike Evans':'SF',
   'Trey Benson':'ARI',
   'Mike Washington Jr.':'LV',
-  'Kaleb Johnson':'GB'
+  'Kaleb Johnson':'GB',
+  'Emmett Johnson':'KC',
+  'Woody Marks':'HOU',
+  'Makai Lemon':'PHI',
+  'Seth McGowan':'IND',
+  "Ja'Kobi Lane":'BAL',
+  'Rashod Bateman':'BAL',
+  'Jacob Saylors':'DET'
 });
 // Same-day news can invalidate ADP timing confidence without changing player quality.
 const MARKET_NEWS_INVALIDATION = Object.freeze({
@@ -362,17 +369,34 @@ const MARKET_NEWS_INVALIDATION = Object.freeze({
   'Jayden Higgins':{date:'2026-08-29',reason:'season-ending knee injury removes him from normal 2026 redraft consideration'},
   "De'Zhaun Stribling":{date:'2026-08-26',reason:'49ers injury cascade plus major Week 1 role expectations materially improve opportunity context'},
   'Josh Jacobs':{date:'2026-08-30',blocksAdpUntilCleared:true,reason:'NFL placed Jacobs on the Commissioner’s Exempt List to open the season; he cannot practice or play while listed, the duration is unknown, and Green Bay traded for Kaleb Johnson as backfield insurance. Lingering groin risk remains a separate concern. Old ADP is not a clean availability signal.'},
-  'Puka Nacua':{date:'2026-08-28',reason:'psoas injury remains managed outside team drills; current healthy-market assumptions require verification'},
+  'Puka Nacua':{date:'2026-08-30',reason:'psoas injury remains managed outside team drills and the NFL says his off-field matter remains under league review. He was not placed on paid leave today, so do not assume a suspension, but premium-cost availability is not fully clean.'},
   'Alvin Kamara':{date:'2026-08-28',reason:'expected to miss at least roughly a month from Aug. 19 reporting; prior timing is no longer representative of a healthy Week 1 role'},
   'Oronde Gadsden':{date:'2026-08-28',reason:'final preseason/depth-chart usage leaves him behind the primary tight ends; prior breakout pricing is no longer trustworthy'},
   'Travis Hunter':{date:'2026-08-28',reason:'recent practices included no offensive team reps while Jacksonville evaluated him heavily on defense; offensive role confidence materially declined'},
-  'Keenan Allen':{date:'2026-08-30',reason:'encouraging Colts role usage is now paired with a fresh legal/NFL-availability VERIFY item; do not assume discipline, but healthy-role market timing alone is incomplete'},
+  'Keenan Allen':{date:'2026-08-30',reason:'Allen was arrested on misdemeanor DUI/endangerment charges after the preseason finale. Indianapolis is gathering information. Do not assume a suspension or timing, but prior healthy-role pricing is no longer a clean signal.'},
   'Malachi Fields':{date:'2026-08-28',reason:'preseason starter usage now points to the Giants No. 2 outside-receiver role'},
   'MarShawn Lloyd':{date:'2026-08-30',reason:'Jacobs is now on the Commissioner’s Exempt List, materially strengthening Lloyd’s early opportunity, but Green Bay’s trade for Kaleb Johnson reduces the assumption that Lloyd automatically inherits the entire backfield. Lloyd remains the preferred fantasy beneficiary, not a guaranteed monopoly back.'},
   'Kaleb Johnson':{date:'2026-08-30',reason:'Green Bay acquired Johnson from Pittsburgh after Jacobs was placed on the Commissioner’s Exempt List. The trade creates immediate contingency relevance, but Johnson had limited rookie production and should be treated as a late watch/insurance back rather than an automatic lead-back projection.'},
   'Jeremiyah Love':{date:'2026-08-30',reason:'high-ankle sprain remains the key early-season availability concern; do not let post-injury stale timing override a healthier comparable option'},
-  'Tyler Allgeier':{date:'2026-08-30',reason:'Love injury plus first-team work materially improves early-season standalone and contingency opportunity'},
-  'Mike Washington Jr.':{date:'2026-08-30',reason:'emerging Raiders RB2 role plus Jeanty ankle uncertainty creates legitimate late-round standalone/contingent upside'},
+  'Tyler Allgeier':{date:'2026-08-30',reason:'Love\'s high-ankle sprain creates short-term contingency value, but preseason starter usage favored Love and Allgeier has limited receiving history. Treat him as a short-term/TD-dependent contingency back, not a season-long PPR role-growth bet.'},
+  'Mike Washington Jr.':{date:'2026-08-30',reason:'Washington handled 80% of snaps and 89% of carries with the Raiders starting-QB group in the finale, and reports indicate his role may persist even after Jeanty returns. Upgrade from pure handcuff to real late-round standalone/contingent target.'},
+  'Emmett Johnson':{date:'2026-08-30',reason:'Johnson handled 78% of snaps, 88% of rushing attempts and a 70% route rate with the meaningful Kansas City group. Upgrade to a PPR-friendly RB2/next-man-up target behind Kenneth Walker.'},
+  'Woody Marks':{date:'2026-08-30',reason:'Houston continues to signal passing-down work and a potentially substantial share beside David Montgomery. Upgrade late-round PPR standalone value while preserving committee uncertainty.'},
+  'Seth McGowan':{date:'2026-08-30',reason:'McGowan operated as Indianapolis RB1 with the starting offensive line in the finale, logging an 83% snap share and 80% of RB attempts. Add as a late RB2/contingency target behind Jonathan Taylor.'},
+  'Makai Lemon':{date:'2026-08-30',reason:'Lemon returned from the hamstring issue and ran a route on every pass play across the first four drives while commanding 39% of targets. Role confidence rises materially, but retain residual hamstring caution.'},
+  "Ja'Kobi Lane":{date:'2026-08-30',reason:'Baltimore rested Lane with the starters/key depth in the preseason finale, strengthening the case that he has won the WR3/11-personnel role. Upgrade from deep dart to legitimate late-round WR target.'},
+  'Michael Wilson':{date:'2026-08-30',reason:'preseason starter usage showed Wilson on only 7 of 11 starter snaps with another receiver rotating in. Keep the talent/2025 production, but reduce assumptions of locked every-down route volume.'},
+  'Xavier Worthy':{date:'2026-08-30',reason:'Kansas City used Worthy on a deeper route tree (12.7-yard average route depth) while reducing near-line-of-scrimmage touches. Preserve explosive ceiling but lower the full-PPR floor versus volume-oriented receivers.'},
+  'Quentin Johnston':{date:'2026-08-30',reason:'Johnston played with Justin Herbert, caught a 65-yard touchdown and projects as one of the Chargers top two wideouts. Upgrade starter-role confidence and mid-round WR3 upside.'},
+  'Kyle Pitts':{date:'2026-08-30',reason:'Pitts produced with the starters but posted only 64% route participation while rotating out in 12 personnel. Preserve TE1 upside while capping assumptions of an every-down route role.'},
+  'Juwan Johnson':{date:'2026-08-30',reason:'Tyler Shough-era production plus Jordyn Tyson\'s absence strengthens Johnson\'s path to being New Orleans No. 2 target. Upgrade as a late TE fallback rather than a backup-TE priority.'},
+  'Jordan Mason':{date:'2026-08-30',reason:'Minnesota usage continues to support a meaningful standalone early-down role beside Aaron Jones. Strengthen Mason modestly while keeping committee uncertainty.'},
+  'Aaron Jones':{date:'2026-08-30',reason:'Mason\'s growing early-down role pushes Jones further toward receiving/committee value rather than secure volume. Slight downgrade to workload certainty, not pass-game usefulness.'},
+  'Rashod Bateman':{date:'2026-08-30',reason:'Baltimore has notified the NFL of Bateman\'s June arrest and the league says the matter is under review. Do not assume discipline; add a legal/NFL-availability VERIFY flag.'},
+  'George Kittle':{date:'2026-08-30',reason:'Kittle is activated from PUP and eligible for Week 1, but he is returning less than eight months after an Achilles tear. Treat activation as positive without erasing accelerated-recovery risk.'},
+  'Breece Hall':{date:'2026-08-30',reason:'Hall is expected back for Week 1 from the groin injury, but the initial 2–3 week timetable warrants a residual soft-tissue penalty until sustained full work is verified.'},
+  'Isiah Pacheco':{date:'2026-08-30',reason:'Detroit says the prior knee concern has eased, but Pacheco now has a back injury with uncertain Week 1 availability. Update backup-role confidence and keep him behind healthier late-RB options.'},
+  'Jacob Saylors':{date:'2026-08-30',reason:'Saylors rushed for 100 yards on 17 carries in the finale and Dan Campbell expressed comfort with him as the primary Gibbs backup if Pacheco is unavailable. Add as a deep contingency/watch back.'},
   'Jonathon Brooks':{date:'2026-08-30',reason:'first-team usage alongside Bryce Young strengthens the evidence for a real committee role rather than pure handcuff status'},
   'Tony Pollard':{date:'2026-08-30',reason:'preseason first-team snap distribution showed Spears playing more than a nominal backup, reducing Pollard workload certainty at old pricing'},
   'Tyjae Spears':{date:'2026-08-30',reason:'first-team snap and passing-down usage materially improve PPR role confidence relative to old late-round timing'},
@@ -671,7 +695,7 @@ const raw=[
 ['Rico Dowdle','RB'],['R.J. Harvey','RB'],['Xavier Worthy','WR'],['Stefon Diggs','WR'],['WanDale Robinson','WR'],
 ['Matthew Golden','WR'],['Jalen Coker','WR'],['Carnell Tate','WR'],['KC Concepcion','WR'],['Jordyn Tyson','WR'],['Denzel Boston','WR'],
 ['Omar Cooper Jr.','WR'],['Caleb Douglas','WR'],['Zachariah Branch','WR'],['Malachi Fields','WR'],['Keaton Mitchell','RB'],['Rachaad White','RB'],['Brian Robinson Jr.','RB'],['Jordan Mason','RB'],
-['Jonah Coleman','RB'],['Emmett Johnson','RB'],['Tank Bigsby','RB'],['Will Shipley','RB'],['Dameon Pierce','RB'],
+['Jonah Coleman','RB'],['Emmett Johnson','RB'],['Seth McGowan','RB'],['Jacob Saylors','RB'],['Tank Bigsby','RB'],['Will Shipley','RB'],['Dameon Pierce','RB'],
 ['Jaydon Blue','RB'],['Phil Mafah','RB'],['Ray Davis','RB'],['Braelon Allen','RB'],['Tyjae Spears','RB'],
 ['Jaylen Wright','RB'],['Ollie Gordon II','RB'],['Bhayshul Tuten','RB'],['Dylan Sampson','RB'],['Kyle Monangai','RB'],
 ['Jarquez Hunter','RB'],['Devin Neal','RB'],['Tahj Brooks','RB'],['Jacory Croskey-Merritt','RB'],['Isaac Guerendo','RB'],
@@ -684,7 +708,7 @@ const raw=[
 ['Michael Pittman Jr.','WR'],['Ricky Pearsall','WR'],['Khalil Shakir','WR'],['Jameson Williams','WR'],['Calvin Ridley','WR'],
 ['Brian Thomas Jr.','WR'],['Jakobi Meyers','WR'],['Deebo Samuel','WR'],['Josh Downs','WR'],
 ['Jauan Jennings','WR'],['Jerry Jeudy','WR'],['Rashid Shaheed','WR'],['Marvin Harrison Jr.','WR'],['Tyler Lockett','WR'],
-['Romeo Doubs','WR'],['Joshua Palmer','WR'],['Quentin Johnston','WR'],['Luther Burden','WR'],['Devaughn Vele','WR'],
+['Romeo Doubs','WR'],['Joshua Palmer','WR'],['Quentin Johnston','WR'],['Luther Burden','WR'],["Ja'Kobi Lane",'WR'],['Rashod Bateman','WR'],['Devaughn Vele','WR'],
 ['Parker Washington','WR'],['Michael Wilson','WR'],['Cooper Kupp','WR'],['Travis Hunter','WR'],['Keenan Allen','WR'],['Tank Dell','WR'],['Keon Coleman','WR'],
 ['Patrick Mahomes','QB'],['Justin Herbert','QB'],['Jordan Love','QB'],['Jared Goff','QB'],['Brock Purdy','QB'],
 ['Trevor Lawrence','QB'],['Dak Prescott','QB'],['Bo Nix','QB'],['Baker Mayfield','QB'],['C.J. Stroud','QB'],
@@ -753,8 +777,8 @@ const MARKET_RANK={
   'Kyle Monangai':91,
 
   // Late-round anchors uncovered during our tests
-  'Kenneth Gainwell':98,
-  'Quentin Johnston':108,
+  'Kenneth Gainwell':96,
+  'Quentin Johnston':102,
   'Xavier Worthy':122,
   'Zach Charbonnet':126,
   'Tyrone Tracy Jr.':160,
@@ -765,7 +789,10 @@ const MARKET_RANK={
   'Jonah Coleman':168,
   'James Conner':170,
   'Keaton Mitchell':171,
-  'Emmett Johnson':187,
+  'Emmett Johnson':124,
+  'Seth McGowan':142,
+  'Jacob Saylors':185,
+  'Mike Washington Jr.':106,
   'MarShawn Lloyd':122,
   'Kaelon Black':148,
   'Devaughn Vele':142,
@@ -782,7 +809,7 @@ const MARKET_RANK={
   'David Montgomery':62,
   'DK Metcalf':68,
   'Alec Pierce':94,
-  'Makai Lemon':101,
+  'Makai Lemon':88,
   'Jayden Reed':110,
   'Jayden Higgins':121,
   'Trey Benson':195,
@@ -821,8 +848,8 @@ const MARKET_RANK={
   // v4.9 stale-rank cleanup from current mock testing
   "Michael Pittman Jr.":98,
   "Marvin Harrison Jr.":76,
-  "Michael Wilson":83,
-  "Jordan Mason":94,
+  "Michael Wilson":88,
+  "Jordan Mason":90,
   "Josh Downs":111,
   "Stefon Diggs":116,
   "Keenan Allen":105,
@@ -833,7 +860,7 @@ const MARKET_RANK={
   "Jalen Coker":144,
   "Rashid Shaheed":155,
   "Travis Hunter":190,
-  "Woody Marks":105,
+  "Woody Marks":103,
   "Rachaad White":113,
   'David Montgomery':88,
 
@@ -873,7 +900,7 @@ const MARKET_RANK={
   'Sam LaPorta':88,
   'Chris Godwin':93,
   'Chuba Hubbard':101,
-  'Aaron Jones':97,
+  'Aaron Jones':104,
   'Jakobi Meyers':99,
   'Chris Rodriguez Jr.':101,
   'KC Concepcion':116,
@@ -885,7 +912,7 @@ const MARKET_RANK={
   'Mark Andrews':125,
   'Bo Nix':126,
   'George Kittle':79,
-  'Tyler Allgeier':129,
+  'Tyler Allgeier':138,
   'Baker Mayfield':131,
   'Dallas Goedert':132,
   'Deebo Samuel':133,
@@ -901,10 +928,11 @@ const MARKET_RANK={
   'Tre Tucker':154,
   'Kayshon Boutte':148,
   'Malik Washington':159,
-  'Juwan Johnson':137,
+  'Juwan Johnson':118,
   'Jaylin Noel':166,
   'Cyrus Allen':185,
-  "Ja'Kobi Lane":188,
+  "Ja'Kobi Lane":118,
+  'Rashod Bateman':112,
   'Zamir White':205,
 };
 
@@ -1662,7 +1690,7 @@ async function syncSleeperDraft(options={}){
  const id=(document.getElementById('sleeperDraftId').value||'').trim();
  if(!id){setSleeperStatus('Enter a Sleeper draft ID first.','err');return;}
 
- // v7.9.9: the five-second background poll is intentionally quiet. Manual
+ // v7.9.10: the five-second background poll is intentionally quiet. Manual
  // Sync (and first/forced syncs) can still show immediate progress feedback.
  if(!silent)setSleeperStatus('Syncing picks from Sleeper…');
  try{
@@ -1789,7 +1817,7 @@ async function syncSleeperDraft(options={}){
    lastSleeperPicksSignature=picksSignature;
    lastSleeperUnmatchedSignature=unmatchedSignature;
 
-   // v7.9.9: the network check still runs every five seconds, but the expensive
+   // v7.9.10: the network check still runs every five seconds, but the expensive
    // full interface redraw only happens when the synced draft actually changed.
    if(meaningfulChange)render();
 
@@ -2090,11 +2118,16 @@ const CURRENT_RISK_PROFILE={
  'Alvin Kamara':{penalty:24,label:'MCL sprain / expected to miss at least roughly a month',verified:'2026-08-28',staleAfterDays:3,note:'Current reporting points to a meaningful early-season absence. In a 10-team league with short benches, price both missed games and bench opportunity cost aggressively.'},
  'Tank Dell':{penalty:7,label:'limited return-to-work / readiness watch',verified:'2026-08-26',staleAfterDays:3,note:'Dell is back in the practice mix but not yet a fully clean availability projection; keep the late-round ceiling while pricing in readiness uncertainty.'},
  'Josh Jacobs':{penalty:36,label:'COMMISSIONER EXEMPT LIST + lingering groin risk · LATE-FALL ONLY',verified:'2026-08-30',staleAfterDays:1,requiresCurrentClearance:true,persistentSoftTissue:true,residualPenalty:4,note:'Jacobs cannot practice or play while on the Commissioner’s Exempt List, with no reliable return date yet. Green Bay also added Kaleb Johnson. User preference is explicit: avoid at normal/early-mid prices and consider only after a very large fall; the groin issue remains a separate residual-risk layer even if legal availability later clears.'},
- 'Keenan Allen':{penalty:3,label:'legal/NFL availability VERIFY',verified:'2026-08-30',staleAfterDays:1,note:'Football-role signals are encouraging, but a fresh legal situation creates unresolved availability risk. Do not assume league discipline; use this as a small VERIFY discount until status is clarified.'},
+ 'Keenan Allen':{penalty:10,label:'DUI arrest / NFL discipline VERIFY',verified:'2026-08-30',staleAfterDays:1,note:'Allen was arrested on misdemeanor DUI/endangerment charges. Indianapolis is gathering information. Do not assume a suspension or when discipline might occur, but the uncertainty is material enough to move him behind healthy comparable late receivers.'},
  'Jakobi Meyers':{penalty:12,label:'right-hand injury / current clearance VERIFY',verified:'2026-08-30',staleAfterDays:1,requiresCurrentClearance:true,note:'Sleeper/live draft context still flags the hand injury. Until current clearance and normal practice/usage are confirmed, do not treat Meyers as a clean late-round recommendation over healthy comparable options.'},
  'Alec Pierce':{penalty:3,label:'activated from PUP / ankle ramp-up',verified:'2026-08-28',staleAfterDays:2,note:'Activation materially improves availability confidence, but the delayed camp and ankle recovery justify a small ramp-up tiebreaker until full work is sustained.'},
  'WanDale Robinson':{penalty:1,label:'head-impact evaluation / monitor only',verified:'2026-08-28',staleAfterDays:2,note:'Current reporting does not indicate a confirmed concussion. Keep only a monitor flag unless symptoms/status worsen.'},
- 'Puka Nacua':{penalty:6,label:'psoas soft-tissue management',verified:'2026-08-28',staleAfterDays:2,persistentSoftTissue:true,residualPenalty:3,note:'Nacua remains outside team drills while doing side work. Preserve elite ceiling but use the soft-tissue issue as a real tiebreaker at premium draft cost until full work is sustained.'},
+ 'Makai Lemon':{penalty:4,label:'hamstring return / routes restored',verified:'2026-08-30',staleAfterDays:2,persistentSoftTissue:true,residualPenalty:2,note:'The 100% route participation and target share are highly encouraging, but a recent hamstring issue still deserves a modest reinjury tiebreaker until full work is sustained.'},
+ 'Rashod Bateman':{penalty:7,label:'legal/NFL conduct review VERIFY',verified:'2026-08-30',staleAfterDays:1,note:'The Ravens notified the NFL of Bateman\'s June arrest and the league says the case is under review. Do not assume discipline, but price unresolved availability against comparable late receivers.'},
+ 'George Kittle':{penalty:8,label:'accelerated Achilles return / Week 1 eligible',verified:'2026-08-30',staleAfterDays:2,note:'Activation from PUP is a major positive, but Kittle is 32 and returning on an accelerated timeline from a January Achilles tear. Do not equate eligible with fully restored durability/workload.'},
+ 'Breece Hall':{penalty:5,label:'groin recovery / Week 1 expected',verified:'2026-08-30',staleAfterDays:2,persistentSoftTissue:true,residualPenalty:3,note:'The Jets expect Hall for Week 1, but the original 2–3 week groin timetable warrants a residual reinjury/workload tiebreaker until sustained full participation.'},
+ 'Isiah Pacheco':{penalty:8,label:'back injury / Week 1 availability uncertain',verified:'2026-08-30',staleAfterDays:2,note:'The knee concern has improved, but a new back issue leaves the Gibbs complementary role uncertain for Week 1. Treat him as a contingency player with active availability risk.'},
+ 'Puka Nacua':{penalty:9,label:'psoas management + NFL conduct review VERIFY',verified:'2026-08-30',staleAfterDays:1,persistentSoftTissue:true,residualPenalty:4,note:'Nacua was not placed on the Commissioner Exempt list today, but the NFL says the matter remains under review. Separately, he has not yet fully cleared the psoas issue. Preserve elite talent, but require a real discount versus equally elite clean options.'},
  "De'Zhaun Stribling":{penalty:2,label:'shoulder / non-contact return',verified:'2026-08-26',staleAfterDays:3,note:'He is back in non-contact work and now projects for a major Week 1 role amid San Francisco injuries. Health is a small watch, not a reason to ignore the opportunity.'}
 };
 
@@ -2111,7 +2144,7 @@ function currentRiskFor(p){
  return {...base,ageDays,stale:newsStale,effectivePenalty,persistentSoftTissue:persistent};
 }
 
-// v7.9.9 user-specific risk-tolerance overrides. These are decision-policy rules,
+// v7.9.10 user-specific risk-tolerance overrides. These are decision-policy rules,
 // separate from football talent and market timing. They prevent a risky player from
 // resurfacing merely because an old evaluation rank is high.
 const USER_DRAFT_OVERRIDES=Object.freeze({
@@ -2137,13 +2170,13 @@ const UPSIDE_PROFILE={
  'Christian Watson':{score:82,note:'High weekly ceiling; durability adds volatility.'},
  'Mike Evans':{score:76,note:'Proven touchdown and target ceiling.'},
  'Terry McLaurin':{score:74,note:'Stable target role and weekly usability.'},
- 'Kenneth Gainwell':{score:79,note:'Significant passing-down role gives him PPR utility plus contingent backfield upside; do not treat him as the lead runner.'},
+ 'Kenneth Gainwell':{score:84,note:'Tampa views Gainwell as a real 1B/receiving complement to Bucky Irving. He has standalone full-PPR utility plus contingent upside, without being projected as the lead runner.'},
  'Kyle Monangai':{score:82,note:'Young back with role-growth potential; current knee injury is handled separately as availability risk.'},
  'Quinshon Judkins':{score:86,note:'Lead-back ceiling if healthy.'},
  'Cam Skattebo':{score:84,note:'Receiving/upside profile remains appealing, but the Giants backfield is now crowded enough that lead-workload certainty should not be assumed.'},
  'Rashee Rice':{score:84,note:'High-volume PPR ceiling.'},
  'Jeremiyah Love':{score:88,note:'High-end rookie RB ceiling remains intact; high-ankle availability is handled separately and is a meaningful early-season tiebreaker.'},
- 'Jordan Mason':{score:79,note:'Standalone early-down/goal-line value is rising in Minnesota; committee role is more than pure handcuff status.'},
+ 'Jordan Mason':{score:83,note:'Minnesota continues to signal meaningful standalone early-down/goal-line work beside Aaron Jones; committee role is clearly more than pure handcuff status.'},
  'Jonathon Brooks':{score:87,note:'First-team work alongside Bryce Young strengthens the case for standalone PPR volume plus a path to materially more work if Hubbard is limited.'},
  "De'Zhaun Stribling":{score:93,note:'Major Week 1 role expectation plus the 49ers injury cascade creates legitimate late-round breakout upside.'},
  'Tre Tucker':{score:88,note:'Preseason starter treatment points to the Raiders No. 1 WR role; useful late-round volume bet.'},
@@ -2157,14 +2190,25 @@ const UPSIDE_PROFILE={
  'MarShawn Lloyd':{score:92,note:'Jacobs’ exempt-list placement creates real early opportunity, but the Kaleb Johnson trade means Lloyd should be valued as the preferred beneficiary with competition rather than a guaranteed monopoly lead back.'},
  'Kaleb Johnson':{score:77,note:'New Green Bay contingency back after the Jacobs exempt-list move. Trade-created opportunity is real, but limited rookie production and an unsettled hierarchy keep him in the late-round/watch tier.'},
  'Keenan Allen':{score:79,note:'Encouraging Colts usage plus elite historical target earning support a useful PPR role; legal/NFL availability uncertainty is scored separately and must be re-verified.'},
- 'Mike Washington Jr.':{score:91,note:'Emerging Raiders RB2 with some standalone appeal and a major workload path if Jeanty is limited; ideal asymmetric late-round RB archetype.'},
- 'Tyler Allgeier':{score:88,note:'Love high-ankle uncertainty plus first-team work creates early standalone utility and strong contingent upside.'},
+ 'Mike Washington Jr.':{score:95,note:'80% starter-group snaps and 89% of carries plus reports of a persistent role make Washington one of the strongest asymmetric late-round RB targets, not merely a Jeanty handcuff.'},
+ 'Tyler Allgeier':{score:74,note:'Love\'s high-ankle injury creates short-term contingency value, but Allgeier has a narrow rushing/TD production tree and limited receiving history. Ceiling depends heavily on Love missing time.'},
  'Tyjae Spears':{score:90,note:'First-team snap share and passing-down work create a PPR-friendly standalone role with additional upside if Pollard loses more work.'},
  'R.J. Harvey':{score:89,note:'Starter-group treatment and receiving usage support real standalone PPR value rather than a pure contingency profile.'},
  'Jonah Coleman':{score:84,note:'Denver meaningful-group treatment improves the late-round standalone/contingent case; do not pay a mid-round price.'},
  'Najee Harris':{score:80,note:'Giants role evidence restores late-round relevance in a crowded backfield; price as a committee/value bet, not a locked starter.'},
  'Cyrus Allen':{score:85,note:'Chiefs camp riser with a path toward the No. 3 WR job; end-of-draft flier only.'},
- "Ja'Kobi Lane":{score:84,note:'Ravens rookie has flashed downfield/red-zone ability and could push for WR3 duties; deep-league/endgame dart.'}
+ "Ja'Kobi Lane":{score:92,note:'Rested with Baltimore\'s starters/key depth and now projects as the WR3 in 11 personnel. Legitimate Round 11-12 upside target rather than only an endgame dart.'},
+ 'Emmett Johnson':{score:93,note:'78% snap share, 88% of rushing attempts and a 70% route rate with the meaningful Kansas City group create a PPR-friendly next-man-up profile behind Kenneth Walker.'},
+ 'Woody Marks':{score:89,note:'Houston is signaling passing-down work and a potentially substantial committee share, giving Marks standalone PPR value plus contingency upside.'},
+ 'Seth McGowan':{score:89,note:'Indianapolis starter-line usage points to the RB2 job behind Jonathan Taylor; cheap late-round contingency with a clearer path than generic depth backs.'},
+ 'Makai Lemon':{score:92,note:'100% route participation and 39% target share on return from hamstring injury support major rookie ceiling; health risk is handled separately.'},
+ 'Michael Wilson':{score:76,note:'Still has useful production upside, but preseason starter rotation lowers confidence in a locked every-down route role.'},
+ 'Xavier Worthy':{score:86,note:'Deeper route deployment preserves explosive weekly ceiling but makes him more boom-bust and less protected by easy PPR volume.'},
+ 'Quentin Johnston':{score:86,note:'Top-two Chargers WR usage with Herbert plus vertical scoring upside creates a credible WR3 ceiling in the new offense.'},
+ 'Kyle Pitts':{score:78,note:'Target efficiency and athletic ceiling remain, but 12-personnel rotation can cap routes below true every-down elite TE usage.'},
+ 'KC Concepcion':{score:80,note:'Cleveland slot/receiver-room opportunity is real, but quarterback quality and target competition keep the ceiling uncertain. Strong comparison-set player, not an automatic pick.'},
+ 'Luther Burden':{score:88,note:'Latest work looks healthy and the breakout talent case remains strong; only a light residual groin penalty remains.'},
+ 'Jacob Saylors':{score:84,note:'Detroit is comfortable with Saylors as the primary Gibbs backup if Pacheco misses time. Deep contingency only, but now a real watch-list name.'}
 };
 
 
@@ -2175,9 +2219,9 @@ const UPSIDE_PROFILE={
 // while losing draft appeal because his path to touches/targets is less secure.
 const ROLE_SECURITY_PROFILE=Object.freeze({
   'Tyrone Tracy Jr.':{adjustment:-21,label:'role-loss / crowded-backfield risk',note:'Pass-protection and ball-security errors, continued preseason usage while key alternatives were rested, plus added veteran competition materially weaken his workload case. Do not target aggressively unless price falls well beyond market.'},
-  'Aaron Jones':{adjustment:-8,label:'committee / early-down pressure',note:'Jordan Mason has earned a larger standalone role; Jones retains receiving utility but should no longer be valued as a secure volume back.'},
-  'Jordan Mason':{adjustment:6,label:'rising standalone role',note:'Strong camp and co-starter/early-down signals increase his independent fantasy value rather than treating him as only a contingency play.'},
-  'Kenneth Gainwell':{adjustment:4,label:'significant passing-down role',note:'Opening-possession usage and receiving work support a real PPR role, but Bucky Irving remains the lead runner.'},
+  'Aaron Jones':{adjustment:-10,label:'receiving-leaning committee / early-down pressure',note:'Jordan Mason has earned a larger early-down/goal-line role. Jones retains useful receiving value, but should no longer be valued as a secure conventional-volume back.'},
+  'Jordan Mason':{adjustment:8,label:'meaningful standalone early-down role',note:'Camp and usage signals increasingly support Mason as Minnesota\'s primary conventional runner beside Jones, not merely a contingency handcuff.'},
+  'Kenneth Gainwell':{adjustment:8,label:'1B / standalone PPR role',note:'Tampa has treated Gainwell as the clear complement to Bucky Irving, with meaningful receiving and rotational work. Irving remains 1A, but Gainwell has more than pure third-down value.'},
   'Travis Etienne':{adjustment:10,label:'clear early lead/passing-down opportunity',note:'Kamara is expected to miss multiple early games and current reporting points to Etienne handling the bulk of healthy backfield work. Raise near-term role confidence without confusing it with a talent regrade.'},
   "D'Andre Swift":{adjustment:4,label:'temporary opportunity bump',note:'Monangai injury increases near-term workload clarity; treat this as role opportunity rather than a talent regrade.'},
   'Jonathon Brooks':{adjustment:10,label:'first-team committee / role-growth opportunity',note:'Playing roughly 10 of 12 snaps with Bryce Young before starter rest materially strengthens Brooks standalone role and path to more work.'},
@@ -2202,8 +2246,8 @@ const ROLE_SECURITY_PROFILE=Object.freeze({
   'Devaughn Vele':{adjustment:6,label:'temporary Saints WR2 path',note:'Jordyn Tyson’s expected absence creates first-half snaps and targets, though Juwan Johnson may remain the stronger secondary target earner.'},
   'Alec Pierce':{adjustment:6,label:'activated / outside-WR role strengthened',note:'Activation from PUP plus the current Indianapolis depth chart restores a credible starting outside/deep role; keep only a small health ramp-up penalty separately.'},
   'Fernando Mendoza':{adjustment:-14,label:'starter uncertainty / developmental redraft risk',note:'Current preseason evidence does not support treating Mendoza as a normal immediate 1-QB starter target. Keep visible for verification, but sharply lower 2026 redraft role confidence unless he wins the job.'},
-  'Mike Washington Jr.':{adjustment:10,label:'Raiders RB2 / role-growth signal',note:'Preseason work and staff confidence establish him as the preferred contingency behind Jeanty with potential standalone touches.'},
-  'Tyler Allgeier':{adjustment:7,label:'Love injury beneficiary / first-team role',note:'Love high-ankle uncertainty and Allgeier first-team work materially strengthen early-season standalone and contingent volume.'},
+  'Mike Washington Jr.':{adjustment:13,label:'Raiders RB2 + standalone role-growth signal',note:'80% starter-group snaps and 89% of carries in the finale, plus reports of a continuing role after Jeanty returns, establish Washington as a real standalone/contingent target.'},
+  'Tyler Allgeier':{adjustment:1,label:'short-term Love contingency / limited PPR standalone',note:'Love\'s injury can create early touches, but preseason starter usage favored Love and Allgeier lacks a strong receiving floor. Do not project role growth once Love is fully integrated.'},
   'Tony Pollard':{adjustment:-8,label:'shared first-team workload',note:'Spears out-snapping Pollard with the first team in preseason materially weakens a secure-volume projection, especially in full PPR.'},
   'Tyjae Spears':{adjustment:9,label:'passing-down + first-team role',note:'First-team snap share and passing-down usage create standalone PPR value rather than a pure backup profile.'},
   'R.J. Harvey':{adjustment:8,label:'starter-group / receiving role',note:'Opening-drive and starter-group treatment plus receiving production materially strengthen standalone role confidence.'},
@@ -2211,7 +2255,18 @@ const ROLE_SECURITY_PROFILE=Object.freeze({
   'Cam Skattebo':{adjustment:-3,label:'crowded Giants committee',note:'Upside remains, but Najee Harris and other competition reduce confidence in an uncontested lead role.'},
   'Najee Harris':{adjustment:5,label:'Giants committee relevance',note:'Signing and preseason usage establish a plausible meaningful role; treat as a late-round committee value rather than irrelevant depth.'},
   'Drake London':{adjustment:0,label:'QB-dependent ceiling VERIFY',note:'Do not force a rank change until Atlanta names its starter. Penix would modestly strengthen London’s ceiling; unresolved QB status remains a verification item.'},
-  'KC Concepcion':{adjustment:10,label:'clearer Cleveland starting path',note:'Cedric Tillman’s release plus veteran depth-chart attrition and strong rookie momentum create a clearer path to meaningful snaps/targets. Treat as an upside bench target rather than a generic late-round name.'}
+  'KC Concepcion':{adjustment:7,label:'clearer Cleveland slot/starting path',note:'Receiver-room attrition gives Concepcion a real path to meaningful snaps and targets, but Cleveland QB quality and competing options cap confidence. Keep him in the upside comparison set rather than treating him as an automatic late pick.'},
+  'Emmett Johnson':{adjustment:11,label:'Kansas City RB2 / passing-down-capable next man',note:'78% snaps, 88% of attempts and a 70% route rate with the meaningful group point to a true RB2 role behind Kenneth Walker with PPR utility.'},
+  'Woody Marks':{adjustment:9,label:'Houston committee + passing-down opportunity',note:'Coaches and beat reporting support meaningful passing-down work and a potentially substantial share beside David Montgomery. Value the PPR role without projecting a monopoly.'},
+  'Seth McGowan':{adjustment:9,label:'Colts RB2 starter-line signal',note:'McGowan handled 83% of snaps and 80% of RB attempts with the starting offensive line in the finale, strengthening his claim to the Jonathan Taylor contingency role.'},
+  'Makai Lemon':{adjustment:10,label:'full-route rookie role signal',note:'On return, Lemon played 81% of snaps, ran a route on 100% of pass plays and drew 39% of targets over the first four drives. Health remains a separate residual-risk layer.'},
+  "Ja'Kobi Lane":{adjustment:10,label:'Ravens WR3 / 11-personnel role',note:'Baltimore rested Lane with the starters/key depth in the finale, strongly indicating he won the third-WR role for 11 personnel.'},
+  'Michael Wilson':{adjustment:-4,label:'starter-snap rotation risk',note:'Wilson played only 7 of 11 snaps with Arizona\'s starters in the preseason sample while another receiver rotated in. Keep him draftable, but lower every-down route certainty.'},
+  'Xavier Worthy':{adjustment:-4,label:'deeper-route / lower PPR-floor role',note:'Kansas City is pushing Worthy deeper and discussing fewer line-of-scrimmage touches. The explosive ceiling remains, but easy-volume protection is weaker in full PPR.'},
+  'Quentin Johnston':{adjustment:6,label:'Chargers top-two WR role',note:'Starter usage with Herbert and a 65-yard preseason touchdown support a top-two wideout role with vertical ceiling.'},
+  'Kyle Pitts':{adjustment:-4,label:'12-personnel route rotation',note:'Pitts remained productive but posted only 64% route participation in the starter sample, rotating out in heavier personnel. Cap every-down workload assumptions.'},
+  'Juwan Johnson':{adjustment:7,label:'Saints No. 2 target path',note:'Strong production with Tyler Shough plus Jordyn Tyson\'s absence gives Johnson a credible early path to being the second target behind Olave.'},
+  'Jacob Saylors':{adjustment:5,label:'Gibbs backup if Pacheco sits',note:'Detroit has expressed comfort with Saylors as the primary backup behind Gibbs if Pacheco cannot go. Deep contingency only.'}
 });
 function roleSecurityFor(p){return ROLE_SECURITY_PROFILE[p?.name]||null;}
 
@@ -2691,7 +2746,7 @@ function championScore(p,pick){
  const roleSecurityAdjustment=roleSecurity?.adjustment||0;
  score+=roleSecurityAdjustment;
 
- // v7.9.9: user-specific risk tolerance is a separate decision-policy layer.
+ // v7.9.10: user-specific risk tolerance is a separate decision-policy layer.
  // Josh Jacobs remains visible for extreme-discount evaluation, but cannot be
  // promoted into a normal Champion recommendation before the user's late-fall window.
  const userOverride=userDraftOverrideFor(p);
@@ -3328,7 +3383,7 @@ function currentBrief(){
 
  const realResearch=`REAL LEAGUE DRAFT RULE — Sleeper completed picks/player IDs are authoritative. 2023–25 manager tendencies are priors for survival/threat only; completed 2026 behavior progressively overrides those priors. Historical opponent data never changes football quality, injury evaluation, upside or ADP itself.`;
  const simResearch=`REAL LEAGUE SIMULATION RULE — simulate the named 2023–25 managers and room shape, while blending current 2026 roster behavior as picks accumulate. Use this to practice the actual league, not to model Sleeper CPU bots.`;
- const cpuResearch=`CPU MOCK RULE — named managers and 2023–25 league tendencies are OFF. Opponent simulation starts from current Sleeper market timing plus generic roster needs. v7.9.9 stability guardrails are ACTIVE: FRESH/AGING observed Sleeper ADP anchors timing; established curated QB/TE values get an explicit overdue catch-up lane; API-only and UNSCOUTED players can never trigger forced picks; unscouted API-only names are progressively suppressed until late rounds; stale observations remain plausibility bands; baseline randomness stays reduced.`;
+ const cpuResearch=`CPU MOCK RULE — named managers and 2023–25 league tendencies are OFF. Opponent simulation starts from current Sleeper market timing plus generic roster needs. v7.9.10 stability guardrails are ACTIVE: FRESH/AGING observed Sleeper ADP anchors timing; established curated QB/TE values get an explicit overdue catch-up lane; API-only and UNSCOUTED players can never trigger forced picks; unscouted API-only names are progressively suppressed until late rounds; stale observations remain plausibility bands; baseline randomness stays reduced. Aug. 30 deep-dive role calibration is active for late-round PPR backs/receivers and same-day legal/availability VERIFY flags.`;
  const research=isCpuMockMode()?cpuResearch:isRealLeagueSimulationMode()?simResearch:realResearch;
  const verify=reliabilityCheck();
  const verifyText=`Draft-night verification: ${verify.level.toUpperCase()}${verify.issues.length?` — ${verify.issues.join(' · ')}`:''}${verify.warnings.length?` — ${verify.warnings.join(' · ')}`:''}`;
@@ -3370,7 +3425,8 @@ ${championText}
 FINAL PICK RULE: Do not automatically draft the first shortlist player. Use the live Sleeper board, roster requirements, and current ChatGPT/web research to choose among these candidates.
 LIVE SCREEN RULE: If the user supplies a Sleeper screenshot, confirm the recommended player is actually shown/verified as available before telling the user to click him. If the screenshot and trainer disagree on availability, the Sleeper screen/completed-pick feed wins.
 USER RISK OVERRIDE: Josh Jacobs = LATE-FALL ONLY while on the Commissioner’s Exempt List / unresolved groin-risk profile. Do not recommend him at normal early/mid-round cost; before pick 120 the Champion score is capped so stale talent rank cannot override the user's risk tolerance. Re-evaluate immediately only if official availability materially clears.
-PACKERS BACKFIELD UPDATE: MarShawn Lloyd is the preferred fantasy beneficiary of Jacobs' absence, but Kaleb Johnson's acquisition means do not project an automatic monopoly. Kaleb Johnson is a late contingency/watch option until role evidence strengthens.
+PACKERS BACKFIELD UPDATE: MarShawn Lloyd is the preferred fantasy beneficiary of Jacobs' absence, but Kaleb Johnson\'s acquisition means do not project an automatic monopoly. Kaleb Johnson is a late contingency/watch option until role evidence strengthens.
+DEEP-DIVE LATE-ROUND RULE: Give extra weight to verified starter-group snaps/routes and PPR role evidence. Mike Washington Jr., Emmett Johnson, Woody Marks, Seth McGowan, Makai Lemon, and Ja'Kobi Lane received meaningful role upgrades; Tyler Allgeier is now short-term contingency/limited-PPR rather than a generic role-growth target. Puka Nacua, Keenan Allen, Rashod Bateman, George Kittle, Breece Hall, and Isiah Pacheco carry current VERIFY/risk context that must not be erased by old market rank.
 
 ${research}
 
