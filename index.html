@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" name="viewport"/>
-<title>2026 Fantasy Championship Hub — v8.1.0</title>
+<title>2026 Fantasy Championship Hub — v8.1.2</title>
 <meta content="#071228" name="theme-color"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -21,7 +21,7 @@
   --cell:102px; --font:13px;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+html,body{margin:0;max-width:100%;overflow-x:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 body{padding:14px 14px 42px}
 .wrap{max-width:1220px;margin:0 auto}
 h1{font-size:24px;margin:0 0 4px} h2{font-size:18px;margin:0 0 10px} h3{font-size:16px;margin:0 0 8px}
@@ -110,7 +110,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 }
 
 
-/* ===== v8.1.0 Championship Season Hub ===== */
+/* ===== v8.1.1 Championship Season Hub ===== */
 :root{
   --hub-teal:#21d4c2; --hub-cyan:#48a9ff; --hub-violet:#8b72ff; --hub-gold:#f4c95d;
   --hub-deep:#071228; --hub-panel:rgba(18,26,47,.94); --hub-soft:rgba(79,134,255,.10);
@@ -127,9 +127,8 @@ body{padding-top:max(12px,env(safe-area-inset-top))}
 .hero-chips{position:relative;z-index:1;display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
 .hero-chip{font-size:11px;font-weight:850;border-radius:999px;padding:5px 9px;background:rgba(6,15,36,.48);border:1px solid rgba(255,255,255,.13);color:#dfe8ff}
 .hero-chip.live{color:#bff8ec;border-color:rgba(33,212,194,.36)}
-.app-nav{position:sticky;top:max(6px,env(safe-area-inset-top));z-index:40;display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:7px;margin:8px 0 14px;background:rgba(7,18,40,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(82,111,171,.35);border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.18);scrollbar-width:none}
-.app-nav::-webkit-scrollbar{display:none}
-.nav-btn{flex:0 0 auto;min-width:98px;padding:9px 12px;border-radius:11px;background:transparent;border-color:transparent;color:#b8c5df;font-size:13px;white-space:nowrap}
+.app-nav{position:sticky;top:max(6px,env(safe-area-inset-top));z-index:40;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;overflow:visible;padding:7px;margin:8px 0 14px;background:rgba(7,18,40,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(82,111,171,.35);border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.18)}
+.nav-btn{min-width:0;width:100%;padding:9px 8px;border-radius:11px;background:transparent;border-color:transparent;color:#b8c5df;font-size:13px;white-space:normal;line-height:1.15;text-align:center}
 .nav-btn:hover{background:rgba(255,255,255,.05)}
 .nav-btn.active{color:white;background:linear-gradient(135deg,rgba(72,169,255,.90),rgba(139,114,255,.88));border-color:rgba(255,255,255,.12);box-shadow:0 6px 18px rgba(62,102,215,.25)}
 .app-screen{display:none;animation:screenIn .18s ease-out}
@@ -172,12 +171,21 @@ body{padding-top:max(12px,env(safe-area-inset-top))}
 .api-note{font-size:11px;color:var(--muted);line-height:1.45;margin-top:8px}
 .hub-footer{font-size:11px;color:#8794b2;line-height:1.45;margin:16px 4px 0;text-align:center}
 @media(max-width:760px){
-  .hero-header{padding:16px 14px}.hero-title{font-size:23px}.hero-mark{width:44px;height:44px;font-size:22px}.nav-btn{min-width:88px;padding:9px 10px}
+  .hero-header{padding:16px 14px}.hero-title{font-size:23px}.hero-mark{width:44px;height:44px;font-size:22px}.app-nav{position:static;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.nav-btn{min-width:0;width:100%;padding:10px 8px}
   .hub-grid,.lineup-grid,.trade-grid,.team-roster-grid{grid-template-columns:1fr}.hub-card.full{grid-column:auto}.season-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.bye-summary{grid-template-columns:1fr}.season-connect{grid-template-columns:1fr}.waiver-toolbar{grid-template-columns:1fr}
 }
 
 
-/* ===== v8.1.0 UX + Season Logistics refresh ===== */
+
+/* v8.1.1 mobile navigation: every Hub screen button stays visible without sideways swiping. */
+@media(max-width:760px){
+  .app-nav{grid-template-columns:repeat(2,minmax(0,1fr));position:static;top:auto}
+  .nav-btn{min-height:42px;display:flex;align-items:center;justify-content:center;gap:4px}
+  .app-screen,.hub-card,.logistics-card,.need-banner{min-width:0;max-width:100%}
+}
+@media(max-width:360px){.app-nav{grid-template-columns:1fr 1fr}.nav-btn{font-size:10.5px;padding:9px 5px}}
+
+/* ===== v8.1.1 UX + Season Logistics refresh ===== */
 body{
   background:
     radial-gradient(900px 520px at 10% -10%,rgba(72,169,255,.14),transparent 64%),
@@ -187,8 +195,8 @@ body{
 .hero-header{padding:20px 20px 17px;border-radius:24px;background:linear-gradient(135deg,#102044 0%,#10394a 48%,#291d50 100%);box-shadow:0 18px 54px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.05)}
 .hero-mark{width:56px;height:56px;border-radius:18px;font-size:29px;background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.05));box-shadow:0 10px 25px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.12)}
 .hero-chip{padding:6px 10px;border-color:rgba(255,255,255,.15);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
-.app-nav{padding:6px;gap:5px;border-radius:17px;background:rgba(5,14,33,.90);border-color:rgba(94,126,190,.34)}
-.nav-btn{min-width:104px;padding:10px 12px;font-size:12px;font-weight:850;letter-spacing:.05px}
+.app-nav{padding:6px;gap:6px;border-radius:17px;background:rgba(5,14,33,.90);border-color:rgba(94,126,190,.34)}
+.nav-btn{min-width:0;width:100%;padding:10px 8px;font-size:12px;font-weight:850;letter-spacing:.05px}
 .nav-btn.active{background:linear-gradient(135deg,#347fe5,#7867e8);box-shadow:0 7px 20px rgba(52,95,215,.30)}
 .hub-card{border-radius:18px;padding:15px;background:linear-gradient(180deg,rgba(24,36,64,.985),rgba(14,23,43,.985));box-shadow:0 12px 30px rgba(0,0,0,.13),inset 0 1px 0 rgba(255,255,255,.025)}
 .hub-card h2{letter-spacing:-.2px}
@@ -217,7 +225,29 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 .waiver-fit{display:inline-block;font-size:8px;font-weight:950;border:1px solid #386c56;background:#133229;color:#bff0d8;border-radius:999px;padding:3px 5px;margin-left:4px;vertical-align:1px}
 .screen-head{margin-bottom:12px}.screen-kicker{max-width:760px;line-height:1.45}
 @media(max-width:860px){.action-center{grid-template-columns:1fr}.quick-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.insight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.logistics-grid{grid-template-columns:1fr}}
-@media(max-width:520px){body{padding-left:9px;padding-right:9px}.hero-header{padding:16px 14px 14px;border-radius:20px}.hero-title{font-size:24px}.hero-sub{font-size:12px}.hero-mark{width:46px;height:46px;font-size:24px;border-radius:15px}.hero-chips{gap:5px}.hero-chip{font-size:9px;padding:5px 7px}.app-nav{margin-left:-1px;margin-right:-1px}.nav-btn{min-width:91px;padding:9px 9px;font-size:11px}.hub-card{padding:12px;border-radius:16px}.season-metrics .metric .value{font-size:20px}.quick-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.action-card{min-height:0}.season-player{padding:9px 1px}.season-player-name{font-size:12px}.player-actions{max-width:42%}.copy-mini{min-height:190px}}
+@media(max-width:520px){body{padding-left:9px;padding-right:9px}.hero-header{padding:16px 14px 14px;border-radius:20px}.hero-title{font-size:24px}.hero-sub{font-size:12px}.hero-mark{width:46px;height:46px;font-size:24px;border-radius:15px}.hero-chips{gap:5px}.hero-chip{font-size:9px;padding:5px 7px}.app-nav{margin-left:0;margin-right:0;grid-template-columns:repeat(2,minmax(0,1fr));position:static}.nav-btn{min-width:0;width:100%;padding:10px 8px;font-size:11.5px}.hub-card{padding:12px;border-radius:16px}.season-metrics .metric .value{font-size:20px}.quick-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.action-card{min-height:0}.season-player{padding:9px 1px}.season-player-name{font-size:12px}.player-actions{max-width:42%}.copy-mini{min-height:190px}}
+
+
+/* ===== v8.1.2 refined centered hero ===== */
+.hero-header{padding:20px 18px 19px;margin-bottom:12px;min-height:0}
+.hero-header:before{inset:-105px auto auto 50%;width:340px;height:210px;transform:translateX(-50%);background:radial-gradient(circle,rgba(72,169,255,.23),transparent 68%)}
+.hero-header:after{right:50%;bottom:-115px;transform:translateX(50%);width:300px;height:220px;background:radial-gradient(circle,rgba(139,114,255,.19),transparent 70%)}
+.hero-top{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center}
+.hero-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%}
+.hero-mark{width:46px;height:46px;border-radius:15px;font-size:24px;margin:0 auto 1px;background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.055));border:1px solid rgba(255,255,255,.18);box-shadow:0 10px 26px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.09)}
+.hero-eyebrow{font-size:10.5px;letter-spacing:2.1px;color:#afefff;margin-top:1px}
+.hero-title{font-size:30px;line-height:1.04;letter-spacing:-.75px;margin-top:5px;text-wrap:balance}
+.hero-rule{width:72px;height:2px;margin:10px auto 9px;border-radius:999px;background:linear-gradient(90deg,transparent,#62d9f7 30%,#a38cff 70%,transparent)}
+.hero-sub{max-width:680px;margin:0 auto;color:#cbd7f4;font-size:12.5px;line-height:1.45;text-align:center;text-wrap:balance}
+.hero-chips{display:none!important}
+.version-badge{display:none!important}
+@media(max-width:760px){
+  .hero-header{padding:18px 16px 17px;border-radius:20px}
+  .hero-mark{width:42px;height:42px;border-radius:14px;font-size:22px}
+  .hero-eyebrow{font-size:9.5px;letter-spacing:1.8px}
+  .hero-title{font-size:27px;line-height:1.05;max-width:320px}
+  .hero-sub{font-size:11.8px;max-width:330px}
+}
 
 </style>
 </head>
@@ -241,18 +271,13 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 
 <header class="hero-header">
 <div class="hero-top">
-<div>
-<div class="hero-eyebrow">2026 season command center</div>
-<div class="hero-title">Fantasy Championship Hub <span class="version-badge" data-app-version="">v8.1.0</span></div>
-<div class="hero-sub">Your week-to-week command center for lineup coverage, bye-week logistics, waivers, league activity, trades, and the Draft Lab that built the team.</div>
-</div>
 <div aria-hidden="true" class="hero-mark">🏆</div>
+<div class="hero-copy">
+<div class="hero-eyebrow">2026 Season Command Center</div>
+<div class="hero-title">Fantasy Championship Hub</div>
+<div class="hero-rule" aria-hidden="true"></div>
+<div class="hero-sub">Your week-to-week command center for lineups, bye weeks, waivers, league activity, trades, and the Draft Lab that built the team.</div>
 </div>
-<div class="hero-chips">
-<span class="hero-chip" id="heroWeekChip">Week —</span>
-<span class="hero-chip" id="heroLeagueChip">League not synced</span>
-<span class="hero-chip live" id="heroSyncChip">Sleeper season sync ready</span>
-<span class="hero-chip">Draft engine preserved</span>
 </div>
 </header><nav aria-label="Championship Hub screens" class="app-nav" id="appNav">
 <button class="nav-btn active" data-screen="dashboard" type="button">🏠 Dashboard</button>
@@ -364,7 +389,7 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 </div>
 </div><div class="card" id="identityRefreshCard">
 <h2 style="margin-bottom:6px">Player/identity refresh</h2>
-<p class="muted" style="font-size:12px;margin:0 0 9px">v8.1.0 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.1.0 adds the Bye Planner, lineup-coverage solver, roster-slot logistics, activity insights, K/DST waiver support, five-minute season auto-refresh, and a cleaner mobile-first interface.</p>
+<p class="muted" style="font-size:12px;margin:0 0 9px">v8.1.1 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.1.1 adds the Bye Planner, lineup-coverage solver, roster-slot logistics, activity insights, K/DST waiver support, five-minute season auto-refresh, a no-sideways-scroll navigation grid, and plain-English one-for-one bye replacement guidance.</p>
 <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
 <div class="syncstatus" id="rankRefreshStatus">Using curated v7.9.11 evaluation ranks with the final Aug. 30 cutdown refresh: confirmed IR/roster moves, late-round PPR role changes, legal/availability VERIFY flags, and the existing starter-group usage calibration. Sleeper API search/identity data has not been refreshed yet.</div>
 </div><div aria-live="polite" class="reliability" id="reliabilityCard">
@@ -430,7 +455,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 </div>
 <div class="champion-actions">
 <button aria-expanded="true" class="champion-toggle" id="championToggleBtn" type="button">Collapse ▲</button>
-<div class="champion-pill">v8.1.0</div>
+<div class="champion-pill">v8.1.1</div>
 </div>
 </div>
 <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -507,9 +532,9 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 <div class="node"><div class="nm">SuperSaiyan · #9/#12</div><div class="tell">Best multi-year scoring profile; went Puka → Josh Allen in 2025.</div></div>
 <div class="node"><div class="nm">TeamJbot · #10/#11</div><div class="tell">Usually WR early, then RB. Controls the 10/11 turn.</div></div>
 </div>
-</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.1.0 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
+</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.1.2 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
 <script>
-const APP_VERSION='v8.1.0';
+const APP_VERSION='v8.1.2';
 const TRAINER_STATUS='SEASON_HUB_V1_DRAFT_ENGINE_7_9_11';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
@@ -3802,8 +3827,8 @@ if(!loadCachedSleeperRanks()){
 }
 
 
-// ===== v8.1.0 SEASON HUB =====
-const SEASON_HUB_VERSION='v8.1.0';
+// ===== v8.1.1 SEASON HUB =====
+const SEASON_HUB_VERSION='v8.1.1';
 let seasonData={leagueId:'',league:null,nflState:null,rosters:[],users:[],matchups:[],transactions:[],week:1,myRosterId:null,myRosterSource:'',syncedAt:null};
 let seasonWaiverPos='ALL';
 let seasonActivityFilter='ALL';
@@ -4097,11 +4122,27 @@ function seasonShortageLabels(plan){
  const counts={}; for(const s of (plan?.shortages||[])){const n=seasonNormalizeSlot(s);counts[n]=(counts[n]||0)+1;}
  return Object.entries(counts).map(([p,n])=>n>1?`${p} ×${n}`:p);
 }
+function seasonNaturalReplacementDetails(plan){
+ const out=[]; const used={};
+ for(const sh of (plan?.shortages||[])){
+  const pos=seasonNormalizeSlot(sh); if(!['K','DST'].includes(pos)||used[pos])continue;
+  const byePlayer=(plan.onBye||[]).find(x=>seasonNormalizeSlot(x.p.pos)===pos);
+  if(byePlayer){out.push({pos,player:byePlayer.p.name,label:pos==='DST'?'D/ST':'kicker'});used[pos]=true;}
+ }
+ return out;
+}
+function seasonReplacementTag(plan){
+ const d=seasonNaturalReplacementDetails(plan);
+ if(!d.length)return '';
+ return d.map(x=>`1-for-1: ${x.player} → ${x.pos==='DST'?'D/ST':'K'}`).join(' · ');
+}
 function seasonPlanSummary(plan){
  const needs=seasonShortageLabels(plan);
- if(!plan.externalAdds)return {title:'Covered internally',copy:`${plan.onBye.length} roster player${plan.onBye.length===1?'':'s'} on bye · no external lineup add required.`,status:'good'};
- const swapCopy=plan.naturalSwaps?` ${plan.naturalSwaps} can be handled as a natural K/DST stream swap.`:'';
- return {title:`${plan.externalAdds} external add${plan.externalAdds===1?'':'s'} needed`,copy:`Need ${needs.join(' + ')||'lineup coverage'}. ${plan.cutsNeeded?`${plan.cutsNeeded} extra roster spot${plan.cutsNeeded===1?'':'s'} must be created.`:'No bench cut is required.'}${swapCopy}`,status:plan.cutsNeeded?'bad':'warn'};
+ if(!plan.externalAdds)return {title:'Covered internally',copy:`${plan.onBye.length} roster player${plan.onBye.length===1?'':'s'} on bye · no outside lineup add required.`,status:'good'};
+ const repl=seasonNaturalReplacementDetails(plan);
+ const replacementCopy=repl.length?' '+repl.map(x=>`Replace ${x.player} with a one-week ${x.label}; that uses the same roster spot.`).join(' '):'';
+ const extra=plan.cutsNeeded?` ${plan.cutsNeeded} additional roster spot${plan.cutsNeeded===1?'':'s'} must be created for the remaining need${plan.cutsNeeded===1?'':'s'}.`:' No extra bench spot is required.';
+ return {title:`${plan.externalAdds} outside add${plan.externalAdds===1?'':'s'} needed`,copy:`Need ${needs.join(' + ')||'lineup coverage'}.${replacementCopy}${extra}`,status:plan.cutsNeeded?'bad':'warn'};
 }
 function seasonUpcomingPlans(){
  const now=seasonCurrentWeek(); return Array.from({length:18-now+1},(_,i)=>seasonCoveragePlan(now+i));
@@ -4114,12 +4155,12 @@ function renderSeasonActionCenter(){
  const cut=plans.find(p=>p.week>seasonCurrentWeek()&&p.cutsNeeded>0); const cur=seasonPlanSummary(current);
  box.innerHTML=`<div class="action-card ${cur.status}"><div class="action-label">Week ${current.week} lineup coverage</div><div class="action-title">${escHub(cur.title)}</div><div class="action-copy">${escHub(cur.copy)}</div></div>`+
  `<div class="action-card ${crunch?(crunch.cutsNeeded?'bad':'warn'):'good'}"><div class="action-label">Next bye crunch</div><div class="action-title">${crunch?`Week ${crunch.week}`:'No immediate crunch'}</div><div class="action-copy">${crunch?`${crunch.onBye.length} roster players off · ${crunch.starterByes.length} current starters · ${seasonPlanSummary(crunch).copy}`:'Current roster structure covers upcoming byes without an external lineup add.'}</div></div>`+
- `<div class="action-card ${cut?'bad':'good'}"><div class="action-label">Roster-slot pressure</div><div class="action-title">${cut?`Week ${cut.week} · ${cut.cutsNeeded} spot${cut.cutsNeeded===1?'':'s'}`:'No extra slot needed'}</div><div class="action-copy">${cut?`Current roster would need ${cut.externalAdds} external lineup add${cut.externalAdds===1?'':'s'} that week. After natural K/DST swaps, plan to create ${cut.cutsNeeded} extra roster spot${cut.cutsNeeded===1?'':'s'}.`:'No future bye currently forces an extra bench cut based on today’s roster.'}</div></div>`;
+ `<div class="action-card ${cut?'bad':'good'}"><div class="action-label">Roster-slot pressure</div><div class="action-title">${cut?`Week ${cut.week} · ${cut.cutsNeeded} spot${cut.cutsNeeded===1?'':'s'}`:'No extra slot needed'}</div><div class="action-copy">${cut?`Current roster would need ${cut.externalAdds} external lineup add${cut.externalAdds===1?'':'s'} that week. After replacing any bye-week K/DST one-for-one, plan to create ${cut.cutsNeeded} extra roster spot${cut.cutsNeeded===1?'':'s'}.`:'No future bye currently forces an extra bench cut based on today’s roster.'}</div></div>`;
 }
 function renderWeekCoverage(){
  const box=document.getElementById('weekCoverage'); if(!box)return; const r=seasonRosterById(seasonData.myRosterId); if(!r){box.innerHTML='';return;}
  const p=seasonCoveragePlan(seasonData.week); const s=seasonPlanSummary(p); const needs=seasonShortageLabels(p);
- box.innerHTML=`<div class="coverage-card ${s.status}"><div class="coverage-top"><div class="coverage-title">Week ${p.week} roster coverage</div><span class="status-pill ${s.status}">${p.externalAdds?`${p.externalAdds} add${p.externalAdds===1?'':'s'}`:'READY'}</span></div><div class="coverage-copy">${escHub(s.copy)}${p.starterByes.length?` Current starters on bye: ${escHub(p.starterByes.map(x=>x.p.name).join(', '))}.`:''}</div>${needs.length?`<div class="coverage-actions">${needs.map(n=>`<span class="plan-tag ${p.cutsNeeded?'bad':'warn'}">Need ${escHub(n)}</span>`).join('')}${p.naturalSwaps?`<span class="plan-tag good">${p.naturalSwaps} natural stream swap</span>`:''}</div>`:''}</div>`;
+ box.innerHTML=`<div class="coverage-card ${s.status}"><div class="coverage-top"><div class="coverage-title">Week ${p.week} roster coverage</div><span class="status-pill ${s.status}">${p.externalAdds?`${p.externalAdds} add${p.externalAdds===1?'':'s'}`:'READY'}</span></div><div class="coverage-copy">${escHub(s.copy)}${p.starterByes.length?` Current starters on bye: ${escHub(p.starterByes.map(x=>x.p.name).join(', '))}.`:''}</div>${needs.length?`<div class="coverage-actions">${needs.map(n=>`<span class="plan-tag ${p.cutsNeeded?'bad':'warn'}">Need ${escHub(n)}</span>`).join('')}${p.naturalSwaps?`<span class="plan-tag good">${escHub(seasonReplacementTag(p))}</span>`:''}</div>`:''}</div>`;
 }
 function renderWaiverNeedBanner(){
  const box=document.getElementById('waiverNeedBanner'); if(!box)return; if(!seasonRosterById(seasonData.myRosterId)){box.innerHTML='';return;}
@@ -4141,10 +4182,10 @@ function renderByeWeeks(){
  const plans=numeric.map(w=>seasonCoveragePlan(w)); const hardest=[...plans].sort((a,b)=>b.cutsNeeded-a.cutsNeeded||b.externalAdds-a.externalAdds||b.starterByes.length-a.starterByes.length)[0]||null;
  const next=plans.find(p=>p.week>=now)||null;
  const summary=`<div class="bye-summary"><div class="bye-stat"><div class="label">Largest bye cluster</div><div class="value">${largest?`W${largest.w} · ${largest.n}`:'—'}</div></div><div class="bye-stat"><div class="label">Next roster bye</div><div class="value">${next?`W${next.week} · ${next.onBye.length}`:'None'}</div></div><div class="bye-stat"><div class="label">Most slot pressure</div><div class="value">${hardest&&hardest.externalAdds?`W${hardest.week} · ${hardest.cutsNeeded} cut${hardest.cutsNeeded===1?'':'s'}`:'Covered'}</div></div></div>`;
- const logistics=plans.map(p=>{const sum=seasonPlanSummary(p),needs=seasonShortageLabels(p);return `<div class="logistics-card ${p.level}"><div class="logistics-head"><div class="logistics-week">Week ${p.week}</div><span class="status-pill ${sum.status}">${p.externalAdds?`${p.externalAdds} ADD${p.externalAdds===1?'':'S'}`:'COVERED'}</span></div><div class="logistics-body"><div class="logistics-main">${p.onBye.length} on bye · ${p.starterByes.length} current starter${p.starterByes.length===1?'':'s'}</div><div class="logistics-detail">${escHub(sum.copy)}</div><div class="logistics-tags">${needs.map(n=>`<span class="plan-tag ${p.cutsNeeded?'bad':'warn'}">Need ${escHub(n)}</span>`).join('')}${p.naturalSwaps?`<span class="plan-tag good">${p.naturalSwaps} K/DST stream swap</span>`:''}${p.cutsNeeded?`<span class="plan-tag bad">Create ${p.cutsNeeded} roster spot${p.cutsNeeded===1?'':'s'}</span>`:''}</div></div></div>`;}).join('');
+ const logistics=plans.map(p=>{const sum=seasonPlanSummary(p),needs=seasonShortageLabels(p);return `<div class="logistics-card ${p.level}"><div class="logistics-head"><div class="logistics-week">Week ${p.week}</div><span class="status-pill ${sum.status}">${p.externalAdds?`${p.externalAdds} ADD${p.externalAdds===1?'':'S'}`:'COVERED'}</span></div><div class="logistics-body"><div class="logistics-main">${p.onBye.length} on bye · ${p.starterByes.length} current starter${p.starterByes.length===1?'':'s'}</div><div class="logistics-detail">${escHub(sum.copy)}</div><div class="logistics-tags">${needs.map(n=>`<span class="plan-tag ${p.cutsNeeded?'bad':'warn'}">Need ${escHub(n)}</span>`).join('')}${p.naturalSwaps?`<span class="plan-tag good">${escHub(seasonReplacementTag(p))}</span>`:''}${p.cutsNeeded?`<span class="plan-tag bad">Create ${p.cutsNeeded} roster spot${p.cutsNeeded===1?'':'s'}</span>`:''}</div></div></div>`;}).join('');
  const cards=numeric.map(w=>{const a=groups.get(w)||[]; const starts=a.filter(x=>x.starter).length; const p=seasonCoveragePlan(w);return `<div class="bye-week-card${a.length>=3?' cluster':''}"><div class="bye-week-head"><div class="bye-week-title">Week ${w}</div><div class="bye-week-meta">${a.length} player${a.length===1?'':'s'} · ${starts} current starter${starts===1?'':'s'}</div></div><div class="bye-week-body">${a.sort((x,y)=>Number(y.starter)-Number(x.starter)||String(x.p.pos).localeCompare(String(y.p.pos))).map(x=>seasonPlayerRow(x.id,x.starter?'STARTER':'BENCH')).join('')}<div class="coverage-card ${seasonPlanSummary(p).status}" style="margin:7px 0 5px"><div class="coverage-copy" style="margin-top:0"><b>Logistics:</b> ${escHub(seasonPlanSummary(p).copy)}</div></div></div></div>`;}).join('');
  const tbd=groups.get('TBD')||[]; const tbdCard=tbd.length?`<div class="bye-week-card"><div class="bye-week-head"><div class="bye-week-title">Bye TBD</div><div class="bye-week-meta">${tbd.length} player${tbd.length===1?'':'s'}</div></div><div class="bye-week-body">${tbd.map(x=>seasonPlayerRow(x.id,x.starter?'STARTER':'BENCH')).join('')}</div></div>`:'';
- box.innerHTML=summary+`<div class="need-banner"><div class="need-title">Roster logistics forecast</div><div class="need-copy">“External add” means the current roster cannot fill every starting slot that week. K/DST bye players can usually be handled as one-for-one stream swaps; other shortages can require a temporary extra roster spot.</div></div><div class="logistics-grid">${logistics}</div><div class="team-section-title" style="margin-top:16px">Players by bye week</div><div class="bye-week-list">${cards}${tbdCard}</div>`;
+ box.innerHTML=summary+`<div class="need-banner"><div class="need-title">Roster logistics forecast</div><div class="need-copy">“Outside add” means your current roster cannot fill every starting slot that week. A bye-week kicker or D/ST can usually be replaced one-for-one: drop/replace that bye player with a one-week free agent in the same roster spot, so no extra bench spot is needed. QB/RB/WR/TE shortages may require an additional temporary roster spot.</div></div><div class="logistics-grid">${logistics}</div><div class="team-section-title" style="margin-top:16px">Players by bye week</div><div class="bye-week-list">${cards}${tbdCard}</div>`;
 }
 function transactionPlayerNames(obj,rosterId=null){
  if(!obj)return [];
@@ -4222,7 +4263,7 @@ function currentSeasonBrief(){
  const rosterLine=a=>a.map(p=>`${p.pos||'?'} ${p.name}${p.team?` [${p.team}]`:''}`).join(', '); const byeGroups={}; for(const id of (r.players||[])){const p=seasonPlayerInfo(id),w=seasonByeForPlayerInfo(p);if(w)(byeGroups[w]||=[]).push(`${p.pos||'?'} ${p.name}`);} const byeText=Object.keys(byeGroups).map(Number).sort((a,b)=>a-b).map(w=>`Week ${w}: ${byeGroups[w].join(', ')}`).join('\n')||'No bye-week data available';
  const tx=(seasonData.transactions||[]).slice(0,12).map(t=>{const team=(t.roster_ids||[]).map(id=>seasonRosterName(seasonRosterById(id))).join(' / '); const adds=transactionPlayerNames(t.adds).join(', '),drops=transactionPlayerNames(t.drops).join(', '); return `${String(t.type||'transaction').toUpperCase()}: ${team}${adds?` · add ${adds}`:''}${drops?` · drop ${drops}`:''}`;});
  const rostered=new Set(seasonData.rosters.flatMap(x=>x.players||[]).map(String)); const waivers=(sleeperCandidatePool||[]).filter(p=>p.sleeperId&&!rostered.has(String(p.sleeperId))&&['RB','WR','QB','TE','DST','K'].includes(p.pos)).sort((a,b)=>waiverSortScore(a)-waiverSortScore(b)).slice(0,20);
- const logistics=seasonUpcomingPlans().filter(p=>p.onBye.length||p.externalAdds).map(p=>{const needs=seasonShortageLabels(p);return `Week ${p.week}: ${p.onBye.length} roster on bye · ${p.starterByes.length} current starters · external adds ${p.externalAdds}${needs.length?` (${needs.join(' + ')})`:''} · extra roster spots to create ${p.cutsNeeded}${p.naturalSwaps?` · natural K/DST swaps ${p.naturalSwaps}`:''}`;}).join('\n')||'No upcoming bye logistics available';
+ const logistics=seasonUpcomingPlans().filter(p=>p.onBye.length||p.externalAdds).map(p=>{const needs=seasonShortageLabels(p);return `Week ${p.week}: ${p.onBye.length} roster on bye · ${p.starterByes.length} current starters · external adds ${p.externalAdds}${needs.length?` (${needs.join(' + ')})`:''} · extra roster spots to create ${p.cutsNeeded}${p.naturalSwaps?` · one-for-one K/DST replacements ${p.naturalSwaps}`:''}`;}).join('\n')||'No upcoming bye logistics available';
  return `CURRENT SEASON STATE\nHub version: ${SEASON_HUB_VERSION}\nLeague: ${seasonData.league?.name||seasonData.leagueId}\nWeek: ${seasonData.week}\nMy team: ${seasonRosterName(r)} · record ${Number(r.settings?.wins||0)}-${Number(r.settings?.losses||0)}\nTeam identity source: ${seasonData.myRosterSource||'automatic'}\nOpponent: ${oppRoster?seasonRosterName(oppRoster):'TBD'}\n\nSTARTERS\n${rosterLine(starters)}\n\nBENCH\n${rosterLine(bench)}\n\nBYE WEEKS\n${byeText}\n\nROSTER LOGISTICS\n${logistics}\n\nTOP CURRENT FREE AGENTS\n${waivers.map(p=>`${p.pos} ${p.name}${teamCodeForPlayer(p)?` [${teamCodeForPlayer(p)}]`:''}`).join(', ')||'No waiver snapshot available'}\n\nRECENT LEAGUE ACTIVITY\n${tx.join('\n')||'No completed transactions yet'}\n\nSEASON RULE\nSleeper rosters, starters, matchups, and completed transactions are source-of-truth league data. Hub bye-logistics output is structural roster coverage only, not a player-quality recommendation. Use current ChatGPT/web research for injuries, roles, news and final lineup/waiver/trade decisions.`;
 }
 function renderSeasonBrief(){const el=document.getElementById('seasonBrief');if(el)el.value=currentSeasonBrief();}
