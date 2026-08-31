@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" name="viewport"/>
-<title>2026 Fantasy Championship Hub — v8.0.0</title>
+<title>2026 Fantasy Championship Hub — v8.0.1</title>
 <meta content="#071228" name="theme-color"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -110,7 +110,7 @@ textarea{width:100%;min-height:185px;background:#0f1730;color:var(--text);border
 }
 
 
-/* ===== v8.0.0 Championship Season Hub ===== */
+/* ===== v8.0.1 Championship Season Hub ===== */
 :root{
   --hub-teal:#21d4c2; --hub-cyan:#48a9ff; --hub-violet:#8b72ff; --hub-gold:#f4c95d;
   --hub-deep:#071228; --hub-panel:rgba(18,26,47,.94); --hub-soft:rgba(79,134,255,.10);
@@ -164,6 +164,7 @@ body{padding-top:max(12px,env(safe-area-inset-top))}
 .waiver-toolbar input{width:100%;background:#0f1730;color:var(--text);border:1px solid var(--border);border-radius:11px;padding:10px 11px;font-size:14px}
 .hub-filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}.hub-filters button{padding:7px 10px;font-size:12px}.hub-filters button.active{background:var(--accent);border-color:var(--accent)}
 .activity-list{display:grid;gap:8px}.activity-item{border:1px solid var(--border);border-radius:13px;padding:10px 11px;background:#10182f}.activity-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.activity-type{font-size:10px;font-weight:900;letter-spacing:.5px;border-radius:999px;padding:3px 7px;background:#1c2e57;border:1px solid #34466e}.activity-time{font-size:10px;color:var(--muted)}.activity-body{font-size:12px;line-height:1.45;margin-top:6px;color:#dce5f8}.activity-body b{color:white}
+.bye-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}.bye-stat{border:1px solid var(--border);border-radius:13px;padding:10px;background:linear-gradient(180deg,#182541,#10182f)}.bye-stat .label{font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:900}.bye-stat .value{font-size:18px;font-weight:950;margin-top:3px}.bye-week-list{display:grid;gap:9px}.bye-week-card{border:1px solid var(--border);border-radius:14px;background:#10182f;overflow:hidden}.bye-week-card.cluster{border-color:#5a6f9d;box-shadow:0 0 0 1px rgba(113,143,205,.12) inset}.bye-week-head{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 11px;background:#15213b;border-bottom:1px solid var(--border)}.bye-week-title{font-size:14px;font-weight:950}.bye-week-meta{font-size:10px;color:var(--muted);text-align:right}.bye-week-body{padding:3px 10px 6px}.identity-note{margin-top:9px;padding:8px 10px;border:1px solid var(--border);border-radius:11px;background:#10182f;font-size:11px;color:var(--muted);line-height:1.4}
 .trade-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.trade-team{border:1px solid var(--border);border-radius:14px;padding:11px;background:#10182f}.trade-team-head{display:flex;justify-content:space-between;gap:8px}.trade-name{font-weight:900}.trade-record{font-size:11px;color:var(--muted)}.trade-counts{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.trade-count{font-size:10px;border:1px solid #3c4c70;border-radius:999px;padding:3px 6px;color:#d8e1f2}.trade-note{font-size:11px;color:#b9c5dc;line-height:1.4}
 .draft-subnav{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}.draft-tab{padding:8px 11px;font-size:12px}.draft-tab.active{background:#20345f;border-color:#4c6aa2}.draft-panel{display:none}.draft-panel.active{display:block}
 .copy-mini{min-height:145px}
@@ -172,7 +173,7 @@ body{padding-top:max(12px,env(safe-area-inset-top))}
 .hub-footer{font-size:11px;color:#8794b2;line-height:1.45;margin:16px 4px 0;text-align:center}
 @media(max-width:760px){
   .hero-header{padding:16px 14px}.hero-title{font-size:23px}.hero-mark{width:44px;height:44px;font-size:22px}.nav-btn{min-width:88px;padding:9px 10px}
-  .hub-grid,.lineup-grid,.trade-grid,.team-roster-grid{grid-template-columns:1fr}.hub-card.full{grid-column:auto}.season-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.season-connect{grid-template-columns:1fr}.waiver-toolbar{grid-template-columns:1fr}
+  .hub-grid,.lineup-grid,.trade-grid,.team-roster-grid{grid-template-columns:1fr}.hub-card.full{grid-column:auto}.season-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.bye-summary{grid-template-columns:1fr}.season-connect{grid-template-columns:1fr}.waiver-toolbar{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -198,7 +199,7 @@ body{padding-top:max(12px,env(safe-area-inset-top))}
 <div class="hero-top">
 <div>
 <div class="hero-eyebrow">2026 season command center</div>
-<div class="hero-title">Fantasy Championship Hub <span class="version-badge" data-app-version="">v8.0.0</span></div>
+<div class="hero-title">Fantasy Championship Hub <span class="version-badge" data-app-version="">v8.0.1</span></div>
 <div class="hero-sub">One place for your weekly matchup, roster, waiver wire, league transactions, trade targets, and the full draft lab that built the team.</div>
 </div>
 <div aria-hidden="true" class="hero-mark">🏆</div>
@@ -213,6 +214,7 @@ body{padding-top:max(12px,env(safe-area-inset-top))}
 <button class="nav-btn active" data-screen="dashboard" type="button">Dashboard</button>
 <button class="nav-btn" data-screen="week" type="button">This Week</button>
 <button class="nav-btn" data-screen="team" type="button">My Team</button>
+<button class="nav-btn" data-screen="byes" type="button">Bye Weeks</button>
 <button class="nav-btn" data-screen="waivers" type="button">Waivers</button>
 <button class="nav-btn" data-screen="activity" type="button">Activity</button>
 <button class="nav-btn" data-screen="trades" type="button">Trade Center</button>
@@ -226,7 +228,11 @@ body{padding-top:max(12px,env(safe-area-inset-top))}
 <label>League ID<input id="seasonLeagueId" inputmode="numeric" placeholder="Auto-detect from draft"/></label>
 <button class="primary" id="seasonSyncBtn" type="button">Sync season</button>
 </div>
-<div class="season-status" id="seasonSyncStatus">Ready. The app will try to identify the league from the saved Sleeper draft.</div>
+<div class="season-connect" style="margin-top:9px">
+<label>My Sleeper team<select id="seasonMyTeamSelect"><option value="">Auto-detect after sync</option></select></label>
+<button id="seasonUseTeamBtn" type="button">Use selected team</button>
+</div>
+<div class="season-status" id="seasonSyncStatus">Ready. The app will identify your roster from the saved draft owner/slot, with a manual team selector as a fallback.</div>
 <div class="api-note">Sleeper's public API is read-only: the Hub can analyze roster/matchup/transaction data, but lineup, waiver and trade submissions still happen in Sleeper.</div>
 </div>
 <div class="grid season-metrics" id="seasonSummary">
@@ -254,6 +260,9 @@ body{padding-top:max(12px,env(safe-area-inset-top))}
 </section><section class="app-screen" data-screen-panel="team" id="screen-team">
 <div class="screen-head"><div><div class="screen-title">My Team</div><div class="screen-kicker">Current Sleeper roster — starters and bench, without draft-night clutter.</div></div></div>
 <div class="hub-card" id="teamRoster"><div class="empty-state">Sync the season to load your current roster.</div></div>
+</section><section class="app-screen" data-screen-panel="byes" id="screen-byes">
+<div class="screen-head"><div><div class="screen-title">Bye Weeks</div><div class="screen-kicker">Your roster grouped by 2026 NFL bye week, with stacked weeks and current starters highlighted.</div></div></div>
+<div class="hub-card" id="byeOverview"><div class="empty-state">Sync the season to build your bye-week calendar.</div></div>
 </section><section class="app-screen" data-screen-panel="waivers" id="screen-waivers">
 <div class="screen-head"><div><div class="screen-title">Waiver Wire</div><div class="screen-kicker">Available players are calculated against every current roster in your league.</div></div></div>
 <div class="hub-card">
@@ -300,7 +309,7 @@ body{padding-top:max(12px,env(safe-area-inset-top))}
 </div>
 </div><div class="card" id="identityRefreshCard">
 <h2 style="margin-bottom:6px">Player/identity refresh</h2>
-<p class="muted" style="font-size:12px;margin:0 0 9px">v8.0.0 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The new season layer is separate so weekly league activity can evolve without destabilizing the draft engine.</p>
+<p class="muted" style="font-size:12px;margin:0 0 9px">v8.0.1 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.0.1 hardens team identity detection and adds the Bye Weeks screen.</p>
 <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
 <div class="syncstatus" id="rankRefreshStatus">Using curated v7.9.11 evaluation ranks with the final Aug. 30 cutdown refresh: confirmed IR/roster moves, late-round PPR role changes, legal/availability VERIFY flags, and the existing starter-group usage calibration. Sleeper API search/identity data has not been refreshed yet.</div>
 </div><div aria-live="polite" class="reliability" id="reliabilityCard">
@@ -366,7 +375,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 </div>
 <div class="champion-actions">
 <button aria-expanded="true" class="champion-toggle" id="championToggleBtn" type="button">Collapse ▲</button>
-<div class="champion-pill">v8.0.0</div>
+<div class="champion-pill">v8.0.1</div>
 </div>
 </div>
 <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -443,9 +452,9 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 <div class="node"><div class="nm">SuperSaiyan · #9/#12</div><div class="tell">Best multi-year scoring profile; went Puka → Josh Allen in 2025.</div></div>
 <div class="node"><div class="nm">TeamJbot · #10/#11</div><div class="tell">Usually WR early, then RB. Controls the 10/11 turn.</div></div>
 </div>
-</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.0.0 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
+</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.0.1 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
 <script>
-const APP_VERSION='v8.0.0';
+const APP_VERSION='v8.0.1';
 const TRAINER_STATUS='SEASON_HUB_V1_DRAFT_ENGINE_7_9_11';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
@@ -3738,9 +3747,9 @@ if(!loadCachedSleeperRanks()){
 }
 
 
-// ===== v8.0.0 SEASON HUB =====
-const SEASON_HUB_VERSION='v8.0.0';
-let seasonData={leagueId:'',league:null,nflState:null,rosters:[],users:[],matchups:[],transactions:[],week:1,myRosterId:null,syncedAt:null};
+// ===== v8.0.1 SEASON HUB =====
+const SEASON_HUB_VERSION='v8.0.1';
+let seasonData={leagueId:'',league:null,nflState:null,rosters:[],users:[],matchups:[],transactions:[],week:1,myRosterId:null,myRosterSource:'',syncedAt:null};
 let seasonWaiverPos='ALL';
 let seasonActiveScreen='dashboard';
 let seasonActiveDraftTab='control';
@@ -3810,19 +3819,73 @@ function seasonPopulateWeekSelect(){
  const current=Number(seasonData.week)||seasonCurrentWeek();
  sel.innerHTML=Array.from({length:18},(_,i)=>`<option value="${i+1}"${i+1===current?' selected':''}>Week ${i+1}</option>`).join('');
 }
+async function hydrateSeasonDraftMetadata(){
+ const draftId=(document.getElementById('sleeperDraftId')?.value||'').trim();
+ if(!draftId)return sleeperDraftMetadata;
+ try{
+   const r=await fetch(`https://api.sleeper.app/v1/draft/${encodeURIComponent(draftId)}`,{cache:'no-store'});
+   if(!r.ok)return sleeperDraftMetadata;
+   const meta=await r.json();
+   sleeperDraftMetadata=meta||sleeperDraftMetadata;
+   return sleeperDraftMetadata;
+ }catch(e){return sleeperDraftMetadata;}
+}
+function seasonRememberMyRoster(roster,source='saved'){
+ if(!roster)return;
+ try{
+   localStorage.setItem('fantasyHubMyRosterId',String(roster.roster_id));
+   if(roster.owner_id)localStorage.setItem('fantasyHubMyOwnerId',String(roster.owner_id));
+ }catch(e){}
+ seasonData.myRosterSource=source;
+}
 function resolveMySeasonRosterId(){
- const mapped=Number(sleeperDraftMetadata?.slot_to_roster_id?.['1']||sleeperDraftMetadata?.slot_to_roster_id?.[1]);
- if(mapped && seasonRosterById(mapped))return mapped;
- const mineIds=new Set((state?.rosters?.MMazz3117||[]).map(p=>String(p.sleeperId||'')).filter(Boolean));
- let best=null,bestHits=0;
- for(const r of seasonData.rosters){
-   const hits=(r.players||[]).filter(id=>mineIds.has(String(id))).length;
-   if(hits>bestHits){bestHits=hits;best=Number(r.roster_id);}
+ const sameDraftLeague=!sleeperDraftMetadata?.league_id||String(sleeperDraftMetadata.league_id)===String(seasonData.leagueId);
+ if(sameDraftLeague){
+   const mapped=Number(sleeperDraftMetadata?.slot_to_roster_id?.['1']||sleeperDraftMetadata?.slot_to_roster_id?.[1]);
+   const mappedRoster=seasonRosterById(mapped);
+   if(mappedRoster){seasonRememberMyRoster(mappedRoster,'draft slot 1');return mapped;}
+   const order=sleeperDraftMetadata?.draft_order||{};
+   const ownerEntry=Object.entries(order).find(([,slot])=>Number(slot)===1);
+   if(ownerEntry){
+     const byOwner=seasonData.rosters.find(r=>String(r.owner_id)===String(ownerEntry[0]));
+     if(byOwner){seasonRememberMyRoster(byOwner,'draft owner');return Number(byOwner.roster_id);}
+   }
  }
- if(bestHits>=2)return best;
- // Slot 1 in this league historically maps to the user's roster; use only as a final fallback.
+ let savedOwner='',savedRoster='';
+ try{savedOwner=localStorage.getItem('fantasyHubMyOwnerId')||'';savedRoster=localStorage.getItem('fantasyHubMyRosterId')||'';}catch(e){}
+ if(savedOwner){
+   const r=seasonData.rosters.find(x=>String(x.owner_id)===String(savedOwner));
+   if(r){seasonRememberMyRoster(r,'saved owner');return Number(r.roster_id);}
+ }
+ // A username/display-name match is much safer than a small player-overlap match.
+ const expected=String(teams?.[0]||'MMazz3117').toLowerCase();
+ const meUser=seasonData.users.find(u=>[u?.username,u?.display_name].some(v=>String(v||'').toLowerCase()===expected));
+ if(meUser){
+   const r=seasonData.rosters.find(x=>String(x.owner_id)===String(meUser.user_id));
+   if(r){seasonRememberMyRoster(r,'username');return Number(r.roster_id);}
+ }
+ if(savedRoster){
+   const r=seasonRosterById(savedRoster);
+   if(r){seasonRememberMyRoster(r,'saved roster');return Number(r.roster_id);}
+ }
+ // Final fallback: use draft-roster overlap only when the signal is strong and clearly separated.
+ const mineIds=new Set((state?.rosters?.MMazz3117||[]).map(p=>String(p.sleeperId||'')).filter(Boolean));
+ const scored=seasonData.rosters.map(r=>({r,hits:(r.players||[]).filter(id=>mineIds.has(String(id))).length})).sort((a,b)=>b.hits-a.hits);
+ if(scored[0]&&scored[0].hits>=4&&scored[0].hits-(scored[1]?.hits||0)>=2){seasonRememberMyRoster(scored[0].r,'draft-player match');return Number(scored[0].r.roster_id);}
  const first=seasonData.rosters.find(r=>Number(r.roster_id)===1);
- return first?1:null;
+ if(first){seasonRememberMyRoster(first,'roster 1 fallback');return 1;}
+ return null;
+}
+function populateSeasonMyTeamSelect(){
+ const sel=document.getElementById('seasonMyTeamSelect'); if(!sel)return;
+ const sorted=[...seasonData.rosters].sort((a,b)=>seasonRosterName(a).localeCompare(seasonRosterName(b)));
+ sel.innerHTML='<option value="">Auto-detect after sync</option>'+sorted.map(r=>`<option value="${Number(r.roster_id)}"${Number(r.roster_id)===Number(seasonData.myRosterId)?' selected':''}>${escHub(seasonRosterName(r))}</option>`).join('');
+}
+function applySeasonTeamOverride(){
+ const id=Number(document.getElementById('seasonMyTeamSelect')?.value||0); const r=seasonRosterById(id);
+ if(!r){seasonSetStatus('Choose a team after the league has synced.','err');return;}
+ seasonData.myRosterId=Number(r.roster_id); seasonRememberMyRoster(r,'manual selection');
+ renderSeasonHub(); seasonSetStatus(`Using ${seasonRosterName(r)} as your team · manual selection saved.`,'ok');
 }
 async function detectLeagueIdFromDraft(){
  const cached=(()=>{try{return localStorage.getItem('fantasyHubLeagueId')||''}catch(e){return ''}})();
@@ -3866,12 +3929,12 @@ async function syncSeasonData({week=null,quiet=false}={}){
      fetch(`https://api.sleeper.app/v1/league/${encodeURIComponent(leagueId)}/matchups/${seasonData.week}`,{cache:'no-store'}).then(r=>r.ok?r.json():[]).catch(()=>[]),
      fetchSeasonTransactions(leagueId,Math.max(seasonCurrentWeek(),seasonData.week))
    ]);
-   seasonData.matchups=Array.isArray(matchups)?matchups:[]; seasonData.transactions=transactions; seasonData.myRosterId=resolveMySeasonRosterId(); seasonData.syncedAt=Date.now();
+   seasonData.matchups=Array.isArray(matchups)?matchups:[]; seasonData.transactions=transactions; await hydrateSeasonDraftMetadata(); seasonData.myRosterId=resolveMySeasonRosterId(); seasonData.syncedAt=Date.now(); populateSeasonMyTeamSelect();
    if(!Object.keys(sleeperIdentityById||{}).length){
      try{await refreshSleeperPlayerRanks(false);}catch(e){}
    }
    renderSeasonHub();
-   seasonSetStatus(`Synced ${league?.name||'league'} · Week ${seasonData.week} · ${seasonData.transactions.length} completed transaction${seasonData.transactions.length===1?'':'s'} loaded.`,'ok');
+   const identified=seasonRosterById(seasonData.myRosterId); seasonSetStatus(`Synced ${league?.name||'league'} · Week ${seasonData.week} · ${seasonData.transactions.length} completed transaction${seasonData.transactions.length===1?'':'s'} loaded${identified?` · your team: ${seasonRosterName(identified)} (${seasonData.myRosterSource||'auto'})`:''}.`,'ok');
  }catch(err){
    seasonSetStatus(`Season sync failed: ${err.message}`,'err');
  }finally{if(btn)btn.disabled=false;}
@@ -3933,7 +3996,26 @@ function renderTeamRoster(){
  const r=seasonRosterById(seasonData.myRosterId); if(!r){box.innerHTML='<div class="empty-state">Your roster could not be identified yet.</div>';return;}
  const slots=seasonData.league?.roster_positions||[]; const starters=(r.starters||[]).map(String); const bench=(r.players||[]).map(String).filter(id=>!starters.includes(id));
  const s=r.settings||{};
- box.innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div><h2 style="margin-bottom:3px">${escHub(seasonRosterName(r))}</h2><div class="muted" style="font-size:12px">${Number(s.wins||0)}-${Number(s.losses||0)} · ${Number(s.total_moves||0)} moves</div></div><span class="badge">Roster ${r.roster_id}</span></div><div class="team-section"><div class="team-section-title">Starters</div><div class="team-roster-grid">${starters.map((id,i)=>`<div class="roster-card">${seasonPlayerRow(id,slots[i]||'START')}</div>`).join('')}</div></div><div class="team-section"><div class="team-section-title">Bench</div><div class="team-roster-grid">${bench.map(id=>`<div class="roster-card">${seasonPlayerRow(id,'BN')}</div>`).join('')}</div></div>`;
+ box.innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div><h2 style="margin-bottom:3px">${escHub(seasonRosterName(r))}</h2><div class="muted" style="font-size:12px">${Number(s.wins||0)}-${Number(s.losses||0)} · ${Number(s.total_moves||0)} moves</div></div><span class="badge">Roster ${r.roster_id}</span></div><div class="identity-note">Team identity: <b>${escHub(seasonData.myRosterSource||'automatic')}</b>. If this is not your team, choose the correct team in Dashboard → My Sleeper team once; the Hub will remember the owner.</div><div class="team-section"><div class="team-section-title">Starters</div><div class="team-roster-grid">${starters.map((id,i)=>`<div class="roster-card">${seasonPlayerRow(id,slots[i]||'START')}</div>`).join('')}</div></div><div class="team-section"><div class="team-section-title">Bench</div><div class="team-roster-grid">${bench.map(id=>`<div class="roster-card">${seasonPlayerRow(id,'BN')}</div>`).join('')}</div></div>`;
+}
+function seasonByeForPlayerInfo(p){return p?.team?Number(NFL_BYE_WEEK_2026[p.team]||0)||null:null;}
+function renderByeWeeks(){
+ const box=document.getElementById('byeOverview'); if(!box)return;
+ const r=seasonRosterById(seasonData.myRosterId); if(!r){box.innerHTML='<div class="empty-state">Your roster could not be identified yet.</div>';return;}
+ const starterSet=new Set((r.starters||[]).map(String));
+ const rows=(r.players||[]).map(id=>{const p=seasonPlayerInfo(id);return {id:String(id),p,bye:seasonByeForPlayerInfo(p),starter:starterSet.has(String(id))};});
+ const groups=new Map();
+ for(const x of rows){const key=x.bye||'TBD';if(!groups.has(key))groups.set(key,[]);groups.get(key).push(x);}
+ const numeric=[...groups.keys()].filter(k=>k!=='TBD').map(Number).sort((a,b)=>a-b);
+ const largest=numeric.map(w=>({w,n:groups.get(w).length})).sort((a,b)=>b.n-a.n||a.w-b.w)[0]||null;
+ const now=seasonCurrentWeek(); const next=numeric.filter(w=>w>=now).map(w=>({w,n:groups.get(w).length}))[0]||null;
+ const summary=`<div class="bye-summary"><div class="bye-stat"><div class="label">Roster players</div><div class="value">${rows.length}</div></div><div class="bye-stat"><div class="label">Largest bye cluster</div><div class="value">${largest?`W${largest.w} · ${largest.n}`:'—'}</div></div><div class="bye-stat"><div class="label">Next roster bye</div><div class="value">${next?`W${next.w} · ${next.n}`:'None'}</div></div></div>`;
+ const cards=numeric.map(w=>{
+   const a=groups.get(w)||[]; const starts=a.filter(x=>x.starter).length;
+   return `<div class="bye-week-card${a.length>=3?' cluster':''}"><div class="bye-week-head"><div class="bye-week-title">Week ${w}</div><div class="bye-week-meta">${a.length} player${a.length===1?'':'s'} · ${starts} current starter${starts===1?'':'s'}</div></div><div class="bye-week-body">${a.sort((x,y)=>Number(y.starter)-Number(x.starter)||String(x.p.pos).localeCompare(String(y.p.pos))).map(x=>seasonPlayerRow(x.id,x.starter?'STARTER':'BENCH')).join('')}</div></div>`;
+ }).join('');
+ const tbd=groups.get('TBD')||[]; const tbdCard=tbd.length?`<div class="bye-week-card"><div class="bye-week-head"><div class="bye-week-title">Bye TBD</div><div class="bye-week-meta">${tbd.length} player${tbd.length===1?'':'s'}</div></div><div class="bye-week-body">${tbd.map(x=>seasonPlayerRow(x.id,x.starter?'STARTER':'BENCH')).join('')}</div></div>`:'';
+ box.innerHTML=summary+`<div class="muted" style="font-size:11px;margin:0 0 9px">Bye weeks are planning information only. The Hub highlights clusters so you can plan waiver depth without downgrading a clearly better player.</div><div class="bye-week-list">${cards}${tbdCard}</div>`;
 }
 function transactionPlayerNames(obj,rosterId=null){
  if(!obj)return [];
@@ -3989,16 +4071,16 @@ function renderTradeCenter(){
 function currentSeasonBrief(){
  const r=seasonRosterById(seasonData.myRosterId),{mine,opp}=matchupPairForRoster(seasonData.myRosterId),oppRoster=seasonRosterById(opp?.roster_id); if(!r)return 'CURRENT SEASON STATE\nSeason data has not been synced yet.';
  const starters=(r.starters||[]).map(id=>seasonPlayerInfo(id)); const starterIds=new Set((r.starters||[]).map(String)); const bench=(r.players||[]).filter(id=>!starterIds.has(String(id))).map(id=>seasonPlayerInfo(id));
- const rosterLine=a=>a.map(p=>`${p.pos||'?'} ${p.name}${p.team?` [${p.team}]`:''}`).join(', ');
+ const rosterLine=a=>a.map(p=>`${p.pos||'?'} ${p.name}${p.team?` [${p.team}]`:''}`).join(', '); const byeGroups={}; for(const id of (r.players||[])){const p=seasonPlayerInfo(id),w=seasonByeForPlayerInfo(p);if(w)(byeGroups[w]||=[]).push(`${p.pos||'?'} ${p.name}`);} const byeText=Object.keys(byeGroups).map(Number).sort((a,b)=>a-b).map(w=>`Week ${w}: ${byeGroups[w].join(', ')}`).join('\n')||'No bye-week data available';
  const tx=(seasonData.transactions||[]).slice(0,12).map(t=>{
    const team=(t.roster_ids||[]).map(id=>seasonRosterName(seasonRosterById(id))).join(' / '); const adds=transactionPlayerNames(t.adds).join(', '),drops=transactionPlayerNames(t.drops).join(', '); return `${String(t.type||'transaction').toUpperCase()}: ${team}${adds?` · add ${adds}`:''}${drops?` · drop ${drops}`:''}`;
  });
  const rostered=new Set(seasonData.rosters.flatMap(x=>x.players||[]).map(String)); const waivers=(sleeperCandidatePool||[]).filter(p=>p.sleeperId&&!rostered.has(String(p.sleeperId))&&['RB','WR','QB','TE'].includes(p.pos)).sort((a,b)=>waiverSortScore(a)-waiverSortScore(b)).slice(0,15);
- return `CURRENT SEASON STATE\nHub version: ${SEASON_HUB_VERSION}\nLeague: ${seasonData.league?.name||seasonData.leagueId}\nWeek: ${seasonData.week}\nMy team: ${seasonRosterName(r)} · record ${Number(r.settings?.wins||0)}-${Number(r.settings?.losses||0)}\nOpponent: ${oppRoster?seasonRosterName(oppRoster):'TBD'}\n\nSTARTERS\n${rosterLine(starters)}\n\nBENCH\n${rosterLine(bench)}\n\nTOP CURRENT FREE AGENTS\n${waivers.map(p=>`${p.pos} ${p.name}${teamCodeForPlayer(p)?` [${teamCodeForPlayer(p)}]`:''}`).join(', ')||'No waiver snapshot available'}\n\nRECENT LEAGUE ACTIVITY\n${tx.join('\n')||'No completed transactions yet'}\n\nSEASON RULE\nSleeper rosters, starters, matchups, and completed transactions are source-of-truth league data. Use current ChatGPT/web research for injuries, roles, news and final lineup/waiver/trade decisions.`;
+ return `CURRENT SEASON STATE\nHub version: ${SEASON_HUB_VERSION}\nLeague: ${seasonData.league?.name||seasonData.leagueId}\nWeek: ${seasonData.week}\nMy team: ${seasonRosterName(r)} · record ${Number(r.settings?.wins||0)}-${Number(r.settings?.losses||0)}\nTeam identity source: ${seasonData.myRosterSource||'automatic'}\nOpponent: ${oppRoster?seasonRosterName(oppRoster):'TBD'}\n\nSTARTERS\n${rosterLine(starters)}\n\nBENCH\n${rosterLine(bench)}\n\nBYE WEEKS\n${byeText}\n\nTOP CURRENT FREE AGENTS\n${waivers.map(p=>`${p.pos} ${p.name}${teamCodeForPlayer(p)?` [${teamCodeForPlayer(p)}]`:''}`).join(', ')||'No waiver snapshot available'}\n\nRECENT LEAGUE ACTIVITY\n${tx.join('\n')||'No completed transactions yet'}\n\nSEASON RULE\nSleeper rosters, starters, matchups, and completed transactions are source-of-truth league data. Use current ChatGPT/web research for injuries, roles, news and final lineup/waiver/trade decisions.`;
 }
 function renderSeasonBrief(){const el=document.getElementById('seasonBrief');if(el)el.value=currentSeasonBrief();}
 function renderSeasonHub(){
- seasonPopulateWeekSelect(); renderSeasonSummary(); renderMatchupBanner('dashboardMatchup'); renderWeekMatchup(); renderTeamRoster(); renderWaivers(); renderActivity(); renderTradeCenter(); renderSeasonBrief();
+ seasonPopulateWeekSelect(); populateSeasonMyTeamSelect(); renderSeasonSummary(); renderMatchupBanner('dashboardMatchup'); renderWeekMatchup(); renderTeamRoster(); renderByeWeeks(); renderWaivers(); renderActivity(); renderTradeCenter(); renderSeasonBrief();
 }
 async function loadSpecificSeasonWeek(){const w=Number(document.getElementById('seasonWeekSelect')?.value)||seasonCurrentWeek(); await syncSeasonData({week:w});}
 async function copySeasonBrief(){const text=document.getElementById('seasonBrief')?.value||currentSeasonBrief();try{await navigator.clipboard.writeText(text);alert('Season State copied.');}catch(e){const el=document.getElementById('seasonBrief');el?.focus();el?.select();alert('Clipboard was blocked. Season State is selected so you can copy it manually.');}}
@@ -4007,6 +4089,7 @@ function initSeasonHub(){
  document.querySelectorAll('#appNav [data-screen]').forEach(btn=>btn.addEventListener('click',()=>showAppScreen(btn.dataset.screen)));
  document.querySelectorAll('#draftSubnav [data-draft-tab]').forEach(btn=>btn.addEventListener('click',()=>showDraftTab(btn.dataset.draftTab)));
  document.getElementById('seasonSyncBtn')?.addEventListener('click',()=>syncSeasonData());
+ document.getElementById('seasonUseTeamBtn')?.addEventListener('click',applySeasonTeamOverride);
  document.getElementById('weekRefreshBtn')?.addEventListener('click',loadSpecificSeasonWeek);
  document.getElementById('waiverRefreshBtn')?.addEventListener('click',()=>{renderWaivers();renderSeasonBrief();});
  document.getElementById('waiverSearch')?.addEventListener('input',renderWaivers);
@@ -4014,7 +4097,7 @@ function initSeasonHub(){
  document.getElementById('seasonCopyBtn')?.addEventListener('click',copySeasonBrief);
  document.getElementById('seasonShareBtn')?.addEventListener('click',shareSeasonBrief);
  let saved='dashboard',draftSaved='control';try{saved=localStorage.getItem('fantasyHubActiveScreen')||'dashboard';draftSaved=localStorage.getItem('fantasyHubDraftTab')||'control';}catch(e){}
- if(!['dashboard','week','team','waivers','activity','trades','draft'].includes(saved))saved='dashboard'; if(!['control','players','board','research'].includes(draftSaved))draftSaved='control';
+ if(!['dashboard','week','team','byes','waivers','activity','trades','draft'].includes(saved))saved='dashboard'; if(!['control','players','board','research'].includes(draftSaved))draftSaved='control';
  showAppScreen(saved,{scroll:false}); showDraftTab(draftSaved);
  detectLeagueIdFromDraft().then(id=>{if(id)syncSeasonData({quiet:true});});
 }
