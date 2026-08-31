@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" name="viewport"/>
-<title>2026 Fantasy Championship Hub — v8.2.0</title>
+<title>2026 Fantasy Championship Hub — v8.2.1</title>
 <meta content="#071228" name="theme-color"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -229,10 +229,11 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 
 
 
-/* ===== v8.2.0 News + Alerts ===== */
+/* ===== v8.2.1 News + Alerts ===== */
 .nav-alert-count{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;margin-left:3px;border-radius:999px;background:#b63749;color:#fff;font-size:9px;font-weight:950;border:1px solid rgba(255,255,255,.18);vertical-align:middle}
 .nav-alert-count.zero{display:none}
 .news-toolbar{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;margin-bottom:12px}
+.news-ack-note{font-size:12px;line-height:1.45;color:var(--muted);margin:-2px 0 12px;padding:0 2px}.news-ack-note strong{color:var(--text)}
 .news-status{font-size:11px;color:var(--muted);line-height:1.4}
 .alert-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
 .alert-stat{border:1px solid var(--border);border-radius:13px;padding:10px;background:linear-gradient(180deg,#182541,#10182f)}
@@ -373,7 +374,7 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 </section><section class="app-screen" data-screen-panel="news" id="screen-news">
 <div class="screen-head"><div><div class="screen-title">News &amp; Alerts</div><div class="screen-kicker">What needs your attention, player-status changes across the league, and current NFL news/market movement.</div></div></div>
 <div class="hub-card">
-<div class="news-toolbar"><div class="news-status" id="newsRefreshStatus">Sync the season to load alerts and player news.</div><button id="newsRefreshBtn" type="button">Refresh news</button><button id="newsMarkSeenBtn" type="button">Mark changes seen</button></div>
+<div class="news-toolbar"><div class="news-status" id="newsRefreshStatus">Sync the season to load alerts and player news.</div><button id="newsRefreshBtn" type="button">Refresh news</button><button id="newsMarkSeenBtn" type="button">Acknowledge alerts</button></div><div class="news-ack-note" id="newsAckNote"><strong>Acknowledge alerts</strong> clears the red notification badge for alerts you have reviewed. Active injury/status flags stay visible until they are resolved.</div>
 <div class="alert-summary" id="alertSummary"><div class="alert-stat"><div class="label">Needs attention</div><div class="value">—</div></div><div class="alert-stat"><div class="label">My player flags</div><div class="value">—</div></div><div class="alert-stat"><div class="label">New changes</div><div class="value">—</div></div></div>
 <div class="alert-list" id="attentionList"><div class="empty-state">No alert data yet.</div></div>
 </div>
@@ -432,7 +433,7 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 </div>
 </div><div class="card" id="identityRefreshCard">
 <h2 style="margin-bottom:6px">Player/identity refresh</h2>
-<p class="muted" style="font-size:12px;margin:0 0 9px">v8.2.0 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.2.0 includes the Bye Planner, lineup-coverage solver, roster-slot logistics, activity insights, K/DST waiver support, five-minute season auto-refresh, a no-sideways-scroll navigation grid, and plain-English one-for-one bye replacement guidance, plus News &amp; Alerts with player-status monitoring, Sleeper market trends, status-change detection, and a best-effort NFL headline feed.</p>
+<p class="muted" style="font-size:12px;margin:0 0 9px">v8.2.1 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.2.1 includes the Bye Planner, lineup-coverage solver, roster-slot logistics, activity insights, K/DST waiver support, five-minute season auto-refresh, a no-sideways-scroll navigation grid, and plain-English one-for-one bye replacement guidance, plus News &amp; Alerts with player-status monitoring, Sleeper market trends, status-change detection, and a best-effort NFL headline feed.</p>
 <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
 <div class="syncstatus" id="rankRefreshStatus">Using curated v7.9.11 evaluation ranks with the final Aug. 30 cutdown refresh: confirmed IR/roster moves, late-round PPR role changes, legal/availability VERIFY flags, and the existing starter-group usage calibration. Sleeper API search/identity data has not been refreshed yet.</div>
 </div><div aria-live="polite" class="reliability" id="reliabilityCard">
@@ -498,7 +499,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 </div>
 <div class="champion-actions">
 <button aria-expanded="true" class="champion-toggle" id="championToggleBtn" type="button">Collapse ▲</button>
-<div class="champion-pill">v8.2.0</div>
+<div class="champion-pill">v8.2.1</div>
 </div>
 </div>
 <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -575,9 +576,9 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 <div class="node"><div class="nm">SuperSaiyan · #9/#12</div><div class="tell">Best multi-year scoring profile; went Puka → Josh Allen in 2025.</div></div>
 <div class="node"><div class="nm">TeamJbot · #10/#11</div><div class="tell">Usually WR early, then RB. Controls the 10/11 turn.</div></div>
 </div>
-</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.2.0 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
+</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.2.1 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
 <script>
-const APP_VERSION='v8.2.0';
+const APP_VERSION='v8.2.1';
 const TRAINER_STATUS='SEASON_HUB_V1_DRAFT_ENGINE_7_9_11';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
@@ -3871,7 +3872,7 @@ if(!loadCachedSleeperRanks()){
 
 
 // ===== v8.1.1 SEASON HUB =====
-const SEASON_HUB_VERSION='v8.2.0';
+const SEASON_HUB_VERSION='v8.2.1';
 let seasonData={leagueId:'',league:null,nflState:null,rosters:[],users:[],matchups:[],transactions:[],week:1,myRosterId:null,myRosterSource:'',syncedAt:null,news:{signals:{},trendingAdds:[],trendingDrops:[],articles:[],updatedAt:null,errors:[]},statusChanges:[]};
 let seasonWaiverPos='ALL';
 let seasonActivityFilter='ALL';
@@ -4096,9 +4097,30 @@ function seasonComputeStatusChanges(){
  }
  seasonData.statusChanges=rostered.map(id=>({id,signal:signals[id],before:seen[id]||'',now:seasonSignalFingerprint(signals[id])})).filter(x=>x.now&&x.before&&x.now!==x.before);
 }
+function seasonAlertKey(a){
+ return normalizeHubText(`${a?.tag||''}|${a?.title||''}|${a?.copy||''}`);
+}
+function seasonAcknowledgedAlertKeys(){
+ try{
+   const raw=JSON.parse(localStorage.getItem('fantasyHubAcknowledgedAlertsV1')||'[]');
+   return new Set(Array.isArray(raw)?raw:[]);
+ }catch(e){return new Set();}
+}
+function seasonSaveAcknowledgedAlertKeys(keys){
+ try{localStorage.setItem('fantasyHubAcknowledgedAlertsV1',JSON.stringify([...keys]));}catch(e){}
+}
 function seasonMarkNewsSeen(){
  const seen={}; for(const id of seasonData.rosters.flatMap(r=>r.players||[]).map(String)){const fp=seasonSignalFingerprint(seasonSignalForId(id));if(fp)seen[id]=fp;}
- try{localStorage.setItem('fantasyHubStatusSeenV1',JSON.stringify(seen));}catch(e){} seasonData.statusChanges=[]; renderNewsAlerts(); renderSeasonBrief();
+ try{localStorage.setItem('fantasyHubStatusSeenV1',JSON.stringify(seen));}catch(e){}
+ const ack=seasonAcknowledgedAlertKeys();
+ for(const a of seasonAttentionAlerts())if(['critical','warn'].includes(a.severity))ack.add(seasonAlertKey(a));
+ seasonSaveAcknowledgedAlertKeys(ack);
+ seasonData.statusChanges=[];
+ const btn=document.getElementById('newsMarkSeenBtn'),note=document.getElementById('newsAckNote'),status=document.getElementById('newsRefreshStatus');
+ if(btn){btn.textContent='✓ Alerts acknowledged';btn.disabled=true;setTimeout(()=>{btn.textContent='Acknowledge alerts';btn.disabled=false;},1400);}
+ if(note)note.innerHTML='<strong>Reviewed.</strong> The red badge is cleared for the current alerts. Active injury/status flags remain visible until they are resolved; any new or changed alert will light the badge again.';
+ if(status)status.textContent=`Alerts acknowledged ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}.`;
+ renderNewsAlerts(); renderSeasonBrief();
 }
 async function refreshSeasonNews({quiet=false,force=true,render=true}={}){
  const status=document.getElementById('newsRefreshStatus'),btn=document.getElementById('newsRefreshBtn'); if(btn)btn.disabled=true;
@@ -4163,8 +4185,9 @@ function renderNewsAlerts(){
  const summary=document.getElementById('alertSummary'),attention=document.getElementById('attentionList'),watch=document.getElementById('leaguePlayerWatch'),market=document.getElementById('marketBuzz'),headlines=document.getElementById('newsHeadlines'),badge=document.getElementById('alertsCountBadge'),status=document.getElementById('newsRefreshStatus'); if(!summary)return;
  if(!seasonData.rosters.length){summary.innerHTML='<div class="empty-state">Sync the season to calculate alerts.</div>';return;}
  const alerts=seasonAttentionAlerts(),mineIds=new Set((seasonRosterById(seasonData.myRosterId)?.players||[]).map(String)),myFlags=[...mineIds].filter(id=>seasonStatusSeverity(seasonSignalForId(id))>0).length,changes=(seasonData.statusChanges||[]).length,needs=alerts.filter(a=>['critical','warn'].includes(a.severity)).length;
- summary.innerHTML=`<div class="alert-stat"><div class="label">Needs attention</div><div class="value">${needs}</div></div><div class="alert-stat"><div class="label">My player flags</div><div class="value">${myFlags}</div></div><div class="alert-stat"><div class="label">New changes</div><div class="value">${changes}</div></div>`;
- if(badge){badge.textContent=String(needs+changes);badge.classList.toggle('zero',needs+changes===0);}
+ const acknowledged=seasonAcknowledgedAlertKeys(),unacknowledged=alerts.filter(a=>['critical','warn'].includes(a.severity)&&!acknowledged.has(seasonAlertKey(a))).length;
+ summary.innerHTML=`<div class="alert-stat"><div class="label">Needs attention</div><div class="value">${needs}</div></div><div class="alert-stat"><div class="label">My player flags</div><div class="value">${myFlags}</div></div><div class="alert-stat"><div class="label">Unseen changes</div><div class="value">${changes}</div></div>`;
+ if(badge){const badgeCount=unacknowledged+changes;badge.textContent=String(badgeCount);badge.classList.toggle('zero',badgeCount===0);}
  attention.innerHTML=alerts.length?alerts.map(a=>`<div class="alert-card ${a.severity}"><div class="alert-head"><div class="alert-title">${escHub(a.title)}</div><span class="alert-tag ${a.severity}">${escHub(a.tag)}</span></div><div class="alert-copy">${escHub(a.copy)}</div></div>`).join(''):'<div class="alert-card good"><div class="alert-head"><div class="alert-title">No urgent action detected</div><span class="alert-tag good">CLEAR</span></div><div class="alert-copy">Your current Sleeper roster/lineup has no high-priority status flags. Continue monitoring news closer to kickoff.</div></div>';
  const rows=seasonLeaguePlayerWatch(); watch.innerHTML=rows.length?rows.slice(0,40).map(x=>`<div class="player-watch-row"><div class="watch-main"><div class="watch-name">${escHub(x.p.name)}${x.changed?' <span class="watch-chip">NEW</span>':''}</div><div class="watch-detail">${escHub(x.p.pos||'—')}${x.p.team?` · ${escHub(x.p.team)}`:''} · ${escHub(seasonSignalLabel(x.sig))}</div><div class="watch-owner">${escHub(x.mine?'YOUR TEAM':x.opp?'THIS WEEK\'S OPPONENT':x.owner)}</div></div><span class="watch-status ${x.sev>=3?'bad':x.sev>=2?'warn':''}">${x.sev>=3?'HIGH':x.sev>=2?'WATCH':'NOTE'}</span></div>`).join(''):'<div class="empty-state">No rostered players match this filter right now.</div>';
  const renderTrend=(arr,label)=>`<div class="market-block"><div class="market-title">${label}</div>${(arr||[]).slice(0,10).map(x=>{const p=seasonPlayerInfo(x.player_id),own=seasonRosterOwnerForPlayer(x.player_id);return `<div class="market-row"><span>${escHub(p.name)}${own?` <span class="watch-chip">${escHub(own.name)}</span>`:''}</span><span class="market-count">${Number(x.count||0).toLocaleString()}</span></div>`;}).join('')||'<div class="empty-state">No trend data.</div>'}</div>`;
