@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" name="viewport"/>
-<title>2026 Fantasy Championship Hub — v8.1.2</title>
+<title>2026 Fantasy Championship Hub — v8.2.0</title>
 <meta content="#071228" name="theme-color"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -228,6 +228,36 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 @media(max-width:520px){body{padding-left:9px;padding-right:9px}.hero-header{padding:16px 14px 14px;border-radius:20px}.hero-title{font-size:24px}.hero-sub{font-size:12px}.hero-mark{width:46px;height:46px;font-size:24px;border-radius:15px}.hero-chips{gap:5px}.hero-chip{font-size:9px;padding:5px 7px}.app-nav{margin-left:0;margin-right:0;grid-template-columns:repeat(2,minmax(0,1fr));position:static}.nav-btn{min-width:0;width:100%;padding:10px 8px;font-size:11.5px}.hub-card{padding:12px;border-radius:16px}.season-metrics .metric .value{font-size:20px}.quick-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.action-card{min-height:0}.season-player{padding:9px 1px}.season-player-name{font-size:12px}.player-actions{max-width:42%}.copy-mini{min-height:190px}}
 
 
+
+/* ===== v8.2.0 News + Alerts ===== */
+.nav-alert-count{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;margin-left:3px;border-radius:999px;background:#b63749;color:#fff;font-size:9px;font-weight:950;border:1px solid rgba(255,255,255,.18);vertical-align:middle}
+.nav-alert-count.zero{display:none}
+.news-toolbar{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;margin-bottom:12px}
+.news-status{font-size:11px;color:var(--muted);line-height:1.4}
+.alert-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.alert-stat{border:1px solid var(--border);border-radius:13px;padding:10px;background:linear-gradient(180deg,#182541,#10182f)}
+.alert-stat .label{font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:900}
+.alert-stat .value{font-size:19px;font-weight:950;margin-top:3px}
+.alert-list,.news-list,.market-list{display:grid;gap:8px}
+.alert-card{border:1px solid var(--border);border-radius:14px;padding:11px;background:#10182f}
+.alert-card.critical{border-color:#a63e4d;background:linear-gradient(180deg,rgba(91,31,42,.32),#10182f)}
+.alert-card.warn{border-color:#8c6c18;background:linear-gradient(180deg,rgba(97,72,16,.24),#10182f)}
+.alert-card.info{border-color:#355b91;background:linear-gradient(180deg,rgba(34,77,126,.22),#10182f)}
+.alert-card.good{border-color:#2c7157;background:linear-gradient(180deg,rgba(26,87,62,.18),#10182f)}
+.alert-head{display:flex;justify-content:space-between;gap:9px;align-items:flex-start}
+.alert-title{font-size:13px;font-weight:950;line-height:1.25}.alert-copy{font-size:11px;color:#c3cfe6;line-height:1.45;margin-top:5px}
+.alert-tag{font-size:9px;font-weight:950;letter-spacing:.35px;text-transform:uppercase;border-radius:999px;padding:4px 7px;border:1px solid currentColor;white-space:nowrap}
+.alert-tag.critical{color:#ff9cab;background:rgba(142,40,55,.25)}.alert-tag.warn{color:#ffe08a;background:rgba(116,86,12,.24)}.alert-tag.info{color:#9fd0ff;background:rgba(41,92,151,.24)}.alert-tag.good{color:#a9f1cc;background:rgba(24,102,69,.22)}
+.news-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.news-columns .hub-card{min-width:0}
+.news-item{border:1px solid var(--border);border-radius:13px;padding:10px 11px;background:#10182f}
+.news-headline{font-size:13px;font-weight:900;line-height:1.35}.news-desc{font-size:11px;color:#c0cce2;line-height:1.45;margin-top:5px}.news-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:9px;color:var(--muted);margin-top:7px}
+.news-link{display:inline-block;margin-top:7px;font-size:10px;font-weight:900;color:#9fd0ff;text-decoration:none}.news-link:hover{text-decoration:underline}
+.player-watch-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;border-top:1px solid rgba(42,54,88,.66);padding:9px 2px}.player-watch-row:first-child{border-top:none}.watch-main{min-width:0}.watch-name{font-size:12px;font-weight:900}.watch-detail{font-size:10px;color:var(--muted);line-height:1.35;margin-top:2px}.watch-owner{font-size:9px;color:#a9b7d1;margin-top:2px}.watch-status{font-size:9px;font-weight:950;border-radius:999px;padding:4px 7px;border:1px solid #53678f;color:#dfe7f8;white-space:nowrap}.watch-status.bad{border-color:#9d4250;color:#ffb1bb;background:#42232b}.watch-status.warn{border-color:#866a20;color:#ffe19a;background:#3b3218}
+.market-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.market-block{border:1px solid var(--border);border-radius:13px;background:#10182f;padding:10px}.market-title{font-size:12px;font-weight:950;margin-bottom:6px}.market-row{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid rgba(42,54,88,.55);font-size:11px}.market-row:first-of-type{border-top:none}.market-count{font-size:10px;color:var(--muted);white-space:nowrap}
+.news-source-note{font-size:10px;color:var(--muted);line-height:1.45;margin-top:8px}
+@media(max-width:760px){.news-toolbar{grid-template-columns:1fr 1fr}.news-toolbar .news-status{grid-column:1/-1}.alert-summary{grid-template-columns:1fr 1fr}.alert-summary .alert-stat:last-child{grid-column:1/-1}.news-columns,.market-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.app-nav .nav-btn[data-screen="draft"]{grid-column:1/-1}.news-toolbar{grid-template-columns:1fr 1fr}.news-toolbar button{padding:9px 7px;font-size:11px}.alert-summary{grid-template-columns:1fr}.alert-summary .alert-stat:last-child{grid-column:auto}}
+
 /* ===== v8.1.2 refined centered hero ===== */
 .hero-header{padding:20px 18px 19px;margin-bottom:12px;min-height:0}
 .hero-header:before{inset:-105px auto auto 50%;width:340px;height:210px;transform:translateX(-50%);background:radial-gradient(circle,rgba(72,169,255,.23),transparent 68%)}
@@ -283,6 +313,7 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 <button class="nav-btn active" data-screen="dashboard" type="button">🏠 Dashboard</button>
 <button class="nav-btn" data-screen="week" type="button">🏈 This Week</button>
 <button class="nav-btn" data-screen="team" type="button">👥 My Team</button>
+<button class="nav-btn" data-screen="news" type="button">🔔 News &amp; Alerts <span class="nav-alert-count zero" id="alertsCountBadge">0</span></button>
 <button class="nav-btn" data-screen="byes" type="button">📅 Bye Planner</button>
 <button class="nav-btn" data-screen="waivers" type="button">🔎 Waivers</button>
 <button class="nav-btn" data-screen="activity" type="button">🔄 Activity</button>
@@ -318,7 +349,7 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 <button class="quick-action" data-go-screen="week" type="button"><span>🏈</span>This Week</button>
 <button class="quick-action" data-go-screen="byes" type="button"><span>📅</span>Bye Planner</button>
 <button class="quick-action" data-go-screen="waivers" type="button"><span>🔎</span>Waiver Wire</button>
-<button class="quick-action" data-go-screen="activity" type="button"><span>🔄</span>League Activity</button>
+<button class="quick-action" data-go-screen="news" type="button"><span>🔔</span>News &amp; Alerts</button>
 </div>
 <div class="hub-grid">
 <div class="hub-card"><h2>This week</h2><div class="empty-state" id="dashboardMatchup">Sync the league to load your matchup.</div></div>
@@ -339,6 +370,18 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 </section><section class="app-screen" data-screen-panel="team" id="screen-team">
 <div class="screen-head"><div><div class="screen-title">My Team</div><div class="screen-kicker">Current Sleeper roster — starters and bench, without draft-night clutter.</div></div></div>
 <div class="hub-card" id="teamRoster"><div class="empty-state">Sync the season to load your current roster.</div></div>
+</section><section class="app-screen" data-screen-panel="news" id="screen-news">
+<div class="screen-head"><div><div class="screen-title">News &amp; Alerts</div><div class="screen-kicker">What needs your attention, player-status changes across the league, and current NFL news/market movement.</div></div></div>
+<div class="hub-card">
+<div class="news-toolbar"><div class="news-status" id="newsRefreshStatus">Sync the season to load alerts and player news.</div><button id="newsRefreshBtn" type="button">Refresh news</button><button id="newsMarkSeenBtn" type="button">Mark changes seen</button></div>
+<div class="alert-summary" id="alertSummary"><div class="alert-stat"><div class="label">Needs attention</div><div class="value">—</div></div><div class="alert-stat"><div class="label">My player flags</div><div class="value">—</div></div><div class="alert-stat"><div class="label">New changes</div><div class="value">—</div></div></div>
+<div class="alert-list" id="attentionList"><div class="empty-state">No alert data yet.</div></div>
+</div>
+<div class="news-columns">
+<div class="hub-card"><h2>League Player Watch</h2><div class="screen-kicker" style="margin-bottom:9px">Injuries, availability and practice-status signals for players currently rostered in your league.</div><div class="hub-filters" id="newsFilters"><button class="active" data-news-filter="ALL" type="button">All flags</button><button data-news-filter="MINE" type="button">My team</button><button data-news-filter="OPP" type="button">Opponent</button><button data-news-filter="CHANGED" type="button">Changed</button></div><div id="leaguePlayerWatch"><div class="empty-state">Sync to load rostered-player status signals.</div></div></div>
+<div class="hub-card"><h2>Market Buzz</h2><div class="screen-kicker" style="margin-bottom:9px">Most-added and most-dropped NFL players from Sleeper over the last 24 hours.</div><div id="marketBuzz"><div class="empty-state">Refresh news to load Sleeper trends.</div></div><div class="news-source-note">Trending counts are provided by Sleeper and reflect platform-wide add/drop activity, not just this league.</div></div>
+</div>
+<div class="hub-card" style="margin-top:12px"><h2>Latest NFL Headlines</h2><div class="screen-kicker" style="margin-bottom:9px">League-player matches are shown first. Headlines are a best-effort external feed; use current ChatGPT/web research before making a roster move.</div><div class="news-list" id="newsHeadlines"><div class="empty-state">Refresh news to load headlines.</div></div></div>
 </section><section class="app-screen" data-screen-panel="byes" id="screen-byes">
 <div class="screen-head"><div><div class="screen-title">Bye Planner</div><div class="screen-kicker">See who is off, whether your roster can cover internally, which positions require streamers, and how many roster spots you may need to create.</div></div></div>
 <div class="hub-card" id="byeOverview"><div class="empty-state">Sync the season to build your bye-week calendar.</div></div>
@@ -389,7 +432,7 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 </div>
 </div><div class="card" id="identityRefreshCard">
 <h2 style="margin-bottom:6px">Player/identity refresh</h2>
-<p class="muted" style="font-size:12px;margin:0 0 9px">v8.1.1 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.1.1 adds the Bye Planner, lineup-coverage solver, roster-slot logistics, activity insights, K/DST waiver support, five-minute season auto-refresh, a no-sideways-scroll navigation grid, and plain-English one-for-one bye replacement guidance.</p>
+<p class="muted" style="font-size:12px;margin:0 0 9px">v8.2.0 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.2.0 includes the Bye Planner, lineup-coverage solver, roster-slot logistics, activity insights, K/DST waiver support, five-minute season auto-refresh, a no-sideways-scroll navigation grid, and plain-English one-for-one bye replacement guidance, plus News &amp; Alerts with player-status monitoring, Sleeper market trends, status-change detection, and a best-effort NFL headline feed.</p>
 <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
 <div class="syncstatus" id="rankRefreshStatus">Using curated v7.9.11 evaluation ranks with the final Aug. 30 cutdown refresh: confirmed IR/roster moves, late-round PPR role changes, legal/availability VERIFY flags, and the existing starter-group usage calibration. Sleeper API search/identity data has not been refreshed yet.</div>
 </div><div aria-live="polite" class="reliability" id="reliabilityCard">
@@ -455,7 +498,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 </div>
 <div class="champion-actions">
 <button aria-expanded="true" class="champion-toggle" id="championToggleBtn" type="button">Collapse ▲</button>
-<div class="champion-pill">v8.1.1</div>
+<div class="champion-pill">v8.2.0</div>
 </div>
 </div>
 <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -532,9 +575,9 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 <div class="node"><div class="nm">SuperSaiyan · #9/#12</div><div class="tell">Best multi-year scoring profile; went Puka → Josh Allen in 2025.</div></div>
 <div class="node"><div class="nm">TeamJbot · #10/#11</div><div class="tell">Usually WR early, then RB. Controls the 10/11 turn.</div></div>
 </div>
-</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.1.2 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
+</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.2.0 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
 <script>
-const APP_VERSION='v8.1.2';
+const APP_VERSION='v8.2.0';
 const TRAINER_STATUS='SEASON_HUB_V1_DRAFT_ENGINE_7_9_11';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
@@ -3828,10 +3871,11 @@ if(!loadCachedSleeperRanks()){
 
 
 // ===== v8.1.1 SEASON HUB =====
-const SEASON_HUB_VERSION='v8.1.1';
-let seasonData={leagueId:'',league:null,nflState:null,rosters:[],users:[],matchups:[],transactions:[],week:1,myRosterId:null,myRosterSource:'',syncedAt:null};
+const SEASON_HUB_VERSION='v8.2.0';
+let seasonData={leagueId:'',league:null,nflState:null,rosters:[],users:[],matchups:[],transactions:[],week:1,myRosterId:null,myRosterSource:'',syncedAt:null,news:{signals:{},trendingAdds:[],trendingDrops:[],articles:[],updatedAt:null,errors:[]},statusChanges:[]};
 let seasonWaiverPos='ALL';
 let seasonActivityFilter='ALL';
+let seasonNewsFilter='ALL';
 let seasonAutoRefreshTimer=null;
 let seasonActiveScreen='dashboard';
 let seasonActiveDraftTab='control';
@@ -3986,6 +4030,150 @@ async function detectLeagueIdFromDraft(){
    return id;
  }catch(e){return '';}
 }
+
+function seasonSignalForId(id){return seasonData.news?.signals?.[String(id)]||null;}
+function normalizeHubText(s){return String(s||'').toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();}
+function seasonSignalFingerprint(sig){
+ if(!sig)return '';
+ return [sig.status,sig.injuryStatus,sig.injuryBodyPart,sig.practiceParticipation,sig.practiceDescription].map(x=>String(x||'').trim()).join('|');
+}
+function seasonStatusSeverity(sig){
+ if(!sig)return 0;
+ const status=normalizeHubText(`${sig.status||''} ${sig.injuryStatus||''}`),practice=normalizeHubText(sig.practiceParticipation||'');
+ if(/injured reserve|reserve pup|physically unable|suspend|commissioner|out|doubtful/.test(status))return 3;
+ if(/questionable/.test(status)||/did not participate|dnp/.test(practice))return 2;
+ if(/limited/.test(practice)||sig.injuryBodyPart)return 1;
+ return 0;
+}
+function seasonSignalLabel(sig){
+ if(!sig)return 'No status flag';
+ const parts=[];
+ if(sig.injuryStatus)parts.push(sig.injuryStatus);
+ else if(sig.status && !/active/i.test(sig.status))parts.push(sig.status);
+ if(sig.injuryBodyPart)parts.push(sig.injuryBodyPart);
+ if(sig.practiceParticipation)parts.push(sig.practiceParticipation);
+ return parts.filter(Boolean).join(' · ')||'Active';
+}
+function seasonRosterOwnerForPlayer(id){
+ const r=seasonData.rosters.find(x=>(x.players||[]).map(String).includes(String(id)));
+ return r?{roster:r,name:seasonRosterName(r)}:null;
+}
+function seasonRelevantSignalIds(trendingAdds=[],trendingDrops=[]){
+ const ids=new Set(seasonData.rosters.flatMap(r=>r.players||[]).map(String));
+ for(const x of [...trendingAdds,...trendingDrops].slice(0,50))if(x?.player_id)ids.add(String(x.player_id));
+ for(const p of (sleeperCandidatePool||[]).slice(0,100))if(p?.sleeperId)ids.add(String(p.sleeperId));
+ return ids;
+}
+function seasonCompactPlayerSignal(id,p){
+ const full=[p?.first_name,p?.last_name].filter(Boolean).join(' ').trim()||seasonPlayerInfo(id).name||String(id);
+ return {id:String(id),name:full,pos:String(p?.position||seasonPlayerInfo(id).pos||''),team:String(p?.team||seasonPlayerInfo(id).team||''),status:String(p?.status||''),injuryStatus:String(p?.injury_status||''),injuryBodyPart:String(p?.injury_body_part||p?.injury_body_part_abbr||''),injuryNotes:String(p?.injury_notes||''),injuryStartDate:String(p?.injury_start_date||''),practiceParticipation:String(p?.practice_participation||''),practiceDescription:String(p?.practice_description||''),depthChartOrder:Number(p?.depth_chart_order||0)||null,newsUpdated:Number(p?.news_updated||0)||null,espnId:String(p?.espn_id||'')};
+}
+function seasonArticleLink(a){return a?.links?.web?.href||a?.links?.mobile?.href||a?.link||'';}
+function seasonArticleMatches(a,leaguePlayers){
+ const text=normalizeHubText(`${a?.headline||''} ${a?.description||''}`); const ids=new Set();
+ for(const c of (a?.categories||[])){
+   const athlete=c?.athlete||c?.player||null; if(athlete?.id)ids.add(String(athlete.id)); if(c?.athleteId)ids.add(String(c.athleteId));
+ }
+ const matches=[];
+ for(const p of leaguePlayers){
+   const sig=seasonSignalForId(p.id); const nm=normalizeHubText(p.name);
+   if((sig?.espnId&&ids.has(String(sig.espnId)))||(nm.length>=7&&text.includes(nm)))matches.push(p);
+ }
+ return matches;
+}
+function seasonLoadNewsCache(){
+ try{
+   const raw=localStorage.getItem('fantasyHubNewsCacheV1'); if(!raw)return false; const c=JSON.parse(raw); if(!c?.updatedAt)return false;
+   seasonData.news={signals:c.signals||{},trendingAdds:c.trendingAdds||[],trendingDrops:c.trendingDrops||[],articles:c.articles||[],updatedAt:Number(c.updatedAt)||null,errors:c.errors||[]}; return true;
+ }catch(e){return false;}
+}
+function seasonSaveNewsCache(){try{localStorage.setItem('fantasyHubNewsCacheV1',JSON.stringify(seasonData.news));}catch(e){}}
+function seasonComputeStatusChanges(){
+ const signals=seasonData.news?.signals||{}; const rostered=seasonData.rosters.flatMap(r=>r.players||[]).map(String); let seen={};
+ try{seen=JSON.parse(localStorage.getItem('fantasyHubStatusSeenV1')||'{}')||{};}catch(e){}
+ if(!Object.keys(seen).length){
+   const seed={}; for(const id of rostered){const fp=seasonSignalFingerprint(signals[id]);if(fp)seed[id]=fp;} try{localStorage.setItem('fantasyHubStatusSeenV1',JSON.stringify(seed));}catch(e){} seasonData.statusChanges=[]; return;
+ }
+ seasonData.statusChanges=rostered.map(id=>({id,signal:signals[id],before:seen[id]||'',now:seasonSignalFingerprint(signals[id])})).filter(x=>x.now&&x.before&&x.now!==x.before);
+}
+function seasonMarkNewsSeen(){
+ const seen={}; for(const id of seasonData.rosters.flatMap(r=>r.players||[]).map(String)){const fp=seasonSignalFingerprint(seasonSignalForId(id));if(fp)seen[id]=fp;}
+ try{localStorage.setItem('fantasyHubStatusSeenV1',JSON.stringify(seen));}catch(e){} seasonData.statusChanges=[]; renderNewsAlerts(); renderSeasonBrief();
+}
+async function refreshSeasonNews({quiet=false,force=true,render=true}={}){
+ const status=document.getElementById('newsRefreshStatus'),btn=document.getElementById('newsRefreshBtn'); if(btn)btn.disabled=true;
+ if(!quiet&&status)status.textContent='Refreshing player status, Sleeper market movement and NFL headlines…';
+ try{
+   if(!seasonData.news?.updatedAt)seasonLoadNewsCache();
+   const age=Date.now()-Number(seasonData.news?.updatedAt||0),rosterIds=seasonData.rosters.flatMap(r=>r.players||[]).map(String),missing=rosterIds.some(id=>!seasonData.news?.signals?.[id]);
+   if(!force&&age<30*60*1000&&!missing){seasonComputeStatusChanges(); if(render){renderNewsAlerts();renderSeasonBrief();} return;}
+   const safeJson=async(url,fallback)=>{try{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(`HTTP ${r.status}`);return await r.json();}catch(e){return fallback;}};
+   const [adds,drops,espn,...positionData]=await Promise.all([
+     safeJson('https://api.sleeper.app/v1/players/nfl/trending/add?lookback_hours=24&limit=25',[]),
+     safeJson('https://api.sleeper.app/v1/players/nfl/trending/drop?lookback_hours=24&limit=25',[]),
+     safeJson('https://site.api.espn.com/apis/site/v2/sports/football/nfl/news?limit=40',{articles:[]}),
+     ...['QB','RB','WR','TE','K'].map(pos=>safeJson(`https://api.sleeper.app/v1/players/nfl?position=${pos}&active=true`,{}))
+   ]);
+   const wanted=seasonRelevantSignalIds(adds,drops),signals={};
+   for(const data of positionData)for(const [id,p] of Object.entries(data||{}))if(wanted.has(String(id)))signals[String(id)]=seasonCompactPlayerSignal(id,p);
+   // Preserve cached signals for a rostered player if Sleeper's active-only response temporarily omits him.
+   for(const id of wanted)if(!signals[id]&&seasonData.news?.signals?.[id])signals[id]=seasonData.news.signals[id];
+   const articles=Array.isArray(espn?.articles)?espn.articles.slice(0,40):[]; const errors=[]; if(!articles.length)errors.push('Headline feed unavailable');
+   seasonData.news={signals,trendingAdds:Array.isArray(adds)?adds:[],trendingDrops:Array.isArray(drops)?drops:[],articles,updatedAt:Date.now(),errors}; seasonSaveNewsCache(); seasonComputeStatusChanges();
+   if(status)status.textContent=`Updated ${new Date(seasonData.news.updatedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})} · Sleeper status + 24h market trends${articles.length?' · NFL headlines loaded':' · headline feed unavailable'}.`;
+   if(render){renderNewsAlerts();renderSeasonBrief();}
+ }catch(e){if(status)status.textContent=`News refresh needs attention: ${e.message}`;}
+ finally{if(btn)btn.disabled=false;}
+}
+function seasonAttentionAlerts(){
+ const alerts=[],my=seasonRosterById(seasonData.myRosterId),starterIds=new Set((my?.starters||[]).map(String)),myIds=(my?.players||[]).map(String),week=seasonData.week||seasonCurrentWeek();
+ for(const id of myIds){
+   const p=seasonPlayerInfo(id),sig=seasonSignalForId(id),sev=seasonStatusSeverity(sig),isStarter=starterIds.has(id),bye=seasonByeForPlayerInfo(p);
+   if(bye===Number(week)&&isStarter)alerts.push({severity:'critical',title:`${p.name} is on bye in your current lineup`,copy:`${p.pos} · ${p.team}. A replacement is required before the lineup locks.`,tag:'LINEUP'});
+   if(sev>=3)alerts.push({severity:'critical',title:`${p.name} needs attention`,copy:`${seasonSignalLabel(sig)}${isStarter?' · currently in your starting lineup':''}.`,tag:'PLAYER'});
+   else if(sev===2)alerts.push({severity:'warn',title:`Monitor ${p.name}`,copy:`${seasonSignalLabel(sig)}${isStarter?' · currently starting':''}. Recheck closer to kickoff.`,tag:'PLAYER'});
+   else if(sev===1&&isStarter)alerts.push({severity:'info',title:`Status note: ${p.name}`,copy:`${seasonSignalLabel(sig)}.`,tag:'PLAYER'});
+ }
+ const nextCut=seasonUpcomingPlans().find(p=>p.week>seasonCurrentWeek()&&p.cutsNeeded>0);
+ if(nextCut)alerts.push({severity:'info',title:`Week ${nextCut.week} requires ${nextCut.cutsNeeded} roster spot${nextCut.cutsNeeded===1?'':'s'}`,copy:`Current bye logistics need ${nextCut.externalAdds} outside add${nextCut.externalAdds===1?'':'s'}. Plan the temporary cut/consolidation before that week.`,tag:'PLANNING'});
+ for(const ch of (seasonData.statusChanges||[])){
+   if(!myIds.includes(String(ch.id)))continue; const p=seasonPlayerInfo(ch.id); alerts.unshift({severity:seasonStatusSeverity(ch.signal)>=2?'warn':'info',title:`New status change: ${p.name}`,copy:`Now: ${seasonSignalLabel(ch.signal)}.`,tag:'NEW'});
+ }
+ // Surface a couple of recent skill-player drops as neutral waiver-watch alerts. Do not treat Sleeper search rank as player quality.
+ let recentDropAlerts=0;
+ for(const t of (seasonData.transactions||[]).slice(0,12)){
+   for(const id of Object.keys(t?.drops||{})){
+     const p=seasonPlayerInfo(id); if(!['RB','WR','QB','TE'].includes(p.pos))continue;
+     alerts.push({severity:'info',title:`Recent drop: ${p.name}`,copy:`${p.pos}${p.team?` · ${p.team}`:''}. This is league activity only — verify current role/news before deciding whether he is worth a claim.`,tag:'WAIVER'}); recentDropAlerts++; break;
+   }
+   if(recentDropAlerts>=2)break;
+ }
+ return alerts.slice(0,12);
+}
+function seasonLeaguePlayerWatch(){
+ const {opp}=matchupPairForRoster(seasonData.myRosterId),oppIds=new Set((seasonRosterById(opp?.roster_id)?.players||[]).map(String)),myIds=new Set((seasonRosterById(seasonData.myRosterId)?.players||[]).map(String)),changed=new Set((seasonData.statusChanges||[]).map(x=>String(x.id))); const rows=[];
+ for(const r of seasonData.rosters)for(const id of (r.players||[])){
+   const sid=String(id),sig=seasonSignalForId(sid),sev=seasonStatusSeverity(sig); if(!sev&&!changed.has(sid))continue;
+   if(seasonNewsFilter==='MINE'&&!myIds.has(sid))continue; if(seasonNewsFilter==='OPP'&&!oppIds.has(sid))continue; if(seasonNewsFilter==='CHANGED'&&!changed.has(sid))continue;
+   rows.push({id:sid,p:seasonPlayerInfo(sid),sig,sev,owner:seasonRosterName(r),mine:myIds.has(sid),opp:oppIds.has(sid),changed:changed.has(sid)});
+ }
+ return rows.sort((a,b)=>b.changed-a.changed||b.mine-a.mine||b.opp-a.opp||b.sev-a.sev||a.p.name.localeCompare(b.p.name));
+}
+function renderNewsAlerts(){
+ const summary=document.getElementById('alertSummary'),attention=document.getElementById('attentionList'),watch=document.getElementById('leaguePlayerWatch'),market=document.getElementById('marketBuzz'),headlines=document.getElementById('newsHeadlines'),badge=document.getElementById('alertsCountBadge'),status=document.getElementById('newsRefreshStatus'); if(!summary)return;
+ if(!seasonData.rosters.length){summary.innerHTML='<div class="empty-state">Sync the season to calculate alerts.</div>';return;}
+ const alerts=seasonAttentionAlerts(),mineIds=new Set((seasonRosterById(seasonData.myRosterId)?.players||[]).map(String)),myFlags=[...mineIds].filter(id=>seasonStatusSeverity(seasonSignalForId(id))>0).length,changes=(seasonData.statusChanges||[]).length,needs=alerts.filter(a=>['critical','warn'].includes(a.severity)).length;
+ summary.innerHTML=`<div class="alert-stat"><div class="label">Needs attention</div><div class="value">${needs}</div></div><div class="alert-stat"><div class="label">My player flags</div><div class="value">${myFlags}</div></div><div class="alert-stat"><div class="label">New changes</div><div class="value">${changes}</div></div>`;
+ if(badge){badge.textContent=String(needs+changes);badge.classList.toggle('zero',needs+changes===0);}
+ attention.innerHTML=alerts.length?alerts.map(a=>`<div class="alert-card ${a.severity}"><div class="alert-head"><div class="alert-title">${escHub(a.title)}</div><span class="alert-tag ${a.severity}">${escHub(a.tag)}</span></div><div class="alert-copy">${escHub(a.copy)}</div></div>`).join(''):'<div class="alert-card good"><div class="alert-head"><div class="alert-title">No urgent action detected</div><span class="alert-tag good">CLEAR</span></div><div class="alert-copy">Your current Sleeper roster/lineup has no high-priority status flags. Continue monitoring news closer to kickoff.</div></div>';
+ const rows=seasonLeaguePlayerWatch(); watch.innerHTML=rows.length?rows.slice(0,40).map(x=>`<div class="player-watch-row"><div class="watch-main"><div class="watch-name">${escHub(x.p.name)}${x.changed?' <span class="watch-chip">NEW</span>':''}</div><div class="watch-detail">${escHub(x.p.pos||'—')}${x.p.team?` · ${escHub(x.p.team)}`:''} · ${escHub(seasonSignalLabel(x.sig))}</div><div class="watch-owner">${escHub(x.mine?'YOUR TEAM':x.opp?'THIS WEEK\'S OPPONENT':x.owner)}</div></div><span class="watch-status ${x.sev>=3?'bad':x.sev>=2?'warn':''}">${x.sev>=3?'HIGH':x.sev>=2?'WATCH':'NOTE'}</span></div>`).join(''):'<div class="empty-state">No rostered players match this filter right now.</div>';
+ const renderTrend=(arr,label)=>`<div class="market-block"><div class="market-title">${label}</div>${(arr||[]).slice(0,10).map(x=>{const p=seasonPlayerInfo(x.player_id),own=seasonRosterOwnerForPlayer(x.player_id);return `<div class="market-row"><span>${escHub(p.name)}${own?` <span class="watch-chip">${escHub(own.name)}</span>`:''}</span><span class="market-count">${Number(x.count||0).toLocaleString()}</span></div>`;}).join('')||'<div class="empty-state">No trend data.</div>'}</div>`;
+ market.innerHTML=`<div class="market-grid">${renderTrend(seasonData.news?.trendingAdds,'🔥 Most added')}${renderTrend(seasonData.news?.trendingDrops,'📉 Most dropped')}</div>`;
+ const leaguePlayers=seasonData.rosters.flatMap(r=>(r.players||[]).map(id=>seasonPlayerInfo(id))); const arts=(seasonData.news?.articles||[]).map(a=>({a,m:seasonArticleMatches(a,leaguePlayers)})).sort((x,y)=>(y.m.length>0)-(x.m.length>0));
+ headlines.innerHTML=arts.length?arts.slice(0,18).map(({a,m})=>{const link=seasonArticleLink(a),date=a?.published?new Date(a.published).toLocaleString([], {month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'';return `<div class="news-item"><div class="news-headline">${escHub(a?.headline||'NFL update')}</div>${a?.description?`<div class="news-desc">${escHub(a.description)}</div>`:''}<div class="news-meta">${m.length?`<span class="watch-chip">League: ${escHub(m.slice(0,3).map(p=>p.name).join(', '))}</span>`:''}${date?`<span>${escHub(date)}</span>`:''}<span>ESPN</span></div>${link?`<a class="news-link" href="${escHub(link)}" target="_blank" rel="noopener noreferrer">Open story ↗</a>`:''}</div>`;}).join(''):`<div class="empty-state">Live headline feed is unavailable right now. Sleeper player-status and market alerts can still be used.</div>`;
+ if(status&&seasonData.news?.updatedAt)status.textContent=`Updated ${new Date(seasonData.news.updatedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})} · Sleeper player status + market trends${arts.length?' · ESPN headlines':''}.`;
+}
+
 async function fetchSeasonTransactions(leagueId,maxWeek){
  const last=Math.max(1,Math.min(18,Number(maxWeek)||1));
  const weeks=Array.from({length:last},(_,i)=>i+1);
@@ -4016,6 +4204,7 @@ async function syncSeasonData({week=null,quiet=false}={}){
    if(!Object.keys(sleeperIdentityById||{}).length){
      try{await refreshSleeperPlayerRanks(false);}catch(e){}
    }
+   try{await refreshSeasonNews({quiet:true,force:false,render:false});}catch(e){}
    renderSeasonHub();
    const identified=seasonRosterById(seasonData.myRosterId); seasonSetStatus(`Synced ${league?.name||'league'} · Week ${seasonData.week} · ${seasonData.transactions.length} completed transaction${seasonData.transactions.length===1?'':'s'} loaded${identified?` · your team: ${seasonRosterName(identified)} (${seasonData.myRosterSource||'auto'})`:''} · ${seasonAutoRefreshEnabled()?'auto-refresh 5m on':'auto-refresh off'}.`,'ok');
  }catch(err){
@@ -4264,7 +4453,7 @@ function currentSeasonBrief(){
  const tx=(seasonData.transactions||[]).slice(0,12).map(t=>{const team=(t.roster_ids||[]).map(id=>seasonRosterName(seasonRosterById(id))).join(' / '); const adds=transactionPlayerNames(t.adds).join(', '),drops=transactionPlayerNames(t.drops).join(', '); return `${String(t.type||'transaction').toUpperCase()}: ${team}${adds?` · add ${adds}`:''}${drops?` · drop ${drops}`:''}`;});
  const rostered=new Set(seasonData.rosters.flatMap(x=>x.players||[]).map(String)); const waivers=(sleeperCandidatePool||[]).filter(p=>p.sleeperId&&!rostered.has(String(p.sleeperId))&&['RB','WR','QB','TE','DST','K'].includes(p.pos)).sort((a,b)=>waiverSortScore(a)-waiverSortScore(b)).slice(0,20);
  const logistics=seasonUpcomingPlans().filter(p=>p.onBye.length||p.externalAdds).map(p=>{const needs=seasonShortageLabels(p);return `Week ${p.week}: ${p.onBye.length} roster on bye · ${p.starterByes.length} current starters · external adds ${p.externalAdds}${needs.length?` (${needs.join(' + ')})`:''} · extra roster spots to create ${p.cutsNeeded}${p.naturalSwaps?` · one-for-one K/DST replacements ${p.naturalSwaps}`:''}`;}).join('\n')||'No upcoming bye logistics available';
- return `CURRENT SEASON STATE\nHub version: ${SEASON_HUB_VERSION}\nLeague: ${seasonData.league?.name||seasonData.leagueId}\nWeek: ${seasonData.week}\nMy team: ${seasonRosterName(r)} · record ${Number(r.settings?.wins||0)}-${Number(r.settings?.losses||0)}\nTeam identity source: ${seasonData.myRosterSource||'automatic'}\nOpponent: ${oppRoster?seasonRosterName(oppRoster):'TBD'}\n\nSTARTERS\n${rosterLine(starters)}\n\nBENCH\n${rosterLine(bench)}\n\nBYE WEEKS\n${byeText}\n\nROSTER LOGISTICS\n${logistics}\n\nTOP CURRENT FREE AGENTS\n${waivers.map(p=>`${p.pos} ${p.name}${teamCodeForPlayer(p)?` [${teamCodeForPlayer(p)}]`:''}`).join(', ')||'No waiver snapshot available'}\n\nRECENT LEAGUE ACTIVITY\n${tx.join('\n')||'No completed transactions yet'}\n\nSEASON RULE\nSleeper rosters, starters, matchups, and completed transactions are source-of-truth league data. Hub bye-logistics output is structural roster coverage only, not a player-quality recommendation. Use current ChatGPT/web research for injuries, roles, news and final lineup/waiver/trade decisions.`;
+ return `CURRENT SEASON STATE\nHub version: ${SEASON_HUB_VERSION}\nLeague: ${seasonData.league?.name||seasonData.leagueId}\nWeek: ${seasonData.week}\nMy team: ${seasonRosterName(r)} · record ${Number(r.settings?.wins||0)}-${Number(r.settings?.losses||0)}\nTeam identity source: ${seasonData.myRosterSource||'automatic'}\nOpponent: ${oppRoster?seasonRosterName(oppRoster):'TBD'}\n\nSTARTERS\n${rosterLine(starters)}\n\nBENCH\n${rosterLine(bench)}\n\nBYE WEEKS\n${byeText}\n\nROSTER LOGISTICS\n${logistics}\n\nTOP CURRENT FREE AGENTS\n${waivers.map(p=>`${p.pos} ${p.name}${teamCodeForPlayer(p)?` [${teamCodeForPlayer(p)}]`:''}`).join(', ')||'No waiver snapshot available'}\n\nRECENT LEAGUE ACTIVITY\n${tx.join('\n')||'No completed transactions yet'}\n\nNEWS & ALERTS\n${seasonAttentionAlerts().slice(0,8).map(a=>`${a.tag}: ${a.title} — ${a.copy}`).join('\n')||'No urgent Hub alerts'}\n${(seasonData.statusChanges||[]).length?`Status changes since last seen: ${(seasonData.statusChanges||[]).slice(0,8).map(x=>seasonPlayerInfo(x.id).name).join(', ')}`:'No unseen rostered-player status changes'}\n\nSEASON RULE\nSleeper rosters, starters, matchups, and completed transactions are source-of-truth league data. Hub bye-logistics output is structural roster coverage only, not a player-quality recommendation. Use current ChatGPT/web research for injuries, roles, news and final lineup/waiver/trade decisions.`;
 }
 function renderSeasonBrief(){const el=document.getElementById('seasonBrief');if(el)el.value=currentSeasonBrief();}
 
@@ -4276,7 +4465,7 @@ function configureSeasonAutoRefresh(){
 }
 function setSeasonAutoRefreshFromUI(){const enabled=!!document.getElementById('seasonAutoRefreshToggle')?.checked;try{localStorage.setItem('fantasyHubAutoRefresh',enabled?'on':'off');}catch(e){}configureSeasonAutoRefresh();}
 function renderSeasonHub(){
- seasonPopulateWeekSelect(); populateSeasonMyTeamSelect(); renderSeasonSummary(); renderSeasonActionCenter(); renderMatchupBanner('dashboardMatchup'); renderWeekCoverage(); renderWeekMatchup(); renderTeamRoster(); renderByeWeeks(); renderWaivers(); renderActivity(); renderTradeCenter(); renderSeasonBrief();
+ seasonPopulateWeekSelect(); populateSeasonMyTeamSelect(); renderSeasonSummary(); renderSeasonActionCenter(); renderMatchupBanner('dashboardMatchup'); renderNewsAlerts(); renderWeekCoverage(); renderWeekMatchup(); renderTeamRoster(); renderByeWeeks(); renderWaivers(); renderActivity(); renderTradeCenter(); renderSeasonBrief();
 }
 async function loadSpecificSeasonWeek(){const w=Number(document.getElementById('seasonWeekSelect')?.value)||seasonCurrentWeek(); await syncSeasonData({week:w});}
 async function copySeasonBrief(){const text=document.getElementById('seasonBrief')?.value||currentSeasonBrief();try{await navigator.clipboard.writeText(text);alert('Season State copied.');}catch(e){const el=document.getElementById('seasonBrief');el?.focus();el?.select();alert('Clipboard was blocked. Season State is selected so you can copy it manually.');}}
@@ -4290,14 +4479,17 @@ function initSeasonHub(){
  document.getElementById('seasonAutoRefreshToggle')?.addEventListener('change',setSeasonAutoRefreshFromUI);
  document.getElementById('weekRefreshBtn')?.addEventListener('click',loadSpecificSeasonWeek);
  document.getElementById('waiverRefreshBtn')?.addEventListener('click',()=>{renderWaivers();renderSeasonBrief();});
+ document.getElementById('newsRefreshBtn')?.addEventListener('click',()=>refreshSeasonNews({quiet:false,force:true,render:true}));
+ document.getElementById('newsMarkSeenBtn')?.addEventListener('click',seasonMarkNewsSeen);
+ document.querySelectorAll('#newsFilters [data-news-filter]').forEach(btn=>btn.addEventListener('click',()=>{seasonNewsFilter=btn.dataset.newsFilter;document.querySelectorAll('#newsFilters [data-news-filter]').forEach(b=>b.classList.toggle('active',b===btn));renderNewsAlerts();}));
  document.getElementById('waiverSearch')?.addEventListener('input',renderWaivers);
  document.querySelectorAll('#waiverFilters [data-waiver-pos]').forEach(btn=>btn.addEventListener('click',()=>{seasonWaiverPos=btn.dataset.waiverPos;document.querySelectorAll('#waiverFilters [data-waiver-pos]').forEach(b=>b.classList.toggle('active',b===btn));renderWaivers();}));
  document.querySelectorAll('#activityFilters [data-activity-filter]').forEach(btn=>btn.addEventListener('click',()=>{seasonActivityFilter=btn.dataset.activityFilter;document.querySelectorAll('#activityFilters [data-activity-filter]').forEach(b=>b.classList.toggle('active',b===btn));renderActivity();}));
  document.getElementById('seasonCopyBtn')?.addEventListener('click',copySeasonBrief);
  document.getElementById('seasonShareBtn')?.addEventListener('click',shareSeasonBrief);
  let saved='dashboard',draftSaved='control';try{saved=localStorage.getItem('fantasyHubActiveScreen')||'dashboard';draftSaved=localStorage.getItem('fantasyHubDraftTab')||'control';}catch(e){}
- if(!['dashboard','week','team','byes','waivers','activity','trades','draft'].includes(saved))saved='dashboard'; if(!['control','players','board','research'].includes(draftSaved))draftSaved='control';
- showAppScreen(saved,{scroll:false}); showDraftTab(draftSaved); configureSeasonAutoRefresh();
+ if(!['dashboard','week','team','news','byes','waivers','activity','trades','draft'].includes(saved))saved='dashboard'; if(!['control','players','board','research'].includes(draftSaved))draftSaved='control';
+ seasonLoadNewsCache(); showAppScreen(saved,{scroll:false}); showDraftTab(draftSaved); configureSeasonAutoRefresh();
  detectLeagueIdFromDraft().then(id=>{if(id)syncSeasonData({quiet:true});});
 }
 
