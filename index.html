@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" name="viewport"/>
-<title>2026 Fantasy Championship Hub — v8.2.6</title>
+<title>2026 Fantasy Championship Hub — v8.2.7</title>
 <meta content="#071228" name="theme-color"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -362,10 +362,10 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 <div class="hub-card"><h2>This week</h2><div class="empty-state" id="dashboardMatchup">Sync the league to load your matchup.</div></div>
 <div class="hub-card"><h2>Latest league activity</h2><div class="empty-state" id="dashboardRecentActivity">Trades, waivers, adds and drops will appear here.</div></div>
 <div class="hub-card full">
-<h2>Copy Season State</h2>
-<div class="muted" style="font-size:12px;margin-bottom:8px">Use Copy Season State for full roster/waiver/trade context. Use Copy Weekly Decision State for a shorter game-day handoff with exact lineup slots, reserve status, opponent starters, live score and structural alerts.</div>
-<textarea aria-label="Copyable current season state" class="copy-mini" id="seasonBrief" readonly=""></textarea>
-<div class="grid voice-actions"><button id="seasonCopyBtn" type="button">Copy Season State</button><button class="primary" id="weeklyDecisionCopyBtn" type="button">Copy Weekly Decision State</button><button id="seasonShareBtn" type="button">Share Season State</button></div>
+<h2>Copy ChatGPT State</h2>
+<div class="muted" style="font-size:12px;margin-bottom:8px">One universal handoff for ChatGPT: current lineup and game state first, then opponent context, injuries, waivers, bye pressure, transactions and season planning. Sync, copy once, and paste it into ChatGPT.</div>
+<textarea aria-label="Copyable ChatGPT fantasy state" class="copy-mini" id="seasonBrief" readonly=""></textarea>
+<div class="grid voice-actions"><button class="primary" id="seasonCopyBtn" type="button">Copy ChatGPT State</button><button id="seasonShareBtn" type="button">Share ChatGPT State</button></div>
 </div>
 </div>
 </section><section class="app-screen" data-screen-panel="week" id="screen-week">
@@ -406,7 +406,7 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 </section><section class="app-screen" data-screen-panel="trades" id="screen-trades">
 <div class="screen-head"><div><div class="screen-title">Trade Center</div><div class="screen-kicker">See every roster at a glance, including positional surpluses that can create trade opportunities.</div></div></div>
 <div class="hub-card">
-<div class="muted" style="font-size:12px;margin-bottom:10px">The Hub identifies roster shape and surplus positions. Use Copy Season State for the deeper player-for-player trade evaluation with current news.</div><div class="trade-timing" id="tradeTiming"></div>
+<div class="muted" style="font-size:12px;margin-bottom:10px">The Hub identifies roster shape and surplus positions. Use Copy ChatGPT State for deeper player-for-player trade evaluation with current news.</div><div class="trade-timing" id="tradeTiming"></div>
 <div class="trade-grid" id="tradeTeamGrid"><div class="empty-state" style="grid-column:1/-1">Sync the season to build the league trade map.</div></div>
 </div>
 </section><section class="app-screen" data-screen-panel="draft" id="screen-draft"><div class="screen-head"><div><div class="screen-title">Draft Lab</div><div class="screen-kicker">The complete v7.9.11 draft engine is preserved here for history, mocks, and future calibration.</div></div></div><div class="draft-subnav" id="draftSubnav">
@@ -439,7 +439,7 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 </div>
 </div><div class="card" id="identityRefreshCard">
 <h2 style="margin-bottom:6px">Player/identity refresh</h2>
-<p class="muted" style="font-size:12px;margin:0 0 9px">v8.2.6 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.2.6 includes the Bye Planner, lineup-coverage solver, roster-slot logistics, activity insights, K/DST waiver support, five-minute season auto-refresh, a no-sideways-scroll navigation grid, and plain-English one-for-one bye replacement guidance, plus News &amp; Alerts with player-status monitoring, Sleeper market trends, status-change detection, and a best-effort NFL headline feed.</p>
+<p class="muted" style="font-size:12px;margin:0 0 9px">v8.2.7 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.2.7 includes the Bye Planner, lineup-coverage solver, roster-slot logistics, activity insights, K/DST waiver support, five-minute season auto-refresh, a no-sideways-scroll navigation grid, and plain-English one-for-one bye replacement guidance, plus News &amp; Alerts with player-status monitoring, Sleeper market trends, status-change detection, and a best-effort NFL headline feed.</p>
 <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
 <div class="syncstatus" id="rankRefreshStatus">Using curated v7.9.11 evaluation ranks with the final Aug. 30 cutdown refresh: confirmed IR/roster moves, late-round PPR role changes, legal/availability VERIFY flags, and the existing starter-group usage calibration. Sleeper API search/identity data has not been refreshed yet.</div>
 </div><div aria-live="polite" class="reliability" id="reliabilityCard">
@@ -505,7 +505,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 </div>
 <div class="champion-actions">
 <button aria-expanded="true" class="champion-toggle" id="championToggleBtn" type="button">Collapse ▲</button>
-<div class="champion-pill">v8.2.6</div>
+<div class="champion-pill">v8.2.7</div>
 </div>
 </div>
 <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -582,9 +582,9 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 <div class="node"><div class="nm">SuperSaiyan · #9/#12</div><div class="tell">Best multi-year scoring profile; went Puka → Josh Allen in 2025.</div></div>
 <div class="node"><div class="nm">TeamJbot · #10/#11</div><div class="tell">Usually WR early, then RB. Controls the 10/11 turn.</div></div>
 </div>
-</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.2.6 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
+</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.2.7 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
 <script>
-const APP_VERSION='v8.2.6';
+const APP_VERSION='v8.2.7';
 const TRAINER_STATUS='SEASON_HUB_V1_DRAFT_ENGINE_7_9_11';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
@@ -4170,7 +4170,7 @@ async function refreshSeasonNews({quiet=false,force=true,render=true}={}){
    const age=Date.now()-Number(seasonData.news?.updatedAt||0),rosterIds=seasonData.rosters.flatMap(r=>r.players||[]).map(String),missing=rosterIds.some(id=>!seasonData.news?.signals?.[id]),gamesMissing=!Object.keys(seasonData.news?.games||{}).length;
    if(!force&&age<30*60*1000&&!missing&&!gamesMissing){seasonComputeStatusChanges(); if(render){renderNewsAlerts();renderSeasonBrief();} return;}
    const safeJson=async(url,fallback)=>{try{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(`HTTP ${r.status}`);return await r.json();}catch(e){return fallback;}};
-   // v8.2.6: load the entire selected NFL week, not merely today's slate.
+   // v8.2.7: load the entire selected NFL week, not merely today's slate.
    // This resolves earlier/later week games so exports can show FINAL/LOCKED correctly.
    const seasonYear=String(seasonData.nflState?.season||new Date().getFullYear());
    const seasonWeek=Math.max(1,Math.min(18,Number(seasonData.week||seasonCurrentWeek())||1));
@@ -4216,6 +4216,7 @@ function seasonAttentionAlerts(){
  let recentDropAlerts=0;
  for(const t of (seasonData.transactions||[]).slice(0,12)){
    for(const id of Object.keys(t?.drops||{})){
+     const droppedBy=Number(t?.drops?.[id]||0); if(droppedBy===Number(seasonData.myRosterId))continue;
      const p=seasonPlayerInfo(id); if(!['RB','WR','QB','TE'].includes(p.pos))continue;
      alerts.push({severity:'info',title:`Recent drop: ${p.name}`,copy:`${p.pos}${p.team?` · ${p.team}`:''}. This is league activity only — verify current role/news before deciding whether he is worth a claim.`,tag:'WAIVER'}); recentDropAlerts++; break;
    }
@@ -4552,7 +4553,7 @@ function seasonRecentDropsStillAvailable(pool){
  return out;
 }
 
-// ===== v8.2.6 ChatGPT export quality layer =====
+// ===== v8.2.7 One-copy ChatGPT state + export quality layer =====
 // Keep source-of-truth league data separate from football judgment. These helpers
 // improve roster-slot fidelity, reserve visibility, freshness, and matchup context.
 function seasonFormatDateTime(value){
@@ -4589,8 +4590,8 @@ function seasonLineupLines(roster,match=null){
    const p=seasonPlayerInfo(id); return `${label} ${p.name}${p.team?` [${p.team}]`:''} — ${seasonStatusTextForId(id)}${seasonPlayerGameSuffix(id,p,match)}`;
  });
 }
-function seasonPlayerListLines(ids){
- const rows=seasonUniqueIds(ids).map(id=>{const p=seasonPlayerInfo(id);return `${p.pos||'?'} ${p.name}${p.team?` [${p.team}]`:''} — ${seasonStatusTextForId(id)}`;});
+function seasonPlayerListLines(ids,match=null,includeGame=false){
+ const rows=seasonUniqueIds(ids).map(id=>{const p=seasonPlayerInfo(id);return `${p.pos||'?'} ${p.name}${p.team?` [${p.team}]`:''} — ${seasonStatusTextForId(id)}${includeGame?seasonPlayerGameSuffix(id,p,match):''}`;});
  return rows.length?rows:['None'];
 }
 function seasonStatusChangeGroups(r,oppRoster){
@@ -4598,7 +4599,7 @@ function seasonStatusChangeGroups(r,oppRoster){
  const groups={mine:[],opp:[],league:[]};
  for(const ch of (seasonData.statusChanges||[])){
    const id=String(ch.id),p=seasonPlayerInfo(id),text=`${p.name} — ${seasonSignalLabel(ch.signal)}`;
-   if(mine.has(id))groups.mine.push(text); else if(opp.has(id))groups.opp.push(text); else groups.league.push(text);
+   if(mine.has(id))groups.mine.push(text); else if(opp.has(id))groups.opp.push(text); else if(seasonStatusSeverity(ch.signal)>=2)groups.league.push(text);
  }
  return groups;
 }
@@ -4664,13 +4665,13 @@ function seasonTransactionText(t){
  return `${String(t.type||'transaction').toUpperCase()}: ${team}${adds?` · add ${adds}`:''}${drops?` · drop ${drops}`:''}${when?` · ${seasonFormatDateTime(when)}`:''}`;
 }
 function currentSeasonBrief(){
- const r=seasonRosterById(seasonData.myRosterId),{mine,opp}=matchupPairForRoster(seasonData.myRosterId),oppRoster=seasonRosterById(opp?.roster_id); if(!r)return 'CURRENT SEASON STATE\nSeason data has not been synced yet.';
+ const r=seasonRosterById(seasonData.myRosterId),{mine,opp}=matchupPairForRoster(seasonData.myRosterId),oppRoster=seasonRosterById(opp?.roster_id); if(!r)return 'CURRENT CHATGPT STATE\nSeason data has not been synced yet.';
  const parts=seasonRosterPartitions(r),available=seasonAvailablePlayerPool(),topOverall=available.slice(0,30),recentDrops=seasonRecentDropsStillAvailable(available),changes=seasonStatusChangeGroups(r,oppRoster);
  const tx=(seasonData.transactions||[]).slice(0,16).map(seasonTransactionText);
  const logistics=seasonUpcomingPlans().filter(p=>p.onBye.length||p.externalAdds).map(p=>{const needs=seasonShortageLabels(p);return `Week ${p.week}: ${p.onBye.length} roster on bye · ${p.starterByes.length} current starters · external adds ${p.externalAdds}${needs.length?` (${needs.join(' + ')})`:''} · extra roster spots to create ${p.cutsNeeded}${p.naturalSwaps?` · one-for-one K/DST replacements ${p.naturalSwaps}`:''}`;}).join('\n')||'No upcoming bye logistics available';
  const reserveMax=Number(seasonData.league?.settings?.reserve_slots||0),taxiMax=Number(seasonData.league?.settings?.taxi_slots||0);
  const rosterStatus=`Active: ${parts.activeIds.length}/${parts.activeCapacity} · Reserve/IR: ${parts.reserveIds.length}${reserveMax?`/${reserveMax}`:''} · Taxi: ${parts.taxiIds.length}${taxiMax?`/${taxiMax}`:''} · Open active spots: ${parts.openActiveSpots}`;
- return `CURRENT SEASON STATE\nHub version: ${SEASON_HUB_VERSION}\nSeason synced: ${seasonFormatDateTime(seasonData.syncedAt)}\nNews/status refreshed: ${seasonFormatDateTime(seasonData.news?.updatedAt)}\nLeague: ${seasonData.league?.name||seasonData.leagueId}\nWeek: ${seasonData.week}\nMy team: ${seasonRosterName(r)} · record ${Number(r.settings?.wins||0)}-${Number(r.settings?.losses||0)}\nTeam identity source: ${seasonData.myRosterSource||'automatic'}\nOpponent: ${oppRoster?seasonRosterName(oppRoster):'TBD'}\n\nROSTER STATUS\n${rosterStatus}\n\nSTARTING LINEUP\n${seasonLineupLines(r,mine).join('\n')}\n\nACTIVE BENCH\n${seasonPlayerListLines(parts.benchIds).join('\n')}\n\nRESERVE / IR\n${seasonPlayerListLines(parts.reserveIds).join('\n')}\n\nTAXI\n${seasonPlayerListLines(parts.taxiIds).join('\n')}\n\nDECISIONS REQUIRING REVIEW\n${seasonDecisionReview(r,mine,opp,oppRoster,recentDrops).join('\n')}\n\nOPPONENT STARTERS\n${oppRoster?seasonLineupLines(oppRoster,opp).join('\n'):'Opponent lineup unavailable'}\n\nLIVE MATCHUP\n${seasonLiveMatchupText(mine,opp)}\n\nBYE WEEKS\n${seasonByeTextForRoster(r)}\n\nROSTER LOGISTICS\n${logistics}\n\nTOP CURRENT FREE AGENTS — OVERALL\n${topOverall.map(p=>`${p.pos} ${p.name}${teamCodeForPlayer(p)?` [${teamCodeForPlayer(p)}]`:''}`).join(', ')||'No waiver snapshot available'}\n\nAVAILABLE PLAYERS BY POSITION\n${seasonAvailableByPositionText(available)}\n\nRECENT DROPS STILL AVAILABLE\n${recentDrops.map(seasonRecentDropText).join('\n')||'No recent dropped players are currently available'}\n\nRECENT LEAGUE ACTIVITY\n${tx.join('\n')||'No completed transactions yet'}\n\nNEWS & ALERTS\n${seasonAttentionAlerts().slice(0,10).map(a=>`${a.tag}: ${a.title} — ${a.copy}`).join('\n')||'No urgent Hub alerts'}\nMY TEAM CHANGES: ${changes.mine.slice(0,10).join('; ')||'none'}\nOPPONENT CHANGES: ${changes.opp.slice(0,10).join('; ')||'none'}\nLEAGUE WATCH CHANGES: ${changes.league.slice(0,6).join('; ')||'none'}${changes.league.length>6?` · +${changes.league.length-6} more`:''}\n\nSEASON RULE\nSleeper rosters, starters, reserve/taxi status, matchups, completed transactions, and current availability are source-of-truth league data. The available-player lists are discovery aids, not player-quality rankings. Hub bye-logistics output is structural roster coverage only, not a player-quality recommendation. Use current ChatGPT/web research for injuries, roles, news and final lineup/waiver/trade decisions.`;
+ return `CURRENT CHATGPT STATE\nHub version: ${SEASON_HUB_VERSION}\nSeason synced: ${seasonFormatDateTime(seasonData.syncedAt)}\nNews/status refreshed: ${seasonFormatDateTime(seasonData.news?.updatedAt)}\nLeague: ${seasonData.league?.name||seasonData.leagueId}\nWeek: ${seasonData.week}\nMy team: ${seasonRosterName(r)} · record ${Number(r.settings?.wins||0)}-${Number(r.settings?.losses||0)}\nTeam identity source: ${seasonData.myRosterSource||'automatic'}\nOpponent: ${oppRoster?seasonRosterName(oppRoster):'TBD'}\n\nROSTER STATUS\n${rosterStatus}\n\nSTARTING LINEUP\n${seasonLineupLines(r,mine).join('\n')}\n\nACTIVE BENCH\n${seasonPlayerListLines(parts.benchIds,mine,true).join('\n')}\n\nRESERVE / IR\n${seasonPlayerListLines(parts.reserveIds).join('\n')}\n\nTAXI\n${seasonPlayerListLines(parts.taxiIds).join('\n')}\n\nDECISIONS REQUIRING REVIEW\n${seasonDecisionReview(r,mine,opp,oppRoster,recentDrops).join('\n')}\n\nOPPONENT STARTERS\n${oppRoster?seasonLineupLines(oppRoster,opp).join('\n'):'Opponent lineup unavailable'}\n\nLIVE MATCHUP\n${seasonLiveMatchupText(mine,opp)}\n\nBYE WEEKS\n${seasonByeTextForRoster(r)}\n\nROSTER LOGISTICS\n${logistics}\n\nTOP CURRENT FREE AGENTS — OVERALL\n${topOverall.map(p=>`${p.pos} ${p.name}${teamCodeForPlayer(p)?` [${teamCodeForPlayer(p)}]`:''}`).join(', ')||'No waiver snapshot available'}\n\nAVAILABLE PLAYERS BY POSITION\n${seasonAvailableByPositionText(available)}\n\nRECENT DROPS STILL AVAILABLE\n${recentDrops.map(seasonRecentDropText).join('\n')||'No recent dropped players are currently available'}\n\nRECENT LEAGUE ACTIVITY\n${tx.join('\n')||'No completed transactions yet'}\n\nNEWS & ALERTS\n${seasonAttentionAlerts().filter(a=>a.tag!=='NEW'&&a.tag!=='WAIVER').slice(0,10).map(a=>`${a.tag}: ${a.title} — ${a.copy}`).join('\n')||'No urgent Hub alerts'}\nMY TEAM CHANGES: ${changes.mine.slice(0,10).join('; ')||'none'}\nOPPONENT CHANGES: ${changes.opp.slice(0,10).join('; ')||'none'}\nLEAGUE WATCH CHANGES: ${changes.league.slice(0,6).join('; ')||'none'}${changes.league.length>6?` · +${changes.league.length-6} more`:''}\n\nCHATGPT STATE RULE\nSleeper rosters, starters, reserve/taxi status, matchups, completed transactions, and current availability are source-of-truth league data. The available-player lists are discovery aids, not player-quality rankings. Hub bye-logistics output is structural roster coverage only, not a player-quality recommendation. Use current ChatGPT/web research for injuries, roles, news and final lineup/waiver/trade decisions.`;
 }
 function currentWeeklyDecisionBrief(){
  const r=seasonRosterById(seasonData.myRosterId),{mine,opp}=matchupPairForRoster(seasonData.myRosterId),oppRoster=seasonRosterById(opp?.roster_id); if(!r)return 'CURRENT WEEK DECISION STATE\nSeason data has not been synced yet.';
@@ -4678,7 +4679,7 @@ function currentWeeklyDecisionBrief(){
  const reserveMax=Number(seasonData.league?.settings?.reserve_slots||0),taxiMax=Number(seasonData.league?.settings?.taxi_slots||0);
  const rosterStatus=`Active: ${parts.activeIds.length}/${parts.activeCapacity} · Reserve/IR: ${parts.reserveIds.length}${reserveMax?`/${reserveMax}`:''} · Taxi: ${parts.taxiIds.length}${taxiMax?`/${taxiMax}`:''} · Open active spots: ${parts.openActiveSpots}`;
  const logistics=upcoming.map(p=>`W${p.week}: ${p.onBye.length} on bye · ${p.starterByes.length} current starters · outside adds ${p.externalAdds}${seasonShortageLabels(p).length?` (${seasonShortageLabels(p).join(' + ')})`:''} · extra spots ${p.cutsNeeded}`).join('\n')||'No immediate bye pressure';
- return `CURRENT WEEK DECISION STATE\nHub version: ${SEASON_HUB_VERSION}\nSeason synced: ${seasonFormatDateTime(seasonData.syncedAt)}\nNews/status refreshed: ${seasonFormatDateTime(seasonData.news?.updatedAt)}\nLeague: ${seasonData.league?.name||seasonData.leagueId}\nWeek ${seasonData.week} · ${seasonRosterName(r)} vs ${oppRoster?seasonRosterName(oppRoster):'TBD'}\n\nROSTER STATUS\n${rosterStatus}\n\nSTARTING LINEUP\n${seasonLineupLines(r,mine).join('\n')}\n\nACTIVE BENCH\n${seasonPlayerListLines(parts.benchIds).join('\n')}\n\nRESERVE / IR\n${seasonPlayerListLines(parts.reserveIds).join('\n')}\n\nDECISIONS REQUIRING REVIEW\n${seasonDecisionReview(r,mine,opp,oppRoster,recentDrops).join('\n')}\n\nOPPONENT STARTERS\n${oppRoster?seasonLineupLines(oppRoster,opp).join('\n'):'Opponent lineup unavailable'}\n\nLIVE MATCHUP\n${seasonLiveMatchupText(mine,opp)}\n\nMY TEAM ALERTS\n${seasonAttentionAlerts().filter(a=>a.tag!=='WAIVER').slice(0,8).map(a=>`${a.tag}: ${a.title} — ${a.copy}`).join('\n')||'No urgent team alerts'}\nMY TEAM CHANGES: ${changes.mine.slice(0,8).join('; ')||'none'}\nOPPONENT CHANGES: ${changes.opp.slice(0,8).join('; ')||'none'}\n\nRECENT DROPS / WAIVER WATCH\n${recentDrops.slice(0,6).map(seasonRecentDropText).join('\n')||'No recent available drops'}\n\nTOP AVAILABLE SNAPSHOT\n${available.slice(0,12).map(p=>`${p.pos} ${p.name}${teamCodeForPlayer(p)?` [${teamCodeForPlayer(p)}]`:''}`).join(', ')||'No waiver snapshot available'}\n\nNEXT BYE PRESSURE\n${logistics}\n\nDECISION RULE\nSleeper lineup/roster state is authoritative. This export supplies current state and structural flags only; use current ChatGPT/web research for player quality, injuries, roles, matchup, weather and the final decision.`;
+ return `CURRENT WEEK DECISION STATE\nHub version: ${SEASON_HUB_VERSION}\nSeason synced: ${seasonFormatDateTime(seasonData.syncedAt)}\nNews/status refreshed: ${seasonFormatDateTime(seasonData.news?.updatedAt)}\nLeague: ${seasonData.league?.name||seasonData.leagueId}\nWeek ${seasonData.week} · ${seasonRosterName(r)} vs ${oppRoster?seasonRosterName(oppRoster):'TBD'}\n\nROSTER STATUS\n${rosterStatus}\n\nSTARTING LINEUP\n${seasonLineupLines(r,mine).join('\n')}\n\nACTIVE BENCH\n${seasonPlayerListLines(parts.benchIds,mine,true).join('\n')}\n\nRESERVE / IR\n${seasonPlayerListLines(parts.reserveIds).join('\n')}\n\nDECISIONS REQUIRING REVIEW\n${seasonDecisionReview(r,mine,opp,oppRoster,recentDrops).join('\n')}\n\nOPPONENT STARTERS\n${oppRoster?seasonLineupLines(oppRoster,opp).join('\n'):'Opponent lineup unavailable'}\n\nLIVE MATCHUP\n${seasonLiveMatchupText(mine,opp)}\n\nMY TEAM ALERTS\n${seasonAttentionAlerts().filter(a=>a.tag!=='WAIVER').slice(0,8).map(a=>`${a.tag}: ${a.title} — ${a.copy}`).join('\n')||'No urgent team alerts'}\nMY TEAM CHANGES: ${changes.mine.slice(0,8).join('; ')||'none'}\nOPPONENT CHANGES: ${changes.opp.slice(0,8).join('; ')||'none'}\n\nRECENT DROPS / WAIVER WATCH\n${recentDrops.slice(0,6).map(seasonRecentDropText).join('\n')||'No recent available drops'}\n\nTOP AVAILABLE SNAPSHOT\n${available.slice(0,12).map(p=>`${p.pos} ${p.name}${teamCodeForPlayer(p)?` [${teamCodeForPlayer(p)}]`:''}`).join(', ')||'No waiver snapshot available'}\n\nNEXT BYE PRESSURE\n${logistics}\n\nDECISION RULE\nSleeper lineup/roster state is authoritative. This export supplies current state and structural flags only; use current ChatGPT/web research for player quality, injuries, roles, matchup, weather and the final decision.`;
 }
 function renderSeasonBrief(){const el=document.getElementById('seasonBrief');if(el)el.value=currentSeasonBrief();}
 
@@ -4693,9 +4694,9 @@ function renderSeasonHub(){
  seasonPopulateWeekSelect(); populateSeasonMyTeamSelect(); renderSeasonSummary(); renderSeasonActionCenter(); renderMatchupBanner('dashboardMatchup'); renderNewsAlerts(); renderWeekCoverage(); renderWeekLiveDecision(); renderWeekMatchup(); renderTeamRoster(); renderByeWeeks(); renderWaivers(); renderActivity(); renderTradeCenter(); renderSeasonBrief();
 }
 async function loadSpecificSeasonWeek(){const w=Number(document.getElementById('seasonWeekSelect')?.value)||seasonCurrentWeek(); await syncSeasonData({week:w});}
-async function copySeasonBrief(){const text=document.getElementById('seasonBrief')?.value||currentSeasonBrief();try{await navigator.clipboard.writeText(text);alert('Season State copied.');}catch(e){const el=document.getElementById('seasonBrief');el?.focus();el?.select();alert('Clipboard was blocked. Season State is selected so you can copy it manually.');}}
+async function copySeasonBrief(){const text=document.getElementById('seasonBrief')?.value||currentSeasonBrief();try{await navigator.clipboard.writeText(text);alert('ChatGPT State copied.');}catch(e){const el=document.getElementById('seasonBrief');el?.focus();el?.select();alert('Clipboard was blocked. ChatGPT State is selected so you can copy it manually.');}}
 async function copyWeeklyDecisionBrief(){const text=currentWeeklyDecisionBrief();try{await navigator.clipboard.writeText(text);alert('Weekly Decision State copied.');}catch(e){const el=document.getElementById('seasonBrief');if(el){el.value=text;el.focus();el.select();}alert('Clipboard was blocked. Weekly Decision State is selected so you can copy it manually.');}}
-async function shareSeasonBrief(){const text=document.getElementById('seasonBrief')?.value||currentSeasonBrief();if(navigator.share){try{await navigator.share({title:'Fantasy Season State',text});}catch(e){}}else copySeasonBrief();}
+async function shareSeasonBrief(){const text=document.getElementById('seasonBrief')?.value||currentSeasonBrief();if(navigator.share){try{await navigator.share({title:'Fantasy ChatGPT State',text});}catch(e){}}else copySeasonBrief();}
 function initSeasonHub(){
  document.querySelectorAll('#appNav [data-screen]').forEach(btn=>btn.addEventListener('click',()=>showAppScreen(btn.dataset.screen)));
  document.querySelectorAll('[data-go-screen]').forEach(btn=>btn.addEventListener('click',()=>showAppScreen(btn.dataset.goScreen)));
@@ -4712,7 +4713,6 @@ function initSeasonHub(){
  document.querySelectorAll('#waiverFilters [data-waiver-pos]').forEach(btn=>btn.addEventListener('click',()=>{seasonWaiverPos=btn.dataset.waiverPos;document.querySelectorAll('#waiverFilters [data-waiver-pos]').forEach(b=>b.classList.toggle('active',b===btn));renderWaivers();}));
  document.querySelectorAll('#activityFilters [data-activity-filter]').forEach(btn=>btn.addEventListener('click',()=>{seasonActivityFilter=btn.dataset.activityFilter;document.querySelectorAll('#activityFilters [data-activity-filter]').forEach(b=>b.classList.toggle('active',b===btn));renderActivity();}));
  document.getElementById('seasonCopyBtn')?.addEventListener('click',copySeasonBrief);
- document.getElementById('weeklyDecisionCopyBtn')?.addEventListener('click',copyWeeklyDecisionBrief);
  document.getElementById('seasonShareBtn')?.addEventListener('click',shareSeasonBrief);
  let saved='dashboard',draftSaved='control';try{saved=localStorage.getItem('fantasyHubActiveScreen')||'dashboard';draftSaved=localStorage.getItem('fantasyHubDraftTab')||'control';}catch(e){}
  if(!['dashboard','week','team','news','byes','waivers','activity','trades','draft'].includes(saved))saved='dashboard'; if(!['control','players','board','research'].includes(draftSaved))draftSaved='control';
