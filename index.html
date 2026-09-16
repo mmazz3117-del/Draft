@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" name="viewport"/>
-<title>2026 Fantasy Championship Hub — v8.2.9</title>
+<title>2026 Fantasy Championship Hub — v8.2.10</title>
 <meta content="#071228" name="theme-color"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
@@ -222,6 +222,7 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 .insight-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:10px}.insight-card{border:1px solid var(--border);border-radius:14px;padding:9px 10px;background:#10182f}.insight-card .k{font-size:9px;color:#91a2c1;text-transform:uppercase;letter-spacing:.7px;font-weight:900}.insight-card .v{font-size:16px;font-weight:950;margin-top:3px}.insight-card .d{font-size:9px;color:#9faec8;margin-top:2px}
 .activity-filter-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}.activity-filter-row button{padding:7px 9px;font-size:11px}.activity-filter-row button.active{background:#21375f;border-color:#4e6eaa}
 .trade-timing{margin-bottom:10px}.trade-team.you{border-color:#5376bd;box-shadow:0 0 0 1px rgba(84,118,190,.14) inset}.trade-signal{display:inline-block;font-size:9px;border-radius:999px;padding:3px 6px;border:1px solid #415172;margin:2px 3px 2px 0}.trade-signal.surplus{color:#bcefd9;border-color:#336853;background:#123328}.trade-signal.need{color:#ffe39a;border-color:#725e26;background:#3a3018}
+.trade-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px}.trade-tools button,.trade-team-actions button{background:#17213b;border:1px solid #415172;color:#eef3ff;border-radius:10px;padding:8px 10px;font-weight:800}.trade-tools-copy{background:#1a315d!important;border-color:#4f76bd!important}.trade-team-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.trade-team-actions button{font-size:11px;padding:7px 9px}.trade-roster-detail{margin-top:10px;padding-top:10px;border-top:1px solid #2f3d61}.trade-roster-detail[hidden]{display:none}.trade-roster-section{margin-top:8px}.trade-roster-section:first-child{margin-top:0}.trade-roster-label{font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#9fb0cf;margin-bottom:5px}.trade-roster-list{display:grid;gap:5px}.trade-roster-player{display:grid;grid-template-columns:minmax(46px,auto) 1fr auto;gap:7px;align-items:center;border:1px solid #2b395c;background:#0d1630;border-radius:9px;padding:6px 7px;font-size:11px}.trade-roster-slot{color:#aab7d1;font-weight:900}.trade-roster-player-name{font-weight:800;min-width:0}.trade-roster-player-meta{color:#9fb0c7;white-space:nowrap}.trade-empty{font-size:11px;color:#8797b5;font-style:italic}.trade-roster-copy-note{font-size:11px;color:#aeb8d1;line-height:1.4}.trade-team.open{border-color:#4f76bd;background:#111d39}
 .waiver-fit{display:inline-block;font-size:8px;font-weight:950;border:1px solid #386c56;background:#133229;color:#bff0d8;border-radius:999px;padding:3px 5px;margin-left:4px;vertical-align:1px}
 .screen-head{margin-bottom:12px}.screen-kicker{max-width:760px;line-height:1.45}
 @media(max-width:860px){.action-center{grid-template-columns:1fr}.quick-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.insight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.logistics-grid{grid-template-columns:1fr}}
@@ -406,7 +407,8 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 </section><section class="app-screen" data-screen-panel="trades" id="screen-trades">
 <div class="screen-head"><div><div class="screen-title">Trade Center</div><div class="screen-kicker">See every roster at a glance, including positional surpluses that can create trade opportunities.</div></div></div>
 <div class="hub-card">
-<div class="muted" style="font-size:12px;margin-bottom:10px">The Hub identifies roster shape and surplus positions. Use Copy ChatGPT State for deeper player-for-player trade evaluation with current news.</div><div class="trade-timing" id="tradeTiming"></div>
+<div class="muted" style="font-size:12px;margin-bottom:10px">The Hub identifies roster shape and surplus positions. Each team can now expand to its complete Sleeper roster, so you do not need to fight the Sleeper matchup screen to inspect trade partners.</div><div class="trade-timing" id="tradeTiming"></div>
+<div class="trade-tools"><button class="trade-tools-copy" id="tradeCopyMapBtn" type="button">Copy full league trade map</button><span class="trade-roster-copy-note">Paste this into ChatGPT for player-for-player trade analysis across all teams.</span></div>
 <div class="trade-grid" id="tradeTeamGrid"><div class="empty-state" style="grid-column:1/-1">Sync the season to build the league trade map.</div></div>
 </div>
 </section><section class="app-screen" data-screen-panel="draft" id="screen-draft"><div class="screen-head"><div><div class="screen-title">Draft Lab</div><div class="screen-kicker">The complete v7.9.11 draft engine is preserved here for history, mocks, and future calibration.</div></div></div><div class="draft-subnav" id="draftSubnav">
@@ -439,7 +441,7 @@ button.primary{background:linear-gradient(135deg,#3a86f5,#7569ee);box-shadow:0 8
 </div>
 </div><div class="card" id="identityRefreshCard">
 <h2 style="margin-bottom:6px">Player/identity refresh</h2>
-<p class="muted" style="font-size:12px;margin:0 0 9px">v8.2.9 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.2.9 includes the Bye Planner, lineup-coverage solver, roster-slot logistics, activity insights, K/DST waiver support, five-minute season auto-refresh, a no-sideways-scroll navigation grid, and plain-English one-for-one bye replacement guidance, plus News &amp; Alerts with player-status monitoring, Sleeper market trends, status-change detection, and a best-effort NFL headline feed.</p>
+<p class="muted" style="font-size:12px;margin:0 0 9px">v8.2.10 preserves the final v7.9.11 draft-night player pool, five-second draft sync, Champion Process, market safeguards, injury overrides, and all cutdown research. The season layer is separate so weekly league activity can evolve without destabilizing the draft engine. v8.2.10 includes the Bye Planner, lineup-coverage solver, roster-slot logistics, activity insights, K/DST waiver support, five-minute season auto-refresh, a no-sideways-scroll navigation grid, and plain-English one-for-one bye replacement guidance, plus News &amp; Alerts with player-status monitoring, Sleeper market trends, status-change detection, and a best-effort NFL headline feed. v8.2.10 also adds expandable full league rosters in Trade Center plus one-tap individual-roster and full-league trade-map copy for ChatGPT analysis.</p>
 <button id="rankRefreshBtn" type="button">Refresh Sleeper market + IDs</button>
 <div class="syncstatus" id="rankRefreshStatus">Using curated v7.9.11 evaluation ranks with the final Aug. 30 cutdown refresh: confirmed IR/roster moves, late-round PPR role changes, legal/availability VERIFY flags, and the existing starter-group usage calibration. Sleeper API search/identity data has not been refreshed yet.</div>
 </div><div aria-live="polite" class="reliability" id="reliabilityCard">
@@ -505,7 +507,7 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 </div>
 <div class="champion-actions">
 <button aria-expanded="true" class="champion-toggle" id="championToggleBtn" type="button">Collapse ▲</button>
-<div class="champion-pill">v8.2.9</div>
+<div class="champion-pill">v8.2.10</div>
 </div>
 </div>
 <div class="callout" style="margin-top:10px;padding:10px 12px"><div class="title">Draft-day rule</div><div class="body" style="margin-top:4px">These are candidates to investigate, <b>not</b> instructions to take the first name. Use <b>Copy Draft State</b> and send it to ChatGPT for the final call using current news and the actual board.</div></div>
@@ -582,9 +584,9 @@ CPU Mock uses current Sleeper market timing plus generic roster needs and intent
 <div class="node"><div class="nm">SuperSaiyan · #9/#12</div><div class="tell">Best multi-year scoring profile; went Puka → Josh Allen in 2025.</div></div>
 <div class="node"><div class="nm">TeamJbot · #10/#11</div><div class="tell">Usually WR early, then RB. Controls the 10/11 turn.</div></div>
 </div>
-</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.2.9 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
+</div></div></section><div class="hub-footer">Fantasy Championship Hub v8.2.10 · Season screens use Sleeper public league data · Draft Lab preserves the v7.9.11 draft engine and research model.</div></div>
 <script>
-const APP_VERSION='v8.2.9';
+const APP_VERSION='v8.2.10';
 const TRAINER_STATUS='SEASON_HUB_V1_DRAFT_ENGINE_7_9_11';
 const ADP_FRESHNESS_DAYS = Object.freeze({FRESH_MAX:2, AGING_MAX:5});
 // Official 2026 NFL bye weeks (NFL schedule release, May 15, 2026).
@@ -4179,7 +4181,7 @@ function seasonPlayerGameSuffix(id,p,match=null){
 function seasonGameIsLockedForPlayer(p){
  const state=seasonGameStatusForPlayer(p)?.state; return state==='FINAL'||state==='IN PROGRESS';
 }
-// v8.2.9 official-inactive verification window. The Hub deliberately does NOT
+// v8.2.10 official-inactive verification window. The Hub deliberately does NOT
 // claim that Sleeper's generic Active status is an official game-day inactive confirmation.
 // Instead it tells ChatGPT/user when the NFL's usual ~90-minute inactive window is open.
 function seasonInactiveCheckForPlayer(id,p){
@@ -4231,7 +4233,7 @@ async function refreshSeasonNews({quiet=false,force=true,render=true}={}){
    const age=Date.now()-Number(seasonData.news?.updatedAt||0),rosterIds=seasonData.rosters.flatMap(r=>r.players||[]).map(String),missing=rosterIds.some(id=>!seasonData.news?.signals?.[id]),gamesMissing=!Object.keys(seasonData.news?.games||{}).length;
    if(!force&&age<30*60*1000&&!missing&&!gamesMissing){seasonComputeStatusChanges(); if(render){renderNewsAlerts();renderSeasonBrief();} return;}
    const safeJson=async(url,fallback)=>{try{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(`HTTP ${r.status}`);return await r.json();}catch(e){return fallback;}};
-   // v8.2.9: load the entire selected NFL week, not merely today's slate.
+   // v8.2.10: load the entire selected NFL week, not merely today's slate.
    // This resolves earlier/later week games so exports can show FINAL/LOCKED correctly.
    const seasonYear=String(seasonData.nflState?.season||new Date().getFullYear());
    const seasonWeek=Math.max(1,Math.min(18,Number(seasonData.week||seasonCurrentWeek())||1));
@@ -4573,6 +4575,48 @@ function renderWaivers(){
  pool.sort((a,b)=>waiverSortScore(a)-waiverSortScore(b)); const top=pool.slice(0,45);
  box.innerHTML=top.length?top.map((p,i)=>{const fit=seasonFitForWaiverPos(p.pos); const bye=seasonByeForPlayerInfo({team:teamCodeForPlayer(p)});return `<div class="player"><div><div class="player-name"><span class="posdot" style="background:${COLORS[p.pos]||'#71809f'}"></span>${escHub(p.name)}${currentRiskFor(p)?` <span class="watch-chip">${escHub(currentRiskFor(p).label)}</span>`:''}${fit?` <span class="waiver-fit">covers W${fit.week} ${escHub(p.pos)}</span>`:''}</div><div class="player-sub">${escHub(p.pos)}${teamCodeForPlayer(p)?` · ${escHub(teamCodeForPlayer(p))}`:''}${bye?` · bye ${bye}`:''} · waiver board ${i+1} · market ${Math.round(Number(p.apiSearchRank||getSleeperRank(p.name,p.sleeperId)||p.sourceRank||999))}${p.curated===false?' · UNSCOUTED':''}</div></div></div>`;}).join(''):'<div class="empty-state">No available players match this filter.</div>';
 }
+function seasonTradeShape(roster){
+ const c=seasonRosterPositionCounts(roster),surplus=[],needs=[];
+ if(c.QB>1)surplus.push('QB'); if(c.TE>1)surplus.push('TE'); if(c.RB>=6)surplus.push('RB'); if(c.WR>=7)surplus.push('WR');
+ if(c.RB<4)needs.push('RB'); if(c.WR<5)needs.push('WR'); if(c.QB<1)needs.push('QB'); if(c.TE<1)needs.push('TE');
+ return {counts:c,surplus,needs};
+}
+function seasonTradeRosterPlayerHtml(id,label=''){
+ const p=seasonPlayerInfo(id),sig=seasonSignalForId(id),status=sig?seasonSignalLabel(sig):'';
+ return `<div class="trade-roster-player"><span class="trade-roster-slot">${escHub(label||p.pos||'—')}</span><span class="trade-roster-player-name">${escHub(p.name)}${status&&status!=='No status flag'?` <span class="watch-chip">${escHub(status)}</span>`:''}</span><span class="trade-roster-player-meta">${escHub(p.pos||'')}${p.team?` · ${escHub(p.team)}`:''}</span></div>`;
+}
+function seasonTradeRosterDetailHtml(roster){
+ const parts=seasonRosterPartitions(roster),labels=seasonSlotDisplayLabels(),starterIds=(roster?.starters||[]).map(String);
+ const starterRows=starterIds.map((id,i)=>seasonTradeRosterPlayerHtml(id,labels[i]||'START')).join('')||'<div class="trade-empty">No starters returned by Sleeper.</div>';
+ const benchRows=parts.benchIds.map(id=>seasonTradeRosterPlayerHtml(id,'BN')).join('')||'<div class="trade-empty">No active bench players.</div>';
+ const reserveRows=parts.reserveIds.map(id=>seasonTradeRosterPlayerHtml(id,'IR')).join('')||'<div class="trade-empty">No Reserve / IR players.</div>';
+ const taxiRows=parts.taxiIds.map(id=>seasonTradeRosterPlayerHtml(id,'TAXI')).join('');
+ return `<div class="trade-roster-section"><div class="trade-roster-label">Starters</div><div class="trade-roster-list">${starterRows}</div></div><div class="trade-roster-section"><div class="trade-roster-label">Active bench</div><div class="trade-roster-list">${benchRows}</div></div><div class="trade-roster-section"><div class="trade-roster-label">Reserve / IR</div><div class="trade-roster-list">${reserveRows}</div></div>${taxiRows?`<div class="trade-roster-section"><div class="trade-roster-label">Taxi</div><div class="trade-roster-list">${taxiRows}</div></div>`:''}`;
+}
+function seasonTradeRosterText(roster){
+ if(!roster)return 'Roster unavailable';
+ const {counts:c,surplus,needs}=seasonTradeShape(roster),parts=seasonRosterPartitions(roster),labels=seasonSlotDisplayLabels(),s=roster.settings||{};
+ const starterIds=(roster.starters||[]).map(String);
+ const fmt=(id,label='')=>{const p=seasonPlayerInfo(id);return `${label?`${label} `:''}${p.pos||'?'} ${p.name}${p.team?` [${p.team}]`:''}`;};
+ const starters=starterIds.map((id,i)=>fmt(id,labels[i]||'START')).join('\n')||'None returned';
+ const bench=parts.benchIds.map(id=>fmt(id)).join('\n')||'None';
+ const reserve=parts.reserveIds.map(id=>fmt(id)).join('\n')||'None';
+ const taxi=parts.taxiIds.map(id=>fmt(id)).join('\n')||'None';
+ return `${seasonRosterName(roster)} (#${roster.roster_id}) · record ${Number(s.wins||0)}-${Number(s.losses||0)}\nROSTER SHAPE: QB ${c.QB} · RB ${c.RB} · WR ${c.WR} · TE ${c.TE}${surplus.length?` · Surplus ${surplus.join('/')}`:''}${needs.length?` · Needs ${needs.join('/')}`:''}\nSTARTERS\n${starters}\nACTIVE BENCH\n${bench}\nRESERVE / IR\n${reserve}${parts.taxiIds.length?`\nTAXI\n${taxi}`:''}`;
+}
+function currentLeagueTradeMap(){
+ if(!seasonData.rosters.length)return 'LEAGUE TRADE MAP\nSeason data has not been synced yet.';
+ const sorted=[...seasonData.rosters].sort((a,b)=>Number(a.roster_id)-Number(b.roster_id));
+ return `LEAGUE TRADE MAP\nHub version: ${SEASON_HUB_VERSION}\nLeague: ${seasonData.league?.name||seasonData.leagueId}\nPlanning week: ${seasonData.week}\nGenerated: ${new Date().toLocaleString()}\n\n${sorted.map(seasonTradeRosterText).join('\n\n------------------------------\n\n')}\n\nTRADE MAP RULE\nSleeper roster ownership and roster slots are source-of-truth league data. Surplus/need labels describe roster shape only, not player value. Use current ChatGPT/web research for injuries, roles, value and actual trade recommendations.`;
+}
+async function copyTradeRoster(rosterId){
+ const r=seasonRosterById(rosterId),text=seasonTradeRosterText(r); if(!r)return;
+ try{await navigator.clipboard.writeText(text);alert(`${seasonRosterName(r)} roster copied.`);}catch(e){window.prompt('Copy this roster:',text);}
+}
+async function copyLeagueTradeMap(){
+ const text=currentLeagueTradeMap();
+ try{await navigator.clipboard.writeText(text);alert('Full league trade map copied. Paste it into ChatGPT.');}catch(e){window.prompt('Copy the full league trade map:',text);}
+}
 function renderTradeCenter(){
  const box=document.getElementById('tradeTeamGrid'); const timing=document.getElementById('tradeTiming'); if(!box)return;
  if(!seasonData.rosters.length){box.innerHTML='<div class="empty-state" style="grid-column:1/-1">Sync the season to build the league trade map.</div>';if(timing)timing.innerHTML='';return;}
@@ -4580,13 +4624,17 @@ function renderTradeCenter(){
  if(timing)timing.innerHTML=cut?`<div class="coverage-card warn"><div class="coverage-top"><div class="coverage-title">Trade timing opportunity</div><span class="status-pill warn">Before W${cut.week}</span></div><div class="coverage-copy">Your current bye plan projects ${cut.cutsNeeded} extra roster spot${cut.cutsNeeded===1?'':'s'} needed in Week ${cut.week}. If two depth pieces gain value, a 2-for-1 consolidation before then could improve the starting lineup and create the needed space without a pure drop.</div></div>`:'';
  const sorted=[...seasonData.rosters].sort((a,b)=>Number(a.roster_id)-Number(b.roster_id));
  box.innerHTML=sorted.map(r=>{
-   const c=seasonRosterPositionCounts(r),s=r.settings||{}; const surplus=[],needs=[];
-   if(c.QB>1)surplus.push('QB'); if(c.TE>1)surplus.push('TE'); if(c.RB>=6)surplus.push('RB'); if(c.WR>=7)surplus.push('WR');
-   if(c.RB<4)needs.push('RB'); if(c.WR<5)needs.push('WR'); if(c.QB<1)needs.push('QB'); if(c.TE<1)needs.push('TE');
+   const {counts:c,surplus,needs}=seasonTradeShape(r),s=r.settings||{};
    const names=(r.players||[]).map(id=>seasonPlayerInfo(id)).filter(p=>['RB','WR','TE','QB'].includes(p.pos)).slice(0,7).map(p=>p.name).join(' · ');
    const signals=`${surplus.map(x=>`<span class="trade-signal surplus">Surplus ${x}</span>`).join('')}${needs.map(x=>`<span class="trade-signal need">Needs ${x}</span>`).join('')}`;
-   return `<div class="trade-team${Number(r.roster_id)===Number(seasonData.myRosterId)?' you':''}"><div class="trade-team-head"><div><div class="trade-name">${escHub(seasonRosterName(r))}${Number(r.roster_id)===Number(seasonData.myRosterId)?' <span class="watch-chip">YOU</span>':''}</div><div class="trade-record">${Number(s.wins||0)}-${Number(s.losses||0)} · ${Number(s.total_moves||0)} moves</div></div><span class="badge">#${r.roster_id}</span></div><div class="trade-counts"><span class="trade-count">QB ${c.QB}</span><span class="trade-count">RB ${c.RB}</span><span class="trade-count">WR ${c.WR}</span><span class="trade-count">TE ${c.TE}</span></div><div>${signals}</div><div class="trade-note" style="margin-top:6px">${escHub(names)}</div></div>`;
+   const rid=Number(r.roster_id);
+   return `<div class="trade-team${rid===Number(seasonData.myRosterId)?' you':''}" data-trade-card="${rid}"><div class="trade-team-head"><div><div class="trade-name">${escHub(seasonRosterName(r))}${rid===Number(seasonData.myRosterId)?' <span class="watch-chip">YOU</span>':''}</div><div class="trade-record">${Number(s.wins||0)}-${Number(s.losses||0)} · ${Number(s.total_moves||0)} moves</div></div><span class="badge">#${r.roster_id}</span></div><div class="trade-counts"><span class="trade-count">QB ${c.QB}</span><span class="trade-count">RB ${c.RB}</span><span class="trade-count">WR ${c.WR}</span><span class="trade-count">TE ${c.TE}</span></div><div>${signals}</div><div class="trade-note" style="margin-top:6px">${escHub(names)}</div><div class="trade-team-actions"><button data-trade-roster-toggle="${rid}" aria-expanded="false" type="button">View full roster</button><button data-trade-roster-copy="${rid}" type="button">Copy roster</button></div><div class="trade-roster-detail" id="tradeRosterDetail-${rid}" hidden>${seasonTradeRosterDetailHtml(r)}</div></div>`;
  }).join('');
+ box.querySelectorAll('[data-trade-roster-toggle]').forEach(btn=>btn.addEventListener('click',()=>{
+   const rid=Number(btn.dataset.tradeRosterToggle),detail=document.getElementById(`tradeRosterDetail-${rid}`),card=box.querySelector(`[data-trade-card="${rid}"]`); if(!detail)return;
+   const opening=detail.hidden; detail.hidden=!opening; btn.textContent=opening?'Hide full roster':'View full roster'; btn.setAttribute('aria-expanded',String(opening)); card?.classList.toggle('open',opening);
+ }));
+ box.querySelectorAll('[data-trade-roster-copy]').forEach(btn=>btn.addEventListener('click',()=>copyTradeRoster(Number(btn.dataset.tradeRosterCopy))));
 }
 function seasonAvailablePlayerPool(){
  const rostered=new Set(seasonData.rosters.flatMap(x=>[...(x.players||[]),...(x.reserve||[]),...(x.taxi||[])]).map(String));
@@ -4614,7 +4662,7 @@ function seasonRecentDropsStillAvailable(pool){
  return out;
 }
 
-// ===== v8.2.9 One-copy ChatGPT state + export quality layer =====
+// ===== v8.2.10 One-copy ChatGPT state + export quality layer =====
 // Keep source-of-truth league data separate from football judgment. These helpers
 // improve roster-slot fidelity, reserve visibility, freshness, and matchup context.
 function seasonFormatDateTime(value){
@@ -4779,6 +4827,7 @@ function initSeasonHub(){
  document.querySelectorAll('#activityFilters [data-activity-filter]').forEach(btn=>btn.addEventListener('click',()=>{seasonActivityFilter=btn.dataset.activityFilter;document.querySelectorAll('#activityFilters [data-activity-filter]').forEach(b=>b.classList.toggle('active',b===btn));renderActivity();}));
  document.getElementById('seasonCopyBtn')?.addEventListener('click',copySeasonBrief);
  document.getElementById('seasonShareBtn')?.addEventListener('click',shareSeasonBrief);
+ document.getElementById('tradeCopyMapBtn')?.addEventListener('click',copyLeagueTradeMap);
  let saved='dashboard',draftSaved='control';try{saved=localStorage.getItem('fantasyHubActiveScreen')||'dashboard';draftSaved=localStorage.getItem('fantasyHubDraftTab')||'control';}catch(e){}
  if(!['dashboard','week','team','news','byes','waivers','activity','trades','draft'].includes(saved))saved='dashboard'; if(!['control','players','board','research'].includes(draftSaved))draftSaved='control';
  seasonLoadNewsCache(); showAppScreen(saved,{scroll:false}); showDraftTab(draftSaved); configureSeasonAutoRefresh();
